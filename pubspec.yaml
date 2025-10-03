@@ -2,13 +2,18 @@ name: my_project
 publish_to: none 
 
 environment:
-  sdk: '>=3.5.0 <4.0.0'
+  sdk: ^3.9.0
 
 workspace:
   - app
   - packages/core
   - packages/app_ui
+  - packages/storage
 
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
 
 dev_dependencies:
   melos: ^4.0.0 

@@ -1,0 +1,52 @@
+import 'package:flutter/material.dart';
+import 'package:app_ui/src/app_ui.dart';
+import 'package:storage/storage.dart';
+
+@immutable
+final class AppLocalDataSourceImpl implements AppLocalDataSource {
+  const AppLocalDataSourceImpl({required this.storage});
+
+  final PreferencesStorage storage;
+
+  static const _themeKey = 'theme_mode';
+  static const _localeKey = 'locale_key';
+
+  @override
+  ThemeMode getInitialThemeMode() {
+    final value = storage.readString(key: _themeKey);
+    switch (value) {
+      case 'light':
+        return ThemeMode.light;
+      case 'dark':
+        return ThemeMode.dark;
+      case 'system':
+      default:
+        return ThemeMode.system;
+    }
+  }
+
+  @override
+  Future<void> saveThemeMode(ThemeMode mode) async {
+    await storage.writeString(key: _themeKey, value: mode.name);
+  }
+
+  @override
+  Locale getInitialLocale() {
+    final locale = storage.readString(key: _localeKey);
+    switch (locale) {
+      case 'ky':
+        return const Locale('ky');
+      case 'ru':
+        return const Locale('ru');
+      case 'en':
+        return const Locale('en');
+      default:
+        return const Locale('en');
+    }
+  }
+
+  @override
+  Future<void> saveLocale(Locale locale) async {
+    await storage.writeString(key: _localeKey, value: locale.languageCode);
+  }
+}

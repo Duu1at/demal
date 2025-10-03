@@ -1,6 +1,17 @@
 name: app_ui
-publish_to: none
+description: Demal APP UI package.
+version: 1.0.0
 resolution: workspace
 
 environment:
-  sdk: '>=3.5.0 <4.0.0'
+  sdk: ^3.9.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  core: 
+  storage:
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: 
