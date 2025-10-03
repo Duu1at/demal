@@ -1,0 +1,6 @@
+name: demal
+publish_to: none
+
+command:
+  bootstrap:
+    usePubspecOverrides: true

@@ -1,0 +1,70 @@
+# Системный мусор и временные файлы
+*.log
+*.swp
+.DS_Store
+Thumbs.db
+
+# --- Dart & Flutter ---
+# Инструменты и кеш
+.dart_tool/
+.packages
+.pub-cache/
+
+# Артефакты сборки
+build/
+
+# Сгенерированные плагины
+.flutter-plugins
+.flutter-plugins-dependencies
+
+# Файлы, создаваемые Melos
+.melos/
+
+# Игнорируем lock-файлы библиотек, но НЕ приложения.
+# Это позволяет библиотекам быть гибкими, а приложению иметь стабильные сборки.
+packages/**/pubspec.lock
+
+# --- IDE ---
+# Игнорируем специфичные для пользователя настройки, но оставляем общие
+.idea/*
+!.idea/runConfigurations/ # Оставляем общие конфигурации запуска
+!.idea/workspace.xml # Некоторые команды предпочитают это коммитить
+.vscode/*
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/settings.json
+
+# ВАЖНО: *.iml файлы лучше НЕ игнорировать в Flutter, чтобы у всей команды
+# были одинаковые настройки проекта в Android Studio.
+# Поэтому правило "*.iml" было удалено.
+
+# --- Платформы ---
+
+# Android
+**/android/.gradle
+**/android/local.properties
+**/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java
+# Не коммитим ключи подписи
+*.jks
+*.keystore
+key.properties
+
+# iOS
+**/ios/Pods/
+**/ios/Flutter/App.framework
+**/ios/Flutter/Flutter.framework
+**/ios/Flutter/Generated.xcconfig
+**/ios/Runner/GeneratedPluginRegistrant.*
+**/ios/.symlinks/
+**/ios/DerivedData/
+**/ios/Pods/
+**/ios/profile
+**/ios/xcuserdata
+
+# --- Прочее ---
+
+# Отчеты о покрытии тестами
+coverage/
+
+# Сгенерированные файлы локализации
+lib/l10n/gen/

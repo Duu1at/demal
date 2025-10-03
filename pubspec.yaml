@@ -1,0 +1,15 @@
+name: my_project
+publish_to: none 
+
+environment:
+  sdk: '>=3.5.0 <4.0.0'
+
+workspace:
+  - app
+  - packages/core
+  - packages/app_ui
+
+
+dev_dependencies:
+  melos: ^4.0.0 
+  flutter_lints: ^5.0.0
