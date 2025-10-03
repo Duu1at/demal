@@ -58,6 +58,7 @@ key.properties
 **/ios/.symlinks/
 **/ios/DerivedData/
 **/ios/Pods/
+**/ios/Podfile.lock/
 **/ios/profile
 **/ios/xcuserdata
 
