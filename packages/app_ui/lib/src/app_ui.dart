@@ -13,7 +13,7 @@ export 'components/gender_redio_widget.dart';
 export 'components/scaffold_with_bg_image.dart';
 export 'components/my_quran_statics_info_widget.dart';
 export 'components/mq_salaah_card.dart';
-export 'components/circle_button.dart';
+export 'components/app_button.dart';
 export 'components/column_info_colored_box.dart';
 export 'components/hatim_juz_item_card.dart';
 export 'components/mq_circular_chart.dart';

@@ -1,4 +1,5 @@
-name: demal
+name: app
+description: Demal APP UI package.
 publish_to: 'none' 
 resolution: workspace
 
