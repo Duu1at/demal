@@ -64,7 +64,7 @@ class ScaffoldWithBgImage extends StatelessWidget {
       child: DecoratedBox(
         decoration: BoxDecoration(
           color: theme.colorScheme.surface,
-          image: DecorationImage(image: getThemeImageProvider(theme)),
+          image: DecorationImage(image: getThemeImageProvider(theme), fit: BoxFit.cover),
         ),
         child: Scaffold(
           appBar: appBar,

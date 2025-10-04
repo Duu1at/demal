@@ -14,6 +14,7 @@ dependencies:
 
   cupertino_icons:
   app_ui:
+  storage:
 
 dev_dependencies:
   flutter_test:

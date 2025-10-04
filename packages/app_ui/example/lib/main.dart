@@ -1,6 +1,17 @@
+import 'package:example/body/bg_image_body.dart';
+import 'package:example/notifier/natifier.dart';
 import 'package:flutter/material.dart';
+import 'package:storage/storage.dart';
 
-void main() {
+MqAppUiNotifier? themeProvider;
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  final storage = await PreferencesStorage.getInstance();
+
+  themeProvider = MqAppUiNotifier(storage)..init();
+
   runApp(const MyApp());
 }
 
@@ -9,49 +20,172 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple)),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+    return ListenableBuilder(
+      listenable: themeProvider!,
+      builder: (BuildContext context, Widget? child) {
+        return MaterialApp(
+          title: 'MyQuran Example Gallery',
+          theme: themeProvider!.theme.themeData,
+          home: const RootPage(),
+        );
+      },
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
+class RootPage extends StatelessWidget {
+  const RootPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final pages = [
+      ListItem(
+        icon: const Icon(Icons.color_lens),
+        title: const Text('Theme Colors'),
+        subtitle: const Text('All theme colors'),
+        onTap: () => Navigator.of(context).push<void>(BgImageBodyPage.route()),
+      ),
+      // ListItem(
+      //   icon: const Icon(Icons.color_lens),
+      //   title: const Text('App Colors'),
+      //   subtitle: const Text('All app colors'),
+      //   onTap: () => Navigator.of(context).push<void>(
+      //     AppColorsView.route(),
+      //   ),
+      // ),
+      // ListItem(
+      //   icon: const Icon(Icons.text_format),
+      //   title: const Text('Theme Typography'),
+      //   subtitle: const Text('All of the predefined theme text styles'),
+      //   onTap: () => Navigator.of(context).push<void>(
+      //     ThemeTypographyPage.route(),
+      //   ),
+      // ),
+      // ListItem(
+      //   icon: const Icon(Icons.text_format),
+      //   title: const Text('App Typography'),
+      //   subtitle: const Text('All of the predefined app text styles'),
+      //   onTap: () => Navigator.of(context).push<void>(
+      //     AppTypographyPage.route(),
+      //   ),
+      // ),
+      // ListItem(
+      //   icon: const Icon(Icons.border_vertical),
+      //   title: const Text('Spacing'),
+      //   subtitle: const Text('All of the predefined spacings'),
+      //   onTap: () => Navigator.of(context).push<void>(
+      //     SpacingPage.route(),
+      //   ),
+      // ),
+      // ListItem(
+      //   icon: const Icon(Icons.widgets),
+      //   title: const Text('UI Components'),
+      //   subtitle: const Text('All of the predefined components'),
+      //   onTap: () => Navigator.of(context).push<void>(
+      //     UiComponentsPage.route(),
+      //   ),
+      // ),
+      // ListItem(
+      //   icon: const Icon(Icons.widgets),
+      //   title: const Text('Body Image'),
+      //   subtitle: const Text('All of the predefined body'),
+      //   onTap: () => Navigator.of(context).push<void>(
+      //     BgImageBodyPage.route(),
+      //   ),
+      // ),
+      // ListItem(
+      //   icon: const Icon(Icons.pest_control_rodent_sharp),
+      //   title: const Text('App Components'),
+      //   subtitle: const Text('All of the app components'),
+      //   onTap: () => Navigator.of(context).push<void>(
+      //     AppComponentsPage.route(),
+      //   ),
+      // ),
+      // ListItem(
+      //   icon: const Icon(Icons.add_reaction_outlined),
+      //   title: const Text('Show Contents'),
+      //   subtitle: const Text('All of the show contents'),
+      //   onTap: () => Navigator.of(context).push<void>(
+      //     ShowContentsPage.route(),
+      //   ),
+      // ),
+      // ListItem(
+      //   icon: const Icon(Icons.storage),
+      //   title: const Text('Story Contents'),
+      //   subtitle: const Text('All of the store contents'),
+      //   onTap: () => Navigator.of(context).push<void>(
+      //     StoryView.route(),
+      //   ),
+      // ),
+      // Wrap(
+      //   children: [
+      //     TextButton(
+      //       onPressed: () {
+      //         themeProvider!.changeTheme(
+      //           MqAppUiType.orange,
+      //         );
+      //       },
+      //       child: const Text('Orange'),
+      //     ),
+      //     TextButton(
+      //       onPressed: () {
+      //         themeProvider!.changeTheme(
+      //           MqAppUiType.orangeDark,
+      //         );
+      //       },
+      //       child: const Text('OrangeDark'),
+      //     ),
+      //     TextButton(
+      //       onPressed: () {
+      //         themeProvider!.changeTheme(
+      //           MqAppUiType.blue,
+      //         );
+      //       },
+      //       child: const Text('Blue'),
+      //     ),
+      //     TextButton(
+      //       onPressed: () {
+      //         themeProvider!.changeTheme(
+      //           MqAppUiType.blueDark,
+      //         );
+      //       },
+      //       child: const Text('BlueDark'),
+      //     ),
+      //   ],
+      // ),
+      const SizedBox(height: 100),
+    ];
+
     return Scaffold(
-      appBar: AppBar(backgroundColor: Theme.of(context).colorScheme.inversePrimary, title: Text(widget.title)),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text('You have pushed the button this many times:'),
-            Text('$_counter', style: Theme.of(context).textTheme.headlineMedium),
-          ],
-        ),
+      appBar: AppBar(title: const Text('My Quran Gallery App')),
+      body: ListView.separated(
+        itemCount: pages.length,
+        itemBuilder: (_, index) => pages[index],
+        separatorBuilder: (_, __) => const Divider(),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+    );
+  }
+}
+
+class ListItem extends StatelessWidget {
+  const ListItem({required this.icon, required this.title, required this.subtitle, this.onTap, super.key});
+
+  final VoidCallback? onTap;
+  final Icon icon;
+  final Text title;
+  final Text subtitle;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      leading: IconTheme(
+        data: IconThemeData(color: Theme.of(context).iconTheme.color),
+        child: icon,
       ),
+      title: title,
+      subtitle: subtitle,
+      trailing: const Icon(Icons.arrow_forward),
+      onTap: onTap,
     );
   }
 }
