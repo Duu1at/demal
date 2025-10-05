@@ -23,9 +23,8 @@ class PhoneNumberField extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Assets.images.flagKg.image(width: 24, height: 24),
-            const SizedBox(height: 20, child: VerticalDivider(width: 1, thickness: 1, color: Color(0xFF9C9FAF))),
             const Text('+996', style: TextStyle(fontSize: 14)),
-            const SizedBox(height: 24, child: VerticalDivider(width: 1, thickness: 1, color: Color(0xFF9C9FAF))),
+            const SizedBox(height: 24, child: VerticalDivider(width: 1, thickness: 1, color: Color(0xFFD1D3DB))),
             const SizedBox(width: 8),
           ],
         ),
