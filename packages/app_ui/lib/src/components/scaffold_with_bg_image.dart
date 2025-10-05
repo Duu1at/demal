@@ -28,6 +28,7 @@ class ScaffoldWithBgImage extends StatelessWidget {
     this.drawerEnableOpenDragGesture = true,
     this.endDrawerEnableOpenDragGesture = true,
     this.restorationId,
+    this.bgImageTop = false,
     super.key,
   });
 
@@ -55,6 +56,7 @@ class ScaffoldWithBgImage extends StatelessWidget {
   final bool drawerEnableOpenDragGesture;
   final bool endDrawerEnableOpenDragGesture;
   final String? restorationId;
+  final bool bgImageTop;
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +66,7 @@ class ScaffoldWithBgImage extends StatelessWidget {
       child: DecoratedBox(
         decoration: BoxDecoration(
           color: theme.colorScheme.surface,
-          image: DecorationImage(image: getThemeImageProvider(theme), fit: BoxFit.cover),
+          image: DecorationImage(image: getThemeImageProvider(theme)),
         ),
         child: Scaffold(
           appBar: appBar,
@@ -98,9 +100,16 @@ class ScaffoldWithBgImage extends StatelessWidget {
 
   ImageProvider getThemeImageProvider(ThemeData theme) {
     final brightness = theme.brightness;
-    return switch (brightness) {
-      Brightness.dark => Assets.images.backgroundDown.provider(),
-      Brightness.light => Assets.images.backgroundUp.provider(),
-    };
+    if (bgImageTop) {
+      return switch (brightness) {
+        Brightness.dark => Assets.images.backgroundTop.provider(),
+        Brightness.light => Assets.images.backgroundTop.provider(),
+      };
+    } else {
+      return switch (brightness) {
+        Brightness.dark => Assets.images.backgroundBottom.provider(),
+        Brightness.light => Assets.images.backgroundBottom.provider(),
+      };
+    }
   }
 }

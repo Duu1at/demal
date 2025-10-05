@@ -14,6 +14,7 @@ dependencies:
 
   cupertino_icons:
   app_ui:
+    path: ../ # <-- Говорит, что пакет app_ui находится на уровень выше
   storage:
 
 dev_dependencies:

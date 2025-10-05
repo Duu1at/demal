@@ -14,18 +14,23 @@ import 'package:flutter/widgets.dart';
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
-  /// File path: assets/images/background_down.png
-  AssetGenImage get backgroundDown => const AssetGenImage('assets/images/background_down.png');
+  /// File path: assets/images/background_bottom.png
+  AssetGenImage get backgroundBottom => const AssetGenImage('assets/images/background_bottom.png');
 
-  /// File path: assets/images/background_up.png
-  AssetGenImage get backgroundUp => const AssetGenImage('assets/images/background_up.png');
+  /// File path: assets/images/background_top.png
+  AssetGenImage get backgroundTop => const AssetGenImage('assets/images/background_top.png');
+
+  /// File path: assets/images/flagKg.png
+  AssetGenImage get flagKg => const AssetGenImage('assets/images/flagKg.png');
 
   /// List of all assets
-  List<AssetGenImage> get values => [backgroundDown, backgroundUp];
+  List<AssetGenImage> get values => [backgroundBottom, backgroundTop, flagKg];
 }
 
 class Assets {
   const Assets._();
+
+  static const String package = 'app_ui';
 
   static const $AssetsImagesGen images = $AssetsImagesGen();
 }
@@ -34,6 +39,8 @@ class AssetGenImage {
   const AssetGenImage(this._assetName, {this.size, this.flavors = const {}, this.animation});
 
   final String _assetName;
+
+  static const String package = 'app_ui';
 
   final Size? size;
   final Set<String> flavors;
@@ -59,7 +66,7 @@ class AssetGenImage {
     bool matchTextDirection = false,
     bool gaplessPlayback = true,
     bool isAntiAlias = false,
-    String? package,
+    @Deprecated('Do not specify package for a generated library asset') String? package = package,
     FilterQuality filterQuality = FilterQuality.medium,
     int? cacheWidth,
     int? cacheHeight,
@@ -92,13 +99,16 @@ class AssetGenImage {
     );
   }
 
-  ImageProvider provider({AssetBundle? bundle, String? package}) {
+  ImageProvider provider({
+    AssetBundle? bundle,
+    @Deprecated('Do not specify package for a generated library asset') String? package = package,
+  }) {
     return AssetImage(_assetName, bundle: bundle, package: package);
   }
 
   String get path => _assetName;
 
-  String get keyName => _assetName;
+  String get keyName => 'packages/app_ui/$_assetName';
 }
 
 class AssetGenImageAnimation {

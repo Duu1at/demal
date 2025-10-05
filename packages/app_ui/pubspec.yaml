@@ -28,9 +28,12 @@ flutter:
     - assets/images/
 
 flutter_gen:
+  assets:
+    enabled: true
+    outputs:
+      package_parameter_enabled: true
   output: lib/src/generated/
   line_length: 120
 
-
   integrations:
-    flutter_svg: true
+    flutter_svg: true       

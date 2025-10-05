@@ -1,5 +1,10 @@
 import 'package:example/body/bg_image_body.dart';
+import 'package:example/colors/app_colors_view.dart';
+import 'package:example/components/app_components_page.dart';
 import 'package:example/notifier/natifier.dart';
+import 'package:example/spacing/spacing_page.dart';
+import 'package:example/typography/app_typography_page.dart';
+import 'package:example/typography/theme_typography_page.dart';
 import 'package:flutter/material.dart';
 import 'package:storage/storage.dart';
 
@@ -37,42 +42,34 @@ class RootPage extends StatelessWidget {
     final pages = [
       ListItem(
         icon: const Icon(Icons.color_lens),
-        title: const Text('Theme Colors'),
-        subtitle: const Text('All theme colors'),
+        title: const Text('Background Image Body'),
+        subtitle: const Text('A scaffold with a background image'),
         onTap: () => Navigator.of(context).push<void>(BgImageBodyPage.route()),
       ),
-      // ListItem(
-      //   icon: const Icon(Icons.color_lens),
-      //   title: const Text('App Colors'),
-      //   subtitle: const Text('All app colors'),
-      //   onTap: () => Navigator.of(context).push<void>(
-      //     AppColorsView.route(),
-      //   ),
-      // ),
-      // ListItem(
-      //   icon: const Icon(Icons.text_format),
-      //   title: const Text('Theme Typography'),
-      //   subtitle: const Text('All of the predefined theme text styles'),
-      //   onTap: () => Navigator.of(context).push<void>(
-      //     ThemeTypographyPage.route(),
-      //   ),
-      // ),
-      // ListItem(
-      //   icon: const Icon(Icons.text_format),
-      //   title: const Text('App Typography'),
-      //   subtitle: const Text('All of the predefined app text styles'),
-      //   onTap: () => Navigator.of(context).push<void>(
-      //     AppTypographyPage.route(),
-      //   ),
-      // ),
-      // ListItem(
-      //   icon: const Icon(Icons.border_vertical),
-      //   title: const Text('Spacing'),
-      //   subtitle: const Text('All of the predefined spacings'),
-      //   onTap: () => Navigator.of(context).push<void>(
-      //     SpacingPage.route(),
-      //   ),
-      // ),
+      ListItem(
+        icon: const Icon(Icons.color_lens),
+        title: const Text('App Colors'),
+        subtitle: const Text('All app colors'),
+        onTap: () => Navigator.of(context).push<void>(AppColorsView.route()),
+      ),
+      ListItem(
+        icon: const Icon(Icons.text_format),
+        title: const Text('Theme Typography'),
+        subtitle: const Text('All of the predefined theme text styles'),
+        onTap: () => Navigator.of(context).push<void>(ThemeTypographyPage.route()),
+      ),
+      ListItem(
+        icon: const Icon(Icons.text_format),
+        title: const Text('App Typography'),
+        subtitle: const Text('All of the predefined app text styles'),
+        onTap: () => Navigator.of(context).push<void>(AppTypographyPage.route()),
+      ),
+      ListItem(
+        icon: const Icon(Icons.border_vertical),
+        title: const Text('Spacing'),
+        subtitle: const Text('All of the predefined spacings'),
+        onTap: () => Navigator.of(context).push<void>(SpacingPage.route()),
+      ),
       // ListItem(
       //   icon: const Icon(Icons.widgets),
       //   title: const Text('UI Components'),
@@ -89,14 +86,12 @@ class RootPage extends StatelessWidget {
       //     BgImageBodyPage.route(),
       //   ),
       // ),
-      // ListItem(
-      //   icon: const Icon(Icons.pest_control_rodent_sharp),
-      //   title: const Text('App Components'),
-      //   subtitle: const Text('All of the app components'),
-      //   onTap: () => Navigator.of(context).push<void>(
-      //     AppComponentsPage.route(),
-      //   ),
-      // ),
+      ListItem(
+        icon: const Icon(Icons.pest_control_rodent_sharp),
+        title: const Text('App Components'),
+        subtitle: const Text('All of the app components'),
+        onTap: () => Navigator.of(context).push<void>(AppComponentsPage.route()),
+      ),
       // ListItem(
       //   icon: const Icon(Icons.add_reaction_outlined),
       //   title: const Text('Show Contents'),
@@ -153,6 +148,7 @@ class RootPage extends StatelessWidget {
     ];
 
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(title: const Text('Gallery App')),
       body: ListView.separated(
         itemCount: pages.length,
