@@ -12,7 +12,7 @@ class BgImageBodyPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScaffoldWithBgImage(
       appBar: AppBar(elevation: 0, title: const Text('Body')),
-      body: const Center(child: Text('we are seeing bg image')),
+      body: Center(child: Assets.images.backgroundUp.image()),
     );
   }
 }

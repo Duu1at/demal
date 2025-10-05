@@ -23,11 +23,7 @@ class MyApp extends StatelessWidget {
     return ListenableBuilder(
       listenable: themeProvider!,
       builder: (BuildContext context, Widget? child) {
-        return MaterialApp(
-          title: 'MyQuran Example Gallery',
-          theme: themeProvider!.theme.themeData,
-          home: const RootPage(),
-        );
+        return MaterialApp(title: ' Gallery', theme: themeProvider!.theme.themeData, home: const RootPage());
       },
     );
   }
@@ -157,7 +153,7 @@ class RootPage extends StatelessWidget {
     ];
 
     return Scaffold(
-      appBar: AppBar(title: const Text('My Quran Gallery App')),
+      appBar: AppBar(title: const Text('Gallery App')),
       body: ListView.separated(
         itemCount: pages.length,
         itemBuilder: (_, index) => pages[index],

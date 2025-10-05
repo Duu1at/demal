@@ -99,8 +99,8 @@ class ScaffoldWithBgImage extends StatelessWidget {
   ImageProvider getThemeImageProvider(ThemeData theme) {
     final brightness = theme.brightness;
     return switch (brightness) {
-      Brightness.dark => Assets.images.bg1.provider(),
-      Brightness.light => Assets.images.bg2.provider(),
+      Brightness.dark => Assets.images.backgroundDown.provider(),
+      Brightness.light => Assets.images.backgroundUp.provider(),
     };
   }
 }

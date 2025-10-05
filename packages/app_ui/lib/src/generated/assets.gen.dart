@@ -14,14 +14,14 @@ import 'package:flutter/widgets.dart';
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
-  /// File path: assets/images/bg_1.png
-  AssetGenImage get bg1 => const AssetGenImage('assets/images/bg_1.png');
+  /// File path: assets/images/background_down.png
+  AssetGenImage get backgroundDown => const AssetGenImage('assets/images/background_down.png');
 
-  /// File path: assets/images/bg_2.png
-  AssetGenImage get bg2 => const AssetGenImage('assets/images/bg_2.png');
+  /// File path: assets/images/background_up.png
+  AssetGenImage get backgroundUp => const AssetGenImage('assets/images/background_up.png');
 
   /// List of all assets
-  List<AssetGenImage> get values => [bg1, bg2];
+  List<AssetGenImage> get values => [backgroundDown, backgroundUp];
 }
 
 class Assets {
