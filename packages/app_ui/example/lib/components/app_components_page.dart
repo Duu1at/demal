@@ -36,8 +36,8 @@ class _AppComponentsPageState extends State<AppComponentsPage> {
           ),
 
           const SizedBox(height: 8),
-          AppButton(variant: AppButtonVariant.outline, child: Text('Get started'), onPressed: () {}),
-
+          AppButton(variant: AppButtonVariant.primary, child: Text('Get started'), onPressed: () {}, isLoading: false),
+LinkTextButton(text: 'Get started', onPressed: () {}),
           const SizedBox(height: 300),
         ],
       ),
