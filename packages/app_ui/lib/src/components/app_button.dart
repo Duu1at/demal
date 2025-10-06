@@ -42,20 +42,26 @@ class AppButton extends StatelessWidget {
     final colors = theme.colorScheme;
 
     final p = switch (size) {
-      AppButtonSize.sm => const _SizePreset(
+      AppButtonSize.sm => _SizePreset(
         height: 40,
-        padding: EdgeInsets.symmetric(horizontal: 12),
-        textStyle: TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
+        padding: const EdgeInsets.symmetric(horizontal: 12),
+        textStyle:
+            theme.textTheme.titleSmall?.copyWith(color: colors.onPrimary) ??
+            const TextStyle(fontWeight: FontWeight.w700, fontSize: 15),
       ),
-      AppButtonSize.md => const _SizePreset(
+      AppButtonSize.md => _SizePreset(
         height: 48,
-        padding: EdgeInsets.symmetric(horizontal: 16),
-        textStyle: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        textStyle:
+            theme.textTheme.titleSmall?.copyWith(color: colors.onPrimary) ??
+            const TextStyle(fontWeight: FontWeight.w700, fontSize: 15),
       ),
-      AppButtonSize.lg => const _SizePreset(
+      AppButtonSize.lg => _SizePreset(
         height: 56,
-        padding: EdgeInsets.symmetric(horizontal: 20),
-        textStyle: TextStyle(fontWeight: FontWeight.w700, fontSize: 17),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        textStyle:
+            theme.textTheme.titleSmall?.copyWith(color: colors.onPrimary) ??
+            const TextStyle(fontWeight: FontWeight.w700, fontSize: 15),
       ),
     };
 
@@ -67,8 +73,8 @@ class AppButton extends StatelessWidget {
       switch (variant) {
         case AppButtonVariant.primary:
           if (disabled) return colors.primary;
-          // if (pressed) return colors.primaryContainer;
-          // if (hovered) return Color.alphaBlend(colors.onPrimary.withValues(alpha: 0.08), colors.primary);
+          if (pressed) return colors.primaryContainer;
+          if (hovered) return Color.alphaBlend(colors.onPrimary.withValues(alpha: 0.08), colors.primary);
           return colors.primary;
         case AppButtonVariant.secondary:
           if (disabled) return colors.secondary.withValues(alpha: 0.2);

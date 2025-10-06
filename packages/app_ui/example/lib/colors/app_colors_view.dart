@@ -25,9 +25,10 @@ class AppColorsView extends StatelessWidget {
       ColorSquare(name: 'Neutral300', color: AppColors.neutral300),
       ColorSquare(name: 'Neutral900', color: AppColors.neutral900),
 
-      ColorSquare(name: 'Primary50', color: AppColors.primary50),
-      ColorSquare(name: 'Primary700', color: AppColors.primary700),
-      ColorSquare(name: 'Primary900', color: AppColors.primary900),
+      ColorSquare(name: 'Primary Light', color: AppColors.primaryLight),
+      ColorSquare(name: 'secondaryDark', color: AppColors.secondaryLight),
+      ColorSquare(name: 'Primary Dark', color: AppColors.primaryDark),
+      ColorSquare(name: 'secondaryDark', color: AppColors.secondaryDark),
       ColorSquare(name: 'secondary50', color: AppColors.secondary50),
       ColorSquare(name: 'secondary700', color: AppColors.secondary700),
       ColorSquare(name: 'secondary900', color: AppColors.secondary900),

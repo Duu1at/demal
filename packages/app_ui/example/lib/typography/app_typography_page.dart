@@ -12,21 +12,21 @@ class AppTypographyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const textThemes = [
-      TextItem(name: 'Headling 1', style: AppTypography.heading1),
-      TextItem(name: 'Heading 2', style: AppTypography.heading2),
-      TextItem(name: 'Headling 3', style: AppTypography.heading3),
-      TextItem(name: 'Headline 4', style: AppTypography.heading4),
-      TextItem(name: 'Headline 5', style: AppTypography.heading5),
-      TextItem(name: 'Body Bold', style: AppTypography.bodyBold),
-      TextItem(name: 'Body Large Regular', style: AppTypography.bodyLargeBold),
-      TextItem(name: 'Body Large Medium', style: AppTypography.bodyLargeMedium),
-      TextItem(name: 'Body Large Regular', style: AppTypography.bodyLargeRegular),
-      TextItem(name: 'Body Medium', style: AppTypography.bodyMedium),
-      TextItem(name: 'Body Regular', style: AppTypography.bodyRegular),
-      TextItem(name: 'Body Small Bold', style: AppTypography.bodySmallBold),
-      TextItem(name: 'Body Small Medium', style: AppTypography.bodySmallMedium),
-      TextItem(name: 'Body Small Regular', style: AppTypography.bodySmallRegular),
-      TextItem(name: 'Body Large Bold', style: AppTypography.bodyLargeBold),
+      TextItem(name: 'Display Large', style: AppTextStyles.displayLarge),
+      TextItem(name: 'Display Medium', style: AppTextStyles.displayMedium),
+      TextItem(name: 'Display Small', style: AppTextStyles.displaySmall),
+      TextItem(name: 'Headline Large', style: AppTextStyles.headlineLarge),
+      TextItem(name: 'Headline Medium', style: AppTextStyles.headlineMedium),
+      TextItem(name: 'Headline Small', style: AppTextStyles.headlineSmall),
+      TextItem(name: 'Title Large', style: AppTextStyles.titleLarge),
+      TextItem(name: 'Title Medium', style: AppTextStyles.titleMedium),
+      TextItem(name: 'Title Small', style: AppTextStyles.titleSmall),
+      TextItem(name: 'Body Large ', style: AppTextStyles.bodyLarge),
+      TextItem(name: 'Body Medium', style: AppTextStyles.bodyMedium),
+      TextItem(name: 'Body Small', style: AppTextStyles.bodySmall),
+      TextItem(name: 'Label Large', style: AppTextStyles.labelLarge),
+      TextItem(name: 'Label Medium', style: AppTextStyles.labelMedium),
+      TextItem(name: 'Label Small', style: AppTextStyles.labelSmall),
     ];
 
     return Scaffold(

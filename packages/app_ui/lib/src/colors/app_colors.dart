@@ -10,9 +10,12 @@ abstract class AppColors {
   static const Color neutral900 = Color(0xFF212121);
 
   // Primary (пример: твой дизайн → light = #F54749, dark = #345AFA)
-  static const Color primary50 = Color(0xFFFFEBEE);
-  static const Color primary700 = Color(0xFFF54749);
-  static const Color primary900 = Color(0xFFB71C1C);
+  static const Color primaryLight = Color(0xFFF75D37);
+  static const Color secondaryLight = Color(0xFFF75D37);
+
+  // Primary dark
+  static const Color primaryDark = Color(0xFF345AFA);
+  static const Color secondaryDark = Color(0xFF345AFA);
 
   // Secondary
   static const Color secondary50 = Color(0xFFFCE4EC);
@@ -47,27 +50,5 @@ abstract class AppColors {
   static const Color text300 = Color(0xFFE0E0E0); // disabled
   static const Color text0 = Color(0xFFFFFFFF); // button
 
-  static const ColorScheme light = ColorScheme(
-    brightness: Brightness.light,
-    primary: AppColors.primary700, // #F54749
-    onPrimary: Colors.white,
-    secondary: AppColors.secondary700,
-    onSecondary: Colors.white,
-    error: AppColors.error700,
-    onError: Colors.white,
-    surface: AppColors.neutral0,
-    onSurface: AppColors.text900,
-  );
-
-  static const ColorScheme dark = ColorScheme(
-    brightness: Brightness.dark,
-    primary: Color(0xFF345AFA), // другой цвет в dark
-    onPrimary: Colors.white,
-    secondary: AppColors.secondary700,
-    onSecondary: Colors.white,
-    error: AppColors.error700,
-    onError: Colors.white,
-    surface: AppColors.text0,
-    onSurface: AppColors.neutral900,
-  );
+  static const Color transparent = Colors.transparent;
 }

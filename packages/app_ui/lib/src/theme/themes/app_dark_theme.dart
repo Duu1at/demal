@@ -5,14 +5,55 @@ import 'package:flutter/material.dart';
 
 class AppDarkTheme extends AppTheme {
   @override
-  ColorScheme get colorScheme => AppColors.dark;
+  ColorScheme get colorScheme => const ColorScheme(
+    brightness: Brightness.dark,
+    primary: AppColors.primaryDark,
+    onPrimary: AppColors.neutral0,
+    secondary: AppColors.secondaryDark,
+    onSecondary: AppColors.neutral0,
+    error: AppColors.error700,
+    onError: AppColors.neutral0,
+    surface: AppColors.neutral900,
+    onSurface: AppColors.neutral0,
+  );
 
   @override
-  TextTheme get textTheme =>
-      AppTypography.textTheme.apply(bodyColor: AppColors.neutral0, displayColor: AppColors.neutral300);
+  TextTheme get textTheme => const TextTheme(
+    displayLarge: AppTextStyles.displayLarge,
+    displayMedium: AppTextStyles.displayMedium,
+    displaySmall: AppTextStyles.displaySmall,
+    headlineLarge: AppTextStyles.headlineLarge,
+    headlineMedium: AppTextStyles.headlineMedium,
+    headlineSmall: AppTextStyles.headlineSmall,
+    bodyLarge: AppTextStyles.bodyLarge,
+    bodyMedium: AppTextStyles.bodyMedium,
+    bodySmall: AppTextStyles.bodySmall,
+    titleLarge: AppTextStyles.titleLarge,
+    titleMedium: AppTextStyles.titleMedium,
+    titleSmall: AppTextStyles.titleSmall,
+    labelLarge: AppTextStyles.labelLarge,
+    labelMedium: AppTextStyles.labelMedium,
+    labelSmall: AppTextStyles.labelSmall,
+  ).apply(bodyColor: AppColors.neutral0, displayColor: AppColors.neutral300);
 
   @override
-  TextTheme get primaryTextTheme => textTheme.apply(bodyColor: AppColors.neutral0, displayColor: AppColors.neutral300);
+  TextTheme get primaryTextTheme => const TextTheme(
+    displayLarge: AppTextStyles.displayLarge,
+    displayMedium: AppTextStyles.displayMedium,
+    displaySmall: AppTextStyles.displaySmall,
+    headlineLarge: AppTextStyles.headlineLarge,
+    headlineMedium: AppTextStyles.headlineMedium,
+    headlineSmall: AppTextStyles.headlineSmall,
+    bodyLarge: AppTextStyles.bodyLarge,
+    bodyMedium: AppTextStyles.bodyMedium,
+    bodySmall: AppTextStyles.bodySmall,
+    titleLarge: AppTextStyles.titleLarge,
+    titleMedium: AppTextStyles.titleMedium,
+    titleSmall: AppTextStyles.titleSmall,
+    labelLarge: AppTextStyles.labelLarge,
+    labelMedium: AppTextStyles.labelMedium,
+    labelSmall: AppTextStyles.labelSmall,
+  ).apply(bodyColor: AppColors.neutral0, displayColor: AppColors.neutral300);
 
   @override
   ThemeData get themeData => ThemeData(

@@ -13,6 +13,8 @@ class AppComponentsPage extends StatefulWidget {
 }
 
 class _AppComponentsPageState extends State<AppComponentsPage> {
+  final TextEditingController _phoneController = TextEditingController();
+  PhoneFieldState state = PhoneFieldState.normal;
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
@@ -22,10 +24,21 @@ class _AppComponentsPageState extends State<AppComponentsPage> {
       body: ListView(
         padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
         children: [
-          PhoneNumberField(hintText: 'Phone Number'),
+          PhoneNumberField(
+            controller: _phoneController,
+            state: state,
+            onChanged: (value) {
+              setState(() {
+                _phoneController.text = value;
+                _phoneController.text.isEmpty ? state = PhoneFieldState.normal : state = PhoneFieldState.focused;
+              });
+            },
+          ),
+
           const SizedBox(height: 8),
+          AppButton(variant: AppButtonVariant.outline, child: Text('Get started'), onPressed: () {}),
+
           const SizedBox(height: 300),
-          const Text('App Components'),
         ],
       ),
     );

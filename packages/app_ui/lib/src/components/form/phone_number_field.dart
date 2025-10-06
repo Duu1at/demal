@@ -1,67 +1,113 @@
-import 'package:app_ui/app_ui.dart';
+import 'package:app_ui/src/generated/assets.gen.dart';
 import 'package:flutter/material.dart';
+
+enum PhoneFieldState { normal, focused, disabled, error, errorFocused, success, successFocused }
 
 class PhoneNumberField extends StatelessWidget {
   const PhoneNumberField({
     super.key,
     this.controller,
     this.onChanged,
+    this.state = PhoneFieldState.normal,
+    this.countryCode = '+996',
+    this.hintText = '000 000 000',
     this.validator,
-    this.enabled = true,
-    this.errorText,
-    this.initialValue,
-    this.hintText,
   });
 
   final TextEditingController? controller;
-  final void Function(String)? onChanged;
+  final ValueChanged<String>? onChanged;
+  final PhoneFieldState state;
+  final String countryCode;
+  final String hintText;
   final String? Function(String?)? validator;
-  final bool enabled;
-  final String? errorText;
-  final String? initialValue;
-  final String? hintText;
+
+  Color _borderColor(BuildContext context) {
+    switch (state) {
+      case PhoneFieldState.focused:
+        return const Color(0xFF9C9FAF);
+      case PhoneFieldState.error:
+      case PhoneFieldState.errorFocused:
+        return Colors.red;
+      case PhoneFieldState.success:
+      case PhoneFieldState.successFocused:
+        return Colors.green;
+      default:
+        return Colors.grey.shade400;
+    }
+  }
+
+  Color _backgroundColor() {
+    switch (state) {
+      case PhoneFieldState.disabled:
+        return Colors.grey.shade200;
+      case PhoneFieldState.errorFocused:
+      case PhoneFieldState.successFocused:
+        return Colors.transparent;
+      default:
+        return Colors.white;
+    }
+  }
+
+  Color _textColor(BuildContext context) {
+    if (state == PhoneFieldState.disabled || state == PhoneFieldState.normal) {
+      return Colors.grey.shade400;
+    }
+    if (state == PhoneFieldState.error || state == PhoneFieldState.errorFocused) {
+      return Colors.red;
+    }
+    if (state == PhoneFieldState.success || state == PhoneFieldState.successFocused) {
+      return Colors.green;
+    }
+    return Theme.of(context).textTheme.bodyLarge?.color ?? Colors.black;
+  }
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final inputTextColor = enabled == false
-        ? theme.hintColor
-        : errorText != null
-        ? theme.colorScheme.error
-        : theme.colorScheme.onSurface;
+    final borderColor = _borderColor(context);
+    final textColor = _textColor(context);
 
-    final Widget prefixWidget = SizedBox(
-      width: 85,
+    return Container(
+      decoration: BoxDecoration(
+        color: _backgroundColor(),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: borderColor, width: 1),
+        boxShadow:
+            state == PhoneFieldState.focused ||
+                state == PhoneFieldState.errorFocused ||
+                state == PhoneFieldState.successFocused
+            ? [BoxShadow(color: borderColor.withValues(alpha: .3), blurRadius: 6, offset: const Offset(0, 2))]
+            : null,
+      ),
+      padding: const EdgeInsets.symmetric(horizontal: 12),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Assets.images.flagKg.image(width: 24, height: 24),
-          const SizedBox(width: AppSpacing.sm),
-          const Text('+996', style: TextStyle(fontSize: 14)),
-          const SizedBox(width: AppSpacing.sm),
+          Padding(padding: const EdgeInsets.only(right: 8), child: Assets.images.flagKg.image(width: 24, height: 24)),
+          Text(countryCode, style: TextStyle(color: textColor, fontSize: 14)),
           SizedBox(
             height: 24,
-            child: VerticalDivider(
-              width: 1,
-              thickness: 1,
-              color: enabled == false ? theme.hintColor.withValues(alpha: .5) : const Color(0xFFD1D3DB),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              child: VerticalDivider(width: 1, thickness: 1, color: _borderColor(context)),
+            ),
+          ),
+          Expanded(
+            child: TextFormField(
+              controller: controller,
+              onChanged: onChanged,
+              enabled: state != PhoneFieldState.disabled,
+              keyboardType: TextInputType.phone,
+              style: TextStyle(color: textColor, fontSize: 14),
+              decoration: InputDecoration(
+                hintText: hintText,
+                hintStyle: TextStyle(color: textColor),
+                border: InputBorder.none,
+              ),
+              validator: validator,
+              cursorColor: textColor,
             ),
           ),
         ],
       ),
-    );
-
-    return CustomTextFormField(
-      textStyle: TextStyle(fontSize: 14, color: inputTextColor),
-      controller: controller,
-      onChanged: onChanged,
-      validator: validator,
-      keyboardType: TextInputType.phone,
-      contentPadding: EdgeInsets.zero,
-      enabled: enabled,
-      errorText: errorText,
-      prefixIcon: Padding(padding: const EdgeInsets.only(left: 16, right: 8), child: prefixWidget),
-      hintText: hintText,
     );
   }
 }

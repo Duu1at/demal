@@ -1,3 +1,4 @@
+import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 
 abstract class AppTheme {
@@ -41,7 +42,7 @@ abstract class AppTheme {
         fixedSize: const Size(double.maxFinite, 52),
         backgroundColor: colorScheme.primary,
         foregroundColor: colorScheme.onPrimary,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(99)),
         textStyle: primaryTextTheme.titleMedium?.copyWith(fontSize: 18),
       ),
     );
@@ -53,7 +54,7 @@ abstract class AppTheme {
         side: BorderSide(color: colorScheme.primary),
         fixedSize: const Size.fromHeight(50),
         iconColor: colorScheme.primary,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(99)),
         textStyle: primaryTextTheme.titleMedium?.copyWith(fontSize: 18),
       ),
     );
@@ -63,18 +64,12 @@ abstract class AppTheme {
     return const TextButtonThemeData();
   }
 
-  BottomSheetThemeData get bottomSheetTheme {
-    return BottomSheetThemeData(
-      backgroundColor: colorScheme.surface,
-      dragHandleSize: const Size(58, 6),
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(topLeft: Radius.circular(16), topRight: Radius.circular(16)),
-      ),
-    );
-  }
-
   ListTileThemeData get listTileTheme {
     return const ListTileThemeData();
+  }
+
+  SwitchThemeData get switchTheme {
+    return SwitchThemeData(trackOutlineColor: WidgetStateProperty.resolveWith((states) => AppColors.transparent));
   }
 
   ProgressIndicatorThemeData get progressIndicatorTheme {
