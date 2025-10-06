@@ -22,17 +22,8 @@ class _AppComponentsPageState extends State<AppComponentsPage> {
       body: ListView(
         padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
         children: [
-          PhoneNumberField(
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter your phone number';
-              }
-              return null;
-            },
-            onChanged: (value) {
-              // Handle phone number change
-            },
-          ),
+          PhoneNumberField(hintText: 'Phone Number'),
+          const SizedBox(height: 8),
           const SizedBox(height: 300),
           const Text('App Components'),
         ],

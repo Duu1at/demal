@@ -44,6 +44,7 @@ class CustomTextFormField extends StatelessWidget {
     this.autofillHints,
     this.focusNode,
     this.textCapitalization = TextCapitalization.none,
+    this.initialValue,
   });
 
   final TextEditingController? controller;
@@ -86,6 +87,7 @@ class CustomTextFormField extends StatelessWidget {
   final Iterable<String>? autofillHints;
   final FocusNode? focusNode;
   final TextCapitalization textCapitalization;
+  final String? initialValue;
 
   @override
   Widget build(BuildContext context) {
@@ -106,6 +108,7 @@ class CustomTextFormField extends StatelessWidget {
         minLines: minLines,
         readOnly: readOnly,
         enabled: enabled,
+        initialValue: initialValue,
         obscureText: obscureText,
         keyboardType: keyboardType,
         inputFormatters: inputFormatters,
@@ -134,6 +137,7 @@ class CustomTextFormField extends StatelessWidget {
           suffixIcon: suffixIcon,
           suffixText: suffixText,
           contentPadding: contentPadding,
+          errorStyle: TextStyle(height: 1.2, color: theme.colorScheme.error),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(borderRadius),
             borderSide: const BorderSide(color: Color(0xFF9C9FAF)),
@@ -144,7 +148,7 @@ class CustomTextFormField extends StatelessWidget {
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(borderRadius),
-            borderSide: BorderSide(color: theme.colorScheme.primary, width: 1),
+            borderSide: BorderSide(color: Color(0xff9C9FAF), width: 1),
           ),
           errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(borderRadius),
