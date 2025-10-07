@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
 
 class DrawerTile extends StatelessWidget {
-  const DrawerTile({
-    required this.icon,
-    required this.title,
-    this.onTap,
-    super.key,
-  });
+  const DrawerTile({required this.icon, required this.title, this.onTap, super.key});
 
   final Widget icon;
   final String title;
@@ -19,9 +14,9 @@ class DrawerTile extends StatelessWidget {
       onTap: onTap,
       contentPadding: EdgeInsets.zero,
       leading: CircleAvatar(
-        radius: 17,
-        backgroundColor: colorScheme.onInverseSurface,
-        child: icon,
+        radius: 18,
+        backgroundColor: colorScheme.secondary,
+        child: Center(child: icon),
       ),
       title: Text(title),
       trailing: const Icon(Icons.arrow_forward_ios),

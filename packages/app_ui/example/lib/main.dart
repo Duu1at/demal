@@ -1,3 +1,4 @@
+import 'package:example/body/bg_image_onboarding.dart';
 import 'package:example/body/bg_image_body.dart';
 import 'package:example/colors/app_colors_view.dart';
 import 'package:example/components/app_components_page.dart';
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
     return ListenableBuilder(
       listenable: themeProvider!,
       builder: (BuildContext context, Widget? child) {
-        return MaterialApp(title: ' Gallery', theme: themeProvider!.theme.themeData, home: const RootPage());
+        return MaterialApp(title: 'Exaple', theme: themeProvider!.theme.themeData, home: const RootPage());
       },
     );
   }
@@ -70,14 +71,18 @@ class RootPage extends StatelessWidget {
         subtitle: const Text('All of the predefined spacings'),
         onTap: () => Navigator.of(context).push<void>(SpacingPage.route()),
       ),
-      // ListItem(
-      //   icon: const Icon(Icons.widgets),
-      //   title: const Text('UI Components'),
-      //   subtitle: const Text('All of the predefined components'),
-      //   onTap: () => Navigator.of(context).push<void>(
-      //     UiComponentsPage.route(),
-      //   ),
-      // ),
+      ListItem(
+        icon: const Icon(Icons.pest_control_rodent_sharp),
+        title: const Text('App Components'),
+        subtitle: const Text('All of the app components'),
+        onTap: () => Navigator.of(context).push<void>(AppComponentsPage.route()),
+      ),
+      ListItem(
+        icon: const Icon(Icons.widgets),
+        title: const Text('Bg onboarding'),
+        subtitle: const Text('All of the predefined body'),
+        onTap: () => Navigator.of(context).push<void>(BgImageOnboarding.route()),
+      ),
       // ListItem(
       //   icon: const Icon(Icons.widgets),
       //   title: const Text('Body Image'),
@@ -86,12 +91,7 @@ class RootPage extends StatelessWidget {
       //     BgImageBodyPage.route(),
       //   ),
       // ),
-      ListItem(
-        icon: const Icon(Icons.pest_control_rodent_sharp),
-        title: const Text('App Components'),
-        subtitle: const Text('All of the app components'),
-        onTap: () => Navigator.of(context).push<void>(AppComponentsPage.route()),
-      ),
+
       // ListItem(
       //   icon: const Icon(Icons.add_reaction_outlined),
       //   title: const Text('Show Contents'),

@@ -1,6 +1,17 @@
+import 'dart:developer';
+
+import 'package:app/app_observer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
+   FlutterError.onError = (details) {
+    log(details.exceptionAsString(), stackTrace: details.stack);
+  };
+
+  Bloc.observer = const AppBlocObserver(onLog: log);
   runApp(const MyApp());
 }
 

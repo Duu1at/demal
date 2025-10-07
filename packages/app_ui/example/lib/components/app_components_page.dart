@@ -37,7 +37,13 @@ class _AppComponentsPageState extends State<AppComponentsPage> {
 
           const SizedBox(height: 8),
           AppButton(variant: AppButtonVariant.primary, child: Text('Get started'), onPressed: () {}, isLoading: false),
-LinkTextButton(text: 'Get started', onPressed: () {}),
+          LinkTextButton(text: 'Get started', onPressed: () {}),
+
+          const SizedBox(height: 8),
+          DrawerTile(
+            icon: Icon(Icons.arrow_back_ios, color: Colors.black),
+            title: 'test',
+          ),
           const SizedBox(height: 300),
         ],
       ),

@@ -14,6 +14,12 @@ import 'package:flutter/widgets.dart';
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/Illustration_1.png
+  AssetGenImage get illustration1 => const AssetGenImage('assets/images/Illustration_1.png');
+
+  /// File path: assets/images/Illustration_2.png
+  AssetGenImage get illustration2 => const AssetGenImage('assets/images/Illustration_2.png');
+
   /// File path: assets/images/background_bottom.png
   AssetGenImage get backgroundBottom => const AssetGenImage('assets/images/background_bottom.png');
 
@@ -23,8 +29,26 @@ class $AssetsImagesGen {
   /// File path: assets/images/flagKg.png
   AssetGenImage get flagKg => const AssetGenImage('assets/images/flagKg.png');
 
+  /// File path: assets/images/onboarding_1.png
+  AssetGenImage get onboarding1 => const AssetGenImage('assets/images/onboarding_1.png');
+
+  /// File path: assets/images/onboarding_2.png
+  AssetGenImage get onboarding2 => const AssetGenImage('assets/images/onboarding_2.png');
+
+  /// File path: assets/images/onboarding_3.png
+  AssetGenImage get onboarding3 => const AssetGenImage('assets/images/onboarding_3.png');
+
   /// List of all assets
-  List<AssetGenImage> get values => [backgroundBottom, backgroundTop, flagKg];
+  List<AssetGenImage> get values => [
+    illustration1,
+    illustration2,
+    backgroundBottom,
+    backgroundTop,
+    flagKg,
+    onboarding1,
+    onboarding2,
+    onboarding3,
+  ];
 }
 
 class Assets {
