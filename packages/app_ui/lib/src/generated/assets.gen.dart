@@ -29,6 +29,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/flagKg.png
   AssetGenImage get flagKg => const AssetGenImage('assets/images/flagKg.png');
 
+  /// File path: assets/images/illustration_3.png
+  AssetGenImage get illustration3 => const AssetGenImage('assets/images/illustration_3.png');
+
   /// File path: assets/images/onboarding_1.png
   AssetGenImage get onboarding1 => const AssetGenImage('assets/images/onboarding_1.png');
 
@@ -45,6 +48,7 @@ class $AssetsImagesGen {
     backgroundBottom,
     backgroundTop,
     flagKg,
+    illustration3,
     onboarding1,
     onboarding2,
     onboarding3,
