@@ -1,15 +1,11 @@
 
 {
     "@@locale": "ky",
-    "appTitle": "приложение Flutter",
-    "@appTitle": {
-        "description": "The title of the application"
-    },
-    "helloUser": "Hello, {userName}",
-    "@helloUser": {
-        "description": "A greeting to the user",
-        "placeholders": {
-            "userName": {}
-        }
-    }
+    "onboardingTitle1":"Бардык турлар бир жерде",
+    "onboardingSubTitle1":"Бир ыңгайлуу лентада жүздөгөн дем алыш күндөрү сунуштар",
+    "onboardingTitle2":"Текшерилген гиддер",
+    "onboardingSubTitle2":"Чыныгы туристтердин чынчыл сын-пикирлерин окуңуз",
+    "onboardingTitle3":"3 чыкылдатуу менен брондоо",
+    "onboardingSubTitle3":"Узак кат алышуулар, скриншоттор жана күтүүлөр жок",
+    "next":"Кийинкиси"
 }

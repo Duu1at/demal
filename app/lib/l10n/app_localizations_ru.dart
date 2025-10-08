@@ -9,10 +9,26 @@ class AppLocalizationsRu extends AppLocalizations {
   AppLocalizationsRu([String locale = 'ru']) : super(locale);
 
   @override
-  String get appTitle => 'Приложение Flutter';
+  String get onboardingTitle1 => 'Все туры в одном месте';
 
   @override
-  String helloUser(Object userName) {
-    return 'Привет, $userName';
-  }
+  String get onboardingSubTitle1 =>
+      'Сотни предложений на выходные в одной удобной ленте';
+
+  @override
+  String get onboardingTitle2 => 'Проверенные гиды';
+
+  @override
+  String get onboardingSubTitle2 =>
+      'Читайте честные отзывы от реальных туристов';
+
+  @override
+  String get onboardingTitle3 => 'Бронируй в 3 клика';
+
+  @override
+  String get onboardingSubTitle3 =>
+      'Без долгих переписок, скриншотов и ожидания';
+
+  @override
+  String get next => 'Следующий';
 }

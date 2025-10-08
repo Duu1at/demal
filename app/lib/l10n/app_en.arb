@@ -1,15 +1,12 @@
 
 {
     "@@locale": "en",
-    "appTitle": "Flutter App",
-    "@appTitle": {
-        "description": "The title of the application"
-    },
-    "helloUser": "Hello, {userName}",
-    "@helloUser": {
-        "description": "A greeting to the user",
-        "placeholders": {
-            "userName": {}
-        }
-    }
+    "onboardingTitle1":"Все туры в одном месте",
+    "onboardingSubTitle1":"Сотни предложений на выходные в одной удобной ленте",
+    "onboardingTitle2":"Проверенные гиды",
+    "onboardingSubTitle2":"Читайте честные отзывы от реальных туристов",
+    "onboardingTitle3":"Бронируй в 3 клика",
+    "onboardingSubTitle3":"Без долгих переписок, скриншотов и ожидания",
+    "next":"Next"
+
 }

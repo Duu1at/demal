@@ -100,17 +100,47 @@ abstract class AppLocalizations {
     Locale('ru'),
   ];
 
-  /// The title of the application
+  /// No description provided for @onboardingTitle1.
   ///
   /// In en, this message translates to:
-  /// **'Flutter App'**
-  String get appTitle;
+  /// **'Все туры в одном месте'**
+  String get onboardingTitle1;
 
-  /// A greeting to the user
+  /// No description provided for @onboardingSubTitle1.
   ///
   /// In en, this message translates to:
-  /// **'Hello, {userName}'**
-  String helloUser(Object userName);
+  /// **'Сотни предложений на выходные в одной удобной ленте'**
+  String get onboardingSubTitle1;
+
+  /// No description provided for @onboardingTitle2.
+  ///
+  /// In en, this message translates to:
+  /// **'Проверенные гиды'**
+  String get onboardingTitle2;
+
+  /// No description provided for @onboardingSubTitle2.
+  ///
+  /// In en, this message translates to:
+  /// **'Читайте честные отзывы от реальных туристов'**
+  String get onboardingSubTitle2;
+
+  /// No description provided for @onboardingTitle3.
+  ///
+  /// In en, this message translates to:
+  /// **'Бронируй в 3 клика'**
+  String get onboardingTitle3;
+
+  /// No description provided for @onboardingSubTitle3.
+  ///
+  /// In en, this message translates to:
+  /// **'Без долгих переписок, скриншотов и ожидания'**
+  String get onboardingSubTitle3;
+
+  /// No description provided for @next.
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get next;
 }
 
 class _AppLocalizationsDelegate

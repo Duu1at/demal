@@ -1,6 +1,6 @@
 import 'package:app/app/cubit/app_cubit.dart';
 import 'package:app/l10n/app_localizations.dart';
-import 'package:app/start/pages/onboarding_first_view.dart';
+import 'package:app/start/start.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       title: 'Demal',
-      home: const OnboardingFirstView(),
+      home: const Onboarding3View(),
     );
   }
 }
