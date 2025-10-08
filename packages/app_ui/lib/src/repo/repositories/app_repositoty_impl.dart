@@ -7,13 +7,13 @@ final class AppRepositoryImpl implements AppRepository {
   final AppLocalDataSource dataSource;
 
   @override
-  ThemeMode getInitialThemeState() {
-    return dataSource.getInitialThemeMode();
+  AppTheme getInitialThemeState() {
+    return dataSource.getInitialTheme();
   }
 
   @override
-  Future<void> saveThemeMode(ThemeMode mode) {
-    return dataSource.saveThemeMode(mode);
+  Future<void> saveTheme(bool isDark) {
+    return dataSource.saveTheme(isDark);
   }
 
   @override

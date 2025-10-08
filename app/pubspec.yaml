@@ -15,6 +15,7 @@ dependencies:
     sdk: flutter
   core:
   app_ui:
+  storage:
   flutter_bloc:
   intl: ^0.20.2
   talker: ^5.0.1

@@ -12,22 +12,21 @@ final class AppLocalDataSourceImpl implements AppLocalDataSource {
   static const _localeKey = 'locale_key';
 
   @override
-  ThemeMode getInitialThemeMode() {
+  AppTheme getInitialTheme() {
     final value = storage.readString(key: _themeKey);
     switch (value) {
       case 'light':
-        return ThemeMode.light;
+        return AppLightTheme();
       case 'dark':
-        return ThemeMode.dark;
-      case 'system':
+        return AppDarkTheme();
       default:
-        return ThemeMode.system;
+        return AppLightTheme();
     }
   }
 
   @override
-  Future<void> saveThemeMode(ThemeMode mode) async {
-    await storage.writeString(key: _themeKey, value: mode.name);
+  Future<void> saveTheme(bool isDark) async {
+    await storage.writeString(key: _themeKey, value: isDark ? 'dark' : 'light');
   }
 
   @override

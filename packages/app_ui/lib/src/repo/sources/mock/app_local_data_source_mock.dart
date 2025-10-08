@@ -1,4 +1,5 @@
 import 'package:app_ui/src/repo/repo.dart';
+import 'package:app_ui/src/theme/theme.dart';
 import 'package:flutter/material.dart';
 
 @immutable
@@ -6,10 +7,10 @@ final class AppLocalDataSourceMock implements AppLocalDataSource {
   const AppLocalDataSourceMock();
 
   @override
-  Future<void> saveThemeMode(ThemeMode mode) => Future.value();
+  Future<void> saveTheme(bool isDark) => Future.value();
 
   @override
-  ThemeMode getInitialThemeMode() => ThemeMode.system;
+  AppTheme getInitialTheme() => AppLightTheme();
 
   @override
   Locale getInitialLocale() {

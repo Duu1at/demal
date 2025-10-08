@@ -1,11 +1,12 @@
+import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 
 abstract class AppRepository {
-  ThemeMode getInitialThemeState();
+  AppTheme getInitialThemeState();
 
   Locale getInitialLocale();
 
-  Future<void> saveThemeMode(ThemeMode mode);
+  Future<void> saveTheme(bool isDark);
 
   Future<void> saveLocale(Locale locale);
 }

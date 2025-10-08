@@ -1,9 +1,10 @@
+import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 
 abstract class AppLocalDataSource {
-  ThemeMode getInitialThemeMode();
+  AppTheme getInitialTheme();
 
-  Future<void> saveThemeMode(ThemeMode mode);
+  Future<void> saveTheme(bool isDark);
 
   Locale getInitialLocale();
 
