@@ -1,5 +1,5 @@
 import 'package:app/app/app_view.dart';
-import 'package:app/app/cubit/app_theme_cubit.dart';
+import 'package:app/app/cubit/app_cubit.dart';
 import 'package:app/app_observer.dart';
 import 'package:app/core/di/setup_di.dart';
 import 'package:app_ui/app_ui.dart';
@@ -30,7 +30,7 @@ void main() async {
         RepositoryProvider<AppRepository>(
           create: (context) => AppRepositoryImpl(AppLocalDataSourceImpl(storage: context.read<PreferencesStorage>())),
         ),
-        BlocProvider(create: (context) => AppThemeCubit(context.read<AppRepository>())),
+        BlocProvider(create: (context) => AppCubit(context.read<AppRepository>())),
       ],
       child: const MyApp(),
     ),
