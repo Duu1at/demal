@@ -1,3 +1,4 @@
+import 'package:app/l10n/l10n_extension.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 
@@ -6,9 +7,21 @@ class OnboardingFirstView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScaffoldOnboarding(
-      appBar: AppBar(elevation: 0, title: const Text('Onboarding First View')),
       image: Assets.images.onboarding1.provider(),
-      body: Column(children: [Text('tet')]),
+      appBar: AppBar(elevation: 0),
+      body: Column(
+        children: [
+          Assets.images.illustration2.image(),
+          Text(context.l10n.appTitle),
+          const Text('Сотни предложений на выходные в одной удобной ленте'),
+        ],
+      ),
+      floatingActionButton: AppButton(
+        onPressed: () {},
+        margin: const EdgeInsets.symmetric(horizontal: 16),
+        child: const Text('Следующий'),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }

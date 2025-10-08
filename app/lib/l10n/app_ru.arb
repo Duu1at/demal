@@ -1,0 +1,6 @@
+
+{
+    "@@locale": "ru",
+    "appTitle": "Приложение Flutter",
+    "helloUser": "Привет, {userName}"
+}
