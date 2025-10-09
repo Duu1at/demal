@@ -40,7 +40,7 @@ class _AppComponentsPageState extends State<AppComponentsPage> {
           LinkTextButton(text: 'Get started', onPressed: () {}),
 
           const SizedBox(height: 8),
-          DrawerTile(
+          const DrawerTile(
             icon: Icon(Icons.arrow_back_ios, color: Colors.black),
             title: 'test',
           ),

@@ -9,17 +9,14 @@
 //       builder: (_) => const UiComponentsPage(),
 //     );
 //   }
-
 //   @override
 //   State<UiComponentsPage> createState() => _UiComponentsPageState();
 // }
-
 // class _UiComponentsPageState extends State<UiComponentsPage> {
 //   String dropdownValue = 'English';
 //   bool enableAzan = true;
 //   double sliderValue = 0.4;
 //   int bottomIndex = 0;
-
 //   @override
 //   Widget build(BuildContext context) {
 //     final textTheme = Theme.of(context).textTheme;

@@ -69,3 +69,4 @@ coverage/
 
 # Сгенерированные файлы локализации
 lib/l10n/gen/
+.l10n_errors.txt

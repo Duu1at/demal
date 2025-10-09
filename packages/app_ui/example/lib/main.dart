@@ -9,14 +9,14 @@ import 'package:example/typography/theme_typography_page.dart';
 import 'package:flutter/material.dart';
 import 'package:storage/storage.dart';
 
-MqAppUiNotifier? themeProvider;
+AppUiNotifier? themeProvider;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   final storage = await PreferencesStorage.getInstance();
 
-  themeProvider = MqAppUiNotifier(storage)..init();
+  themeProvider = AppUiNotifier(storage)..init();
 
   runApp(const MyApp());
 }
