@@ -7,6 +7,8 @@ abstract class AppColors {
   static const Color neutral100 = Color(0xFFF5F5F5);
   static const Color neutral200 = Color(0xFFE0E0E0);
   static const Color neutral300 = Color(0xFFBDBDBD);
+  static const neutral700 = Color(0xFF424242);
+  static const neutral800 = Color(0xFF303030);
   static const Color neutral900 = Color(0xFF212121);
 
   // Primary (пример: твой дизайн → light = #F54749, dark = #345AFA)
@@ -51,4 +53,28 @@ abstract class AppColors {
   static const Color text0 = Color(0xFFFFFFFF); // button
 
   static const Color transparent = Colors.transparent;
+}
+
+extension AppStateColors on ColorScheme {
+  Color get borderNormal => brightness == Brightness.light
+      ? const Color(0xff9C9FAF)
+      : AppColors.neutral700;
+
+  Color get enubled => brightness == Brightness.light
+      ? const Color(0xffE5E6EB)
+      : AppColors.neutral700;
+
+  Color get borderFocused =>
+      brightness == Brightness.light ? primary : primaryContainer;
+
+  Color get borderError =>
+      brightness == Brightness.light ? AppColors.error700 : AppColors.error700;
+
+  Color get borderErrorFocused => AppColors.error900;
+
+  Color get borderSuccess => AppColors.success700;
+
+  Color get borderDisabled => brightness == Brightness.light
+      ? AppColors.neutral200
+      : AppColors.neutral800;
 }

@@ -1,7 +1,15 @@
 import 'package:app_ui/src/generated/assets.gen.dart';
 import 'package:flutter/material.dart';
 
-enum PhoneFieldState { normal, focused, disabled, error, errorFocused, success, successFocused }
+enum PhoneFieldState {
+  normal,
+  focused,
+  disabled,
+  error,
+  errorFocused,
+  success,
+  successFocused,
+}
 
 class PhoneNumberField extends StatelessWidget {
   const PhoneNumberField({
@@ -52,10 +60,12 @@ class PhoneNumberField extends StatelessWidget {
     if (state == PhoneFieldState.disabled || state == PhoneFieldState.normal) {
       return Colors.grey.shade400;
     }
-    if (state == PhoneFieldState.error || state == PhoneFieldState.errorFocused) {
+    if (state == PhoneFieldState.error ||
+        state == PhoneFieldState.errorFocused) {
       return Colors.red;
     }
-    if (state == PhoneFieldState.success || state == PhoneFieldState.successFocused) {
+    if (state == PhoneFieldState.success ||
+        state == PhoneFieldState.successFocused) {
       return Colors.green;
     }
     return Theme.of(context).textTheme.bodyLarge?.color ?? Colors.black;
@@ -65,7 +75,6 @@ class PhoneNumberField extends StatelessWidget {
   Widget build(BuildContext context) {
     final borderColor = _borderColor(context);
     final textColor = _textColor(context);
-
     return Container(
       decoration: BoxDecoration(
         color: _backgroundColor(),
@@ -75,19 +84,32 @@ class PhoneNumberField extends StatelessWidget {
             state == PhoneFieldState.focused ||
                 state == PhoneFieldState.errorFocused ||
                 state == PhoneFieldState.successFocused
-            ? [BoxShadow(color: borderColor.withValues(alpha: .3), blurRadius: 6, offset: const Offset(0, 2))]
+            ? [
+                BoxShadow(
+                  color: borderColor.withValues(alpha: .3),
+                  blurRadius: 6,
+                  offset: const Offset(0, 2),
+                ),
+              ]
             : null,
       ),
       padding: const EdgeInsets.symmetric(horizontal: 12),
       child: Row(
         children: [
-          Padding(padding: const EdgeInsets.only(right: 8), child: Assets.images.flagKg.image(width: 24, height: 24)),
+          Padding(
+            padding: const EdgeInsets.only(right: 8),
+            child: Assets.images.flagKg.image(width: 24, height: 24),
+          ),
           Text(countryCode, style: TextStyle(color: textColor, fontSize: 14)),
           SizedBox(
             height: 24,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8),
-              child: VerticalDivider(width: 1, thickness: 1, color: _borderColor(context)),
+              child: VerticalDivider(
+                width: 1,
+                thickness: 1,
+                color: _borderColor(context),
+              ),
             ),
           ),
           Expanded(

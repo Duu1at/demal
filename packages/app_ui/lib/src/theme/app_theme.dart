@@ -29,7 +29,23 @@ abstract class AppTheme {
   }
 
   InputDecorationTheme get inputDecorationTheme {
-    return const InputDecorationTheme();
+    return InputDecorationTheme(
+      enabledBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: colorScheme.borderNormal),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: colorScheme.borderFocused, width: 1),
+      ),
+      errorBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: colorScheme.borderError),
+      ),
+      focusedErrorBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: colorScheme.error, width: 1),
+      ),
+      disabledBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: colorScheme.borderDisabled),
+      ),
+    );
   }
 
   ButtonThemeData get buttonTheme {
@@ -69,7 +85,11 @@ abstract class AppTheme {
   }
 
   SwitchThemeData get switchTheme {
-    return SwitchThemeData(trackOutlineColor: WidgetStateProperty.resolveWith((states) => AppColors.transparent));
+    return SwitchThemeData(
+      trackOutlineColor: WidgetStateProperty.resolveWith(
+        (states) => AppColors.transparent,
+      ),
+    );
   }
 
   ProgressIndicatorThemeData get progressIndicatorTheme {
