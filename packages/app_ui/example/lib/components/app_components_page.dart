@@ -1,5 +1,5 @@
 import 'package:app_ui/app_ui.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Divider;
 
 class AppComponentsPage extends StatefulWidget {
   const AppComponentsPage({super.key});
@@ -52,11 +52,8 @@ class _AppComponentsPageState extends State<AppComponentsPage> {
           ),
           LinkTextButton(text: 'Get started', onPressed: () {}),
           const SizedBox(height: 8),
-          const DrawerTile(
-            icon: Icon(Icons.arrow_back_ios, color: Colors.black),
-            title: 'test',
-          ),
-
+          DrawerTile(title: 'test', icon: Icon(Icons.abc_outlined)),
+          const CustomDivider(),
           const SizedBox(height: 300),
         ],
       ),

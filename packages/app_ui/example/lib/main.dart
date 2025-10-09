@@ -29,7 +29,11 @@ class MyApp extends StatelessWidget {
     return ListenableBuilder(
       listenable: themeProvider!,
       builder: (BuildContext context, Widget? child) {
-        return MaterialApp(title: 'Exaple', theme: themeProvider!.theme.themeData, home: const RootPage());
+        return MaterialApp(
+          title: 'Exaple',
+          theme: themeProvider!.theme.themeData,
+          home: const RootPage(),
+        );
       },
     );
   }
@@ -57,13 +61,15 @@ class RootPage extends StatelessWidget {
         icon: const Icon(Icons.text_format),
         title: const Text('Theme Typography'),
         subtitle: const Text('All of the predefined theme text styles'),
-        onTap: () => Navigator.of(context).push<void>(ThemeTypographyPage.route()),
+        onTap: () =>
+            Navigator.of(context).push<void>(ThemeTypographyPage.route()),
       ),
       ListItem(
         icon: const Icon(Icons.text_format),
         title: const Text('App Typography'),
         subtitle: const Text('All of the predefined app text styles'),
-        onTap: () => Navigator.of(context).push<void>(AppTypographyPage.route()),
+        onTap: () =>
+            Navigator.of(context).push<void>(AppTypographyPage.route()),
       ),
       ListItem(
         icon: const Icon(Icons.border_vertical),
@@ -75,13 +81,15 @@ class RootPage extends StatelessWidget {
         icon: const Icon(Icons.pest_control_rodent_sharp),
         title: const Text('App Components'),
         subtitle: const Text('All of the app components'),
-        onTap: () => Navigator.of(context).push<void>(AppComponentsPage.route()),
+        onTap: () =>
+            Navigator.of(context).push<void>(AppComponentsPage.route()),
       ),
       ListItem(
         icon: const Icon(Icons.widgets),
         title: const Text('Bg onboarding'),
         subtitle: const Text('All of the predefined body'),
-        onTap: () => Navigator.of(context).push<void>(BgImageOnboarding.route()),
+        onTap: () =>
+            Navigator.of(context).push<void>(BgImageOnboarding.route()),
       ),
       // ListItem(
       //   icon: const Icon(Icons.widgets),
@@ -144,6 +152,7 @@ class RootPage extends StatelessWidget {
       //     ),
       //   ],
       // ),
+      const Divider(),
       const SizedBox(height: 100),
     ];
 
@@ -160,7 +169,13 @@ class RootPage extends StatelessWidget {
 }
 
 class ListItem extends StatelessWidget {
-  const ListItem({required this.icon, required this.title, required this.subtitle, this.onTap, super.key});
+  const ListItem({
+    required this.icon,
+    required this.title,
+    required this.subtitle,
+    this.onTap,
+    super.key,
+  });
 
   final VoidCallback? onTap;
   final Icon icon;

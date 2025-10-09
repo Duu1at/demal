@@ -9,3 +9,4 @@ export 'components/forms/forms.dart';
 export 'components/buttons/buttons.dart';
 export 'components/drawer_tile.dart';
 export 'show/show.dart';
+export 'components/custom_divider.dart';
