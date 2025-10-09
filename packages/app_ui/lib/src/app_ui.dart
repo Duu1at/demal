@@ -8,3 +8,4 @@ export 'components/scaffold/scaffold.dart';
 export 'components/forms/forms.dart';
 export 'components/buttons/buttons.dart';
 export 'components/drawer_tile.dart';
+export 'show/show.dart';

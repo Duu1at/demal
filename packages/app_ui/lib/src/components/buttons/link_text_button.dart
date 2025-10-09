@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 
 class LinkTextButton extends StatelessWidget {
-  const LinkTextButton({required this.text, this.onPressed, this.textStyle, this.color, super.key});
+  const LinkTextButton({
+    required this.text,
+    this.onPressed,
+    this.textStyle,
+    this.color,
+    super.key,
+  });
 
   final String text;
   final void Function()? onPressed;
@@ -14,6 +20,7 @@ class LinkTextButton extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
     return TextButton(
       style: TextButton.styleFrom(
+        overlayColor: Colors.transparent,
         padding: EdgeInsets.zero,
         minimumSize: Size.zero,
         foregroundColor: color ?? colorScheme.onSurface,
@@ -21,6 +28,8 @@ class LinkTextButton extends StatelessWidget {
         textStyle: (textStyle ?? prTextTheme.titleMedium)?.copyWith(
           color: color ?? colorScheme.onSurface,
           decorationColor: color ?? colorScheme.onSurface,
+          decorationThickness: 1,
+          decorationStyle: TextDecorationStyle.solid,
         ),
       ),
       onPressed: onPressed,

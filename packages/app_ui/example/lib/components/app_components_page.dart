@@ -28,25 +28,50 @@ class _AppComponentsPageState extends State<AppComponentsPage> {
             controller: _phoneController,
             state: state,
             onChanged: (value) {
-              setState(() {
-                _phoneController.text = value;
-                _phoneController.text.isEmpty ? state = PhoneFieldState.normal : state = PhoneFieldState.focused;
-              });
+              _phoneController.text = value;
+              _phoneController.text.isEmpty
+                  ? state = PhoneFieldState.normal
+                  : state = PhoneFieldState.focused;
+              setState(() {});
             },
+          ),
+          const SizedBox(height: 8),
+          AppButton(
+            variant: AppButtonVariant.primary,
+            onPressed: alirt,
+            isLoading: false,
+            child: const Text('Alert'),
           ),
 
           const SizedBox(height: 8),
-          AppButton(variant: AppButtonVariant.primary, child: Text('Get started'), onPressed: () {}, isLoading: false),
+          AppButton(
+            variant: AppButtonVariant.primary,
+            onPressed: dialot,
+            isLoading: false,
+            child: const Text('Dialog'),
+          ),
           LinkTextButton(text: 'Get started', onPressed: () {}),
-
           const SizedBox(height: 8),
           const DrawerTile(
             icon: Icon(Icons.arrow_back_ios, color: Colors.black),
             title: 'test',
           ),
+
           const SizedBox(height: 300),
         ],
       ),
+    );
+  }
+
+  void alirt() {
+    AlertDialogs.showAmen(context: context, content: 'test');
+  }
+
+  void dialot() {
+    BottomSheets.showModalSettingsSheet(
+      context: context,
+      showDragHandle: true,
+      child: const Text('test'),
     );
   }
 }
