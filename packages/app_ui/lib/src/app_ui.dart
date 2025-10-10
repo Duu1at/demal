@@ -10,3 +10,4 @@ export 'components/buttons/buttons.dart';
 export 'components/drawer_tile.dart';
 export 'show/show.dart';
 export 'components/divider/divider.dart';
+export 'components/modal/modal.dart';

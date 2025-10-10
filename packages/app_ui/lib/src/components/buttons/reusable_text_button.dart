@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class ReusableTextButton extends StatelessWidget {
   const ReusableTextButton({
     super.key,
-    required this.label,
+    this.label,
     required this.onPressed,
     this.color,
     this.textStyle,
@@ -12,7 +12,7 @@ class ReusableTextButton extends StatelessWidget {
     this.padding,
   });
 
-  final String label;
+  final String? label;
   final VoidCallback onPressed;
   final Color? color;
   final TextStyle? textStyle;
@@ -31,12 +31,16 @@ class ReusableTextButton extends StatelessWidget {
       onPressed: onPressed,
 
       style: TextButton.styleFrom(
-        padding:padding ?? const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+        padding:
+            padding ??
+            const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
         foregroundColor: Theme.of(context).colorScheme.primary,
         backgroundColor: bgColor ?? Theme.of(context).colorScheme.surface,
       ),
 
-      label: Text(label, style: buttonTextStyle),
+      label: label == null
+          ? const SizedBox.shrink()
+          : Text(label!, style: buttonTextStyle),
       icon: icon,
     );
   }

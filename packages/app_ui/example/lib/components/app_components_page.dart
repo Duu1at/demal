@@ -37,7 +37,7 @@ class _AppComponentsPageState extends State<AppComponentsPage> {
         padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
         children: [
           PhoneField(controller: _phoneController),
-          const SizedBox(height: 8),
+          const DividerHorisontal(),
           AppButton(
             variant: AppButtonVariant.primary,
             onPressed: alirt,
@@ -45,32 +45,33 @@ class _AppComponentsPageState extends State<AppComponentsPage> {
             child: const Text('Alert'),
           ),
 
-          const SizedBox(height: 8),
+          const DividerHorisontal(),
           AppButton(
             variant: AppButtonVariant.primary,
             onPressed: dialot,
             isLoading: false,
             child: const Text('Dialog'),
           ),
-          const SizedBox(height: 8),
+          const DividerHorisontal(),
           DrawerTile(
             title: 'test',
             icon: Assets.icons.tickCircle.svg(),
             subtitle: 'test',
           ),
-          const SizedBox(height: 8),
+          const DividerHorisontal(),
           DrawerTile(
             title: 'test',
             icon: Assets.icons.tickCircle.svg(),
             subtitle: 'test',
           ),
-          const SizedBox(height: 8),
           const DividerHorisontal(),
           ReusableTextButton(
             label: 'Get duulat',
             onPressed: () {},
-            icon: Icon(Icons.close),
+            icon: const Icon(Icons.close),
           ),
+          const DividerHorisontal(),
+          CustomTextField(controller: _phoneController),
           const SizedBox(height: 300),
         ],
       ),
@@ -88,7 +89,7 @@ class _AppComponentsPageState extends State<AppComponentsPage> {
     BottomSheets.showModalSettingsSheet(
       context: context,
       showDragHandle: true,
-      child: const Text('test'),
+      child: const ModalBaseComponent(),
     );
   }
 }

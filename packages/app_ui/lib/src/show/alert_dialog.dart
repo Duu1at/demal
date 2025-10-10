@@ -66,8 +66,7 @@ abstract class AlertDialogs {
       barrierDismissible: barrierDismissible,
       builder: (context) {
         return AlertDialog(
-          insetPadding: const EdgeInsets.symmetric(horizontal: 16),
-          contentPadding: const EdgeInsets.all(16),
+          iconPadding: EdgeInsets.zero,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16.0),
             side: BorderSide(
@@ -82,7 +81,6 @@ abstract class AlertDialogs {
           titleTextStyle: textTheme.titleLarge?.copyWith(
             color: AlertDialogType._getTextColor(typeAlertDialog),
           ),
-          actionsAlignment: MainAxisAlignment.center,
           title: Row(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -93,7 +91,7 @@ abstract class AlertDialogs {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
-                      mainAxisSize: MainAxisSize.min,
+                      mainAxisSize: MainAxisSize.max,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -131,10 +129,8 @@ abstract class AlertDialogs {
               ),
             ],
           ),
-          titlePadding: const EdgeInsets.all(16),
           content: content,
           actions: actions,
-          actionsPadding: const EdgeInsets.all(16),
         );
       },
     );
