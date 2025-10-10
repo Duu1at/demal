@@ -30,20 +30,29 @@ abstract class AppTheme {
 
   InputDecorationTheme get inputDecorationTheme {
     return InputDecorationTheme(
+      border: OutlineInputBorder(
+        borderSide: BorderSide(color: colorScheme.borderNormal, width: 1),
+        borderRadius: BorderRadius.circular(16),
+      ),
       enabledBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: colorScheme.borderNormal),
+        borderSide: BorderSide(color: colorScheme.borderNormal, width: 1),
+        borderRadius: BorderRadius.circular(16),
       ),
       focusedBorder: OutlineInputBorder(
         borderSide: BorderSide(color: colorScheme.borderFocused, width: 1),
+        borderRadius: BorderRadius.circular(16),
       ),
       errorBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: colorScheme.borderError),
+        borderSide: BorderSide(color: colorScheme.borderError, width: 1),
+        borderRadius: BorderRadius.circular(16),
       ),
       focusedErrorBorder: OutlineInputBorder(
         borderSide: BorderSide(color: colorScheme.error, width: 1),
+        borderRadius: BorderRadius.circular(16),
       ),
       disabledBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: colorScheme.borderDisabled),
+        borderSide: BorderSide(color: colorScheme.borderDisabled, width: 1),
+        borderRadius: BorderRadius.circular(16),
       ),
     );
   }
