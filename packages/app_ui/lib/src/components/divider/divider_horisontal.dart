@@ -13,7 +13,12 @@ class DividerHorisontal extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: padding,
-      child: Divider(thickness: 1.5, color: color, indent: 0, endIndent: 0),
+      child: Divider(
+        thickness: 1.5,
+        color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.2),
+        indent: 0,
+        endIndent: 0,
+      ),
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:app_ui/src/colors/app_colors.dart';
+import 'package:app_ui/src/colors/app_shadows_extension.dart';
 import 'package:app_ui/src/theme/app_theme.dart';
 import 'package:app_ui/src/typography/app_text_styles.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,8 @@ class AppDarkTheme extends AppTheme {
     onSecondary: AppColors.neutral0,
     error: AppColors.error700,
     onError: AppColors.neutral0,
-    surface: AppColors.neutral900,
+    surface: Colors.black,
+    secondaryContainer: AppColors.neutral800,
     onSurface: AppColors.neutral0,
   );
 
@@ -34,7 +36,7 @@ class AppDarkTheme extends AppTheme {
     labelLarge: AppTextStyles.labelLarge,
     labelMedium: AppTextStyles.labelMedium,
     labelSmall: AppTextStyles.labelSmall,
-  ).apply(bodyColor: AppColors.neutral0, displayColor: AppColors.neutral300);
+  ).apply(bodyColor: AppColors.text0, displayColor: AppColors.text300);
 
   @override
   TextTheme get primaryTextTheme => const TextTheme(
@@ -53,7 +55,7 @@ class AppDarkTheme extends AppTheme {
     labelLarge: AppTextStyles.labelLarge,
     labelMedium: AppTextStyles.labelMedium,
     labelSmall: AppTextStyles.labelSmall,
-  ).apply(bodyColor: AppColors.neutral0, displayColor: AppColors.neutral300);
+  ).apply(bodyColor: AppColors.text0, displayColor: AppColors.neutral300);
 
   @override
   ThemeData get themeData => ThemeData(
@@ -66,5 +68,8 @@ class AppDarkTheme extends AppTheme {
     outlinedButtonTheme: outlinedButtonTheme,
     inputDecorationTheme: inputDecorationTheme,
     useMaterial3: true,
+    extensions: <ThemeExtension<AppShadowsExtension>>[
+      AppShadowsExtension(cardShadow: [], elevationShadow: []),
+    ],
   );
 }

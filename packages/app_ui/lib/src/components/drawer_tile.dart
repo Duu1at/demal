@@ -1,4 +1,5 @@
 import 'package:app_ui/app_ui.dart';
+import 'package:app_ui/src/colors/app_shadows_extension.dart';
 import 'package:flutter/material.dart';
 
 class DrawerTile extends StatelessWidget {
@@ -22,21 +23,26 @@ class DrawerTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final color = Theme.of(context).colorScheme;
-    return GestureDetector(
-      onTap: onTap,
-      child: Card(
-        shadowColor: color.primary.withValues(alpha: 0.1),
-        color: tileColor,
-        elevation: 13,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-          side: withBorder
-              ? BorderSide(
-                  color: color.onSurface.withValues(alpha: 0.1),
-                  width: 1,
-                )
-              : BorderSide.none,
-        ),
+    final customShadows = Theme.of(context).extension<AppShadowsExtension>()!;
+    return Material(
+      color: Theme.of(context).colorScheme.surfaceContainer,
+      elevation: 0,
+      clipBehavior: Clip.hardEdge,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+        side: withBorder
+            ? BorderSide(
+                color: color.onSurface.withValues(alpha: 0.2),
+                width: 1,
+              )
+            : BorderSide.none,
+      ),
+      shadowColor: customShadows.cardShadow.isEmpty 
+          ? Colors.transparent 
+          : customShadows.cardShadow.first.color, 
+      child: InkWell(
+        splashColor: color.onSurface.withValues(alpha: 0.2),
+        onTap: onTap,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           child: Row(
@@ -58,7 +64,7 @@ class DrawerTile extends StatelessWidget {
                   ),
                 ],
               ),
-      
+
               const Spacer(),
               Assets.icons.arrowRight.svg(
                 width: 24,
@@ -70,33 +76,4 @@ class DrawerTile extends StatelessWidget {
       ),
     );
   }
-
-  // @override
-  // Widget build(BuildContext context) {
-  //   final colorScheme = Theme.of(context).colorScheme;
-  //   return ListTile(
-  //     tileColor: tileColor,
-  //     onTap: onTap,
-  //     contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-  //     shape: RoundedRectangleBorder(
-  //       borderRadius: BorderRadius.circular(16),
-  //       side: withBorder
-  //           ? BorderSide(color: colorScheme.secondary, width: 0)
-  //           : BorderSide.none,
-  //     ),
-  //     leading: SizedBox(
-  //       width: 40,
-  //       height: 40,
-  //       child: DecoratedBox(
-  //         decoration: const BoxDecoration(
-  //           shape: BoxShape.circle,
-  //           color: Colors.amber,
-  //         ),
-  //         child: SizedBox(width: 24, height: 24, child: icon),
-  //       ),
-  //     ),
-  //     title: Text(title),
-  //     trailing: const Icon(Icons.arrow_forward_ios),
-  //   );
-  // }
 }

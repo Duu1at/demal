@@ -63,6 +63,7 @@ class _AppComponentsPageState extends State<AppComponentsPage> {
             title: 'test',
             icon: Assets.icons.tickCircle.svg(),
             subtitle: 'test',
+            onTap: () {},
           ),
           const DividerHorisontal(),
           ReusableTextButton(
@@ -71,7 +72,14 @@ class _AppComponentsPageState extends State<AppComponentsPage> {
             icon: const Icon(Icons.close),
           ),
           const DividerHorisontal(),
-          CustomTextField(controller: _phoneController),
+          CardWithLabel(
+            label: 'Номер телефона',
+            child: CustomTextField(controller: _phoneController),
+          ),
+          const DividerHorisontal(),
+          CardWithBorder(
+            child: Column(children: [Text('testetaf'), Text('testetaf')]),
+          ),
           const SizedBox(height: 300),
         ],
       ),
@@ -81,7 +89,7 @@ class _AppComponentsPageState extends State<AppComponentsPage> {
   void alirt() {
     AlertDialogs.alertDialog(
       context: context,
-      typeAlertDialog: AlertDialogType.error,
+      typeAlertDialog: AlertDialogType.info,
     );
   }
 

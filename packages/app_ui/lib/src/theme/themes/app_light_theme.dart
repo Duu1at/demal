@@ -1,4 +1,5 @@
 import 'package:app_ui/src/colors/app_colors.dart';
+import 'package:app_ui/src/colors/app_shadows_extension.dart';
 import 'package:app_ui/src/typography/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import '../app_theme.dart';
@@ -14,7 +15,8 @@ class AppLightTheme extends AppTheme {
     error: AppColors.error700,
     onError: Colors.white,
     surface: AppColors.neutral50,
-    onSurface: AppColors.neutral900,
+    surfaceContainer: AppColors.neutral100,
+    onSurface: Colors.black,
   );
 
   @override
@@ -65,6 +67,12 @@ class AppLightTheme extends AppTheme {
     elevatedButtonTheme: elevatedButtonTheme,
     outlinedButtonTheme: outlinedButtonTheme,
     inputDecorationTheme: inputDecorationTheme,
+    extensions: <ThemeExtension<AppShadowsExtension>>[
+      AppShadowsExtension(
+        cardShadow: [AppShadows.shadow300],
+        elevationShadow: [AppShadows.shadow400],
+      ),
+    ],
     useMaterial3: true,
   );
 }

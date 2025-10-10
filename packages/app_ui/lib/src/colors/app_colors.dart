@@ -77,3 +77,36 @@ extension AppStateColors on ColorScheme {
       ? AppColors.neutral200
       : AppColors.neutral800;
 }
+
+const Color _shadowColor12 = Color(0x1F838BB4);
+const Color _shadowColor16 = Color(0x28838BB4);
+
+abstract class AppShadows {
+  static const BoxShadow shadow100 = BoxShadow(
+    color: _shadowColor12,
+    offset: Offset(0, 2),
+    blurRadius: 8,
+    spreadRadius: 0,
+  );
+
+  static const BoxShadow shadow200 = BoxShadow(
+    color: _shadowColor16,
+    offset: Offset(0, 4),
+    blurRadius: 12,
+    spreadRadius: 0,
+  );
+
+  static const BoxShadow shadow300 = BoxShadow(
+    color: _shadowColor12,
+    offset: Offset(0, 8),
+    blurRadius: 16,
+    spreadRadius: 0,
+  );
+
+  static const BoxShadow shadow400 = BoxShadow(
+    color: _shadowColor16,
+    offset: Offset(0, 8),
+    blurRadius: 32,
+    spreadRadius: 0,
+  );
+}
