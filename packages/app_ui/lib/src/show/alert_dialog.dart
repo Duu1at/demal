@@ -57,6 +57,7 @@ abstract class AlertDialogs {
     String buttonText = 'Text Link',
     bool barrierDismissible = true,
     Widget? content,
+    List<Widget>? actions,
     void Function()? onPressed,
   }) {
     final textTheme = Theme.of(context).textTheme;
@@ -93,6 +94,8 @@ abstract class AlertDialogs {
                   children: [
                     Row(
                       mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         AlertDialogType._getIconPath(typeAlertDialog),
                         const SizedBox(width: 8),
@@ -104,7 +107,16 @@ abstract class AlertDialogs {
                             ),
                           ),
                         ),
-                        Assets.icons.arrowLeft.svg(),
+                        const Spacer(),
+                        GestureDetector(
+                          onTap: () => Navigator.pop(context),
+                          child: Assets.icons.close.svg(
+                            colorFilter: ColorFilter.mode(
+                              AlertDialogType._getTextColor(typeAlertDialog),
+                              BlendMode.srcIn,
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                     const SizedBox(height: 8),
@@ -121,6 +133,8 @@ abstract class AlertDialogs {
           ),
           titlePadding: const EdgeInsets.all(16),
           content: content,
+          actions: actions,
+          actionsPadding: const EdgeInsets.all(16),
         );
       },
     );

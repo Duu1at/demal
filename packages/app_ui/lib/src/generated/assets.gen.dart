@@ -29,14 +29,17 @@ class $AssetsIconsGen {
   /// File path: assets/icons/bell.svg
   SvgGenImage get bell => const SvgGenImage('assets/icons/bell.svg');
 
-  /// File path: assets/icons/burger.svg
-  SvgGenImage get burger => const SvgGenImage('assets/icons/burger.svg');
+  /// File path: assets/icons/bullet.svg
+  SvgGenImage get bullet => const SvgGenImage('assets/icons/bullet.svg');
 
-  /// File path: assets/icons/clock.png
-  AssetGenImage get clock => const AssetGenImage('assets/icons/clock.png');
+  /// File path: assets/icons/clock.svg
+  SvgGenImage get clock => const SvgGenImage('assets/icons/clock.svg');
 
   /// File path: assets/icons/close-circle.svg
   SvgGenImage get closeCircle => const SvgGenImage('assets/icons/close-circle.svg');
+
+  /// File path: assets/icons/close.svg
+  SvgGenImage get close => const SvgGenImage('assets/icons/close.svg');
 
   /// File path: assets/icons/danger.svg
   SvgGenImage get danger => const SvgGenImage('assets/icons/danger.svg');
@@ -75,14 +78,15 @@ class $AssetsIconsGen {
   SvgGenImage get user => const SvgGenImage('assets/icons/user.svg');
 
   /// List of all assets
-  List<dynamic> get values => [
+  List<SvgGenImage> get values => [
     arrowLeft,
     arrowRight,
     backArrow,
     bell,
-    burger,
+    bullet,
     clock,
     closeCircle,
+    close,
     danger,
     email,
     fileSearch,
