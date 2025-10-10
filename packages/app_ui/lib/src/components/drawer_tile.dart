@@ -22,43 +22,50 @@ class DrawerTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final color = Theme.of(context).colorScheme;
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        color: tileColor ?? color.onSurface,
-        borderRadius: BorderRadius.circular(16),
-        border: withBorder
-            ? Border.all(
-                color: Theme.of(context).colorScheme.secondary,
-                width: 0,
-              )
-            : null,
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        child: Row(
-          children: [
-            CircleAvatar(
-              backgroundColor: Theme.of(context).colorScheme.secondary,
-              child: icon,
-            ),
-            const SizedBox(width: 8),
-            Column(
-              children: [
-                Text(title, style: Theme.of(context).textTheme.bodyLarge),
-                const SizedBox(height: 4),
-                Text(
-                  subtitle ?? '',
-                  style: Theme.of(context).textTheme.bodySmall,
-                ),
-              ],
-            ),
-
-            const Spacer(),
-            CircleAvatar(
-              backgroundColor: color.onSecondary,
-              child: Assets.icons.arrowRight.svg(width: 24),
-            ),
-          ],
+    return GestureDetector(
+      onTap: onTap,
+      child: Card(
+        shadowColor: color.primary.withValues(alpha: 0.1),
+        color: tileColor,
+        elevation: 13,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+          side: withBorder
+              ? BorderSide(
+                  color: color.onSurface.withValues(alpha: 0.1),
+                  width: 1,
+                )
+              : BorderSide.none,
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          child: Row(
+            children: [
+              CircleAvatar(
+                backgroundColor: Theme.of(
+                  context,
+                ).colorScheme.secondary.withValues(alpha: 0.5),
+                child: icon,
+              ),
+              const SizedBox(width: 8),
+              Column(
+                children: [
+                  Text(title, style: Theme.of(context).textTheme.bodyLarge),
+                  const SizedBox(height: 4),
+                  Text(
+                    subtitle ?? '',
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                ],
+              ),
+      
+              const Spacer(),
+              Assets.icons.arrowRight.svg(
+                width: 24,
+                colorFilter: ColorFilter.mode(color.onSurface, BlendMode.srcIn),
+              ),
+            ],
+          ),
         ),
       ),
     );

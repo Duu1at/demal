@@ -67,8 +67,7 @@ extension AppStateColors on ColorScheme {
   Color get borderFocused =>
       brightness == Brightness.light ? const Color(0xff9C9FAF) : Colors.white;
 
-  Color get borderError =>
-      brightness == Brightness.light ? AppColors.error700 : AppColors.error700;
+  Color get borderError => AppColors.error700;
 
   Color get borderErrorFocused => AppColors.error900;
 

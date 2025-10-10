@@ -64,6 +64,7 @@ class AppDarkTheme extends AppTheme {
     scaffoldBackgroundColor: colorScheme.onSurface,
     elevatedButtonTheme: elevatedButtonTheme,
     outlinedButtonTheme: outlinedButtonTheme,
+    inputDecorationTheme: inputDecorationTheme,
     useMaterial3: true,
   );
 }

@@ -1,2 +1,2 @@
 export 'app_button.dart';
-export 'link_text_button.dart';
+export 'reusable_text_button.dart';

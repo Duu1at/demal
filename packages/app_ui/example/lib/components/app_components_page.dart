@@ -54,26 +54,24 @@ class _AppComponentsPageState extends State<AppComponentsPage> {
             isLoading: false,
             child: const Text('Dialog'),
           ),
-          LinkTextButton(text: 'Get started', onPressed: () {}),
           const SizedBox(height: 8),
-          const DrawerTile(title: 'test', icon: Icon(Icons.abc_outlined)),
+          DrawerTile(
+            title: 'test',
+            icon: Assets.icons.tickCircle.svg(),
+            subtitle: 'test',
+          ),
+          const SizedBox(height: 8),
+          DrawerTile(
+            title: 'test',
+            icon: Assets.icons.tickCircle.svg(),
+            subtitle: 'test',
+          ),
+          const SizedBox(height: 8),
           const DividerHorisontal(),
-          CustomTextField(
-            style: Theme.of(context).textTheme.bodyMedium,
-            hintText: '000 000 000',
-            hintStyle: Theme.of(context).textTheme.bodyMedium,
-            prefixIcon: SizedBox(
-              width: 110,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  const SizedBox(width: 8),
-                  Assets.images.flagKg.image(),
-                  Text('+996', style: Theme.of(context).textTheme.bodyMedium),
-                  const SizedBox(height: 24, child: DividerVertical()),
-                ],
-              ),
-            ),
+          ReusableTextButton(
+            label: 'Get duulat',
+            onPressed: () {},
+            icon: Icon(Icons.close),
           ),
           const SizedBox(height: 300),
         ],
@@ -82,7 +80,10 @@ class _AppComponentsPageState extends State<AppComponentsPage> {
   }
 
   void alirt() {
-    AlertDialogs.showAmen(context: context, content: 'test');
+    AlertDialogs.alertDialog(
+      context: context,
+      typeAlertDialog: AlertDialogType.error,
+    );
   }
 
   void dialot() {

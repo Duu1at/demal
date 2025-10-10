@@ -1,0 +1,128 @@
+import 'package:app_ui/app_ui.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+
+enum AlertDialogType {
+  success,
+  wrarning,
+  info,
+  error;
+
+  static Color _getBgColor(AlertDialogType typeAlertDialog) {
+    switch (typeAlertDialog) {
+      case AlertDialogType.success:
+        return const Color(0xffECFEF8);
+      case AlertDialogType.wrarning:
+        return const Color(0xffFFF4EB);
+      case AlertDialogType.info:
+        return const Color(0xffEFF3FF);
+      case AlertDialogType.error:
+        return const Color(0xffFEF2F2);
+    }
+  }
+
+  static Color _getTextColor(AlertDialogType typeAlertDialog) {
+    switch (typeAlertDialog) {
+      case AlertDialogType.success:
+        return const Color(0xff047857);
+      case AlertDialogType.wrarning:
+        return const Color(0xffB45309);
+      case AlertDialogType.info:
+        return const Color(0xff1D4ED8);
+      case AlertDialogType.error:
+        return const Color(0xffB91C21);
+    }
+  }
+
+  static SvgPicture _getIconPath(AlertDialogType typeAlertDialog) {
+    switch (typeAlertDialog) {
+      case AlertDialogType.success:
+        return Assets.icons.tickCircle.svg();
+      case AlertDialogType.wrarning:
+        return Assets.icons.danger.svg();
+      case AlertDialogType.info:
+        return Assets.icons.infoCircle.svg();
+      case AlertDialogType.error:
+        return Assets.icons.closeCircle.svg();
+    }
+  }
+}
+
+abstract class AlertDialogs {
+  static Future<T?> alertDialog<T>({
+    required BuildContext context,
+    AlertDialogType typeAlertDialog = AlertDialogType.info,
+    String title = 'Alert Title',
+    String subTitle = 'Lorem ipsum dolor sit amet consectetur.',
+    String buttonText = 'Text Link',
+    bool barrierDismissible = true,
+    Widget? content,
+    void Function()? onPressed,
+  }) {
+    final textTheme = Theme.of(context).textTheme;
+    return showDialog<T>(
+      context: context,
+      barrierDismissible: barrierDismissible,
+      builder: (context) {
+        return AlertDialog(
+          insetPadding: const EdgeInsets.symmetric(horizontal: 16),
+          contentPadding: const EdgeInsets.all(16),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16.0),
+            side: BorderSide(
+              color: AlertDialogType._getTextColor(typeAlertDialog),
+              width: 1,
+            ),
+          ),
+          backgroundColor: AlertDialogType._getBgColor(typeAlertDialog),
+          contentTextStyle: textTheme.titleMedium?.copyWith(
+            color: AlertDialogType._getTextColor(typeAlertDialog),
+          ),
+          titleTextStyle: textTheme.titleLarge?.copyWith(
+            color: AlertDialogType._getTextColor(typeAlertDialog),
+          ),
+          actionsAlignment: MainAxisAlignment.center,
+          title: Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        AlertDialogType._getIconPath(typeAlertDialog),
+                        const SizedBox(width: 8),
+                        Text(
+                          title,
+                          style: textTheme.titleMedium?.copyWith(
+                            color: AlertDialogType._getTextColor(
+                              typeAlertDialog,
+                            ),
+                          ),
+                        ),
+                        Assets.icons.arrowLeft.svg(),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      subTitle,
+                      style: textTheme.bodyMedium?.copyWith(
+                        color: AlertDialogType._getTextColor(typeAlertDialog),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          titlePadding: const EdgeInsets.all(16),
+          content: content,
+        );
+      },
+    );
+  }
+}

@@ -13,7 +13,7 @@ class AppLightTheme extends AppTheme {
     onSecondary: Colors.black,
     error: AppColors.error700,
     onError: Colors.white,
-    surface: AppColors.neutral0,
+    surface: AppColors.neutral50,
     onSurface: AppColors.neutral900,
   );
 

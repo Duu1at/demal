@@ -23,8 +23,20 @@ class $AssetsIconsGen {
   /// File path: assets/icons/arrow-right.svg
   SvgGenImage get arrowRight => const SvgGenImage('assets/icons/arrow-right.svg');
 
+  /// File path: assets/icons/close-circle.svg
+  SvgGenImage get closeCircle => const SvgGenImage('assets/icons/close-circle.svg');
+
+  /// File path: assets/icons/danger.svg
+  SvgGenImage get danger => const SvgGenImage('assets/icons/danger.svg');
+
+  /// File path: assets/icons/info-circle.svg
+  SvgGenImage get infoCircle => const SvgGenImage('assets/icons/info-circle.svg');
+
+  /// File path: assets/icons/tick-circle.svg
+  SvgGenImage get tickCircle => const SvgGenImage('assets/icons/tick-circle.svg');
+
   /// List of all assets
-  List<SvgGenImage> get values => [arrowLeft, arrowRight];
+  List<SvgGenImage> get values => [arrowLeft, arrowRight, closeCircle, danger, infoCircle, tickCircle];
 }
 
 class $AssetsImagesGen {
