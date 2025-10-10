@@ -19,9 +19,7 @@ class _AppComponentsPageState extends State<AppComponentsPage> {
   bool isDark = false;
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-    return Scaffold(
-      backgroundColor: colorScheme.surface,
+    return ScaffoldWithBgImage(
       appBar: AppBar(
         title: const Text('App Components'),
         leading: Switch(

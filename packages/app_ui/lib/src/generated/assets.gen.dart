@@ -23,20 +23,79 @@ class $AssetsIconsGen {
   /// File path: assets/icons/arrow-right.svg
   SvgGenImage get arrowRight => const SvgGenImage('assets/icons/arrow-right.svg');
 
+  /// File path: assets/icons/back_arrow.svg
+  SvgGenImage get backArrow => const SvgGenImage('assets/icons/back_arrow.svg');
+
+  /// File path: assets/icons/bell.svg
+  SvgGenImage get bell => const SvgGenImage('assets/icons/bell.svg');
+
+  /// File path: assets/icons/burger.svg
+  SvgGenImage get burger => const SvgGenImage('assets/icons/burger.svg');
+
+  /// File path: assets/icons/clock.png
+  AssetGenImage get clock => const AssetGenImage('assets/icons/clock.png');
+
   /// File path: assets/icons/close-circle.svg
   SvgGenImage get closeCircle => const SvgGenImage('assets/icons/close-circle.svg');
 
   /// File path: assets/icons/danger.svg
   SvgGenImage get danger => const SvgGenImage('assets/icons/danger.svg');
 
+  /// File path: assets/icons/email.svg
+  SvgGenImage get email => const SvgGenImage('assets/icons/email.svg');
+
+  /// File path: assets/icons/file_search.svg
+  SvgGenImage get fileSearch => const SvgGenImage('assets/icons/file_search.svg');
+
+  /// File path: assets/icons/history.svg
+  SvgGenImage get history => const SvgGenImage('assets/icons/history.svg');
+
   /// File path: assets/icons/info-circle.svg
   SvgGenImage get infoCircle => const SvgGenImage('assets/icons/info-circle.svg');
+
+  /// File path: assets/icons/phone.svg
+  SvgGenImage get phone => const SvgGenImage('assets/icons/phone.svg');
+
+  /// File path: assets/icons/plus.svg
+  SvgGenImage get plus => const SvgGenImage('assets/icons/plus.svg');
+
+  /// File path: assets/icons/search.svg
+  SvgGenImage get search => const SvgGenImage('assets/icons/search.svg');
+
+  /// File path: assets/icons/settings_fillter.svg
+  SvgGenImage get settingsFillter => const SvgGenImage('assets/icons/settings_fillter.svg');
+
+  /// File path: assets/icons/star.svg
+  SvgGenImage get star => const SvgGenImage('assets/icons/star.svg');
 
   /// File path: assets/icons/tick-circle.svg
   SvgGenImage get tickCircle => const SvgGenImage('assets/icons/tick-circle.svg');
 
+  /// File path: assets/icons/user.svg
+  SvgGenImage get user => const SvgGenImage('assets/icons/user.svg');
+
   /// List of all assets
-  List<SvgGenImage> get values => [arrowLeft, arrowRight, closeCircle, danger, infoCircle, tickCircle];
+  List<dynamic> get values => [
+    arrowLeft,
+    arrowRight,
+    backArrow,
+    bell,
+    burger,
+    clock,
+    closeCircle,
+    danger,
+    email,
+    fileSearch,
+    history,
+    infoCircle,
+    phone,
+    plus,
+    search,
+    settingsFillter,
+    star,
+    tickCircle,
+    user,
+  ];
 }
 
 class $AssetsImagesGen {
@@ -54,8 +113,11 @@ class $AssetsImagesGen {
   /// File path: assets/images/background_top.png
   AssetGenImage get backgroundTop => const AssetGenImage('assets/images/background_top.png');
 
-  /// File path: assets/images/flagKg.png
-  AssetGenImage get flagKg => const AssetGenImage('assets/images/flagKg.png');
+  /// File path: assets/images/flag_kg.png
+  AssetGenImage get flagKg => const AssetGenImage('assets/images/flag_kg.png');
+
+  /// File path: assets/images/flag_ru.png
+  AssetGenImage get flagRu => const AssetGenImage('assets/images/flag_ru.png');
 
   /// File path: assets/images/illustration_3.png
   AssetGenImage get illustration3 => const AssetGenImage('assets/images/illustration_3.png');
@@ -76,6 +138,7 @@ class $AssetsImagesGen {
     backgroundBottom,
     backgroundTop,
     flagKg,
+    flagRu,
     illustration3,
     onboarding1,
     onboarding2,
