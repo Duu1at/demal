@@ -16,7 +16,6 @@ class AppComponentsPage extends StatefulWidget {
 
 class _AppComponentsPageState extends State<AppComponentsPage> {
   final TextEditingController _phoneController = TextEditingController();
-  PhoneFieldState state = PhoneFieldState.normal;
   bool isDark = false;
   @override
   Widget build(BuildContext context) {
@@ -39,17 +38,7 @@ class _AppComponentsPageState extends State<AppComponentsPage> {
       body: ListView(
         padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
         children: [
-          PhoneNumberField(
-            controller: _phoneController,
-            state: state,
-            onChanged: (value) {
-              _phoneController.text = value;
-              _phoneController.text.isEmpty
-                  ? state = PhoneFieldState.normal
-                  : state = PhoneFieldState.focused;
-              setState(() {});
-            },
-          ),
+          PhoneField(controller: _phoneController),
           const SizedBox(height: 8),
           AppButton(
             variant: AppButtonVariant.primary,
@@ -68,10 +57,24 @@ class _AppComponentsPageState extends State<AppComponentsPage> {
           LinkTextButton(text: 'Get started', onPressed: () {}),
           const SizedBox(height: 8),
           const DrawerTile(title: 'test', icon: Icon(Icons.abc_outlined)),
-
-          const CustomDivider(),
-
-          const CustomTextField(hintText: 'test '),
+          const DividerHorisontal(),
+          CustomTextField(
+            style: Theme.of(context).textTheme.bodyMedium,
+            hintText: '000 000 000',
+            hintStyle: Theme.of(context).textTheme.bodyMedium,
+            prefixIcon: SizedBox(
+              width: 110,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  const SizedBox(width: 8),
+                  Assets.images.flagKg.image(),
+                  Text('+996', style: Theme.of(context).textTheme.bodyMedium),
+                  const SizedBox(height: 24, child: DividerVertical()),
+                ],
+              ),
+            ),
+          ),
           const SizedBox(height: 300),
         ],
       ),

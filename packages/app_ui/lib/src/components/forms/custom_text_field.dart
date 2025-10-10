@@ -15,6 +15,7 @@ class CustomTextField extends StatelessWidget {
     this.suffixIcon,
     this.validator,
     this.onChanged,
+    this.style,
   });
 
   final String? hintText;
@@ -23,6 +24,7 @@ class CustomTextField extends StatelessWidget {
   final FocusNode? focusNode;
   final Widget? label;
   final TextStyle? labelStyle;
+  final TextStyle? style;
   final Widget? prefix;
   final Widget? suffix;
   final Widget? prefixIcon;
@@ -36,6 +38,7 @@ class CustomTextField extends StatelessWidget {
       color: Colors.transparent,
       elevation: 0,
       child: TextFormField(
+        style: style,
         focusNode: focusNode,
         controller: controller,
         validator: validator,

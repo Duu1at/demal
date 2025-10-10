@@ -99,7 +99,6 @@ class RootPage extends StatelessWidget {
       //     BgImageBodyPage.route(),
       //   ),
       // ),
-
       // ListItem(
       //   icon: const Icon(Icons.add_reaction_outlined),
       //   title: const Text('Show Contents'),
@@ -152,7 +151,6 @@ class RootPage extends StatelessWidget {
       //     ),
       //   ],
       // ),
-      const Divider(),
       const SizedBox(height: 100),
     ];
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class CustomDivider extends StatelessWidget {
-  const CustomDivider({super.key, this.color = const Color(0xffD1D3DB)});
+class DividerHorisontal extends StatelessWidget {
+  const DividerHorisontal({super.key, this.color = const Color(0xffD1D3DB)});
   final Color color;
 
   @override
