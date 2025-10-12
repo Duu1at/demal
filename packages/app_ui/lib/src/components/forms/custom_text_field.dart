@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class CustomTextField extends StatelessWidget {
   const CustomTextField({
@@ -15,7 +16,9 @@ class CustomTextField extends StatelessWidget {
     this.suffixIcon,
     this.validator,
     this.onChanged,
+    this.inputFormatters,
     this.style,
+    this.readOnly = false,
   });
 
   final String? hintText;
@@ -31,18 +34,23 @@ class CustomTextField extends StatelessWidget {
   final Widget? suffixIcon;
   final String? Function(String?)? validator;
   final void Function(String)? onChanged;
+  final List<TextInputFormatter>? inputFormatters;
+  final bool readOnly;
 
   @override
   Widget build(BuildContext context) {
     return Material(
       color: Colors.transparent,
       elevation: 0,
+      clipBehavior: Clip.none,
       child: TextFormField(
         style: style,
         focusNode: focusNode,
         controller: controller,
         validator: validator,
         onChanged: onChanged,
+        inputFormatters: inputFormatters,
+        readOnly: readOnly,
         decoration: InputDecoration(
           hintText: hintText,
           hintStyle: hintStyle,

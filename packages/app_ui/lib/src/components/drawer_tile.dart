@@ -37,9 +37,9 @@ class DrawerTile extends StatelessWidget {
               )
             : BorderSide.none,
       ),
-      shadowColor: customShadows.cardShadow.isEmpty 
-          ? Colors.transparent 
-          : customShadows.cardShadow.first.color, 
+      shadowColor: customShadows.cardShadow.isEmpty
+          ? Colors.transparent
+          : customShadows.cardShadow.first.color,
       child: InkWell(
         splashColor: color.onSurface.withValues(alpha: 0.2),
         onTap: onTap,
@@ -47,11 +47,19 @@ class DrawerTile extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           child: Row(
             children: [
-              CircleAvatar(
-                backgroundColor: Theme.of(
-                  context,
-                ).colorScheme.secondary.withValues(alpha: 0.5),
-                child: icon,
+              SizedBox(
+                width: 40,
+                height: 40,
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.rectangle,
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.secondary.withValues(alpha: 0.3),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Center(child: icon),
+                ),
               ),
               const SizedBox(width: 8),
               Column(

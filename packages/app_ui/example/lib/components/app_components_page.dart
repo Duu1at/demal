@@ -2,6 +2,7 @@ import 'package:app_ui/app_ui.dart';
 import 'package:example/main.dart';
 import 'package:example/notifier/natifier.dart';
 import 'package:flutter/material.dart' hide Divider;
+import 'package:flutter/services.dart';
 
 class AppComponentsPage extends StatefulWidget {
   const AppComponentsPage({super.key});
@@ -37,6 +38,21 @@ class _AppComponentsPageState extends State<AppComponentsPage> {
         padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
         children: [
           PhoneField(controller: _phoneController),
+          const DividerHorisontal(),
+          CardWithLabel(
+            label: 'Номер телефона',
+            child: CustomTextField(
+              controller: _phoneController,
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter some text';
+                }
+                return null;
+              },
+            ),
+          ),
           const DividerHorisontal(),
           AppButton(
             variant: AppButtonVariant.primary,
@@ -74,7 +90,17 @@ class _AppComponentsPageState extends State<AppComponentsPage> {
           const DividerHorisontal(),
           CardWithLabel(
             label: 'Номер телефона',
-            child: CustomTextField(controller: _phoneController),
+            child: CustomTextField(
+              controller: _phoneController,
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter some text';
+                }
+                return null;
+              },
+            ),
           ),
           const DividerHorisontal(),
           CardWithBorder(
