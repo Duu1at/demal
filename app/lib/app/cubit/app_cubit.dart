@@ -25,4 +25,8 @@ class AppCubit extends Cubit<AppState> {
     await appThemeRepository.saveLocale(locale);
     emit(state.copyWith(locale: locale));
   }
+
+  Future<void> changeRole({required Role role}) async {
+    emit(state.copyWith(role: role));
+  }
 }

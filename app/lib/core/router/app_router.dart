@@ -1,3 +1,4 @@
+import 'package:app/welcome/welcome.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -16,11 +17,15 @@ final class AppRouter {
 
   GoRouter router() {
     return GoRouter(
-      initialLocation: isNewUser ? '/' : '/home',
+      initialLocation: '/',
       navigatorKey: navigatorKey,
       debugLogDiagnostics: kDebugMode,
       routes: [
-      ]
+        GoRoute(
+          path: '/',
+          builder: (context, state) => const InitialSettingsView(),
+        ),
+      ],
     );
   }
 

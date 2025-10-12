@@ -6,31 +6,31 @@ class AppBlocObserver extends BlocObserver {
 
   @override
   void onEvent(Bloc<dynamic, dynamic> bloc, Object? event) {
-    logger.info('onEvent bloc: $bloc - event: $event');
+    logger.log('onEvent bloc: $bloc - event: $event');
     super.onEvent(bloc, event);
   }
 
   @override
   void onCreate(BlocBase<dynamic> bloc) {
     super.onCreate(bloc);
-   logger.info('onCreate(${bloc.runtimeType})');
+    logger.log('onCreate(${bloc.runtimeType})');
   }
 
   @override
   void onChange(BlocBase<dynamic> bloc, Change<dynamic> change) {
     super.onChange(bloc, change);
-    logger.info('onChange(${bloc.runtimeType}, $change)');
+    logger.log('onChange(${bloc.runtimeType}, $change)');
   }
 
   @override
   void onError(BlocBase<dynamic> bloc, Object error, StackTrace stackTrace) {
-    logger.info('onError(${bloc.runtimeType}, $error, $stackTrace)');
+    logger.log('onError(${bloc.runtimeType}, $error, $stackTrace)');
     super.onError(bloc, error, stackTrace);
   }
 
   @override
   void onClose(BlocBase<dynamic> bloc) {
     super.onClose(bloc);
-    logger.info('onClose(${bloc.runtimeType})');
+    logger.log('onClose(${bloc.runtimeType})');
   }
 }

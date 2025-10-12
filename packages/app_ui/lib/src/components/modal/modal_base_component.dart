@@ -35,7 +35,7 @@ class ModalBaseComponent extends StatelessWidget {
             children: [
               Text(
                 title ?? '',
-                style: Theme.of(context).textTheme.headlineMedium,
+                style: Theme.of(context).textTheme.bodyLarge,
                 textAlign: TextAlign.center,
               ),
               const DividerHorisontal(

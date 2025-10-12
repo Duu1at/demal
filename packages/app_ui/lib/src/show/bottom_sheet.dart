@@ -7,7 +7,9 @@ abstract class BottomSheets {
     required Widget child,
     bool isDismissible = true,
     Color? backgroundColor,
-    EdgeInsetsGeometry padding = const EdgeInsets.symmetric(horizontal: AppSpacing.sm),
+    EdgeInsetsGeometry padding = const EdgeInsets.symmetric(
+      horizontal: AppSpacing.sm,
+    ),
     bool enableDrag = false,
     bool showDragHandle = false,
   }) {
@@ -15,8 +17,13 @@ abstract class BottomSheets {
       showDragHandle: showDragHandle,
       context: context,
       isDismissible: isDismissible,
-      backgroundColor: backgroundColor ?? Theme.of(context).colorScheme.surfaceContainer,
-      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(AppSpacing.md))),
+      backgroundColor:
+          backgroundColor ?? Theme.of(context).colorScheme.surfaceContainer,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(AppSpacing.md),
+        ),
+      ),
       enableDrag: enableDrag,
       isScrollControlled: true,
       useRootNavigator: true,
@@ -29,5 +36,3 @@ abstract class BottomSheets {
     );
   }
 }
-
-
