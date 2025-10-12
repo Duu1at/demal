@@ -28,11 +28,15 @@ void main() async {
       providers: [
         RepositoryProvider<PreferencesStorage>(create: (context) => storage),
         RepositoryProvider<AppRepository>(
-          create: (context) => AppRepositoryImpl(AppLocalDataSourceImpl(storage: context.read<PreferencesStorage>())),
+          create: (context) => AppRepositoryImpl(
+            AppLocalDataSourceImpl(storage: context.read<PreferencesStorage>()),
+          ),
         ),
-        BlocProvider(create: (context) => AppCubit(context.read<AppRepository>())),
+        BlocProvider(
+          create: (context) => AppCubit(context.read<AppRepository>()),
+        ),
       ],
-      child: const MyApp(),
+      child: const DemalApp(),
     ),
   );
 }

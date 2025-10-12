@@ -1,4 +1,4 @@
-import 'package:app/start/widgets/three_points.dart';
+import 'package:app/welcome/widgets/three_points.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 
