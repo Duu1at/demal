@@ -1,7 +1,9 @@
+import 'package:app/core/core.dart';
 import 'package:app/l10n/l10n_extension.dart';
 import 'package:app/welcome/welcome.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class OnboardingOneView extends StatelessWidget {
   const OnboardingOneView({super.key});
@@ -9,7 +11,7 @@ class OnboardingOneView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScaffoldOnboarding(
       image: Assets.images.onboarding1.provider(),
-      appBar: AppBar(elevation: 0),
+      appBar: AppBar(elevation: 0, automaticallyImplyLeading: false),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -19,12 +21,12 @@ class OnboardingOneView extends StatelessWidget {
           ),
         ],
       ),
-     floatingActionButton: FloatActionBtn(
+      floatingActionButton: FloatActionBtn(
         title: context.l10n.onboardingTitle1,
         subtitle: context.l10n.onboardingSubTitle1,
         fillPointIndex: 0,
         textBtn: context.l10n.next,
-        onPressed: () {},
+        onPressed: () => context.goNamed(AppRouter.onboardingTwo),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );

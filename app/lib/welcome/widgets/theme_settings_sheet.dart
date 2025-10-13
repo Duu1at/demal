@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:app/app/cubit/app_cubit.dart';
-import 'package:app_ui/app_ui.dart'; 
+import 'package:app_ui/app_ui.dart';
 
 class ThemeSelectorSheet extends StatelessWidget {
   const ThemeSelectorSheet({super.key});
@@ -30,7 +30,7 @@ class ThemeSelectorSheet extends StatelessWidget {
               groupValue: isDark,
               onChanged: (newValue) async {
                 await appCubit.changeMode(isDark: newValue ?? false);
-                if (context.mounted) Navigator.pop(context);
+                if (context.mounted) Navigator.pop(context, newValue);
               },
               child: Container(
                 decoration: BoxDecoration(

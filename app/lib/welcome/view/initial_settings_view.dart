@@ -1,9 +1,11 @@
 import 'package:app/app/cubit/app_cubit.dart';
+import 'package:app/core/core.dart';
 import 'package:app/l10n/app_localizations.dart';
 import 'package:app/welcome/welcome.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class InitialSettingsView extends StatefulWidget {
   const InitialSettingsView({super.key});
@@ -14,6 +16,15 @@ class InitialSettingsView extends StatefulWidget {
 
 class _InitialSettingsViewState extends State<InitialSettingsView> {
   String get _locale => AppLocalizations.of(context).localeName;
+  String _themeName = '';
+
+  @override
+  void initState() {
+    _themeName = context.read<AppCubit>().state.theme.isDark
+        ? 'Темная'
+        : 'Светлая';
+    super.initState();
+  }
 
   void _changeLocale(BuildContext context) {
     BottomSheets.showModalSettingsSheet(
@@ -23,12 +34,16 @@ class _InitialSettingsViewState extends State<InitialSettingsView> {
     );
   }
 
-  void _changeTheme(BuildContext context) {
-    BottomSheets.showModalSettingsSheet(
-      backgroundColor: Theme.of(context).colorScheme.surfaceContainer,
-      context: context,
-      child: const ThemeSelectorSheet(),
-    );
+  void _changeTheme(BuildContext context) async {
+    final result =
+        await BottomSheets.showModalSettingsSheet(
+              backgroundColor: Theme.of(context).colorScheme.surfaceContainer,
+              context: context,
+              child: const ThemeSelectorSheet(),
+            )
+            as bool;
+    _themeName = result ? 'Темная' : 'Светлая';
+    setState(() {});
   }
 
   @override
@@ -76,7 +91,7 @@ class _InitialSettingsViewState extends State<InitialSettingsView> {
             DrawerTile(
               icon: const Icon(Icons.sunny),
               title: 'Выберите тему',
-              subtitle: 'Светлая',
+              subtitle: _themeName,
               onTap: () => _changeTheme(context),
             ),
           ],
@@ -86,7 +101,7 @@ class _InitialSettingsViewState extends State<InitialSettingsView> {
       floatingActionButton: AppButton(
         margin: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
         child: const Text('Начать'),
-        onPressed: () {},
+        onPressed: () => context.goNamed(AppRouter.onboardingOne),
       ),
     );
   }
