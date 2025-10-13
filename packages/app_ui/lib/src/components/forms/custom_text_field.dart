@@ -19,6 +19,7 @@ class CustomTextField extends StatelessWidget {
     this.inputFormatters,
     this.style,
     this.readOnly = false,
+    this.keyboardType,
   });
 
   final String? hintText;
@@ -36,6 +37,7 @@ class CustomTextField extends StatelessWidget {
   final void Function(String)? onChanged;
   final List<TextInputFormatter>? inputFormatters;
   final bool readOnly;
+  final TextInputType? keyboardType;
 
   @override
   Widget build(BuildContext context) {
@@ -51,6 +53,7 @@ class CustomTextField extends StatelessWidget {
         onChanged: onChanged,
         inputFormatters: inputFormatters,
         readOnly: readOnly,
+        keyboardType: keyboardType,
         decoration: InputDecoration(
           hintText: hintText,
           hintStyle: hintStyle,
