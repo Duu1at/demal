@@ -56,6 +56,7 @@ abstract class AlertDialogs {
     String subTitle = 'Lorem ipsum dolor sit amet consectetur.',
     String buttonText = 'Text Link',
     bool barrierDismissible = true,
+    bool showCloseButton = true,
     Widget? content,
     List<Widget>? actions,
     void Function()? onPressed,
@@ -106,15 +107,19 @@ abstract class AlertDialogs {
                           ),
                         ),
                         const Spacer(),
-                        GestureDetector(
-                          onTap: () => Navigator.pop(context),
-                          child: Assets.icons.close.svg(
-                            colorFilter: ColorFilter.mode(
-                              AlertDialogType._getTextColor(typeAlertDialog),
-                              BlendMode.srcIn,
-                            ),
-                          ),
-                        ),
+                        showCloseButton
+                            ? GestureDetector(
+                                onTap: () => Navigator.pop(context),
+                                child: Assets.icons.close.svg(
+                                  colorFilter: ColorFilter.mode(
+                                    AlertDialogType._getTextColor(
+                                      typeAlertDialog,
+                                    ),
+                                    BlendMode.srcIn,
+                                  ),
+                                ),
+                              )
+                            : const SizedBox.shrink(),
                       ],
                     ),
                     const SizedBox(height: 8),

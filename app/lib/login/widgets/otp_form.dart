@@ -134,7 +134,10 @@ class _OtpFormState extends State<OtpForm> {
               ),
             ),
             const SizedBox(height: AppSpacing.lg + 4),
-            AppButton(child: const Text('Проверить'), onPressed: () {}),
+            AppButton(
+              child: const Text('Проверить'),
+              onPressed: () => _success(context),
+            ),
             const SizedBox(height: AppSpacing.lg),
             TextButton(
               onPressed: _isTimerFinished
@@ -154,6 +157,24 @@ class _OtpFormState extends State<OtpForm> {
           ],
         ),
       ),
+    );
+  }
+
+  void _success(BuildContext context) {
+    AlertDialogs.alertDialog(
+      barrierDismissible: false,
+      title: 'Успешно',
+      subTitle: 'Вы успешно авторизовались',
+      context: context,
+      showCloseButton: false,
+      typeAlertDialog: AlertDialogType.success,
+      actions: [
+        AppButton(
+          size: AppButtonSize.sm,
+          onPressed: () => Navigator.pop(context),
+          child: const Text('Продолжить'),
+        ),
+      ],
     );
   }
 

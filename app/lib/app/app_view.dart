@@ -18,7 +18,7 @@ class _DemalAppState extends State<DemalApp> {
 
   @override
   void initState() {
-    _router = AppRouter.instance(isNewUser: true, role: Role.partner).router();
+    _router = AppRouter.instance(isNewUser: false, role: Role.partner).router();
     super.initState();
   }
 
