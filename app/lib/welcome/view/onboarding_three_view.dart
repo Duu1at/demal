@@ -17,7 +17,7 @@ class OnboardingThreeView extends StatelessWidget {
         subtitle: context.l10n.onboardingSubTitle3,
         fillPointIndex: 2,
         textBtn: context.l10n.next,
-        onPressed: () => context.goNamed(AppRouter.onboardingThree),
+        onPressed: () => context.goNamed(AppRouter.login),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );

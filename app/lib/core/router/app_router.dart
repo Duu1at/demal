@@ -1,6 +1,8 @@
 import 'package:app/app/cubit/app_cubit.dart' show Role;
 import 'package:app/client/home/view/client_home.dart';
 import 'package:app/client/settings/view/test.dart';
+import 'package:app/login/view/login_view.dart';
+import 'package:app/login/view/otp_view.dart';
 import 'package:app/partner/partner.dart';
 import 'package:app/welcome/welcome.dart';
 import 'package:flutter/foundation.dart';
@@ -26,6 +28,8 @@ final class AppRouter {
   static const onboardingOne = 'onboarding-one';
   static const onboardingTwo = 'onboarding-two';
   static const onboardingThree = 'onboarding-three';
+  static const login = 'login';
+  static const otp = 'otp';
 
   bool get isClient => role == Role.client;
 
@@ -58,6 +62,18 @@ final class AppRouter {
               path: onboardingThree,
               name: onboardingThree,
               builder: (context, state) => const OnboardingThreeView(),
+            ),
+          ],
+        ),
+        GoRoute(
+          path: '/$login',
+          name: login,
+          builder: (context, state) => const LoginView(),
+          routes: [
+            GoRoute(
+              path: otp,
+              name: otp,
+              builder: (context, state) => const OtpView(),
             ),
           ],
         ),
