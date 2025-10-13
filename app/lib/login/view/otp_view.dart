@@ -3,7 +3,8 @@ import 'package:app/login/login.dart';
 import 'package:app_ui/app_ui.dart';
 
 class OtpView extends StatelessWidget {
-  const OtpView({super.key});
+  const OtpView(this.phoneNumer, {super.key});
+  final String phoneNumer;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +20,7 @@ class OtpView extends StatelessWidget {
               children: [Assets.images.otpImage.image()],
             ),
             const SizedBox(height: AppSpacing.spaceUnit * 3.5),
-            const OtpForm(),
+            OtpForm(phoneNumer),
           ],
         ),
       ),

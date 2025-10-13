@@ -73,7 +73,10 @@ final class AppRouter {
             GoRoute(
               path: otp,
               name: otp,
-              builder: (context, state) => const OtpView(),
+              builder: (context, state) {
+               final phone = state.extra as String;
+                return OtpView(phone);
+              },
             ),
           ],
         ),

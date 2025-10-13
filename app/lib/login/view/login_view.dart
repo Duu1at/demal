@@ -62,7 +62,10 @@ class _LoginViewState extends State<LoginView> {
                 child: const Text('Подтверждать'),
                 onPressed: () {
                   if (_formKey.currentState?.validate() ?? false) {
-                    context.goNamed(AppRouter.otp);
+                    context.goNamed(
+                      AppRouter.otp,
+                      extra: _phoneController.text.trim(),
+                    );
                   }
                 },
               ),

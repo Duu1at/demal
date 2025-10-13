@@ -1,10 +1,12 @@
+import 'dart:async';
+
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
 
 class OtpForm extends StatefulWidget {
-  const OtpForm({super.key});
-
+  const OtpForm(this.phoneNumer, {super.key});
+  final String phoneNumer;
   @override
   State<OtpForm> createState() => _OtpFormState();
 }
@@ -13,7 +15,12 @@ class _OtpFormState extends State<OtpForm> {
   late final TextEditingController pinController;
   late final FocusNode focusNode;
   late final GlobalKey<FormState> formKey;
-  late final String phoneNumber;
+
+  static const int _initialSeconds = 120;
+  late int _remainingSeconds;
+  Timer? _timer;
+
+  bool get _isTimerFinished => _remainingSeconds == 0;
 
   @override
   void initState() {
@@ -21,12 +28,32 @@ class _OtpFormState extends State<OtpForm> {
     formKey = GlobalKey<FormState>();
     pinController = TextEditingController();
     focusNode = FocusNode();
-    phoneNumber = '';
+    _remainingSeconds = _initialSeconds;
+    _startTimer();
+  }
+
+  void _startTimer() {
+    _timer?.cancel();
+    _remainingSeconds = _initialSeconds;
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (_remainingSeconds == 0) {
+        timer.cancel();
+      } else {
+        setState(() => _remainingSeconds--);
+      }
+    });
+  }
+
+  String _formatTime(int seconds) {
+    final minutes = (seconds ~/ 60).toString().padLeft(2, '0');
+    final secs = (seconds % 60).toString().padLeft(2, '0');
+    return '$minutes:$secs';
   }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final phone = '+996 ${widget.phoneNumer}';
     final defaultPinTheme = PinTheme(
       width: 56,
       height: 56,
@@ -59,7 +86,7 @@ class _OtpFormState extends State<OtpForm> {
             Text('Введите код', style: theme.textTheme.headlineSmall),
             const SizedBox(height: AppSpacing.sm),
             Text(
-              'На номер $phoneNumber было\n отправлено 4-значное сообщение OTP',
+              'На номер $phone было\n отправлено 4-значное сообщение OTP',
               style: theme.primaryTextTheme.bodyMedium,
               textAlign: TextAlign.center,
             ),
@@ -90,10 +117,18 @@ class _OtpFormState extends State<OtpForm> {
             AppButton(child: const Text('Проверить'), onPressed: () {}),
             const SizedBox(height: AppSpacing.lg),
             TextButton(
-              onPressed: () {},
+              onPressed: _isTimerFinished
+                  ? () {
+                      _startTimer();
+                    }
+                  : null,
               child: Text(
-                'Отправить повторно (00:12)',
-                style: theme.primaryTextTheme.titleSmall,
+                'Отправить повторно ${_isTimerFinished ? '' : '(${_formatTime(_remainingSeconds)})'}',
+                style: theme.primaryTextTheme.titleSmall!.copyWith(
+                  color: _isTimerFinished
+                      ? theme.colorScheme.primary
+                      : theme.disabledColor,
+                ),
               ),
             ),
           ],
@@ -104,6 +139,7 @@ class _OtpFormState extends State<OtpForm> {
 
   @override
   void dispose() {
+    _timer?.cancel();
     pinController.dispose();
     focusNode.dispose();
     super.dispose();
