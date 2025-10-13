@@ -9,26 +9,29 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get onboardingTitle1 => 'Все туры в одном месте';
+  String get onboardingTitle1 => 'All tours in one place';
 
   @override
   String get onboardingSubTitle1 =>
-      'Сотни предложений на выходные в одной удобной ленте';
+      'Hundreds of weekend offers in one convenient feed';
 
   @override
-  String get onboardingTitle2 => 'Проверенные гиды';
+  String get onboardingTitle2 => 'Verified guides';
 
   @override
-  String get onboardingSubTitle2 =>
-      'Читайте честные отзывы от реальных туристов';
+  String get onboardingSubTitle2 => 'Read honest reviews from real travelers';
 
   @override
-  String get onboardingTitle3 => 'Бронируй в 3 клика';
+  String get onboardingTitle3 => 'Book in 3 clicks';
 
   @override
-  String get onboardingSubTitle3 =>
-      'Без долгих переписок, скриншотов и ожидания';
+  String get onboardingSubTitle3 => 'No long chats, screenshots or waiting';
 
   @override
   String get next => 'Next';
+
+  @override
+  String otpMessage(Object phone) {
+    return 'A 4-digit OTP code was sent to $phone';
+  }
 }

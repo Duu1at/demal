@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:app/l10n/l10n_extension.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
@@ -54,6 +55,8 @@ class _OtpFormState extends State<OtpForm> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final phone = '+996 ${widget.phoneNumer}';
+    final otpMessage = context.l10n.otpMessage(phone);
+    final parts = otpMessage.split(phone);
     final defaultPinTheme = PinTheme(
       width: 56,
       height: 56,
@@ -85,9 +88,26 @@ class _OtpFormState extends State<OtpForm> {
           children: [
             Text('Введите код', style: theme.textTheme.headlineSmall),
             const SizedBox(height: AppSpacing.sm),
-            Text(
-              'На номер $phone было\n отправлено 4-значное сообщение OTP',
-              style: theme.primaryTextTheme.bodyMedium,
+            Text.rich(
+              TextSpan(
+                children: [
+                  TextSpan(
+                    text: parts[0],
+                    style: theme.primaryTextTheme.bodyMedium,
+                  ),
+                  TextSpan(
+                    text: phone,
+                    style: theme.primaryTextTheme.bodyMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  if (parts.length > 1)
+                    TextSpan(
+                      text: parts[1],
+                      style: theme.primaryTextTheme.bodyMedium,
+                    ),
+                ],
+              ),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: AppSpacing.spaceUnit * 3),

@@ -103,37 +103,37 @@ abstract class AppLocalizations {
   /// No description provided for @onboardingTitle1.
   ///
   /// In en, this message translates to:
-  /// **'Все туры в одном месте'**
+  /// **'All tours in one place'**
   String get onboardingTitle1;
 
   /// No description provided for @onboardingSubTitle1.
   ///
   /// In en, this message translates to:
-  /// **'Сотни предложений на выходные в одной удобной ленте'**
+  /// **'Hundreds of weekend offers in one convenient feed'**
   String get onboardingSubTitle1;
 
   /// No description provided for @onboardingTitle2.
   ///
   /// In en, this message translates to:
-  /// **'Проверенные гиды'**
+  /// **'Verified guides'**
   String get onboardingTitle2;
 
   /// No description provided for @onboardingSubTitle2.
   ///
   /// In en, this message translates to:
-  /// **'Читайте честные отзывы от реальных туристов'**
+  /// **'Read honest reviews from real travelers'**
   String get onboardingSubTitle2;
 
   /// No description provided for @onboardingTitle3.
   ///
   /// In en, this message translates to:
-  /// **'Бронируй в 3 клика'**
+  /// **'Book in 3 clicks'**
   String get onboardingTitle3;
 
   /// No description provided for @onboardingSubTitle3.
   ///
   /// In en, this message translates to:
-  /// **'Без долгих переписок, скриншотов и ожидания'**
+  /// **'No long chats, screenshots or waiting'**
   String get onboardingSubTitle3;
 
   /// No description provided for @next.
@@ -141,6 +141,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Next'**
   String get next;
+
+  /// No description provided for @otpMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'A 4-digit OTP code was sent to {phone}'**
+  String otpMessage(Object phone);
 }
 
 class _AppLocalizationsDelegate
