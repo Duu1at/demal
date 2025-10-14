@@ -1,4 +1,5 @@
-import 'package:app/app/cubit/app_cubit.dart';
+import 'package:app/app/cubits/app_cubit.dart';
+import 'package:app/app/cubits/app_settings/app_theme_cubit.dart';
 import 'package:app/core/core.dart';
 import 'package:app/l10n/app_localizations.dart';
 import 'package:app/welcome/welcome.dart';
@@ -20,35 +21,36 @@ class _InitialSettingsViewState extends State<InitialSettingsView> {
 
   @override
   void initState() {
-    _themeName = context.read<AppCubit>().state.theme.isDark
-        ? 'Темная'
-        : 'Светлая';
     super.initState();
+    final isDark = context.read<AppThemeCubit>().state.isDark;
+    _themeName = isDark ? 'Темная' : 'Светлая';
   }
 
   void _changeLocale(BuildContext context) {
     BottomSheets.showModalSettingsSheet(
-      backgroundColor: Theme.of(context).colorScheme.surfaceContainer,
+      backgroundColor: context.appColors.bgCard,
       context: context,
       child: const LocaleSettingsSheet(),
     );
   }
 
-  void _changeTheme(BuildContext context) async {
+  Future<void> _changeTheme(BuildContext context) async {
     final result =
         await BottomSheets.showModalSettingsSheet(
-              backgroundColor: Theme.of(context).colorScheme.surfaceContainer,
+              backgroundColor: context.appColors.bgCard,
               context: context,
               child: const ThemeSelectorSheet(),
             )
             as bool;
-    _themeName = result ? 'Темная' : 'Светлая';
-    setState(() {});
+    setState(() {
+      _themeName = result ? 'Темная' : 'Светлая';
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+
     return ScaffoldWithBgImage(
       bgImageTop: false,
       appBar: AppBar(elevation: 0),
@@ -64,36 +66,13 @@ class _InitialSettingsViewState extends State<InitialSettingsView> {
             const SizedBox(height: 32),
             Text('Выберите роль', style: theme.textTheme.bodyLarge),
             const SizedBox(height: AppSpacing.sm),
-            RoleRedioWidget(
-              key: const Key('client'),
-              title: 'Путешественник',
-              role: context.watch<AppCubit>().state.role,
-              onChanged: (value) {
-                context.read<AppCubit>().changeRole(role: Role.client);
-              },
-            ),
-            RoleRedioWidget(
-              key: const Key('partner'),
-              title: 'Тур компания или гид',
-              role: context.watch<AppCubit>().state.role,
-              isClient: false,
-              onChanged: (value) {
-                context.read<AppCubit>().changeRole(role: Role.partner);
-              },
-            ),
+            const RoleSelector(),
             const DividerHorisontal(),
-            CardDrawerTile(
-              icon: const Icon(Icons.language_outlined),
-              title: 'Выберите язык',
-              subtitle: _locale,
-              onTap: () => _changeLocale(context),
-            ),
-            const DividerHorisontal(),
-            CardDrawerTile(
-              icon: const Icon(Icons.sunny),
-              title: 'Выберите тему',
-              subtitle: _themeName,
-              onTap: () => _changeTheme(context),
+            SettingsList(
+              locale: _locale,
+              themeName: _themeName,
+              onChangeLocale: () => _changeLocale(context),
+              onChangeTheme: () => _changeTheme(context),
             ),
           ],
         ),
@@ -104,6 +83,75 @@ class _InitialSettingsViewState extends State<InitialSettingsView> {
         child: const Text('Начать'),
         onPressed: () => context.goNamed(AppRouter.onboardingOne),
       ),
+    );
+  }
+}
+
+class RoleSelector extends StatelessWidget {
+  const RoleSelector({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<AppCubit, AppState>(
+      buildWhen: (previous, current) => previous.role != current.role,
+      builder: (context, state) {
+        final role = state.role;
+        return Column(
+          children: [
+            RoleRedioWidget(
+              key: const Key('client'),
+              title: 'Путешественник',
+              role: role,
+              onChanged: (_) =>
+                  context.read<AppCubit>().changeRole(role: Role.client),
+            ),
+            RoleRedioWidget(
+              key: const Key('partner'),
+              title: 'Тур компания или гид',
+              role: role,
+              isClient: false,
+              onChanged: (_) =>
+                  context.read<AppCubit>().changeRole(role: Role.partner),
+            ),
+          ],
+        );
+      },
+    );
+  }
+}
+
+class SettingsList extends StatelessWidget {
+  const SettingsList({
+    required this.locale,
+    required this.themeName,
+    required this.onChangeLocale,
+    required this.onChangeTheme,
+    super.key,
+  });
+
+  final String locale;
+  final String themeName;
+  final VoidCallback onChangeLocale;
+  final VoidCallback onChangeTheme;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        CardDrawerTile(
+          icon: const Icon(Icons.language_outlined),
+          title: 'Выберите язык',
+          subtitle: locale,
+          onTap: onChangeLocale,
+        ),
+        const DividerHorisontal(),
+        CardDrawerTile(
+          icon: const Icon(Icons.sunny),
+          title: 'Выберите тему',
+          subtitle: themeName,
+          onTap: onChangeTheme,
+        ),
+      ],
     );
   }
 }

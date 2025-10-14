@@ -1,5 +1,4 @@
 import 'package:app_ui/app_ui.dart';
-import 'package:app_ui/src/colors/app_theme_color_extension.dart';
 import 'package:flutter/material.dart';
 
 class CardDrawerTile extends StatelessWidget {
@@ -23,20 +22,19 @@ class CardDrawerTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final color = Theme.of(context).colorScheme;
+    final bg = context.appColors.bgCard;
+
     return Material(
-      color: context.appcolors.bgCard,
+      color: bg,
       elevation: 0,
       clipBehavior: Clip.hardEdge,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
         side: withBorder
-            ? BorderSide(
-                color: color.onSurface.withValues(alpha: 0.2),
-                width: 1,
-              )
+            ? BorderSide(color: color.onSurface.withValues(alpha: 0.2), width: 1)
             : BorderSide.none,
       ),
-      shadowColor: context.appcolors.grayShadow?.color,
+      shadowColor: context.appColors.grayShadow?.color,
       child: InkWell(
         splashColor: color.onSurface.withValues(alpha: 0.2),
         onTap: onTap,
@@ -49,10 +47,7 @@ class CardDrawerTile extends StatelessWidget {
                 height: 40,
                 child: DecoratedBox(
                   decoration: BoxDecoration(
-                    shape: BoxShape.rectangle,
-                    color: Theme.of(
-                      context,
-                    ).colorScheme.secondary.withValues(alpha: 0.3),
+                    color: color.secondary.withValues(alpha: 0.3),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Center(child: icon),
@@ -65,13 +60,9 @@ class CardDrawerTile extends StatelessWidget {
                 children: [
                   Text(title, style: Theme.of(context).textTheme.bodyLarge),
                   const SizedBox(height: 4),
-                  Text(
-                    subtitle ?? '',
-                    style: Theme.of(context).textTheme.bodySmall,
-                  ),
+                  Text(subtitle ?? '', style: Theme.of(context).textTheme.bodySmall),
                 ],
               ),
-
               const Spacer(),
               Assets.icons.arrowRight.svg(
                 width: 24,

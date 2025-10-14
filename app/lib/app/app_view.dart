@@ -1,4 +1,6 @@
-import 'package:app/app/cubit/app_cubit.dart';
+import 'package:app/app/cubits/app_cubit.dart';
+import 'package:app/app/cubits/app_settings/app_locale_cubit.dart';
+import 'package:app/app/cubits/app_settings/app_theme_cubit.dart';
 import 'package:app/core/core.dart';
 import 'package:app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
@@ -27,8 +29,8 @@ class _DemalAppState extends State<DemalApp> {
     return GlobalLoaderOverlay(
       child: MaterialApp.router(
         themeMode: ThemeMode.system,
-        theme: context.watch<AppCubit>().state.theme.themeData,
-        locale: context.watch<AppCubit>().state.locale,
+        theme: context.watch<AppThemeCubit>().state.themeData,
+        locale: context.watch<AppLocaleCubit>().state,
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
         title: 'Demal',

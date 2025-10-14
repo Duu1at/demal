@@ -1,8 +1,8 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 
-class AppThemeColorsExtension extends ThemeExtension<AppThemeColorsExtension> {
-  AppThemeColorsExtension({
+class AppThemeColorExtension extends ThemeExtension<AppThemeColorExtension> {
+  const AppThemeColorExtension({
     this.bgCard,
     this.alert,
     this.alertBackground,
@@ -23,12 +23,8 @@ class AppThemeColorsExtension extends ThemeExtension<AppThemeColorsExtension> {
   final Color? shimmerBase;
   final Color? shimmerHighlight;
 
-  static AppThemeColorsExtension? of(BuildContext context) {
-    return Theme.of(context).extension<AppThemeColorsExtension>();
-  }
-
-  factory AppThemeColorsExtension.light() {
-    return AppThemeColorsExtension(
+  factory AppThemeColorExtension.light() {
+    return  AppThemeColorExtension(
       bgCard: AppColors.white,
       alert: AppColors.red.shade90,
       disabled: AppColors.gray.shade20,
@@ -51,8 +47,8 @@ class AppThemeColorsExtension extends ThemeExtension<AppThemeColorsExtension> {
     );
   }
 
-  factory AppThemeColorsExtension.dark() {
-    return AppThemeColorsExtension(
+  factory AppThemeColorExtension.dark() {
+    return  AppThemeColorExtension(
       bgCard: AppColors.gray.shade50,
       alert: AppColors.red.shade90,
       disabled: AppColors.gray.shade20,
@@ -76,7 +72,7 @@ class AppThemeColorsExtension extends ThemeExtension<AppThemeColorsExtension> {
   }
 
   @override
-  ThemeExtension<AppThemeColorsExtension> copyWith({
+  ThemeExtension<AppThemeColorExtension> copyWith({
     Color? alert,
     Color? alertBackground,
     Color? disabled,
@@ -86,7 +82,7 @@ class AppThemeColorsExtension extends ThemeExtension<AppThemeColorsExtension> {
     Color? shimmerBase,
     Color? shimmerHighlight,
   }) {
-    return AppThemeColorsExtension(
+    return AppThemeColorExtension(
       alert: alert ?? this.alert,
       alertBackground: alertBackground ?? this.alertBackground,
       disabled: disabled ?? this.disabled,
@@ -99,14 +95,14 @@ class AppThemeColorsExtension extends ThemeExtension<AppThemeColorsExtension> {
   }
 
   @override
-  ThemeExtension<AppThemeColorsExtension> lerp(
-    covariant ThemeExtension<AppThemeColorsExtension>? other,
+  ThemeExtension<AppThemeColorExtension> lerp(
+    covariant ThemeExtension<AppThemeColorExtension>? other,
     double t,
   ) {
-    if (other is! AppThemeColorsExtension) {
+    if (other is! AppThemeColorExtension) {
       return this;
     }
-    return AppThemeColorsExtension(
+    return AppThemeColorExtension(
       alert: Color.lerp(alert, other.alert, t),
       disabled: Color.lerp(disabled, other.disabled, t),
       disabledForeground: Color.lerp(
@@ -123,7 +119,10 @@ class AppThemeColorsExtension extends ThemeExtension<AppThemeColorsExtension> {
   }
 }
 
-extension AppColorsExtension on BuildContext {
-  AppThemeColorsExtension get appcolors =>
-      Theme.of(this).extension<AppThemeColorsExtension>()!;
+extension AppThemeColorExtensionX on BuildContext {
+  AppThemeColorExtension get appColors {
+    final colors = Theme.of(this).extension<AppThemeColorExtension>();
+    assert(colors != null, 'AppThemeColorExtension not found in ThemeData');
+    return colors!;
+  }
 }

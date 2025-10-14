@@ -2,7 +2,7 @@ import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 
 class AppInputColorExtension extends ThemeExtension<AppInputColorExtension> {
-  AppInputColorExtension({
+  const AppInputColorExtension({
     this.bckgr,
     this.disabled,
     this.focused,
@@ -18,24 +18,24 @@ class AppInputColorExtension extends ThemeExtension<AppInputColorExtension> {
   final Color? success;
 
   factory AppInputColorExtension.light() {
-    return AppInputColorExtension(
+    return const AppInputColorExtension(
       bckgr: AppColors.white,
-      disabled: const Color(0xff9C9FAF),
-      focused: const Color(0xff323D76),
-      disabledBckgr: const Color(0xff9C9FAF),
-      error: const Color(0xffB91C21),
-      success: const Color(0xff047857),
+      disabled: Color(0xff9C9FAF),
+      focused: Color(0xff323D76),
+      disabledBckgr: Color(0xff9C9FAF),
+      error: Color(0xffB91C21),
+      success: Color(0xff047857),
     );
   }
 
   factory AppInputColorExtension.dark() {
-    return AppInputColorExtension(
-      bckgr: AppColors.gray.shade50,
-      disabled: const Color(0xff9C9FAF),
-      focused: const Color(0xff323D76),
-      disabledBckgr: const Color(0xff9C9FAF),
-      error: const Color(0xffB91C21),
-      success: const Color(0xff047857),
+    return const AppInputColorExtension(
+      bckgr: Color(0xFF1F2328),
+      disabled: Color(0xff9C9FAF),
+      focused: Color(0xff323D76),
+      disabledBckgr: Color(0xff9C9FAF),
+      error: Color(0xffB91C21),
+      success: Color(0xff047857),
     );
   }
 

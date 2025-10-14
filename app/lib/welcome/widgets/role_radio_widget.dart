@@ -1,5 +1,6 @@
-import 'package:app/app/cubit/app_cubit.dart';
+import 'package:app/app/cubits/app_cubit.dart';
 import 'package:app_ui/app_ui.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class RoleRedioWidget extends StatelessWidget {
@@ -17,6 +18,9 @@ class RoleRedioWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (kDebugMode) {
+      print('InitialSettingsView build');
+    }
     final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
     return RadioListTile<Role>(

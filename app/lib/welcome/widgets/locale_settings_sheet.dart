@@ -1,4 +1,4 @@
-import 'package:app/app/cubit/app_cubit.dart';
+import 'package:app/app/cubits/app_settings/app_locale_cubit.dart';
 import 'package:app/l10n/app_localizations.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
@@ -23,8 +23,7 @@ class LocaleSettingsSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const supportedLocales = AppLocalizations.supportedLocales;
-    final appCubit = context.watch<AppCubit>();
-    final currentLocale = appCubit.state.locale;
+    final currentLocale = context.read<AppLocaleCubit>().state;
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.symmetric(
@@ -42,7 +41,7 @@ class LocaleSettingsSheet extends StatelessWidget {
             RadioGroup<Locale>(
               groupValue: currentLocale,
               onChanged: (newLocale) async {
-                await appCubit.changeLocale(
+                await context.read<AppLocaleCubit>().changeLocale(
                   locale: newLocale ?? supportedLocales.first,
                 );
                 if (context.mounted) Navigator.pop(context);
@@ -61,7 +60,7 @@ class LocaleSettingsSheet extends StatelessWidget {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16),
                       ),
-                      tileColor: Theme.of(context).colorScheme.surfaceContainer,
+                      tileColor: Theme.of(context).colorScheme.surface,
                     ),
                   ],
                 ],

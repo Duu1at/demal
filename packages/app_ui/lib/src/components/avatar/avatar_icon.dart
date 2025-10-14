@@ -99,7 +99,7 @@ class _AvatarIconState extends State<AvatarIcon>
       width: size,
       height: size,
       decoration: BoxDecoration(
-        color: context.appcolors.disabled,
+        color: context.appColors.disabled,
         shape: BoxShape.circle,
       ),
       child: Center(

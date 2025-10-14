@@ -11,10 +11,10 @@ class CardWithBorder extends StatelessWidget {
     return Container(
       margin: EdgeInsets.zero,
       decoration: BoxDecoration(
-        color: context.appcolors.bgCard,
+        color: context.appColors.bgCard,
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
-          context.appcolors.grayShadow ??
+          context.appColors.grayShadow ??
               BoxShadow(
                 color: Theme.of(
                   context,

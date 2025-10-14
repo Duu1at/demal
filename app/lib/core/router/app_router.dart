@@ -1,4 +1,4 @@
-import 'package:app/app/cubit/app_cubit.dart' show Role;
+import 'package:app/app/cubits/app_cubit.dart' show Role;
 import 'package:app/client/home/view/client_home.dart';
 import 'package:app/client/settings/view/test.dart';
 import 'package:app/login/view/login_view.dart';

@@ -18,7 +18,7 @@ abstract class BottomSheets {
       showDragHandle: showDragHandle,
       context: context,
       isDismissible: isDismissible,
-      backgroundColor: backgroundColor ?? context.appcolors.alertBackground,
+      backgroundColor: backgroundColor ?? context.appColors.alertBackground,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
           top: Radius.circular(AppSpacing.md),

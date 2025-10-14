@@ -1,8 +1,4 @@
-import 'package:app_ui/src/colors/app_colors.dart';
-import 'package:app_ui/src/colors/app_input_color_extension.dart';
-import 'package:app_ui/src/colors/app_theme_color_extension.dart';
-import 'package:app_ui/src/theme/app_theme.dart';
-import 'package:app_ui/src/typography/app_text_styles.dart';
+import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 
 class AppDarkTheme extends AppTheme {
@@ -71,12 +67,11 @@ class AppDarkTheme extends AppTheme {
     primaryTextTheme: primaryTextTheme,
     appBarTheme: appBarTheme,
     scaffoldBackgroundColor: colorScheme.onSurface,
-
     elevatedButtonTheme: elevatedButtonTheme,
     outlinedButtonTheme: outlinedButtonTheme,
     useMaterial3: true,
     extensions: <ThemeExtension<dynamic>>[
-      AppThemeColorsExtension.dark(),
+       AppThemeColorExtension.dark(),
       AppInputColorExtension.dark(),
     ],
   );

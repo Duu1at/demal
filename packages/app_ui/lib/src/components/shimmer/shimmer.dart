@@ -20,14 +20,14 @@ class ShimmerContainer extends StatelessWidget {
     return Shimmer.fromColors(
       enabled: true,
       period: const Duration(milliseconds: 1500),
-      baseColor: context.appcolors.shimmerBase ?? Colors.grey.shade200,
+      baseColor: context.appColors.shimmerBase ?? Colors.grey.shade200,
       highlightColor:
-          context.appcolors.shimmerHighlight ?? Colors.grey.shade300,
+          context.appColors.shimmerHighlight ?? Colors.grey.shade300,
       child: Container(
         height: height,
         width: width,
         decoration: BoxDecoration(
-          color: context.appcolors.shimmerBase,
+          color: context.appColors.shimmerBase,
           borderRadius: BorderRadius.circular(radius),
         ),
         child: child,
