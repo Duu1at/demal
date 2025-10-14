@@ -18,6 +18,8 @@ class AppComponentsPage extends StatefulWidget {
 class _AppComponentsPageState extends State<AppComponentsPage> {
   final TextEditingController _phoneController = TextEditingController();
   bool isDark = false;
+
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return ScaffoldWithBgImage(
@@ -39,18 +41,20 @@ class _AppComponentsPageState extends State<AppComponentsPage> {
         children: [
           PhoneField(controller: _phoneController),
           const DividerHorisontal(),
-          CardWithLabel(
-            label: 'Номер телефона',
-            child: CustomTextField(
-              controller: _phoneController,
-              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter some text';
-                }
-                return null;
-              },
+          Form(
+            key: _formKey,
+            child: CardWithLabel(
+              label: 'Номер телефона',
+              child: CustomTextField(
+                controller: _phoneController,
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter some text';
+                  }
+                  return null;
+                },
+              ),
             ),
           ),
           const DividerHorisontal(),
@@ -65,6 +69,11 @@ class _AppComponentsPageState extends State<AppComponentsPage> {
           AppButton(
             variant: AppButtonVariant.primary,
             isLoading: false,
+            onPressed: () {
+              if (_formKey.currentState!.validate()) {
+                
+              }
+            },
             child: const Text('Dialog'),
           ),
           const DividerHorisontal(),

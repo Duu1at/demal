@@ -9,11 +9,11 @@ class AppDarkTheme extends AppTheme {
   @override
   ColorScheme get colorScheme => ColorScheme(
     brightness: Brightness.dark,
-    primary: AppColors.primaryDark,
+    primary: AppColors.blue,
     onPrimary: AppColors.white,
-    secondary: AppColors.secondaryDark,
+    secondary: AppColors.blue,
     onSecondary: AppColors.white,
-    error: AppColors.error700,
+    error: AppColors.red,
     onError: AppColors.white,
     surface: AppColors.gray.shade60 ?? Colors.grey.shade900,
     onSurface: AppColors.white,
@@ -74,7 +74,6 @@ class AppDarkTheme extends AppTheme {
 
     elevatedButtonTheme: elevatedButtonTheme,
     outlinedButtonTheme: outlinedButtonTheme,
-    // inputDecorationTheme: inputDecorationTheme,
     useMaterial3: true,
     extensions: <ThemeExtension<dynamic>>[
       AppThemeColorsExtension.dark(),

@@ -30,10 +30,10 @@ class AppThemeColorsExtension extends ThemeExtension<AppThemeColorsExtension> {
   factory AppThemeColorsExtension.light() {
     return AppThemeColorsExtension(
       bgCard: AppColors.white,
-      alert: AppColors.alert.shade30,
+      alert: AppColors.red.shade90,
       disabled: AppColors.gray.shade20,
       disabledForeground: AppColors.gray.shade30,
-      alertBackground: AppColors.alert.shade10,
+      alertBackground: AppColors.red.shade10,
       grayShadow: BoxShadow(
         color: AppColors.grayShadow.color!,
         offset: Offset(AppColors.grayShadow.x!, AppColors.grayShadow.y!),
@@ -54,10 +54,10 @@ class AppThemeColorsExtension extends ThemeExtension<AppThemeColorsExtension> {
   factory AppThemeColorsExtension.dark() {
     return AppThemeColorsExtension(
       bgCard: AppColors.gray.shade50,
-      alert: AppColors.alert.shade30,
+      alert: AppColors.red.shade90,
       disabled: AppColors.gray.shade20,
       disabledForeground: AppColors.gray.shade30,
-      alertBackground: AppColors.alert.shade10,
+      alertBackground: AppColors.red.shade10,
       grayShadow: BoxShadow(
         color: AppColors.grayShadow.color!,
         offset: Offset(AppColors.grayShadow.x!, AppColors.grayShadow.y!),

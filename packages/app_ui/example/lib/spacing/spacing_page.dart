@@ -52,7 +52,6 @@ class SpacingItem extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
               Container(color: AppColors.orange, width: AppSpacing.xxlg, height: AppSpacing.lg),
-              Container(width: spacing, height: AppSpacing.lg, color: AppColors.warning700),
               Container(color: AppColors.orange, width: AppSpacing.xxlg, height: AppSpacing.lg),
             ],
           ),

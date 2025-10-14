@@ -23,14 +23,15 @@ class PhoneField extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomTextField(
       controller: controller,
-      style: Theme.of(context).textTheme.bodyMedium,
+      style: Theme.of(context).textTheme.bodyLarge,
       hintText: hintText,
-      hintStyle: Theme.of(context).textTheme.bodyMedium,
+      hintStyle: Theme.of(context).textTheme.bodyLarge,
       onChanged: onChanged,
       keyboardType: TextInputType.number,
       inputFormatters: inputFormatters,
       validator: validator,
       prefixIcon: SizedBox(
+        height: 56,
         width: 110,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -39,7 +40,7 @@ class PhoneField extends StatelessWidget {
             Assets.images.flagKg.image(),
             Text(
               countryCode ?? '',
-              style: Theme.of(context).textTheme.bodyMedium,
+              style: Theme.of(context).textTheme.bodyLarge,
             ),
             const SizedBox(height: 24, child: DividerVertical()),
           ],
