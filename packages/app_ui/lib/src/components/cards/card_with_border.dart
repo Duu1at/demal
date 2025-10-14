@@ -11,7 +11,7 @@ class CardWithBorder extends StatelessWidget {
     return Container(
       margin: EdgeInsets.zero,
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surfaceContainer,
+        color: context.appcolors.bgCard,
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           context.appcolors.grayShadow ??

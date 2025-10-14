@@ -10,7 +10,6 @@ export 'components/buttons/buttons.dart';
 export 'components/cards/card_drawer_tile.dart';
 export 'show/show.dart';
 export 'components/divider/divider.dart';
-export 'components/modal/modal.dart';
 export 'components/cards/cards.dart';
 export 'components/shimmer/shimmer.dart';
 export 'components/avatar/avatar_icon.dart';

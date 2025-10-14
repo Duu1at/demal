@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 class AppThemeColorsExtension extends ThemeExtension<AppThemeColorsExtension> {
   AppThemeColorsExtension({
+    this.bgCard,
     this.alert,
     this.alertBackground,
     this.disabled,
@@ -12,7 +13,7 @@ class AppThemeColorsExtension extends ThemeExtension<AppThemeColorsExtension> {
     this.blueShadow,
     this.grayShadow,
   });
-
+  final Color? bgCard;
   final Color? alert;
   final Color? alertBackground;
   final Color? disabled;
@@ -28,6 +29,7 @@ class AppThemeColorsExtension extends ThemeExtension<AppThemeColorsExtension> {
 
   factory AppThemeColorsExtension.light() {
     return AppThemeColorsExtension(
+      bgCard: AppColors.white,
       alert: AppColors.alert.shade30,
       disabled: AppColors.gray.shade20,
       disabledForeground: AppColors.gray.shade30,
@@ -51,6 +53,7 @@ class AppThemeColorsExtension extends ThemeExtension<AppThemeColorsExtension> {
 
   factory AppThemeColorsExtension.dark() {
     return AppThemeColorsExtension(
+      bgCard: AppColors.gray.shade50,
       alert: AppColors.alert.shade30,
       disabled: AppColors.gray.shade20,
       disabledForeground: AppColors.gray.shade30,

@@ -56,7 +56,6 @@ class _InitialSettingsViewState extends State<InitialSettingsView> {
         padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
         child: Column(
           children: [
-            AvatarIcon(size: 100, imageUrl: ''),
             Text('Добро пожаловать!', style: theme.textTheme.headlineLarge),
             Text(
               'Настраивайте настройки приложения',

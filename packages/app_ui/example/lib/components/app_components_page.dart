@@ -64,7 +64,6 @@ class _AppComponentsPageState extends State<AppComponentsPage> {
           const DividerHorisontal(),
           AppButton(
             variant: AppButtonVariant.primary,
-            onPressed: dialot,
             isLoading: false,
             child: const Text('Dialog'),
           ),
@@ -119,11 +118,4 @@ class _AppComponentsPageState extends State<AppComponentsPage> {
     );
   }
 
-  void dialot() {
-    BottomSheets.showModalSettingsSheet(
-      context: context,
-      showDragHandle: true,
-      child: const ModalBaseComponent(),
-    );
-  }
 }

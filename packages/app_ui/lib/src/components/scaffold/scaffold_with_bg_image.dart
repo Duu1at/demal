@@ -61,6 +61,7 @@ class ScaffoldWithBgImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final isLightTheme = theme.brightness == Brightness.light;
     return Theme(
       data: theme.copyWith(
         appBarTheme: const AppBarTheme(backgroundColor: Colors.transparent),
@@ -68,10 +69,12 @@ class ScaffoldWithBgImage extends StatelessWidget {
       child: DecoratedBox(
         decoration: BoxDecoration(
           color: theme.colorScheme.surface,
-          image: DecorationImage(
-            image: getThemeImageProvider(theme),
-            fit: BoxFit.cover,
-          ),
+          image: isLightTheme
+              ? DecorationImage(
+                  image: getThemeImageProvider(theme),
+                  fit: BoxFit.cover,
+                )
+              : null,
         ),
         child: Scaffold(
           appBar: appBar,
