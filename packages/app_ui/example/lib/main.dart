@@ -91,66 +91,6 @@ class RootPage extends StatelessWidget {
         onTap: () =>
             Navigator.of(context).push<void>(BgImageOnboarding.route()),
       ),
-      // ListItem(
-      //   icon: const Icon(Icons.widgets),
-      //   title: const Text('Body Image'),
-      //   subtitle: const Text('All of the predefined body'),
-      //   onTap: () => Navigator.of(context).push<void>(
-      //     BgImageBodyPage.route(),
-      //   ),
-      // ),
-      // ListItem(
-      //   icon: const Icon(Icons.add_reaction_outlined),
-      //   title: const Text('Show Contents'),
-      //   subtitle: const Text('All of the show contents'),
-      //   onTap: () => Navigator.of(context).push<void>(
-      //     ShowContentsPage.route(),
-      //   ),
-      // ),
-      // ListItem(
-      //   icon: const Icon(Icons.storage),
-      //   title: const Text('Story Contents'),
-      //   subtitle: const Text('All of the store contents'),
-      //   onTap: () => Navigator.of(context).push<void>(
-      //     StoryView.route(),
-      //   ),
-      // ),
-      // Wrap(
-      //   children: [
-      //     TextButton(
-      //       onPressed: () {
-      //         themeProvider!.changeTheme(
-      //           MqAppUiType.orange,
-      //         );
-      //       },
-      //       child: const Text('Orange'),
-      //     ),
-      //     TextButton(
-      //       onPressed: () {
-      //         themeProvider!.changeTheme(
-      //           MqAppUiType.orangeDark,
-      //         );
-      //       },
-      //       child: const Text('OrangeDark'),
-      //     ),
-      //     TextButton(
-      //       onPressed: () {
-      //         themeProvider!.changeTheme(
-      //           MqAppUiType.blue,
-      //         );
-      //       },
-      //       child: const Text('Blue'),
-      //     ),
-      //     TextButton(
-      //       onPressed: () {
-      //         themeProvider!.changeTheme(
-      //           MqAppUiType.blueDark,
-      //         );
-      //       },
-      //       child: const Text('BlueDark'),
-      //     ),
-      //   ],
-      // ),
       const SizedBox(height: 100),
     ];
 

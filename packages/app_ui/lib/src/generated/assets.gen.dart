@@ -135,6 +135,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/onboarding_3.png
   AssetGenImage get onboarding3 => const AssetGenImage('assets/images/onboarding_3.png');
 
+  /// File path: assets/images/otp_image.png
+  AssetGenImage get otpImage => const AssetGenImage('assets/images/otp_image.png');
+
   /// List of all assets
   List<AssetGenImage> get values => [
     illustration1,
@@ -147,6 +150,7 @@ class $AssetsImagesGen {
     onboarding1,
     onboarding2,
     onboarding3,
+    otpImage,
   ];
 }
 

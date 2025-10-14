@@ -30,5 +30,10 @@ class AppLocalizationsRu extends AppLocalizations {
       'Без долгих переписок, скриншотов и ожидания';
 
   @override
-  String get next => 'Следующий';
+  String get next => 'Далее';
+
+  @override
+  String otpMessage(Object phone) {
+    return 'На номер $phone было отправлено 4-значное сообщение OTP';
+  }
 }

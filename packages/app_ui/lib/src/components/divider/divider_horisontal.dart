@@ -1,14 +1,24 @@
 import 'package:flutter/material.dart';
 
 class DividerHorisontal extends StatelessWidget {
-  const DividerHorisontal({super.key, this.color = const Color(0xffD1D3DB)});
+  const DividerHorisontal({
+    super.key,
+    this.color = const Color(0xffD1D3DB),
+    this.padding = const EdgeInsets.all(8.0),
+  });
   final Color color;
+  final EdgeInsets padding;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16.0),
-      child: Divider(thickness: 1.5, color: color, indent: 16, endIndent: 16),
+      padding: padding,
+      child: Divider(
+        thickness: 1.5,
+        color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.2),
+        indent: 0,
+        endIndent: 0,
+      ),
     );
   }
 }

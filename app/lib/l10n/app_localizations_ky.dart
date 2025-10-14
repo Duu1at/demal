@@ -31,4 +31,9 @@ class AppLocalizationsKy extends AppLocalizations {
 
   @override
   String get next => 'Кийинкиси';
+
+  @override
+  String otpMessage(Object phone) {
+    return '$phone номерине 4 сандык OTP коду жиберилди';
+  }
 }

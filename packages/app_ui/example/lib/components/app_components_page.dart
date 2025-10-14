@@ -2,6 +2,7 @@ import 'package:app_ui/app_ui.dart';
 import 'package:example/main.dart';
 import 'package:example/notifier/natifier.dart';
 import 'package:flutter/material.dart' hide Divider;
+import 'package:flutter/services.dart';
 
 class AppComponentsPage extends StatefulWidget {
   const AppComponentsPage({super.key});
@@ -17,6 +18,8 @@ class AppComponentsPage extends StatefulWidget {
 class _AppComponentsPageState extends State<AppComponentsPage> {
   final TextEditingController _phoneController = TextEditingController();
   bool isDark = false;
+
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return ScaffoldWithBgImage(
@@ -37,7 +40,24 @@ class _AppComponentsPageState extends State<AppComponentsPage> {
         padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
         children: [
           PhoneField(controller: _phoneController),
-          const SizedBox(height: 8),
+          const DividerHorisontal(),
+          Form(
+            key: _formKey,
+            child: CardWithLabel(
+              label: 'Номер телефона',
+              child: CustomTextField(
+                controller: _phoneController,
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter some text';
+                  }
+                  return null;
+                },
+              ),
+            ),
+          ),
+          const DividerHorisontal(),
           AppButton(
             variant: AppButtonVariant.primary,
             onPressed: alirt,
@@ -45,31 +65,54 @@ class _AppComponentsPageState extends State<AppComponentsPage> {
             child: const Text('Alert'),
           ),
 
-          const SizedBox(height: 8),
+          const DividerHorisontal(),
           AppButton(
             variant: AppButtonVariant.primary,
-            onPressed: dialot,
             isLoading: false,
+            onPressed: () {
+              if (_formKey.currentState!.validate()) {
+                
+              }
+            },
             child: const Text('Dialog'),
           ),
-          const SizedBox(height: 8),
-          DrawerTile(
+          const DividerHorisontal(),
+          CardDrawerTile(
             title: 'test',
             icon: Assets.icons.tickCircle.svg(),
             subtitle: 'test',
           ),
-          const SizedBox(height: 8),
-          DrawerTile(
+          const DividerHorisontal(),
+          CardDrawerTile(
             title: 'test',
             icon: Assets.icons.tickCircle.svg(),
             subtitle: 'test',
+            onTap: () {},
           ),
-          const SizedBox(height: 8),
           const DividerHorisontal(),
           ReusableTextButton(
             label: 'Get duulat',
             onPressed: () {},
-            icon: Icon(Icons.close),
+            icon: const Icon(Icons.close),
+          ),
+          const DividerHorisontal(),
+          CardWithLabel(
+            label: 'Номер телефона',
+            child: CustomTextField(
+              controller: _phoneController,
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter some text';
+                }
+                return null;
+              },
+            ),
+          ),
+          const DividerHorisontal(),
+          const CardWithBorder(
+            child: Column(children: [Text('testetaf'), Text('testetaf')]),
           ),
           const SizedBox(height: 300),
         ],
@@ -80,15 +123,8 @@ class _AppComponentsPageState extends State<AppComponentsPage> {
   void alirt() {
     AlertDialogs.alertDialog(
       context: context,
-      typeAlertDialog: AlertDialogType.error,
+      typeAlertDialog: AlertDialogType.info,
     );
   }
 
-  void dialot() {
-    BottomSheets.showModalSettingsSheet(
-      context: context,
-      showDragHandle: true,
-      child: const Text('test'),
-    );
-  }
 }

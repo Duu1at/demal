@@ -1,12 +1,11 @@
-
 {
-    "@@locale": "ru",
-    "onboardingTitle1":"Все туры в одном месте",
-    "onboardingSubTitle1":"Сотни предложений на выходные в одной удобной ленте",
-    "onboardingTitle2":"Проверенные гиды",
-    "onboardingSubTitle2":"Читайте честные отзывы от реальных туристов",
-    "onboardingTitle3":"Бронируй в 3 клика",
-    "onboardingSubTitle3":"Без долгих переписок, скриншотов и ожидания",
-    "next":"Следующий"
-
+  "@@locale": "ru",
+  "onboardingTitle1": "Все туры в одном месте",
+  "onboardingSubTitle1": "Сотни предложений на выходные в одной удобной ленте",
+  "onboardingTitle2": "Проверенные гиды",
+  "onboardingSubTitle2": "Читайте честные отзывы от реальных туристов",
+  "onboardingTitle3": "Бронируй в 3 клика",
+  "onboardingSubTitle3": "Без долгих переписок, скриншотов и ожидания",
+  "next": "Далее",
+  "otpMessage": "На номер {phone} было отправлено 4-значное сообщение OTP"
 }

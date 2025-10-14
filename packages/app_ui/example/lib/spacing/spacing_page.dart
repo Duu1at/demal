@@ -51,9 +51,8 @@ class SpacingItem extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
-              Container(color: AppColors.neutral900, width: AppSpacing.xxlg, height: AppSpacing.lg),
-              Container(width: spacing, height: AppSpacing.lg, color: AppColors.warning700),
-              Container(color: AppColors.neutral900, width: AppSpacing.xxlg, height: AppSpacing.lg),
+              Container(color: AppColors.orange, width: AppSpacing.xxlg, height: AppSpacing.lg),
+              Container(color: AppColors.orange, width: AppSpacing.xxlg, height: AppSpacing.lg),
             ],
           ),
           const SizedBox(width: AppSpacing.sm),

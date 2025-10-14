@@ -1,5 +1,7 @@
 import 'package:app/app/app_view.dart';
-import 'package:app/app/cubit/app_cubit.dart';
+import 'package:app/app/cubits/app_cubit.dart';
+import 'package:app/app/cubits/app_settings/app_locale_cubit.dart';
+import 'package:app/app/cubits/app_settings/app_theme_cubit.dart';
 import 'package:app/app_observer.dart';
 import 'package:app/core/di/setup_di.dart';
 import 'package:app_ui/app_ui.dart';
@@ -28,11 +30,19 @@ void main() async {
       providers: [
         RepositoryProvider<PreferencesStorage>(create: (context) => storage),
         RepositoryProvider<AppRepository>(
-          create: (context) => AppRepositoryImpl(AppLocalDataSourceImpl(storage: context.read<PreferencesStorage>())),
+          create: (context) => AppRepositoryImpl(
+            AppLocalDataSourceImpl(storage: context.read<PreferencesStorage>()),
+          ),
         ),
-        BlocProvider(create: (context) => AppCubit(context.read<AppRepository>())),
+        BlocProvider(
+          create: (context) => AppThemeCubit(context.read<AppRepository>()),
+        ),
+        BlocProvider(
+          create: (context) => AppLocaleCubit(context.read<AppRepository>()),
+        ),
+        BlocProvider(create: (context) => AppCubit()),
       ],
-      child: const MyApp(),
+      child: const DemalApp(),
     ),
   );
 }
