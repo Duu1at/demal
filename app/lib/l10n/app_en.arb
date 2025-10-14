@@ -2,11 +2,19 @@
 {
   "@@locale": "en",
   "onboardingTitle1": "All tours in one place",
+  "@onboardingTitle1": {},
   "onboardingSubTitle1": "Hundreds of weekend offers in one convenient feed",
+  "@onboardingSubTitle1": {},
   "onboardingTitle2": "Verified guides",
+  "@onboardingTitle2": {},
   "onboardingSubTitle2": "Read honest reviews from real travelers",
+  "@onboardingSubTitle2": {},
   "onboardingTitle3": "Book in 3 clicks",
+  "@onboardingTitle3": {},
   "onboardingSubTitle3": "No long chats, screenshots or waiting",
+  "@onboardingSubTitle3": {},
   "next": "Next",
-  "otpMessage": "A 4-digit OTP code was sent to {phone}"
+  "@next": {},
+  "otpMessage": "A 4-digit OTP code was sent to {phone}",
+  "@otpMessage": {}
 }

@@ -34,7 +34,7 @@ extension StringX on String {
   String get urlWithoutProtocol => Uri.parse(this).host;
 
   bool get isValidInn {
-    var regexp = RegExp(r'^[0-9]*$');
+    final regexp = RegExp(r'^[0-9]*$');
     if (isEmpty) return false;
     if (length != 14 || (!startsWith('1') && !startsWith('2'))) {
       return false;

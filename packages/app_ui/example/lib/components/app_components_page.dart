@@ -111,7 +111,7 @@ class _AppComponentsPageState extends State<AppComponentsPage> {
             ),
           ),
           const DividerHorisontal(),
-          CardWithBorder(
+          const CardWithBorder(
             child: Column(children: [Text('testetaf'), Text('testetaf')]),
           ),
           const SizedBox(height: 300),
