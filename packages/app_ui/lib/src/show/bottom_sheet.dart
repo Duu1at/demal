@@ -1,3 +1,4 @@
+import 'package:app_ui/src/colors/app_theme_color_extension.dart';
 import 'package:app_ui/src/spacing/app_spacing.dart';
 import 'package:flutter/material.dart';
 
@@ -17,8 +18,7 @@ abstract class BottomSheets {
       showDragHandle: showDragHandle,
       context: context,
       isDismissible: isDismissible,
-      backgroundColor:
-          backgroundColor ?? Theme.of(context).colorScheme.surfaceContainer,
+      backgroundColor: backgroundColor ?? context.appcolors.alertBackground,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
           top: Radius.circular(AppSpacing.md),

@@ -1,4 +1,4 @@
-import 'package:app_ui/src/colors/app_shadows_extension.dart';
+import 'package:app_ui/src/colors/app_theme_color_extension.dart';
 import 'package:flutter/material.dart';
 
 class CardWithBorder extends StatelessWidget {
@@ -8,13 +8,21 @@ class CardWithBorder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final customShadows = Theme.of(context).extension<AppShadowsExtension>()!;
     return Container(
       margin: EdgeInsets.zero,
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surfaceContainer,
         borderRadius: BorderRadius.circular(12),
-        boxShadow: customShadows.cardShadow,
+        boxShadow: [
+          context.appcolors.grayShadow ??
+              BoxShadow(
+                color: Theme.of(
+                  context,
+                ).colorScheme.onSurface.withValues(alpha: 0.2),
+                blurRadius: 2,
+                offset: const Offset(0, 1),
+              ),
+        ],
         shape: BoxShape.rectangle,
         border: Border.all(
           color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.2),

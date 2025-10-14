@@ -50,11 +50,13 @@ class _InitialSettingsViewState extends State<InitialSettingsView> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return ScaffoldWithBgImage(
+      bgImageTop: false,
       appBar: AppBar(elevation: 0),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
         child: Column(
           children: [
+            AvatarIcon(size: 100, imageUrl: ''),
             Text('Добро пожаловать!', style: theme.textTheme.headlineLarge),
             Text(
               'Настраивайте настройки приложения',
@@ -81,14 +83,14 @@ class _InitialSettingsViewState extends State<InitialSettingsView> {
               },
             ),
             const DividerHorisontal(),
-            DrawerTile(
+            CardDrawerTile(
               icon: const Icon(Icons.language_outlined),
               title: 'Выберите язык',
               subtitle: _locale,
               onTap: () => _changeLocale(context),
             ),
             const DividerHorisontal(),
-            DrawerTile(
+            CardDrawerTile(
               icon: const Icon(Icons.sunny),
               title: 'Выберите тему',
               subtitle: _themeName,

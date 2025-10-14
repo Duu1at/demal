@@ -1,9 +1,9 @@
 import 'package:app_ui/app_ui.dart';
-import 'package:app_ui/src/colors/app_shadows_extension.dart';
+import 'package:app_ui/src/colors/app_theme_color_extension.dart';
 import 'package:flutter/material.dart';
 
-class DrawerTile extends StatelessWidget {
-  const DrawerTile({
+class CardDrawerTile extends StatelessWidget {
+  const CardDrawerTile({
     required this.icon,
     required this.title,
     this.withBorder = false,
@@ -23,7 +23,6 @@ class DrawerTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final color = Theme.of(context).colorScheme;
-    final customShadows = Theme.of(context).extension<AppShadowsExtension>()!;
     return Material(
       color: Theme.of(context).colorScheme.surfaceContainer,
       elevation: 0,
@@ -37,9 +36,7 @@ class DrawerTile extends StatelessWidget {
               )
             : BorderSide.none,
       ),
-      shadowColor: customShadows.cardShadow.isEmpty
-          ? Colors.transparent
-          : customShadows.cardShadow.first.color,
+      shadowColor: context.appcolors.grayShadow?.color,
       child: InkWell(
         splashColor: color.onSurface.withValues(alpha: 0.2),
         onTap: onTap,
