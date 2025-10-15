@@ -12,6 +12,7 @@ dependencies:
   core: 
   storage:
   flutter_svg: 
+  go_router:
   cached_network_image: ^3.4.1
   shimmer: ^3.0.0
 

@@ -15,3 +15,4 @@ export 'show/show.dart';
 export 'spacing/app_spacing.dart';
 export 'theme/theme.dart';
 export 'typography/app_text_styles.dart';
+export 'components/avatar/avatar_widget.dart';

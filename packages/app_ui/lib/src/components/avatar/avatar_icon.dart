@@ -1,6 +1,5 @@
 import 'dart:ui';
 import 'package:app_ui/app_ui.dart';
-import 'package:app_ui/src/colors/app_theme_color_extension.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
@@ -10,7 +9,7 @@ class AvatarIcon extends StatefulWidget {
     required this.imageUrl,
     this.size,
     this.expand = false,
-    this.avatarController,
+    // this.avatarController,
     this.errorWidget,
     this.framePadding,
   });
@@ -18,7 +17,7 @@ class AvatarIcon extends StatefulWidget {
   final String? imageUrl;
   final double? size;
   final bool expand;
-  final AvatarController? avatarController;
+  // final AvatarController? avatarController;
   final Widget? errorWidget;
   final EdgeInsets? framePadding;
 
@@ -37,7 +36,7 @@ class _AvatarIconState extends State<AvatarIcon>
   @override
   void initState() {
     if (widget.expand && widget.imageUrl != null) {
-      widget.avatarController?.onTap = _createOverlay;
+      // widget.avatarController?.onTap = _createOverlay;
       _animationController = AnimationController(
         vsync: this,
         duration: const Duration(milliseconds: 300),
@@ -255,6 +254,6 @@ class _ImageOverlayState extends State<_ImageOverlay> {
   }
 }
 
-class AvatarController {
-  void Function()? onTap;
-}
+// class AvatarController {
+//   void Function()? onTap;
+// }

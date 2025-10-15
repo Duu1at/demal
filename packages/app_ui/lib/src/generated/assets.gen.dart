@@ -44,6 +44,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/danger.svg
   SvgGenImage get danger => const SvgGenImage('assets/icons/danger.svg');
 
+  /// File path: assets/icons/edit.svg
+  SvgGenImage get edit => const SvgGenImage('assets/icons/edit.svg');
+
   /// File path: assets/icons/email.svg
   SvgGenImage get email => const SvgGenImage('assets/icons/email.svg');
 
@@ -91,6 +94,7 @@ class $AssetsIconsGen {
     closeCircle,
     close,
     danger,
+    edit,
     email,
     fileSearch,
     history,

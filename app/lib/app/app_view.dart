@@ -1,8 +1,8 @@
 import 'package:app/app/cubits/app_cubit.dart';
 import 'package:app/app/cubits/app_settings/app_locale_cubit.dart';
 import 'package:app/app/cubits/app_settings/app_theme_cubit.dart';
-import 'package:app/core/core.dart';
 import 'package:app/l10n/app_localizations.dart';
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';

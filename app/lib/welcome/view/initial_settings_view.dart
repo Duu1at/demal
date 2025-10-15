@@ -1,9 +1,9 @@
 import 'package:app/app/cubits/app_cubit.dart';
 import 'package:app/app/cubits/app_settings/app_theme_cubit.dart';
-import 'package:app/core/core.dart';
 import 'package:app/l10n/app_localizations.dart';
 import 'package:app/welcome/welcome.dart';
 import 'package:app_ui/app_ui.dart';
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -98,6 +98,13 @@ class RoleSelector extends StatelessWidget {
         final role = state.role;
         return Column(
           children: [
+            AvatarWidget(
+              size: 100,
+              avatarUrl: 'fda',
+              isActive: true,
+              expand: true,
+            ),
+
             RoleRedioWidget(
               key: const Key('client'),
               title: 'Путешественник',

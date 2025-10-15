@@ -3,7 +3,7 @@ import 'package:app/app/cubits/app_cubit.dart';
 import 'package:app/app/cubits/app_settings/app_locale_cubit.dart';
 import 'package:app/app/cubits/app_settings/app_theme_cubit.dart';
 import 'package:app/app_observer.dart';
-import 'package:app/core/di/setup_di.dart';
+import 'package:core/di/setup_di.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
