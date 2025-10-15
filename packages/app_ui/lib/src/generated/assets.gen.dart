@@ -77,6 +77,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/user.svg
   SvgGenImage get user => const SvgGenImage('assets/icons/user.svg');
 
+  /// File path: assets/icons/vector.svg
+  SvgGenImage get vector => const SvgGenImage('assets/icons/vector.svg');
+
   /// List of all assets
   List<SvgGenImage> get values => [
     arrowLeft,
@@ -99,6 +102,7 @@ class $AssetsIconsGen {
     star,
     tickCircle,
     user,
+    vector,
   ];
 }
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class TestClient extends StatelessWidget {
-  const TestClient({super.key});
+class ClientSettingsView extends StatelessWidget {
+  const ClientSettingsView({super.key});
 
   @override
   Widget build(BuildContext context) {

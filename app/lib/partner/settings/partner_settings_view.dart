@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class TestPartner extends StatelessWidget {
-  const TestPartner({super.key});
+class PartnerSettingsView extends StatelessWidget {
+  const PartnerSettingsView({super.key});
 
   @override
   Widget build(BuildContext context) {

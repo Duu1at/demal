@@ -57,7 +57,7 @@ class _LoginViewState extends State<LoginView> {
                 inputFormatters: [InputFormatters.phoneFormatter],
                 validator: InputValidators.phoneValidatorWithout996,
               ),
-              const SizedBox(height: AppSpacing.sm),
+              const SizedBox(height: AppSpacing.lg),
               AppButton(
                 child: const Text('Подтверждать'),
                 onPressed: () {

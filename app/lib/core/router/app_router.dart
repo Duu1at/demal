@@ -1,6 +1,5 @@
 import 'package:app/app/cubits/app_cubit.dart' show Role;
-import 'package:app/client/home/view/client_home.dart';
-import 'package:app/client/settings/view/test.dart';
+import 'package:app/client/client.dart';
 import 'package:app/login/view/login_view.dart';
 import 'package:app/login/view/otp_view.dart';
 import 'package:app/partner/partner.dart';
@@ -23,16 +22,21 @@ final class AppRouter {
   final bool isNewUser;
   final Role role;
 
-  static const client = 'client';
-  static const partner = 'partner';
   static const onboardingOne = 'onboarding-one';
   static const onboardingTwo = 'onboarding-two';
   static const onboardingThree = 'onboarding-three';
   static const login = 'login';
   static const otp = 'otp';
 
-  bool get isClient => role == Role.client;
+  /// route client
+  static const client = 'client';
+  static const clientSettings = 'client-settings';
 
+  ///route partner
+  static const partner = 'partner';
+  static const partnerSettings = 'partner-settings';
+
+  bool get isClient => role == Role.client;
   String get _initialRoute {
     if (isNewUser) return '/';
     return isClient ? '/$client' : '/$partner';
@@ -74,7 +78,7 @@ final class AppRouter {
               path: otp,
               name: otp,
               builder: (context, state) {
-               final phone = state.extra as String;
+                final phone = state.extra as String;
                 return OtpView(phone);
               },
             ),
@@ -84,14 +88,14 @@ final class AppRouter {
           path: '/$client',
           name: client,
           parentNavigatorKey: navigatorKey,
-          builder: (context, state) => const ClientHome(),
+          builder: (context, state) => const ClientHomeView(),
           routes: _clientRoutes,
         ),
         GoRoute(
           path: '/$partner',
           name: partner,
           parentNavigatorKey: navigatorKey,
-          builder: (context, state) => const PartnerHome(),
+          builder: (context, state) => const PartnerHomeView(),
           routes: _partnerRoutes,
         ),
       ],
@@ -101,8 +105,9 @@ final class AppRouter {
   static List<RouteBase> get _clientRoutes {
     return [
       GoRoute(
-        path: 'settings-client',
-        builder: (context, state) => const TestClient(),
+        path: clientSettings,
+        name: clientSettings,
+        builder: (context, state) => const ClientSettingsView(),
       ),
     ];
   }
@@ -110,8 +115,9 @@ final class AppRouter {
   static List<RouteBase> get _partnerRoutes {
     return [
       GoRoute(
-        path: 'settings-partner',
-        builder: (context, state) => const TestPartner(),
+        path: partnerSettings,
+        name: partnerSettings,
+        builder: (context, state) => const PartnerSettingsView(),
       ),
     ];
   }
