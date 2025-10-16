@@ -98,13 +98,7 @@ class RoleSelector extends StatelessWidget {
         final role = state.role;
         return Column(
           children: [
-            AvatarWidget(
-              size: 100,
-              isActive: true,
-              expand: true,
-              avatarUrl:
-                  'https://avatars.mds.yandex.net/i?id=2a00000179f606adf291936b0da302478fb8-4546582-images-thumbs&n=13',
-            ),
+            AvatarWidget(size: 100, isActive: true, expand: true),
 
             RoleRedioWidget(
               key: const Key('client'),

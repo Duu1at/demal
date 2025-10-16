@@ -1,10 +1,8 @@
 import 'dart:io';
-import 'dart:typed_data';
 import 'package:app/utils/permission/permission_reqester.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:app_ui/src/components/avatar/avatar_overlay.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
@@ -38,41 +36,53 @@ class _AvatarWidgetState extends State<AvatarWidget>
     with SingleTickerProviderStateMixin {
   ColorScheme? colorScheme;
   final GlobalKey _globalKey = GlobalKey();
-  late final AvatarController _controller;
+  late AnimationController _animationController;
   bool visible = true;
+  OverlayEntry? _overlayEntry;
 
   @override
   void initState() {
-    super.initState();
-    _controller = AvatarController(vsync: this);
-    _controller.attachRemoveCallback(() {
-      visible = true;
-      if (mounted) setState(() {});
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 300),
+    );
+    _animationController.addStatusListener((status) async {
+      if (status == AnimationStatus.reverse) {
+        await Future.delayed(const Duration(milliseconds: 300));
+        _removeOverlay();
+      }
     });
+    super.initState();
   }
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    _controller.setRouterIfNeeded(context, widget.expand, _routerListener);
-  }
+  // void _routerListener() {
+  //   String? currentRoute;
+  //   try {
+  //     currentRoute = GoRouter.of(
+  //       context,
+  //     ).routerDelegate.currentConfiguration.last.matchedLocation;
+  //   } catch (_) {
+  //     currentRoute = GoRouter.of(
+  //       context,
+  //     ).routeInformationProvider.value.uri.path;
+  //   }
+  // }
 
-  void _routerListener() {
-    String? currentRoute;
-    try {
-      currentRoute = GoRouter.of(
-        context,
-      ).routerDelegate.currentConfiguration.last.matchedLocation;
-    } catch (_) {
-      currentRoute = GoRouter.of(
-        context,
-      ).routeInformationProvider.value.uri.path;
+  void _removeOverlay() {
+    if (_overlayEntry != null) {
+      _overlayEntry?.remove();
+      _overlayEntry?.dispose();
+      _overlayEntry = null;
+      visible = true;
+      if (mounted) {
+        setState(() {});
+      }
     }
   }
 
   @override
   void dispose() {
-    _controller.dispose(_routerListener);
+    _removeOverlay();
     super.dispose();
   }
 
@@ -174,30 +184,70 @@ class _AvatarWidgetState extends State<AvatarWidget>
     return Opacity(opacity: visible ? 1 : 0, child: result);
   }
 
-  Future<void> _onTap({bool createOverlay = false}) async {
-    if (widget.expand && createOverlay) {
-      final entry = OverlayEntry(
-        builder: (ctx) => GestureDetector(
+  void _createOverlay() async {
+    final OverlayState overlay = Overlay.of(context, rootOverlay: true);
+
+    _overlayEntry = OverlayEntry(
+      canSizeOverlay: true,
+      builder: (context) {
+        return GestureDetector(
           onTap: () {
-            _controller.animationController.reverse();
-            GoRouter.of(ctx).pop();
+            _animationController.reverse();
+            GoRouter.of(context).pop();
           },
           child: AvatarOverlay(
-            globalKey: _globalKey,
             avatarUrl: widget.avatarUrl,
-            animationController: _controller.animationController,
-            themeData: Theme.of(context),
-            fallbackSize: MediaQuery.sizeOf(context).height * 0.33,
+            globalKey: _globalKey,
+            animationController: _animationController,
           ),
-        ),
-      );
-      _controller.insertOverlay(context, entry);
+        );
+      },
+    );
+    overlay.insert(_overlayEntry!);
+  }
+
+  void _onTap({bool createOverlay = false}) async {
+    if (widget.expand && createOverlay) {
+      _createOverlay();
       visible = false;
       setState(() {});
     }
-    AvatarPickerService.pickFrom(context);
+    await BottomSheets.showModalSettingsSheet(
+      context: context,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          AppButton(
+            onPressed: () {
+              GoRouter.of(context).pop();
+              select(ImageSource.camera);
+            },
+
+            child: const Text('Cнимать на фото'),
+          ),
+          const DividerHorisontal(),
+          AppButton(
+            onPressed: () {
+              GoRouter.of(context).pop();
+              select(ImageSource.gallery);
+            },
+            child: const Text('Выберите фото'),
+          ),
+          const DividerHorisontal(),
+          AppButton(
+            onPressed: () {
+              if (widget.onDelete != null) {
+                widget.onDelete!();
+              }
+              GoRouter.of(context).pop();
+            },
+            child: const Text('Удалить  фото'),
+          ),
+        ],
+      ),
+    );
     if (widget.expand) {
-      _controller.animationController.reverse();
+      _animationController.reverse();
     }
   }
 
@@ -211,31 +261,13 @@ class _AvatarWidgetState extends State<AvatarWidget>
         )
         .then((value) async {
           if (value != null) {
-            Uint8List? bytes = await value.readAsBytes();
+            final Uint8List bytes = await value.readAsBytes();
+            colorScheme = await ColorScheme.fromImageProvider(
+              provider: MemoryImage(bytes),
+            );
 
-            var res = await ImageEditorRoute(
-              extra: EditorExtra(bytes),
-            ).push<EditorResult>(context);
-            if (res?.type == EditorType.finish) {
-              bytes = res?.image;
-              if (bytes != null) {
-                colorScheme = await ColorScheme.fromImageProvider(
-                  provider: MemoryImage(bytes),
-                );
-
-                if (widget.onUpdate != null) {
-                  widget.onUpdate!(await File(value.path).writeAsBytes(bytes));
-                }
-              }
-            } else if (res?.type == EditorType.repeate) {
-              LoadingOverlay.removeLoadingOverlay();
-              select(source);
-            } else if (res?.type == EditorType.error) {
-              LoadingOverlay.removeLoadingOverlay();
-              ExceptionWorker.proccessException(
-                LocaleKeys.general_file_too_large_label.tr(),
-                context: context,
-              );
+            if (widget.onUpdate != null) {
+              widget.onUpdate!(await File(value.path).writeAsBytes(bytes));
             }
           }
         })
@@ -288,4 +320,3 @@ class _AvatarWidgetState extends State<AvatarWidget>
     // ).show();
   }
 }
-
