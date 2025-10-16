@@ -78,7 +78,10 @@ class _AvatarWidgetState extends State<AvatarWidget>
       child: Assets.icons.user.svg(
         width: widget.size,
         height: widget.size,
-        color: Theme.of(context).colorScheme.onSurface,
+        colorFilter: ColorFilter.mode(
+          Theme.of(context).colorScheme.onSurface,
+          BlendMode.srcIn,
+        ),
       ),
     );
   }
@@ -106,10 +109,12 @@ class _AvatarWidgetState extends State<AvatarWidget>
                       onTap: widget.isActive
                           ? () => _onTap(createOverlay: true)
                           : null,
-                      radius: 32,
+                      radius: (widget.size ?? 72) / 2,
                       splashColor: colorScheme?.primaryContainer,
                       child: ClipRRect(
-                        borderRadius: BorderRadius.circular(36),
+                        borderRadius: BorderRadius.circular(
+                          (widget.size ?? 72) / 2,
+                        ),
                         child: SizedBox(
                           height: widget.size ?? 72,
                           width: widget.size ?? 72,
@@ -143,12 +148,18 @@ class _AvatarWidgetState extends State<AvatarWidget>
                   ? Assets.icons.edit.svg(
                       width: sizeEdit,
                       height: sizeEdit,
-                      color: Theme.of(context).colorScheme.onSurface,
+                      colorFilter: ColorFilter.mode(
+                        Theme.of(context).colorScheme.onSurface,
+                        BlendMode.srcIn,
+                      ),
                     )
                   : Assets.icons.plus.svg(
                       width: sizeEdit,
                       height: sizeEdit,
-                      color: Theme.of(context).colorScheme.onSurface,
+                      colorFilter: ColorFilter.mode(
+                        Theme.of(context).colorScheme.onSurface,
+                        BlendMode.srcIn,
+                      ),
                     ),
             ),
           ),

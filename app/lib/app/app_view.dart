@@ -36,6 +36,7 @@ class _DemalAppState extends State<DemalApp> {
         supportedLocales: AppLocalizations.supportedLocales,
         title: 'Demal',
         routerConfig: _router,
+        
       ),
     );
   }

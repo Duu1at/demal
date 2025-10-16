@@ -100,9 +100,10 @@ class RoleSelector extends StatelessWidget {
           children: [
             AvatarWidget(
               size: 100,
-              avatarUrl: 'fda',
               isActive: true,
               expand: true,
+              avatarUrl:
+                  'https://avatars.mds.yandex.net/i?id=2a00000179f606adf291936b0da302478fb8-4546582-images-thumbs&n=13',
             ),
 
             RoleRedioWidget(
