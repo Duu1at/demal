@@ -9,7 +9,7 @@ class AvatarIcon extends StatefulWidget {
     required this.imageUrl,
     this.size,
     this.expand = false,
-    // this.avatarController,
+    this.avatarController,
     this.errorWidget,
     this.framePadding,
   });
@@ -17,7 +17,7 @@ class AvatarIcon extends StatefulWidget {
   final String? imageUrl;
   final double? size;
   final bool expand;
-  // final AvatarController? avatarController;
+  final AvatarIconController? avatarController;
   final Widget? errorWidget;
   final EdgeInsets? framePadding;
 
@@ -36,7 +36,7 @@ class _AvatarIconState extends State<AvatarIcon>
   @override
   void initState() {
     if (widget.expand && widget.imageUrl != null) {
-      // widget.avatarController?.onTap = _createOverlay;
+      widget.avatarController?.onTap = _createOverlay;
       _animationController = AnimationController(
         vsync: this,
         duration: const Duration(milliseconds: 300),
@@ -64,7 +64,6 @@ class _AvatarIconState extends State<AvatarIcon>
     visible = false;
     setState(() {});
     final OverlayState overlay = Overlay.of(context, rootOverlay: true);
-
     _overlayEntry = OverlayEntry(
       canSizeOverlay: true,
       builder: (context) {
@@ -254,6 +253,6 @@ class _ImageOverlayState extends State<_ImageOverlay> {
   }
 }
 
-// class AvatarController {
-//   void Function()? onTap;
-// }
+class AvatarIconController {
+  void Function()? onTap;
+}

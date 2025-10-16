@@ -1,10 +1,16 @@
 import 'dart:io';
+import 'dart:typed_data';
+import 'package:app/utils/permission/permission_reqester.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:app_ui/src/components/avatar/avatar_overlay.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
+import 'package:image_picker/image_picker.dart';
+
+enum EditorType { repeate, finish, error }
 
 class AvatarWidget extends StatefulWidget {
   const AvatarWidget({
@@ -195,65 +201,64 @@ class _AvatarWidgetState extends State<AvatarWidget>
     }
   }
 
-  // void _select() {
-  // ImagePicker()
-  //     .pickImage(
-  //       source: source,
-  //       imageQuality: 70,
-  //       maxHeight: 700,
-  //       maxWidth: 700,
-  //     )
-  //     .then((value) async {
-  //       if (value != null) {
-  //         Uint8List? bytes = await value.readAsBytes();
+  void select(ImageSource source) {
+    ImagePicker()
+        .pickImage(
+          source: source,
+          imageQuality: 70,
+          maxHeight: 700,
+          maxWidth: 700,
+        )
+        .then((value) async {
+          if (value != null) {
+            Uint8List? bytes = await value.readAsBytes();
 
-  //         var res = await ImageEditorRoute(
-  //           extra: EditorExtra(bytes),
-  //         ).push<EditorResult>(context);
-  //         if (res?.type == EditorType.finish) {
-  //           bytes = res?.image;
-  //           if (bytes != null) {
-  //             colorScheme = await ColorScheme.fromImageProvider(
-  //               provider: MemoryImage(bytes),
-  //             );
-  //             if (widget.onUpdate != null) {
-  //               widget.onUpdate!(await File(value.path).writeAsBytes(bytes));
-  //             }
-  //           }
-  //         } else if (res?.type == EditorType.repeate) {
-  //           LoadingOverlay.removeLoadingOverlay();
-  //           _select(source);
-  //         } else if (res?.type == EditorType.error) {
-  //           LoadingOverlay.removeLoadingOverlay();
-  //           ExceptionWorker.proccessException(
-  //             LocaleKeys.general_file_too_large_label.tr(),
-  //             context: context,
-  //           );
-  //         }
-  //       }
-  //     })
-  //     .catchError((err) {
-  //       if (err is PlatformException) {
-  //         if (err.code == 'photo_access_denied' ||
-  //             err.code == 'camera_access_denied') {
-  //           switch (source) {
-  //             // case ImageSource.camera:
-  //             //   PermissionReqeuster.requestCamera(
-  //             //     onDenied: (status) => _accessModal(source),
-  //             //   );
-  //             //   break;
-  //             // case ImageSource.gallery:
-  //             //   PermissionReqeuster.requestGallery(
-  //             //     onDenied: (status) => _accessModal(source),
-  //             //   );
-  //             //   break;
-  //           }
-  //         }
-  //       }
-  //     });
-  // }
+            var res = await ImageEditorRoute(
+              extra: EditorExtra(bytes),
+            ).push<EditorResult>(context);
+            if (res?.type == EditorType.finish) {
+              bytes = res?.image;
+              if (bytes != null) {
+                colorScheme = await ColorScheme.fromImageProvider(
+                  provider: MemoryImage(bytes),
+                );
 
-  void _accessModal() {
+                if (widget.onUpdate != null) {
+                  widget.onUpdate!(await File(value.path).writeAsBytes(bytes));
+                }
+              }
+            } else if (res?.type == EditorType.repeate) {
+              LoadingOverlay.removeLoadingOverlay();
+              select(source);
+            } else if (res?.type == EditorType.error) {
+              LoadingOverlay.removeLoadingOverlay();
+              ExceptionWorker.proccessException(
+                LocaleKeys.general_file_too_large_label.tr(),
+                context: context,
+              );
+            }
+          }
+        })
+        .catchError((err) {
+          if (err is PlatformException) {
+            if (err.code == 'photo_access_denied' ||
+                err.code == 'camera_access_denied') {
+              switch (source) {
+                case ImageSource.camera:
+                  PermissionReqeuster.requestCamera(
+                    onDenied: (status) => accessModal(source),
+                  );
+                case ImageSource.gallery:
+                  PermissionReqeuster.requestGallery(
+                    onDenied: (status) => accessModal(source),
+                  );
+              }
+            }
+          }
+        });
+  }
+
+  void accessModal(ImageSource source) {
     // SwipeModal(
     //   context: context,
     //   useRootNavigator: true,
@@ -283,3 +288,4 @@ class _AvatarWidgetState extends State<AvatarWidget>
     // ).show();
   }
 }
+

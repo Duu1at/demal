@@ -25,6 +25,7 @@ dependencies:
   go_router:
   get_it:
   talker_flutter:
+  permission_handler:
 dev_dependencies:
   flutter_test:
     sdk: flutter
