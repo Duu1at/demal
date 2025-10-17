@@ -290,33 +290,23 @@ class _AvatarWidgetState extends State<AvatarWidget>
         });
   }
 
-  void accessModal(ImageSource source) {
-    // SwipeModal(
-    //   context: context,
-    //   useRootNavigator: true,
-    //   routeArguments: RouteHelper.setArguments(
-    //     analyticsName: 'modal-avatar-camera-permissions',
-    //   ),
-    //   child: InfoBody(
-    //     svg: source == ImageSource.camera
-    //         ? ComponentSvgs.camera
-    //         : ComponentSvgs.gallery,
-    //     title: source == ImageSource.camera
-    //         ? CoreLocaleKeys.labels_camera_permission_title.trc()
-    //         : LocaleKeys.permission_title.tr(),
-    //     description: source == ImageSource.camera
-    //         ? LocaleKeys.permission_camera_description.tr()
-    //         : LocaleKeys.permission_gallery_description.tr(),
-    //     bottom: ActionsBottom(
-    //       buttons: [
-    //         CustomButton(
-    //           title: LocaleKeys.permission_button_label.tr(),
-    //           onPressed: () =>
-    //               openAppSettings().then((value) => GoRouter.of(context).pop()),
-    //         ),
-    //       ],
-    //     ),
-    //   ),
-    // ).show();
+  void accessModal(ImageSource source) async {
+    await BottomSheets.showModalSettingsSheet(
+      context: context,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          AppButton(
+            onPressed: () {
+              if (widget.onDelete != null) {
+                widget.onDelete!();
+              }
+              GoRouter.of(context).pop();
+            },
+            child: const Text('Удалить  фото'),
+          ),
+        ],
+      ),
+    );
   }
 }
