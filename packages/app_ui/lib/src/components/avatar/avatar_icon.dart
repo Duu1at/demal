@@ -2,11 +2,13 @@ import 'dart:ui';
 import 'package:app_ui/app_ui.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
 class AvatarIcon extends StatefulWidget {
   const AvatarIcon({
     super.key,
     required this.imageUrl,
+    required this.cacheManager,
     this.size,
     this.expand = false,
     this.avatarController,
@@ -14,6 +16,7 @@ class AvatarIcon extends StatefulWidget {
     this.framePadding,
   });
 
+  final CacheManager cacheManager;
   final String? imageUrl;
   final double? size;
   final bool expand;
@@ -75,6 +78,7 @@ class _AvatarIconState extends State<AvatarIcon>
             imageUrl: widget.imageUrl,
             globalKey: globalKey,
             animationController: _animationController,
+            cacheManager: widget.cacheManager,
           ),
         );
       },
@@ -159,12 +163,13 @@ class _ImageOverlay extends StatefulWidget {
   const _ImageOverlay({
     this.imageUrl,
     required this.animationController,
+    required this.cacheManager,
     this.globalKey,
   });
   final String? imageUrl;
   final GlobalKey? globalKey;
   final AnimationController animationController;
-
+  final CacheManager cacheManager;
   @override
   State<_ImageOverlay> createState() => _ImageOverlayState();
 }
@@ -207,6 +212,7 @@ class _ImageOverlayState extends State<_ImageOverlay> {
             ? CachedNetworkImage(
                 imageUrl: widget.imageUrl!,
                 fit: BoxFit.cover,
+                cacheManager: widget.cacheManager,
                 imageBuilder: (context, image) {
                   return ClipRRect(
                     borderRadius: BorderRadius.circular(size),

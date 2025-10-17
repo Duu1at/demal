@@ -26,6 +26,9 @@ dependencies:
   get_it:
   talker_flutter:
   permission_handler:
+  flutter_cache_manager:
+  cached_network_image:
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter
