@@ -1,8 +1,9 @@
-import 'dart:ui';
 import 'package:app_ui/app_ui.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+
+import 'avatar_overlay.dart';
 
 class AvatarIcon extends StatefulWidget {
   const AvatarIcon({
@@ -74,8 +75,8 @@ class _AvatarIconState extends State<AvatarIcon>
           onTap: () {
             _animationController.reverse();
           },
-          child: _ImageOverlay(
-            imageUrl: widget.imageUrl,
+          child: AvatarOverlay(
+            avatarUrl: widget.imageUrl,
             globalKey: globalKey,
             animationController: _animationController,
             cacheManager: widget.cacheManager,
@@ -156,106 +157,6 @@ class _AvatarIconState extends State<AvatarIcon>
     }
 
     return Opacity(opacity: visible ? 1 : 0, child: result);
-  }
-}
-
-class _ImageOverlay extends StatefulWidget {
-  const _ImageOverlay({
-    this.imageUrl,
-    required this.animationController,
-    required this.cacheManager,
-    this.globalKey,
-  });
-  final String? imageUrl;
-  final GlobalKey? globalKey;
-  final AnimationController animationController;
-  final CacheManager cacheManager;
-  @override
-  State<_ImageOverlay> createState() => _ImageOverlayState();
-}
-
-class _ImageOverlayState extends State<_ImageOverlay> {
-  late RectTween rectTween;
-  Rect? beginRect;
-
-  @override
-  void initState() {
-    widget.animationController.forward();
-    beginRect = _getRect(widget.globalKey!);
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final Size mediaSize = MediaQuery.sizeOf(context);
-    final double size = mediaSize.height * 0.33;
-
-    return AnimatedBuilder(
-      animation: widget.animationController,
-      builder: (context, _) {
-        rectTween = RectTween(
-          begin: beginRect,
-          end: Rect.fromCenter(
-            center: Offset(mediaSize.width / 2, mediaSize.height * 0.3),
-            width: size,
-            height: size,
-          ),
-        );
-
-        final double colorLerp = lerpDouble(
-          0,
-          0.56,
-          widget.animationController.value,
-        )!;
-
-        final Widget result = widget.imageUrl?.isNotEmpty == true
-            ? CachedNetworkImage(
-                imageUrl: widget.imageUrl!,
-                fit: BoxFit.cover,
-                cacheManager: widget.cacheManager,
-                imageBuilder: (context, image) {
-                  return ClipRRect(
-                    borderRadius: BorderRadius.circular(size),
-                    child: SizedBox(
-                      height: size,
-                      width: size,
-                      child: Image(image: image, fit: BoxFit.cover),
-                    ),
-                  );
-                },
-                progressIndicatorBuilder: (context, child, loadingProgress) =>
-                    ShimmerContainer(height: size, width: size, radius: size),
-              )
-            : const SizedBox();
-
-        return Stack(
-          children: [
-            Container(color: Colors.black.withValues(alpha: colorLerp)),
-            Positioned.fromRect(
-              rect: rectTween.evaluate(
-                CurvedAnimation(
-                  parent: widget.animationController,
-                  curve: Curves.easeInOut,
-                ),
-              )!,
-              child: result,
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  Rect _getRect(GlobalKey globalKey) {
-    assert(globalKey.currentContext != null);
-    final RenderBox renderBoxContainer =
-        globalKey.currentContext!.findRenderObject()! as RenderBox;
-    return Rect.fromPoints(
-      renderBoxContainer.localToGlobal(renderBoxContainer.paintBounds.topLeft),
-      renderBoxContainer.localToGlobal(
-        renderBoxContainer.paintBounds.bottomRight,
-      ),
-    );
   }
 }
 

@@ -1,22 +1,24 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
 class AvatarOverlay extends StatefulWidget {
-  final GlobalKey globalKey;
-  final String? avatarUrl;
-  final AnimationController animationController;
-  final ThemeData? themeData;
-  final double? fallbackSize;
-
   const AvatarOverlay({
     super.key,
     required this.globalKey,
     required this.avatarUrl,
     required this.animationController,
+    this.cacheManager,
     this.themeData,
     this.fallbackSize,
   });
+  final GlobalKey globalKey;
+  final String? avatarUrl;
+  final AnimationController animationController;
+  final CacheManager? cacheManager;
+  final ThemeData? themeData;
+  final double? fallbackSize;
 
   @override
   State<AvatarOverlay> createState() => _AvatarOverlayState();

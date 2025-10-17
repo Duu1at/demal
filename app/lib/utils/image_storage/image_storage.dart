@@ -11,7 +11,7 @@ class ImageStorage {
 
   ImageStorage._()
     : avatarManager = CacheManager(
-        Config(kAvatarCahceKey, stalePeriod: const Duration(minutes: 30)),
+        Config(kAvatarCahceKey, stalePeriod: const Duration(days: 30)),
       );
 
   Future<void> clearAllData() async {
