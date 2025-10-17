@@ -1,7 +1,7 @@
 export 'colors/app_colors.dart';
 export 'colors/app_input_color_extension.dart';
 export './colors/app_theme_color_extension.dart';
-export 'components/avatar/avatar_icon.dart';
+export 'components/avatar/avatar.dart';
 export 'components/buttons/buttons.dart';
 export 'components/cards/card_drawer_tile.dart';
 export 'components/cards/cards.dart';
@@ -15,4 +15,3 @@ export 'show/show.dart';
 export 'spacing/app_spacing.dart';
 export 'theme/theme.dart';
 export 'typography/app_text_styles.dart';
-export 'components/avatar/avatar_widget.dart';

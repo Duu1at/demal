@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:app/utils/permission/permission_reqester.dart';
 import 'package:app_ui/app_ui.dart';
-import 'package:app_ui/src/components/avatar/avatar_overlay.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

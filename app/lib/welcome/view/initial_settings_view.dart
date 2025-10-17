@@ -2,6 +2,7 @@ import 'package:app/app/cubits/app_cubit.dart';
 import 'package:app/app/cubits/app_settings/app_theme_cubit.dart';
 import 'package:app/l10n/app_localizations.dart';
 import 'package:app/welcome/welcome.dart';
+import 'package:app/widgets/avatar_widget.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
@@ -98,7 +99,7 @@ class RoleSelector extends StatelessWidget {
         final role = state.role;
         return Column(
           children: [
-            AvatarWidget(size: 100, isActive: true, expand: true),
+            const AvatarWidget(size: 100, isActive: true, expand: true),
 
             RoleRedioWidget(
               key: const Key('client'),
