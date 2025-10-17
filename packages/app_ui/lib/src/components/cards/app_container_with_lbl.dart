@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class CardWithLabel extends StatelessWidget {
-  const CardWithLabel({super.key, required this.label, required this.child});
+class AppContainerWithLbl extends StatelessWidget {
+  const AppContainerWithLbl({super.key, required this.label, required this.child});
   final String label;
   final Widget child;
 

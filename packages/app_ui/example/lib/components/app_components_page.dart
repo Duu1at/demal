@@ -43,7 +43,7 @@ class _AppComponentsPageState extends State<AppComponentsPage> {
           const DividerHorisontal(),
           Form(
             key: _formKey,
-            child: CardWithLabel(
+            child: AppContainerWithLbl(
               label: 'Номер телефона',
               child: CustomTextField(
                 controller: _phoneController,
@@ -70,9 +70,7 @@ class _AppComponentsPageState extends State<AppComponentsPage> {
             variant: AppButtonVariant.primary,
             isLoading: false,
             onPressed: () {
-              if (_formKey.currentState!.validate()) {
-                
-              }
+              if (_formKey.currentState!.validate()) {}
             },
             child: const Text('Dialog'),
           ),
@@ -96,7 +94,7 @@ class _AppComponentsPageState extends State<AppComponentsPage> {
             icon: const Icon(Icons.close),
           ),
           const DividerHorisontal(),
-          CardWithLabel(
+          AppContainerWithLbl(
             label: 'Номер телефона',
             child: CustomTextField(
               controller: _phoneController,
@@ -111,7 +109,7 @@ class _AppComponentsPageState extends State<AppComponentsPage> {
             ),
           ),
           const DividerHorisontal(),
-          const CardWithBorder(
+          const AppCard(
             child: Column(children: [Text('testetaf'), Text('testetaf')]),
           ),
           const SizedBox(height: 300),
@@ -126,5 +124,4 @@ class _AppComponentsPageState extends State<AppComponentsPage> {
       typeAlertDialog: AlertDialogType.info,
     );
   }
-
 }

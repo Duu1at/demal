@@ -1,8 +1,8 @@
 import 'package:app_ui/src/colors/app_theme_color_extension.dart';
 import 'package:flutter/material.dart';
 
-class CardWithBorder extends StatelessWidget {
-  const CardWithBorder({super.key, required this.child});
+class AppCard extends StatelessWidget {
+  const AppCard({super.key, required this.child});
 
   final Widget child;
 
