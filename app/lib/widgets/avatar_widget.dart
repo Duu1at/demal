@@ -54,19 +54,6 @@ class _AvatarWidgetState extends State<AvatarWidget>
     super.initState();
   }
 
-  // void _routerListener() {
-  //   String? currentRoute;
-  //   try {
-  //     currentRoute = GoRouter.of(
-  //       context,
-  //     ).routerDelegate.currentConfiguration.last.matchedLocation;
-  //   } catch (_) {
-  //     currentRoute = GoRouter.of(
-  //       context,
-  //     ).routeInformationProvider.value.uri.path;
-  //   }
-  // }
-
   void _removeOverlay() {
     if (_overlayEntry != null) {
       _overlayEntry?.remove();
