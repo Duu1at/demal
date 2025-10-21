@@ -17,7 +17,14 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       leading: IconButton(
         onPressed: onMenuTap,
-        icon: Assets.icons.bullet.svg(width: 24, height: 24),
+        icon: Assets.icons.bullet.svg(
+          width: 24,
+          height: 24,
+          colorFilter: ColorFilter.mode(
+            theme.colorScheme.onSurface,
+            BlendMode.srcIn,
+          ),
+        ),
       ),
       title: Column(
         children: [
@@ -34,7 +41,14 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
       actions: [
         IconButton(
           onPressed: onNotificationTap,
-          icon: Assets.icons.bell.svg(width: 24, height: 24),
+          icon: Assets.icons.bell.svg(
+            width: 24,
+            height: 24,
+            colorFilter: ColorFilter.mode(
+              theme.colorScheme.onSurface,
+              BlendMode.srcIn,
+            ),
+          ),
         ),
       ],
     );

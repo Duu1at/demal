@@ -23,11 +23,21 @@ class SearchTextField extends StatelessWidget {
       onChanged: onChanged,
       prefixIcon: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 12),
-        child: Assets.icons.search.svg(),
+        child: Assets.icons.search.svg(
+          colorFilter: ColorFilter.mode(
+            Theme.of(context).colorScheme.onSurface,
+            BlendMode.srcIn,
+          ),
+        ),
       ),
       suffixIcon: IconButton(
         onPressed: onFilterTap,
-        icon: Assets.icons.settingsFillter.svg(),
+        icon: Assets.icons.settingsFilter.svg(
+          colorFilter: ColorFilter.mode(
+            Theme.of(context).colorScheme.onSurface,
+            BlendMode.srcIn,
+          ),
+        ),
       ),
       style: Theme.of(context).textTheme.bodyLarge,
       hintStyle: Theme.of(

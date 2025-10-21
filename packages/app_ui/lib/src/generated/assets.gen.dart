@@ -68,8 +68,8 @@ class $AssetsIconsGen {
   /// File path: assets/icons/search.svg
   SvgGenImage get search => const SvgGenImage('assets/icons/search.svg');
 
-  /// File path: assets/icons/settings_fillter.svg
-  SvgGenImage get settingsFillter => const SvgGenImage('assets/icons/settings_fillter.svg');
+  /// File path: assets/icons/settings_filter.svg
+  SvgGenImage get settingsFilter => const SvgGenImage('assets/icons/settings_filter.svg');
 
   /// File path: assets/icons/star.svg
   SvgGenImage get star => const SvgGenImage('assets/icons/star.svg');
@@ -102,7 +102,7 @@ class $AssetsIconsGen {
     phone,
     plus,
     search,
-    settingsFillter,
+    settingsFilter,
     star,
     tickCircle,
     user,
