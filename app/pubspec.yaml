@@ -29,6 +29,7 @@ dependencies:
   flutter_cache_manager:
   cached_network_image:
   image_picker:
+  carousel_slider:
   
 dev_dependencies:
   flutter_test:

@@ -53,9 +53,8 @@ class TourCard extends StatelessWidget {
             BoxShadow(
               color: Theme.of(
                 context,
-              ).colorScheme.onSurface.withValues(alpha: 0.1),
-              blurRadius: 4,
-              offset: const Offset(0, 2),
+              ).colorScheme.primary.withValues(alpha: 0.2),
+              blurRadius: 8,
             ),
           ],
         ),

@@ -1,3 +1,4 @@
+import 'package:app/client/home/view/client_tour_details_view.dart';
 import 'package:flutter/material.dart';
 import 'package:app_ui/app_ui.dart';
 
@@ -24,18 +25,7 @@ class _ClientHomeViewState extends State<ClientHomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: HomeAppBar(
-        onMenuTap: () {
-          Scaffold.of(context).openDrawer(
-            // Open the drawer
-          );
-        },
-        onNotificationTap: () {
-          Scaffold.of(context).openEndDrawer(
-            // Open the end drawer
-          );
-        },
-      ),
+      appBar: HomeAppBar(onMenuTap: () {}, onNotificationTap: () {}),
       body: RefreshIndicator(
         onRefresh: _onBottomRefresh,
         child: CustomScrollView(
@@ -60,7 +50,8 @@ class _ClientHomeViewState extends State<ClientHomeView> {
               padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
               sliver: SliverList.separated(
                 itemBuilder: (context, index) => TourCard(
-                  imageUrl: 'https://picsum.photos/400/250',
+                  imageUrl:
+                      'https://avatars.mds.yandex.net/i?id=b4f305847bbf6a7b444a16a92ef1556f_l-10132791-images-thumbs&n=13',
                   rating: 5.0,
                   ratingCount: 12,
                   typeOfTour: 'Adventure',
@@ -72,11 +63,20 @@ class _ClientHomeViewState extends State<ClientHomeView> {
                   country: 'Country',
                   oldPrice: 100,
                   price: 80,
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return const ClientTourDetailsView();
+                        },
+                      ),
+                    );
+                  },
                   onBookTap: () {},
                 ),
                 separatorBuilder: (_, __) => const SizedBox(height: 16),
-                itemCount: 8,
+                itemCount: 18,
               ),
             ),
 
