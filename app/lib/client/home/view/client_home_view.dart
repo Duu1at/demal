@@ -7,8 +7,44 @@ class ClientHomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Client Home')),
-      body: Column(children: [AppCardItem()]),
+      appBar: const CustomAppBar(
+    
+      ),
+      body: ListView(
+        children: [
+          TourCard(
+            imageUrl: 'https://picsum.photos/400/250',
+            rating: 5.0,
+            ratingCount: 12,
+            typeOfTour: 'Type Of Tour',
+            title: 'Card Title',
+            features: ['Pickup Available', 'Skip the Line', 'Enter Free'],
+            duration: 'Duration',
+            distance: 'Miles Away',
+            city: 'City',
+            country: 'Country',
+            oldPrice: 100.00,
+            price: 0.00,
+            onTap: () {},
+          ),
+          const SizedBox(height: 16),
+          TourCard(
+            imageUrl: 'https://picsum.photos/400/250',
+            rating: 5.0,
+            ratingCount: 12,
+            typeOfTour: 'Type Of Tour',
+            title: 'Card Title',
+            features: ['Pickup Available', 'Skip the Line', 'Enter Free'],
+            duration: 'Duration',
+            distance: 'Miles Away',
+            city: 'City',
+            country: 'Country',
+            oldPrice: 100.00,
+            price: 0.00,
+            onTap: () {},
+          ),
+        ],
+      ),
     );
   }
 }

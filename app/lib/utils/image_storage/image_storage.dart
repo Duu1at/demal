@@ -6,15 +6,20 @@ class ImageStorage {
   static ImageStorage get instance => _instance;
 
   final CacheManager avatarManager;
+  final CacheManager tourManager;
 
-  static const kAvatarCahceKey = 'kAvatarCahceKey';
+  static const kAvatarCacheKey = 'kAvatarCacheKey';
+  static const kTourCacheKey = 'kTourCacheKey';
 
   ImageStorage._()
     : avatarManager = CacheManager(
-        Config(kAvatarCahceKey, stalePeriod: const Duration(days: 30)),
+        Config(kAvatarCacheKey, stalePeriod: const Duration(days: 30)),
+      ),
+      tourManager = CacheManager(
+        Config(kTourCacheKey, stalePeriod: const Duration(days: 30)),
       );
 
   Future<void> clearAllData() async {
-    await Future.wait([avatarManager.emptyCache()]);
+    await Future.wait([avatarManager.emptyCache(), tourManager.emptyCache()]);
   }
 }
