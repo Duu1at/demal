@@ -21,7 +21,7 @@ class PhoneField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomTextField(
+    return AppTextField(
       controller: controller,
       style: Theme.of(context).textTheme.bodyLarge,
       hintText: hintText,

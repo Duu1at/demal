@@ -15,4 +15,4 @@ export 'show/show.dart';
 export 'spacing/app_spacing.dart';
 export 'theme/theme.dart';
 export 'typography/app_text_styles.dart';
-export 'components/app_bar/custom_app_bar.dart';
+export 'components/app_bar/home_app_bar.dart';

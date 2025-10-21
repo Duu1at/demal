@@ -1,3 +1,4 @@
+import 'package:app_ui/app_ui.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
@@ -20,6 +21,7 @@ class TourCard extends StatelessWidget {
     this.price,
     this.onTap,
     this.cacheManager,
+    this.onBookTap,
   });
   final String? imageUrl;
   final double? rating;
@@ -35,6 +37,7 @@ class TourCard extends StatelessWidget {
   final double? price;
   final VoidCallback? onTap;
   final CacheManager? cacheManager;
+  final VoidCallback? onBookTap;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +46,6 @@ class TourCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        margin: const EdgeInsets.all(8),
         decoration: BoxDecoration(
           color: Theme.of(context).cardColor,
           borderRadius: BorderRadius.circular(16),
@@ -89,11 +91,32 @@ class TourCard extends StatelessWidget {
                   const SizedBox(height: 2),
                   Text('$city, $country', style: textTheme.bodySmall),
                   const SizedBox(height: 8),
-                  Text(
-                    'From \$${price?.toStringAsFixed(2) ?? '0.00'} per person',
-                    style: textTheme.bodyMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        '\$${price?.toStringAsFixed(2) ?? '0.00'} /person',
+                        style: textTheme.bodyMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+
+                      SizedBox(
+                        width: 130,
+                        height: 32,
+                        child: AppButton(
+                          onPressed: onBookTap,
+                          size: AppButtonSize.sm,
+                          child: Text(
+                            'Забронировать',
+                            style: textTheme.bodySmall?.copyWith(
+                              fontWeight: FontWeight.w700,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),

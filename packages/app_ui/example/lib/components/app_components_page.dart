@@ -45,7 +45,7 @@ class _AppComponentsPageState extends State<AppComponentsPage> {
             key: _formKey,
             child: AppContainerWithLbl(
               label: 'Номер телефона',
-              child: CustomTextField(
+              child: AppTextField(
                 controller: _phoneController,
                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 validator: (value) {
@@ -96,7 +96,7 @@ class _AppComponentsPageState extends State<AppComponentsPage> {
           const DividerHorisontal(),
           AppContainerWithLbl(
             label: 'Номер телефона',
-            child: CustomTextField(
+            child: AppTextField(
               controller: _phoneController,
               inputFormatters: [FilteringTextInputFormatter.digitsOnly],
 

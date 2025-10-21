@@ -69,7 +69,8 @@ class AppLightTheme extends AppTheme {
     scaffoldBackgroundColor: colorScheme.surface,
     elevatedButtonTheme: elevatedButtonTheme,
     outlinedButtonTheme: outlinedButtonTheme,
-    extensions: <ThemeExtension<dynamic>>[
+    inputDecorationTheme: inputDecorationTheme,
+    extensions: [
       AppThemeColorExtension.light(),
       AppInputColorExtension.light(),
     ],

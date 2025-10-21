@@ -20,7 +20,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   
-  build_runner:
+  build_runner: ^2.10.0
   flutter_gen_runner:
 
   flutter_lints:

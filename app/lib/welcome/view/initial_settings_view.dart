@@ -2,7 +2,6 @@ import 'package:app/app/cubits/app_cubit.dart';
 import 'package:app/app/cubits/app_settings/app_theme_cubit.dart';
 import 'package:app/l10n/app_localizations.dart';
 import 'package:app/welcome/welcome.dart';
-import 'package:app/widgets/avatar_widget.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
@@ -64,9 +63,7 @@ class _InitialSettingsViewState extends State<InitialSettingsView> {
               'Настраивайте настройки приложения',
               style: theme.textTheme.bodyMedium,
             ),
-            const SizedBox(height: 32),
-            Text('Выберите роль', style: theme.textTheme.bodyLarge),
-            const SizedBox(height: AppSpacing.sm),
+            const SizedBox(height: AppSpacing.xxxxlg),
             const RoleSelector(),
             const DividerHorisontal(),
             SettingsList(
@@ -99,8 +96,6 @@ class RoleSelector extends StatelessWidget {
         final role = state.role;
         return Column(
           children: [
-            const AvatarWidget(size: 100, isActive: true, expand: true),
-
             RoleRedioWidget(
               key: const Key('client'),
               title: 'Путешественник',
