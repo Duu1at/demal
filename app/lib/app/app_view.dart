@@ -20,8 +20,7 @@ class _DemalAppState extends State<DemalApp> {
 
   @override
   void initState() {
-    _router = AppRouter.instance(isNewUser: true, role: Role.client
-    ).router();
+    _router = AppRouter.instance(isNewUser: false, role: Role.client).router();
     super.initState();
   }
 
@@ -36,7 +35,6 @@ class _DemalAppState extends State<DemalApp> {
         supportedLocales: AppLocalizations.supportedLocales,
         title: 'Demal',
         routerConfig: _router,
-        
       ),
     );
   }

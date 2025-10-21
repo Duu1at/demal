@@ -1,3 +1,4 @@
+import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 
 class ClientHomeView extends StatelessWidget {
@@ -7,7 +8,7 @@ class ClientHomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Client Home')),
-      body: Center(child: Text('Client Home')),
+      body: Column(children: [AppCardItem()]),
     );
   }
 }
