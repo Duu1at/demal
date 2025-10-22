@@ -1,10 +1,11 @@
+import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 
 class DividerHorisontal extends StatelessWidget {
   const DividerHorisontal({
     super.key,
     this.color = const Color(0xffD1D3DB),
-    this.padding = const EdgeInsets.all(8.0),
+    this.padding = const EdgeInsets.symmetric(vertical: AppSpacing.sm),
   });
   final Color color;
   final EdgeInsets padding;
