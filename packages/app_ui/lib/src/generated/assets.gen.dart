@@ -74,6 +74,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/star.svg
   SvgGenImage get star => const SvgGenImage('assets/icons/star.svg');
 
+  /// File path: assets/icons/telegram.svg
+  SvgGenImage get telegram => const SvgGenImage('assets/icons/telegram.svg');
+
   /// File path: assets/icons/tick-circle.svg
   SvgGenImage get tickCircle => const SvgGenImage('assets/icons/tick-circle.svg');
 
@@ -104,6 +107,7 @@ class $AssetsIconsGen {
     search,
     settingsFilter,
     star,
+    telegram,
     tickCircle,
     user,
     vector,

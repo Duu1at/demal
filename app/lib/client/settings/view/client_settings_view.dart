@@ -1,6 +1,8 @@
+import 'package:app/app/router/app_router.dart';
 import 'package:app/widgets/avatar_widget.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class ClientSettingsView extends StatelessWidget {
   const ClientSettingsView({super.key});
@@ -36,7 +38,7 @@ class ClientSettingsView extends StatelessWidget {
                   color: theme.colorScheme.primary,
                 ),
                 title: 'Мои бронирование',
-                onTap: () {},
+                onTap: () => context.goNamed(AppRouter.clientTourTickets),
               ),
               const SizedBox(height: AppSpacing.lg),
               CardDrawerTitle(
@@ -45,7 +47,7 @@ class ClientSettingsView extends StatelessWidget {
                   color: theme.colorScheme.primary,
                 ),
                 title: 'О нас',
-                onTap: () {},
+                onTap: () => context.goNamed(AppRouter.clientAboutUs),
               ),
               const SizedBox(height: AppSpacing.lg),
               CardDrawerTitle(
