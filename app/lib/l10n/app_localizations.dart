@@ -147,6 +147,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'A 4-digit OTP code was sent to {phone}'**
   String otpMessage(Object phone);
+
+  /// No description provided for @selectLang.
+  ///
+  /// In en, this message translates to:
+  /// **'Select a language'**
+  String get selectLang;
 }
 
 class _AppLocalizationsDelegate

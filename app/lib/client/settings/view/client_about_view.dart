@@ -10,7 +10,7 @@ class ClientAboutView extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return ScaffoldWithBgImage(
-      appBar: AppBar(elevation: 0, title: const Text('О на')),
+      appBar: AppBar(elevation: 0, title: const Text('О наc')),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
@@ -51,7 +51,6 @@ class ClientAboutView extends StatelessWidget {
                 children: [
                   AppCard(
                     child: GestureDetector(
-                      behavior: HitTestBehavior.opaque,
                       onTap: () =>
                           AppLaunch.makeCall('0702313611', context: context),
                       child: Padding(

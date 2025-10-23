@@ -1,5 +1,6 @@
 import 'package:app/app/cubits/app_cubit.dart';
 import 'package:app/app/cubits/app_settings/app_theme_cubit.dart';
+import 'package:app/app/mixin/settings_change_mixin.dart';
 import 'package:app/app/router/app_router.dart';
 import 'package:app/l10n/app_localizations.dart';
 import 'package:app/welcome/welcome.dart';
@@ -15,7 +16,8 @@ class InitialSettingsView extends StatefulWidget {
   State<InitialSettingsView> createState() => _InitialSettingsViewState();
 }
 
-class _InitialSettingsViewState extends State<InitialSettingsView> {
+class _InitialSettingsViewState extends State<InitialSettingsView>
+    with SettingsChangeMixin<InitialSettingsView> {
   String get _locale => AppLocalizations.of(context).localeName;
   String _themeName = '';
 
@@ -26,31 +28,9 @@ class _InitialSettingsViewState extends State<InitialSettingsView> {
     _themeName = isDark ? 'Темная' : 'Светлая';
   }
 
-  void _changeLocale(BuildContext context) {
-    BottomSheets.showModalSettingsSheet(
-      backgroundColor: context.appColors.bgCard,
-      context: context,
-      child: const LocaleSettingsSheet(),
-    );
-  }
-
-  Future<void> _changeTheme(BuildContext context) async {
-    final result =
-        await BottomSheets.showModalSettingsSheet(
-              backgroundColor: context.appColors.bgCard,
-              context: context,
-              child: const ThemeSelectorSheet(),
-            )
-            as bool;
-    setState(() {
-      _themeName = result ? 'Темная' : 'Светлая';
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-
     return ScaffoldWithBgImage(
       bgImageTop: false,
       appBar: AppBar(elevation: 0),
@@ -69,8 +49,13 @@ class _InitialSettingsViewState extends State<InitialSettingsView> {
             SettingsList(
               locale: _locale,
               themeName: _themeName,
-              onChangeLocale: () => _changeLocale(context),
-              onChangeTheme: () => _changeTheme(context),
+              onChangeLocale: changeLocale,
+              onChangeTheme: () async {
+                final resultIsDark = await changeTheme();
+                setState(() {
+                  _themeName = resultIsDark ? 'Темная' : 'Светлая';
+                });
+              },
             ),
           ],
         ),

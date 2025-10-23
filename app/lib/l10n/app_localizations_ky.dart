@@ -36,4 +36,7 @@ class AppLocalizationsKy extends AppLocalizations {
   String otpMessage(Object phone) {
     return '$phone номерине 4 сандык OTP коду жиберилди';
   }
+
+  @override
+  String get selectLang => 'Тилди тандаңыз';
 }

@@ -36,4 +36,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String otpMessage(Object phone) {
     return 'На номер $phone было отправлено 4-значное сообщение OTP';
   }
+
+  @override
+  String get selectLang => 'Выберите язык';
 }

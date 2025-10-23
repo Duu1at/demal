@@ -1,12 +1,19 @@
+import 'package:app/app/mixin/settings_change_mixin.dart';
 import 'package:app/app/router/app_router.dart';
 import 'package:app/widgets/avatar_widget.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class ClientSettingsView extends StatelessWidget {
+class ClientSettingsView extends StatefulWidget {
   const ClientSettingsView({super.key});
 
+  @override
+  State<ClientSettingsView> createState() => _ClientSettingsViewState();
+}
+
+class _ClientSettingsViewState extends State<ClientSettingsView>
+    with SettingsChangeMixin<ClientSettingsView> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -56,13 +63,14 @@ class ClientSettingsView extends StatelessWidget {
                   color: theme.colorScheme.primary,
                 ),
                 title: 'Тема приложения',
-                onTap: () {},
+                onTap: () async => await changeTheme(),
               ),
+
               const SizedBox(height: AppSpacing.lg),
               CardDrawerTitle(
                 icon: Icon(Icons.language, color: theme.colorScheme.primary),
                 title: 'Язык приложения',
-                onTap: () {},
+                onTap: changeLocale,
               ),
               const SizedBox(height: AppSpacing.lg),
               CardDrawerTitle(

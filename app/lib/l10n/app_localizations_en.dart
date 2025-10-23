@@ -34,4 +34,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String otpMessage(Object phone) {
     return 'A 4-digit OTP code was sent to $phone';
   }
+
+  @override
+  String get selectLang => 'Select a language';
 }
