@@ -70,3 +70,21 @@ class TourHeaderSection extends StatelessWidget {
     );
   }
 }
+
+class TourHeaderSectionShimmer extends StatelessWidget {
+  const TourHeaderSectionShimmer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        ShimmerContainer(width: double.infinity, height: 24),
+        SizedBox(height: AppSpacing.sm),
+        ShimmerContainer(width: 150, height: 16),
+        SizedBox(height: AppSpacing.sm),
+        ShimmerContainer(width: 180, height: 16),
+      ],
+    );
+  }
+}

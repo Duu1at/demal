@@ -1,6 +1,7 @@
-import 'package:app/client/home/view/client_tour_details_view.dart';
+import 'package:app/app/router/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:app_ui/app_ui.dart';
+import 'package:go_router/go_router.dart';
 
 class ClientHomeView extends StatefulWidget {
   const ClientHomeView({super.key});
@@ -64,14 +65,7 @@ class _ClientHomeViewState extends State<ClientHomeView> {
                   oldPrice: 100,
                   price: 80,
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return const ClientTourDetailsView();
-                        },
-                      ),
-                    );
+                    context.goNamed(AppRouter.clientTourDetails);
                   },
                   onBookTap: () {},
                 ),
@@ -85,7 +79,7 @@ class _ClientHomeViewState extends State<ClientHomeView> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () =>context.goNamed(AppRouter.clientTourTickets),
         child: const Icon(Icons.add),
       ),
     );
