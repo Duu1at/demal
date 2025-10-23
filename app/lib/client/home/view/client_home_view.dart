@@ -26,7 +26,10 @@ class _ClientHomeViewState extends State<ClientHomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: HomeAppBar(onMenuTap: () {}, onNotificationTap: () {}),
+      appBar: HomeAppBar(
+        onMenuTap: () => context.goNamed(AppRouter.clientSettings),
+        onNotificationTap: () {},
+      ),
       body: RefreshIndicator(
         onRefresh: _onBottomRefresh,
         child: CustomScrollView(
@@ -79,7 +82,7 @@ class _ClientHomeViewState extends State<ClientHomeView> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () =>context.goNamed(AppRouter.clientTourTickets),
+        onPressed: () => context.goNamed(AppRouter.clientTourTickets),
         child: const Icon(Icons.add),
       ),
     );

@@ -1,14 +1,13 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 
-class CardDrawerTile extends StatelessWidget {
-  const CardDrawerTile({
+class CardDrawerTitle extends StatelessWidget {
+  const CardDrawerTitle({
     required this.icon,
     required this.title,
     this.withBorder = false,
     this.tileColor,
     this.onTap,
-    this.subtitle,
     super.key,
   });
 
@@ -17,7 +16,6 @@ class CardDrawerTile extends StatelessWidget {
   final void Function()? onTap;
   final bool withBorder;
   final Color? tileColor;
-  final String? subtitle;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +29,10 @@ class CardDrawerTile extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
         side: withBorder
-            ? BorderSide(color: color.onSurface.withValues(alpha: 0.2), width: 1)
+            ? BorderSide(
+                color: color.onSurface.withValues(alpha: 0.2),
+                width: 1,
+              )
             : BorderSide.none,
       ),
       shadowColor: context.appColors.grayShadow?.color,
@@ -53,14 +54,12 @@ class CardDrawerTile extends StatelessWidget {
                   child: Center(child: icon),
                 ),
               ),
-              const SizedBox(width: 8),
+              const SizedBox(width: AppSpacing.md),
               Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(title, style: Theme.of(context).textTheme.bodyLarge),
-                  const SizedBox(height: 4),
-                  Text(subtitle ?? '', style: Theme.of(context).textTheme.bodySmall),
                 ],
               ),
               const Spacer(),

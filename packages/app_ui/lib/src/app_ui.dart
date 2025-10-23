@@ -3,7 +3,7 @@ export 'colors/app_input_color_extension.dart';
 export 'colors/app_theme_color_extension.dart';
 export 'components/avatar/avatar.dart';
 export 'components/buttons/buttons.dart';
-export 'components/cards/card_drawer_tile.dart';
+export 'components/cards/card_drawer_with_subtitle.dart';
 export 'components/cards/cards.dart';
 export 'components/divider/divider.dart';
 export 'components/forms/forms.dart';

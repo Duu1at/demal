@@ -136,14 +136,14 @@ class SettingsList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        CardDrawerTile(
+        CardDrawerWithSubtitle(
           icon: const Icon(Icons.language_outlined),
           title: 'Выберите язык',
           subtitle: locale,
           onTap: onChangeLocale,
         ),
         const DividerHorisontal(),
-        CardDrawerTile(
+        CardDrawerWithSubtitle(
           icon: const Icon(Icons.sunny),
           title: 'Выберите тему',
           subtitle: themeName,

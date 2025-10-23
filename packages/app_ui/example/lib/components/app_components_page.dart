@@ -75,13 +75,13 @@ class _AppComponentsPageState extends State<AppComponentsPage> {
             child: const Text('Dialog'),
           ),
           const DividerHorisontal(),
-          CardDrawerTile(
+          CardDrawerWithSubtitle(
             title: 'test',
             icon: Assets.icons.tickCircle.svg(),
             subtitle: 'test',
           ),
           const DividerHorisontal(),
-          CardDrawerTile(
+          CardDrawerWithSubtitle(
             title: 'test',
             icon: Assets.icons.tickCircle.svg(),
             subtitle: 'test',
