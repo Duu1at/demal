@@ -1,5 +1,6 @@
 import 'package:app/app/mixin/settings_change_mixin.dart';
 import 'package:app/app/router/app_router.dart';
+import 'package:app/l10n/l10n_extension.dart';
 import 'package:app/widgets/avatar_widget.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,9 @@ class _ClientSettingsViewState extends State<ClientSettingsView>
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return ScaffoldWithBgImage(
-      appBar: AppBar(title: Text('Профиль', style: theme.textTheme.titleLarge)),
+      appBar: AppBar(
+        title: Text(context.l10n.profile, style: theme.textTheme.titleLarge),
+      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
@@ -44,8 +47,8 @@ class _ClientSettingsViewState extends State<ClientSettingsView>
                   Icons.confirmation_number_outlined,
                   color: theme.colorScheme.primary,
                 ),
-                title: 'Мои бронирование',
-                onTap: () => context.goNamed(AppRouter.clientTourTickets),
+                title: context.l10n.myTickets,
+                onTap: () => context.pushNamed(AppRouter.clientTourTickets),
               ),
               const SizedBox(height: AppSpacing.lg),
               CardDrawerTitle(
@@ -53,8 +56,8 @@ class _ClientSettingsViewState extends State<ClientSettingsView>
                   Icons.info_outline,
                   color: theme.colorScheme.primary,
                 ),
-                title: 'О нас',
-                onTap: () => context.goNamed(AppRouter.clientAboutUs),
+                title: context.l10n.aboutUs,
+                onTap: () => context.pushNamed(AppRouter.clientAboutUs),
               ),
               const SizedBox(height: AppSpacing.lg),
               CardDrawerTitle(
@@ -62,31 +65,31 @@ class _ClientSettingsViewState extends State<ClientSettingsView>
                   Icons.brightness_6,
                   color: theme.colorScheme.primary,
                 ),
-                title: 'Тема приложения',
+                title: context.l10n.appTheme,
                 onTap: () async => await changeTheme(),
               ),
 
               const SizedBox(height: AppSpacing.lg),
               CardDrawerTitle(
                 icon: Icon(Icons.language, color: theme.colorScheme.primary),
-                title: 'Язык приложения',
+                title: context.l10n.appLanguage,
                 onTap: changeLocale,
               ),
               const SizedBox(height: AppSpacing.lg),
               CardDrawerTitle(
                 icon: const Icon(Icons.logout, color: Colors.red),
-                title: 'Выйти',
+                title: context.l10n.logOut,
                 onTap: () {},
               ),
               const SizedBox(height: AppSpacing.lg),
               CardDrawerTitle(
                 icon: const Icon(Icons.delete_forever, color: Colors.red),
-                title: 'Удалить аккаунт',
+                title: context.l10n.deleteAccount,
                 onTap: () {},
               ),
               const Spacer(),
               Text(
-                'Версия 1.0.0',
+                '${context.l10n.version}1.0.0',
                 style: theme.textTheme.bodyMedium?.copyWith(
                   color: context.appColors.disabled,
                 ),

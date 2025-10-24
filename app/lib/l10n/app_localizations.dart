@@ -153,6 +153,114 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Select a language'**
   String get selectLang;
+
+  /// No description provided for @aboutUs.
+  ///
+  /// In en, this message translates to:
+  /// **'About Us'**
+  String get aboutUs;
+
+  /// No description provided for @lastUpdate.
+  ///
+  /// In en, this message translates to:
+  /// **'Last Update: '**
+  String get lastUpdate;
+
+  /// No description provided for @contactUs.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact Us'**
+  String get contactUs;
+
+  /// No description provided for @appDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'This application combines all recreation offers in Kyrgyzstan from reliable organizers.'**
+  String get appDescription;
+
+  /// No description provided for @withUsYouGet.
+  ///
+  /// In en, this message translates to:
+  /// **'With us you get: '**
+  String get withUsYouGet;
+
+  /// No description provided for @timeSavingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Time Saving:'**
+  String get timeSavingTitle;
+
+  /// No description provided for @timeSavingDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'All relevant tours for any date are now collected in one convenient feed. Stop wasting hours searching on social networks.'**
+  String get timeSavingDescription;
+
+  /// No description provided for @safetyAndTrustTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Safety and Trust: '**
+  String get safetyAndTrustTitle;
+
+  /// No description provided for @safetyAndTrustDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'we cooperate only with reliable partners. You can read honest reviews and ratings before making a choice.'**
+  String get safetyAndTrustDescription;
+
+  /// No description provided for @simplicityAndConvenienceTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Simplicity and Convenience:'**
+  String get simplicityAndConvenienceTitle;
+
+  /// No description provided for @simplicityAndConvenienceDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'book and pay for tours online in the app with a few clicks.'**
+  String get simplicityAndConvenienceDescription;
+
+  /// No description provided for @myTickets.
+  ///
+  /// In en, this message translates to:
+  /// **'My Tickets'**
+  String get myTickets;
+
+  /// No description provided for @appTheme.
+  ///
+  /// In en, this message translates to:
+  /// **'App Theme'**
+  String get appTheme;
+
+  /// No description provided for @profile.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get profile;
+
+  /// No description provided for @appLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'App Language'**
+  String get appLanguage;
+
+  /// No description provided for @logOut.
+  ///
+  /// In en, this message translates to:
+  /// **'Log Out'**
+  String get logOut;
+
+  /// No description provided for @deleteAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Account'**
+  String get deleteAccount;
+
+  /// No description provided for @version.
+  ///
+  /// In en, this message translates to:
+  /// **'Version: '**
+  String get version;
 }
 
 class _AppLocalizationsDelegate

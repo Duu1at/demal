@@ -8,19 +8,19 @@ class BulletPoint extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 8.0), 
+      padding: const EdgeInsets.only(bottom: 8.0),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start, 
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text(
+          Text(
             '• ',
             style: TextStyle(
-              fontSize: 14.0, 
+              fontSize: 14.0,
               height: 1.5,
-              color: Colors.black, 
+              color: Theme.of(context).colorScheme.onSurface,
             ),
           ),
-         
+
           Expanded(
             child: RichText(
               textAlign: TextAlign.start,
@@ -28,7 +28,7 @@ class BulletPoint extends StatelessWidget {
                 style: const TextStyle(
                   fontSize: 14.0,
                   color: Colors.black,
-                  height: 1.5, 
+                  height: 1.5,
                 ),
                 children: textSpans,
               ),

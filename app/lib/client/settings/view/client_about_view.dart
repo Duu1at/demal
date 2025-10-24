@@ -1,4 +1,5 @@
 import 'package:app/client/settings/widgets/tour_benefits.dart';
+import 'package:app/l10n/l10n_extension.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +11,10 @@ class ClientAboutView extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return ScaffoldWithBgImage(
-      appBar: AppBar(elevation: 0, title: const Text('О наc')),
+      appBar: AppBar(
+        elevation: 0,
+        title: Text(context.l10n.aboutUs, style: theme.textTheme.titleLarge),
+      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
@@ -27,7 +31,7 @@ class ClientAboutView extends StatelessWidget {
               ),
               const SizedBox(height: AppSpacing.md),
               Text(
-                'Последнее обновление: Декабрь 10, 2023',
+                '${context.l10n.lastUpdate} Декабрь 10, 2023',
                 style: theme.textTheme.bodyMedium?.copyWith(
                   color: context.appColors.disabled,
                 ),
@@ -35,14 +39,14 @@ class ClientAboutView extends StatelessWidget {
               const SizedBox(height: AppSpacing.md),
               const TourBenefits(),
               const Spacer(),
-              const Row(
+               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Expanded(child: DividerHorisontal()),
-                  SizedBox(width: AppSpacing.sm),
-                  Text('Contact Us'),
-                  SizedBox(width: AppSpacing.sm),
-                  Expanded(child: DividerHorisontal()),
+                  const Expanded(child: DividerHorisontal()),
+                  const SizedBox(width: AppSpacing.sm),
+                  Text(context.l10n.contactUs),
+                  const SizedBox(width: AppSpacing.sm),
+                  const Expanded(child: DividerHorisontal()),
                 ],
               ),
               const SizedBox(height: AppSpacing.md),

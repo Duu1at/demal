@@ -39,4 +39,62 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get selectLang => 'Выберите язык';
+
+  @override
+  String get aboutUs => 'О наc';
+
+  @override
+  String get lastUpdate => 'Последнее обновление:';
+
+  @override
+  String get contactUs => 'Свяжитесь с нами';
+
+  @override
+  String get appDescription =>
+      'Это приложение объединяет все предложения по отдыху в Кыргызстане от надежных организаторов.';
+
+  @override
+  String get withUsYouGet => 'С нами вы получаете: ';
+
+  @override
+  String get timeSavingTitle => 'Экономия времени: ';
+
+  @override
+  String get timeSavingDescription =>
+      'Все актуальные туры на любую дату теперь собраны в одной удобной ленте. Не тратьте больше часы на поиск в социальных сетях.';
+
+  @override
+  String get safetyAndTrustTitle => 'Безопасность и доверие: ';
+
+  @override
+  String get safetyAndTrustDescription =>
+      'Мы сотрудничаем только с надежными партнерами. Вы можете ознакомиться с честными отзывами и рейтингами перед тем, как сделать выбор.';
+
+  @override
+  String get simplicityAndConvenienceTitle => 'Простота и удобство: ';
+
+  @override
+  String get simplicityAndConvenienceDescription =>
+      'Бронируйте и оплачивайте туры онлайн в приложении за несколько кликов.';
+
+  @override
+  String get myTickets => 'Мои билеты';
+
+  @override
+  String get appTheme => 'Тема приложения';
+
+  @override
+  String get profile => 'Профиль';
+
+  @override
+  String get appLanguage => 'Язык приложения';
+
+  @override
+  String get logOut => 'Выйти';
+
+  @override
+  String get deleteAccount => 'Удалить аккаунт';
+
+  @override
+  String get version => 'Версия: ';
 }

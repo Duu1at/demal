@@ -20,10 +20,10 @@ class AppLocalizationsKy extends AppLocalizations {
 
   @override
   String get onboardingSubTitle2 =>
-      'Чыныгы туристтердин чынчыл сын-пикирлерин окуңуз';
+      'Чыныгы туристтердин калыс пикирлерин окуңуз';
 
   @override
-  String get onboardingTitle3 => '3 чыкылдатуу менен брондоо';
+  String get onboardingTitle3 => '3 басуу менен брондоо';
 
   @override
   String get onboardingSubTitle3 =>
@@ -39,4 +39,62 @@ class AppLocalizationsKy extends AppLocalizations {
 
   @override
   String get selectLang => 'Тилди тандаңыз';
+
+  @override
+  String get aboutUs => 'Биз жөнүндө';
+
+  @override
+  String get lastUpdate => 'Акыркы жаңылануу:';
+
+  @override
+  String get contactUs => 'Биз менен байланышыңыз';
+
+  @override
+  String get appDescription =>
+      'Бул колдонмо ишенимдүү уюштуруучулардан Кыргызстандагы эс алуу боюнча бардык сунуштарды бириктирет.';
+
+  @override
+  String get withUsYouGet => 'Биз менен сиз төмөнкүлөргө ээ болосуз:';
+
+  @override
+  String get timeSavingTitle => 'Убакытты үнөмдөө: ';
+
+  @override
+  String get timeSavingDescription =>
+      'Бардык актуалдуу турлар каалаган датага ыңгайлуу бир лентага чогултулган. Социалдык тармактардан издөөгө мындан ары убакыт коротпоңуз';
+
+  @override
+  String get safetyAndTrustTitle => 'Коопсуздук жана ишеним: ';
+
+  @override
+  String get safetyAndTrustDescription =>
+      'Биз ишенимдүү өнөктөштөр менен гана кызматташабыз. Тандоо жасоодон мурун калыс пикирлер жана рейтингдер менен тааныша аласыз.';
+
+  @override
+  String get simplicityAndConvenienceTitle => 'Жөнөкөйлүк жана ыңгайлуулук: ';
+
+  @override
+  String get simplicityAndConvenienceDescription =>
+      'Турларды онлайн режиминде колдонмодо бир нече басуу менен брондоңуз жана төлөңүз.';
+
+  @override
+  String get myTickets => 'Менин билеттерим';
+
+  @override
+  String get appTheme => 'Тиркеменин темасы';
+
+  @override
+  String get profile => 'Профиль';
+
+  @override
+  String get appLanguage => 'Тиркеменин тили';
+
+  @override
+  String get logOut => 'Чыгуу';
+
+  @override
+  String get deleteAccount => 'Аккаунтту өчүрүү';
+
+  @override
+  String get version => 'Версия: ';
 }

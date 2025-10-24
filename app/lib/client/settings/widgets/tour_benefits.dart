@@ -1,4 +1,5 @@
 import 'package:app/client/settings/widgets/bullet_point.dart';
+import 'package:app/l10n/l10n_extension.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 
@@ -8,43 +9,45 @@ class TourBenefits extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    const baseTextStyle = TextStyle(fontSize: 14.0, color: Colors.black);
-    final boldStyle = textTheme.bodyLarge ?? const TextStyle();
+    final baseTextStyle = textTheme.labelLarge ?? const TextStyle();
+    final boldStyle =
+        textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w700) ??
+        const TextStyle();
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        const Text(
-          'Это приложение объединяет все предложения по отдыху в Кыргызстане от надежных организаторов.',
-          style: baseTextStyle,
-        ),
+        Text(context.l10n.appDescription, style: baseTextStyle),
         const SizedBox(height: AppSpacing.md),
-        Text('С нами вы получаете:', style: boldStyle),
+        Text(context.l10n.withUsYouGet, style: boldStyle),
         const SizedBox(height: AppSpacing.sm),
         BulletPoint(
           textSpans: [
-            TextSpan(text: 'Экономия времени:', style: boldStyle),
-            const TextSpan(
-              text:
-                  ' Все актуальные туры на любую дату теперь собраны в одной удобной ленте. Не тратьте больше часы на поиск в социальных сетях.',
+            TextSpan(text: context.l10n.timeSavingTitle, style: boldStyle),
+            TextSpan(
+              style: baseTextStyle,
+              text: context.l10n.timeSavingDescription,
             ),
           ],
         ),
         BulletPoint(
           textSpans: [
-            TextSpan(text: 'Безопасность и доверие:', style: boldStyle),
-            const TextSpan(
-              text:
-                  ' мы сотрудничаем только с надежными партнерами. Вы можете ознакомиться с честными отзывами и рейтингами перед тем, как сделать выбор.',
+            TextSpan(text: context.l10n.safetyAndTrustTitle, style: boldStyle),
+            TextSpan(
+              text: context.l10n.safetyAndTrustDescription,
+              style: baseTextStyle,
             ),
           ],
         ),
         BulletPoint(
           textSpans: [
-            TextSpan(text: 'Простота и удобство:', style: boldStyle),
-            const TextSpan(
-              text:
-                  ' бронируйте и оплачивайте туры онлайн в приложении за несколько кликов.',
+            TextSpan(
+              text: context.l10n.simplicityAndConvenienceTitle,
+              style: boldStyle,
+            ),
+            TextSpan(
+              text: context.l10n.simplicityAndConvenienceDescription,
+              style: baseTextStyle,
             ),
           ],
         ),
