@@ -31,6 +31,11 @@ final class AppRouter {
   /// route client
   static const client = 'client';
   static const clientSettings = 'client-settings';
+  static const clientTourDetails = 'client-tour-details';
+  static const clientTourTickets = 'client-tour-tickets';
+  static const clientAboutUs = 'client-about-us';
+  static const clientBookingDetails = 'client-booking-details';
+  static const clientBookingStatus = 'client-booking-status';
 
   ///route partner
   static const partner = 'partner';
@@ -105,9 +110,34 @@ final class AppRouter {
   static List<RouteBase> get _clientRoutes {
     return [
       GoRoute(
+        path: clientTourDetails,
+        name: clientTourDetails,
+        builder: (context, state) => const ClientTourDetailsView(),
+      ),
+      GoRoute(
+        path: clientTourTickets,
+        name: clientTourTickets,
+        builder: (context, state) => const ClientTourTicketsView(),
+      ),
+      GoRoute(
         path: clientSettings,
         name: clientSettings,
         builder: (context, state) => const ClientSettingsView(),
+      ),
+      GoRoute(
+        path: clientAboutUs,
+        name: clientAboutUs,
+        builder: (context, state) => const ClientAboutView(),
+      ),
+      GoRoute(
+        path: clientBookingDetails,
+        name: clientBookingDetails,
+        builder: (context, state) => const ClientBookingDetailsView(),
+      ),
+      GoRoute(
+        path: clientBookingStatus,
+        name: clientBookingStatus,
+        builder: (context, state) => const ClientBookingStatusView(),
       ),
     ];
   }

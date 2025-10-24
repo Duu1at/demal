@@ -2,8 +2,8 @@ import 'package:app_ui/src/colors/app_input_color_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class CustomTextField extends StatelessWidget {
-  const CustomTextField({
+class AppTextField extends StatelessWidget {
+  const AppTextField({
     super.key,
     this.hintText,
     this.controller,
@@ -49,7 +49,8 @@ class CustomTextField extends StatelessWidget {
       elevation: 0,
       clipBehavior: Clip.none,
       child: TextFormField(
-        cursorColor: Theme.of(context).colorScheme.primary,
+        enabled: enabled,
+        cursorColor: Theme.of(context).colorScheme.onSecondary,
         style: style,
         focusNode: focusNode,
         controller: controller,
@@ -59,42 +60,44 @@ class CustomTextField extends StatelessWidget {
         readOnly: readOnly,
         keyboardType: keyboardType,
         decoration: InputDecoration(
+          contentPadding: EdgeInsets.zero,
           border: OutlineInputBorder(
             borderRadius: const BorderRadius.all(Radius.circular(16)),
             borderSide: BorderSide(
               width: 1,
-              color: context.inputcolors.focused ?? Colors.transparent,
+              color: context.inputColors.primary ?? Colors.transparent,
             ),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: const BorderRadius.all(Radius.circular(16)),
             borderSide: BorderSide(
-              color: context.inputcolors.focused ?? Colors.transparent,
+              color: context.inputColors.focused ?? Colors.transparent,
               width: 1,
             ),
           ),
           disabledBorder: OutlineInputBorder(
             borderRadius: const BorderRadius.all(Radius.circular(16)),
             borderSide: BorderSide(
-              color: context.inputcolors.disabled ?? Colors.transparent,
+              color: context.inputColors.background ?? Colors.transparent,
               width: 1,
             ),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: const BorderRadius.all(Radius.circular(16)),
             borderSide: BorderSide(
-              color: context.inputcolors.focused ?? Colors.transparent,
+              color: context.inputColors.primary ?? Colors.transparent,
               width: 1,
             ),
           ),
+
           errorBorder: OutlineInputBorder(
             borderRadius: const BorderRadius.all(Radius.circular(16)),
             borderSide: BorderSide(
-              color: context.inputcolors.error ?? Colors.transparent,
-              width: 1,
+              color: context.inputColors.error ?? Colors.transparent,
+              width: 0.8,
             ),
           ),
-          fillColor: context.inputcolors.bckgr,
+          fillColor: context.inputColors.background,
           filled: true,
           enabled: enabled,
           hintText: hintText,

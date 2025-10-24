@@ -43,9 +43,9 @@ class _AppComponentsPageState extends State<AppComponentsPage> {
           const DividerHorisontal(),
           Form(
             key: _formKey,
-            child: CardWithLabel(
+            child: AppContainerWithLbl(
               label: 'Номер телефона',
-              child: CustomTextField(
+              child: AppTextField(
                 controller: _phoneController,
                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 validator: (value) {
@@ -70,20 +70,18 @@ class _AppComponentsPageState extends State<AppComponentsPage> {
             variant: AppButtonVariant.primary,
             isLoading: false,
             onPressed: () {
-              if (_formKey.currentState!.validate()) {
-                
-              }
+              if (_formKey.currentState!.validate()) {}
             },
             child: const Text('Dialog'),
           ),
           const DividerHorisontal(),
-          CardDrawerTile(
+          CardDrawerWithSubtitle(
             title: 'test',
             icon: Assets.icons.tickCircle.svg(),
             subtitle: 'test',
           ),
           const DividerHorisontal(),
-          CardDrawerTile(
+          CardDrawerWithSubtitle(
             title: 'test',
             icon: Assets.icons.tickCircle.svg(),
             subtitle: 'test',
@@ -96,9 +94,9 @@ class _AppComponentsPageState extends State<AppComponentsPage> {
             icon: const Icon(Icons.close),
           ),
           const DividerHorisontal(),
-          CardWithLabel(
+          AppContainerWithLbl(
             label: 'Номер телефона',
-            child: CustomTextField(
+            child: AppTextField(
               controller: _phoneController,
               inputFormatters: [FilteringTextInputFormatter.digitsOnly],
 
@@ -111,7 +109,7 @@ class _AppComponentsPageState extends State<AppComponentsPage> {
             ),
           ),
           const DividerHorisontal(),
-          const CardWithBorder(
+          const AppCard(
             child: Column(children: [Text('testetaf'), Text('testetaf')]),
           ),
           const SizedBox(height: 300),
@@ -126,5 +124,4 @@ class _AppComponentsPageState extends State<AppComponentsPage> {
       typeAlertDialog: AlertDialogType.info,
     );
   }
-
 }

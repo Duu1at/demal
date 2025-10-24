@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class AppLightTheme extends AppTheme {
   @override
-  ColorScheme get colorScheme =>  ColorScheme(
+  ColorScheme get colorScheme => ColorScheme(
     brightness: Brightness.light,
     primary: AppColors.orange,
     onPrimary: AppColors.white,
@@ -11,7 +11,7 @@ class AppLightTheme extends AppTheme {
     onSecondary: AppColors.black,
     error: AppColors.red,
     onError: AppColors.white,
-    surface: AppColors.gray.shade0?? AppColors.white,
+    surface: AppColors.gray.shade0 ?? AppColors.white,
     onSurface: AppColors.black,
   );
 
@@ -66,10 +66,11 @@ class AppLightTheme extends AppTheme {
     textTheme: textTheme,
     primaryTextTheme: primaryTextTheme,
     appBarTheme: appBarTheme,
-    scaffoldBackgroundColor: colorScheme.onSurface,
+    scaffoldBackgroundColor: colorScheme.surface,
     elevatedButtonTheme: elevatedButtonTheme,
     outlinedButtonTheme: outlinedButtonTheme,
-    extensions: <ThemeExtension<dynamic>>[
+    inputDecorationTheme: inputDecorationTheme,
+    extensions: [
       AppThemeColorExtension.light(),
       AppInputColorExtension.light(),
     ],

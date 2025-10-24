@@ -7,6 +7,7 @@ analyzer:
     - '**.freezed.dart'
   errors:
     avoid_print: error
+    empty_catches: ignore
 
 linter:
   rules:

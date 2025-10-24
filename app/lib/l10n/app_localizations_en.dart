@@ -34,4 +34,77 @@ class AppLocalizationsEn extends AppLocalizations {
   String otpMessage(Object phone) {
     return 'A 4-digit OTP code was sent to $phone';
   }
+
+  @override
+  String get selectLang => 'Select a language';
+
+  @override
+  String get selectTheme => 'Choose a theme';
+
+  @override
+  String get lightTheme => 'Light Theme';
+
+  @override
+  String get darkTheme => 'Dark Theme';
+
+  @override
+  String get aboutUs => 'About Us';
+
+  @override
+  String get lastUpdate => 'Last Update: ';
+
+  @override
+  String get contactUs => 'Contact Us';
+
+  @override
+  String get appDescription =>
+      'This application combines all recreation offers in Kyrgyzstan from reliable organizers.';
+
+  @override
+  String get withUsYouGet => 'With us you get: ';
+
+  @override
+  String get timeSavingTitle => 'Time Saving:';
+
+  @override
+  String get timeSavingDescription =>
+      'All relevant tours for any date are now collected in one convenient feed. Stop wasting hours searching on social networks.';
+
+  @override
+  String get safetyAndTrustTitle => 'Safety and Trust: ';
+
+  @override
+  String get safetyAndTrustDescription =>
+      'we cooperate only with reliable partners. You can read honest reviews and ratings before making a choice.';
+
+  @override
+  String get simplicityAndConvenienceTitle => 'Simplicity and Convenience:';
+
+  @override
+  String get simplicityAndConvenienceDescription =>
+      'book and pay for tours online in the app with a few clicks.';
+
+  @override
+  String get myTickets => 'My Tickets';
+
+  @override
+  String get appTheme => 'App Theme';
+
+  @override
+  String get profile => 'Profile';
+
+  @override
+  String get appLanguage => 'App Language';
+
+  @override
+  String get shareApp => 'To Share';
+
+  @override
+  String get logOut => 'Log Out';
+
+  @override
+  String get deleteAccount => 'Delete Account';
+
+  @override
+  String get version => 'Version: ';
 }

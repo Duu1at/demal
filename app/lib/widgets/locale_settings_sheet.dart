@@ -1,5 +1,6 @@
 import 'package:app/app/cubits/app_settings/app_locale_cubit.dart';
 import 'package:app/l10n/app_localizations.dart';
+import 'package:app/l10n/l10n_extension.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,15 +27,12 @@ class LocaleSettingsSheet extends StatelessWidget {
     final currentLocale = context.read<AppLocaleCubit>().state;
     return SafeArea(
       child: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: AppSpacing.md,
-          vertical: AppSpacing.lg,
-        ),
+        padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              'Выберите язык',
+              context.l10n.selectLang,
               style: Theme.of(context).textTheme.headlineSmall,
             ),
             const SizedBox(height: AppSpacing.md),

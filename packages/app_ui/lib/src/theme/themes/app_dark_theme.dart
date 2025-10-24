@@ -66,13 +66,11 @@ class AppDarkTheme extends AppTheme {
     splashFactory: InkSparkle.splashFactory,
     primaryTextTheme: primaryTextTheme,
     appBarTheme: appBarTheme,
-    scaffoldBackgroundColor: colorScheme.onSurface,
+    scaffoldBackgroundColor: colorScheme.surface,
     elevatedButtonTheme: elevatedButtonTheme,
     outlinedButtonTheme: outlinedButtonTheme,
+    inputDecorationTheme: inputDecorationTheme,
     useMaterial3: true,
-    extensions: <ThemeExtension<dynamic>>[
-       AppThemeColorExtension.dark(),
-      AppInputColorExtension.dark(),
-    ],
+    extensions: [AppThemeColorExtension.dark(), AppInputColorExtension.dark()],
   );
 }

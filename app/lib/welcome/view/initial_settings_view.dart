@@ -1,10 +1,10 @@
 import 'package:app/app/cubits/app_cubit.dart';
 import 'package:app/app/cubits/app_settings/app_theme_cubit.dart';
+import 'package:app/app/mixin/settings_change_mixin.dart';
+import 'package:app/app/router/app_router.dart';
 import 'package:app/l10n/app_localizations.dart';
 import 'package:app/welcome/welcome.dart';
-import 'package:app/widgets/avatar_widget.dart';
 import 'package:app_ui/app_ui.dart';
-import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -16,7 +16,8 @@ class InitialSettingsView extends StatefulWidget {
   State<InitialSettingsView> createState() => _InitialSettingsViewState();
 }
 
-class _InitialSettingsViewState extends State<InitialSettingsView> {
+class _InitialSettingsViewState extends State<InitialSettingsView>
+    with SettingsChangeMixin<InitialSettingsView> {
   String get _locale => AppLocalizations.of(context).localeName;
   String _themeName = '';
 
@@ -27,31 +28,9 @@ class _InitialSettingsViewState extends State<InitialSettingsView> {
     _themeName = isDark ? 'Темная' : 'Светлая';
   }
 
-  void _changeLocale(BuildContext context) {
-    BottomSheets.showModalSettingsSheet(
-      backgroundColor: context.appColors.bgCard,
-      context: context,
-      child: const LocaleSettingsSheet(),
-    );
-  }
-
-  Future<void> _changeTheme(BuildContext context) async {
-    final result =
-        await BottomSheets.showModalSettingsSheet(
-              backgroundColor: context.appColors.bgCard,
-              context: context,
-              child: const ThemeSelectorSheet(),
-            )
-            as bool;
-    setState(() {
-      _themeName = result ? 'Темная' : 'Светлая';
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-
     return ScaffoldWithBgImage(
       bgImageTop: false,
       appBar: AppBar(elevation: 0),
@@ -64,16 +43,19 @@ class _InitialSettingsViewState extends State<InitialSettingsView> {
               'Настраивайте настройки приложения',
               style: theme.textTheme.bodyMedium,
             ),
-            const SizedBox(height: 32),
-            Text('Выберите роль', style: theme.textTheme.bodyLarge),
-            const SizedBox(height: AppSpacing.sm),
+            const SizedBox(height: AppSpacing.xxxxlg),
             const RoleSelector(),
             const DividerHorisontal(),
             SettingsList(
               locale: _locale,
               themeName: _themeName,
-              onChangeLocale: () => _changeLocale(context),
-              onChangeTheme: () => _changeTheme(context),
+              onChangeLocale: changeLocale,
+              onChangeTheme: () async {
+                final resultIsDark = await changeTheme();
+                setState(() {
+                  _themeName = resultIsDark ? 'Темная' : 'Светлая';
+                });
+              },
             ),
           ],
         ),
@@ -99,8 +81,6 @@ class RoleSelector extends StatelessWidget {
         final role = state.role;
         return Column(
           children: [
-            const AvatarWidget(size: 100, isActive: true, expand: true),
-
             RoleRedioWidget(
               key: const Key('client'),
               title: 'Путешественник',
@@ -141,14 +121,14 @@ class SettingsList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        CardDrawerTile(
+        CardDrawerWithSubtitle(
           icon: const Icon(Icons.language_outlined),
           title: 'Выберите язык',
           subtitle: locale,
           onTap: onChangeLocale,
         ),
         const DividerHorisontal(),
-        CardDrawerTile(
+        CardDrawerWithSubtitle(
           icon: const Icon(Icons.sunny),
           title: 'Выберите тему',
           subtitle: themeName,

@@ -94,5 +94,30 @@ abstract class AppTheme {
     return const ChipThemeData();
   }
 
+  InputDecorationTheme get inputDecorationTheme {
+    return InputDecorationTheme(
+      filled: true,
+      fillColor: colorScheme.surface,
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(16),
+        borderSide: BorderSide(
+          color: colorScheme.onSurface.withValues(alpha: 0.1),
+        ),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(16),
+        borderSide: BorderSide(
+          color: colorScheme.onSurface.withValues(alpha: 0.1),
+        ),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(16),
+        borderSide: BorderSide(
+          color: colorScheme.primary,
+        ),
+      ),
+    );
+  }
+
   bool get isDark => colorScheme.brightness == Brightness.dark;
 }

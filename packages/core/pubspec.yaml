@@ -14,6 +14,7 @@ dependencies:
   talker_flutter:
   go_router:
   image_picker:
+  url_launcher:
 
 dev_dependencies:
   flutter_test:

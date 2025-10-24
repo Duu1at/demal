@@ -68,11 +68,14 @@ class $AssetsIconsGen {
   /// File path: assets/icons/search.svg
   SvgGenImage get search => const SvgGenImage('assets/icons/search.svg');
 
-  /// File path: assets/icons/settings_fillter.svg
-  SvgGenImage get settingsFillter => const SvgGenImage('assets/icons/settings_fillter.svg');
+  /// File path: assets/icons/settings_filter.svg
+  SvgGenImage get settingsFilter => const SvgGenImage('assets/icons/settings_filter.svg');
 
   /// File path: assets/icons/star.svg
   SvgGenImage get star => const SvgGenImage('assets/icons/star.svg');
+
+  /// File path: assets/icons/telegram.svg
+  SvgGenImage get telegram => const SvgGenImage('assets/icons/telegram.svg');
 
   /// File path: assets/icons/tick-circle.svg
   SvgGenImage get tickCircle => const SvgGenImage('assets/icons/tick-circle.svg');
@@ -102,8 +105,9 @@ class $AssetsIconsGen {
     phone,
     plus,
     search,
-    settingsFillter,
+    settingsFilter,
     star,
+    telegram,
     tickCircle,
     user,
     vector,
@@ -146,6 +150,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/otp_image.png
   AssetGenImage get otpImage => const AssetGenImage('assets/images/otp_image.png');
 
+  /// File path: assets/images/succes_status.png
+  AssetGenImage get succesStatus => const AssetGenImage('assets/images/succes_status.png');
+
   /// List of all assets
   List<AssetGenImage> get values => [
     illustration1,
@@ -159,6 +166,7 @@ class $AssetsImagesGen {
     onboarding2,
     onboarding3,
     otpImage,
+    succesStatus,
   ];
 }
 

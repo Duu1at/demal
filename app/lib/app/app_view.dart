@@ -1,8 +1,8 @@
 import 'package:app/app/cubits/app_cubit.dart';
 import 'package:app/app/cubits/app_settings/app_locale_cubit.dart';
 import 'package:app/app/cubits/app_settings/app_theme_cubit.dart';
+import 'package:app/app/router/app_router.dart';
 import 'package:app/l10n/app_localizations.dart';
-import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -20,8 +20,7 @@ class _DemalAppState extends State<DemalApp> {
 
   @override
   void initState() {
-    _router = AppRouter.instance(isNewUser: true, role: Role.client
-    ).router();
+    _router = AppRouter.instance(isNewUser: false, role: Role.client).router();
     super.initState();
   }
 
@@ -36,7 +35,6 @@ class _DemalAppState extends State<DemalApp> {
         supportedLocales: AppLocalizations.supportedLocales,
         title: 'Demal',
         routerConfig: _router,
-        
       ),
     );
   }
