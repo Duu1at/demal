@@ -1,9 +1,11 @@
+import 'package:app/app/router/app_router.dart';
 import 'package:app/client/home/widgets/booking_header_card.dart';
 import 'package:app/client/home/widgets/contact_form.dart';
 import 'package:app/client/home/widgets/guests_selecter.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 
 class ClientBookingDetailsView extends StatefulWidget {
   const ClientBookingDetailsView({super.key});
@@ -68,7 +70,7 @@ class _ClientBookingDetailsViewState extends State<ClientBookingDetailsView> {
       ),
       floatingActionButton: AppButton(
         margin: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
-        onPressed: () {},
+        onPressed: () => context.pushNamed(AppRouter.clientBookingStatus),
         child: const Text('Оплатить 121312 с'),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
