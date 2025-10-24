@@ -154,6 +154,24 @@ abstract class AppLocalizations {
   /// **'Select a language'**
   String get selectLang;
 
+  /// No description provided for @selectTheme.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a theme'**
+  String get selectTheme;
+
+  /// No description provided for @lightTheme.
+  ///
+  /// In en, this message translates to:
+  /// **'Light Theme'**
+  String get lightTheme;
+
+  /// No description provided for @darkTheme.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark Theme'**
+  String get darkTheme;
+
   /// No description provided for @aboutUs.
   ///
   /// In en, this message translates to:
@@ -247,7 +265,7 @@ abstract class AppLocalizations {
   /// No description provided for @shareApp.
   ///
   /// In en, this message translates to:
-  /// **'To share'**
+  /// **'To Share'**
   String get shareApp;
 
   /// No description provided for @logOut.

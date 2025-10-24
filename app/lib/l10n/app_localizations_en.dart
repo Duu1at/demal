@@ -39,6 +39,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get selectLang => 'Select a language';
 
   @override
+  String get selectTheme => 'Choose a theme';
+
+  @override
+  String get lightTheme => 'Light Theme';
+
+  @override
+  String get darkTheme => 'Dark Theme';
+
+  @override
   String get aboutUs => 'About Us';
 
   @override
@@ -88,7 +97,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get appLanguage => 'App Language';
 
   @override
-  String get shareApp => 'To share';
+  String get shareApp => 'To Share';
 
   @override
   String get logOut => 'Log Out';

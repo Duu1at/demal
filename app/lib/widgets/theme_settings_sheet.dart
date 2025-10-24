@@ -1,4 +1,5 @@
 import 'package:app/app/cubits/app_settings/app_theme_cubit.dart';
+import 'package:app/l10n/l10n_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:app_ui/app_ui.dart';
@@ -17,7 +18,7 @@ class ThemeSelectorSheet extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              'Выберите тему',
+              context.l10n.selectTheme,
               style: Theme.of(context).textTheme.headlineSmall,
             ),
             const SizedBox(height: AppSpacing.md),
@@ -34,7 +35,7 @@ class ThemeSelectorSheet extends StatelessWidget {
                 children: [
                   RadioListTile.adaptive(
                     title: Text(
-                      'Светлая тема',
+                      context.l10n.lightTheme,
                       style: Theme.of(context).textTheme.bodyLarge,
                     ),
                     value: false,
@@ -46,7 +47,7 @@ class ThemeSelectorSheet extends StatelessWidget {
                   const DividerHorisontal(),
                   RadioListTile.adaptive(
                     title: Text(
-                      'Тёмная тема',
+                      context.l10n.darkTheme,
                       style: Theme.of(context).textTheme.bodyLarge,
                     ),
                     value: true,

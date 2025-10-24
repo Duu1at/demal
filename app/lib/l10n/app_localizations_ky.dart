@@ -41,6 +41,15 @@ class AppLocalizationsKy extends AppLocalizations {
   String get selectLang => 'Тилди тандаңыз';
 
   @override
+  String get selectTheme => 'Теманы тандаңыз';
+
+  @override
+  String get lightTheme => 'Ачык тема';
+
+  @override
+  String get darkTheme => 'Караңгы тема';
+
+  @override
   String get aboutUs => 'Биз жөнүндө';
 
   @override
