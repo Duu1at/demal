@@ -26,11 +26,12 @@ class _ClientBookingDetailsViewState extends State<ClientBookingDetailsView> {
         systemOverlayStyle: SystemUiOverlayStyle.light,
         elevation: 0,
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            const SizedBox(height: AppSpacing.lg),
             const BookingHeaderCard(
               imageUrl:
                   'https://avatars.mds.yandex.net/i?id=0235fe3dc435f6213d89da66f423f0cb_l-10024314-images-thumbs&n=13',
@@ -56,7 +57,6 @@ class _ClientBookingDetailsViewState extends State<ClientBookingDetailsView> {
               onChanged: (v) => setState(() => guests = v),
             ),
             const DividerHorisontal(),
-
             const _TotalPriceRow(total: 1050),
             const DividerHorisontal(),
             ContactForm(
@@ -75,8 +75,6 @@ class _ClientBookingDetailsViewState extends State<ClientBookingDetailsView> {
     );
   }
 }
-
-
 
 class _TotalPriceRow extends StatelessWidget {
   final int total;

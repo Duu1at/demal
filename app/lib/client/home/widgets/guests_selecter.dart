@@ -39,15 +39,16 @@ class GuestsSelector extends StatelessWidget {
 }
 
 class _CountButton extends StatelessWidget {
+  const _CountButton({required this.icon, this.onPressed});
   final IconData icon;
   final VoidCallback? onPressed;
-
-  const _CountButton({required this.icon, this.onPressed});
 
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     return Ink(
+      width: 40,
+      height: 38,
       decoration: BoxDecoration(
         color: onPressed != null
             ? colorScheme.primary.withValues(alpha: 0.15)
@@ -58,6 +59,8 @@ class _CountButton extends StatelessWidget {
         icon: Icon(icon, size: 16),
         onPressed: onPressed,
         splashRadius: 20,
+        padding: EdgeInsets.zero,
+        constraints: const BoxConstraints(),
       ),
     );
   }
