@@ -90,6 +90,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get appLanguage => 'Язык приложения';
 
   @override
+  String get shareApp => 'Поделиться';
+
+  @override
   String get logOut => 'Выйти';
 
   @override

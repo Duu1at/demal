@@ -90,6 +90,9 @@ class AppLocalizationsKy extends AppLocalizations {
   String get appLanguage => 'Тиркеменин тили';
 
   @override
+  String get shareApp => 'Бөлүшүү';
+
+  @override
   String get logOut => 'Чыгуу';
 
   @override

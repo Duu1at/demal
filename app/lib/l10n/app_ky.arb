@@ -52,6 +52,8 @@
   "@profile": {},
   "appLanguage": "Тиркеменин тили",
   "@appLanguage": {},
+  "shareApp":"Бөлүшүү",
+  "@shareApp": {},
   "logOut": "Чыгуу",
   "@logOut": {},
   "deleteAccount": "Аккаунтту өчүрүү",

@@ -244,6 +244,12 @@ abstract class AppLocalizations {
   /// **'App Language'**
   String get appLanguage;
 
+  /// No description provided for @shareApp.
+  ///
+  /// In en, this message translates to:
+  /// **'To share'**
+  String get shareApp;
+
   /// No description provided for @logOut.
   ///
   /// In en, this message translates to:

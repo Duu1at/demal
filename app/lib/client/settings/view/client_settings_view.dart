@@ -3,6 +3,7 @@ import 'package:app/app/router/app_router.dart';
 import 'package:app/l10n/l10n_extension.dart';
 import 'package:app/widgets/avatar_widget.dart';
 import 'package:app_ui/app_ui.dart';
+import 'package:core/launch/app_launch.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -28,7 +29,7 @@ class _ClientSettingsViewState extends State<ClientSettingsView>
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const SizedBox(height: AppSpacing.lg),
+              const SizedBox(height: AppSpacing.sm),
               const AvatarWidget(
                 avatarUrl:
                     'https://avatars.mds.yandex.net/i?id=b4f305847bbf6a7b444a16a92ef1556f_l-10132791-images-thumbs&n=13',
@@ -39,7 +40,9 @@ class _ClientSettingsViewState extends State<ClientSettingsView>
               const SizedBox(height: AppSpacing.md),
               Text(
                 'Bolsunbek uulu Duulat',
-                style: theme.textTheme.headlineSmall,
+                style: theme.textTheme.bodyLarge?.copyWith(
+                  fontWeight: FontWeight.w600,
+                ),
               ),
               const SizedBox(height: AppSpacing.lg),
               CardDrawerTitle(
@@ -49,15 +52,6 @@ class _ClientSettingsViewState extends State<ClientSettingsView>
                 ),
                 title: context.l10n.myTickets,
                 onTap: () => context.pushNamed(AppRouter.clientTourTickets),
-              ),
-              const SizedBox(height: AppSpacing.lg),
-              CardDrawerTitle(
-                icon: Icon(
-                  Icons.info_outline,
-                  color: theme.colorScheme.primary,
-                ),
-                title: context.l10n.aboutUs,
-                onTap: () => context.pushNamed(AppRouter.clientAboutUs),
               ),
               const SizedBox(height: AppSpacing.lg),
               CardDrawerTitle(
@@ -74,6 +68,21 @@ class _ClientSettingsViewState extends State<ClientSettingsView>
                 icon: Icon(Icons.language, color: theme.colorScheme.primary),
                 title: context.l10n.appLanguage,
                 onTap: changeLocale,
+              ),
+              const SizedBox(height: AppSpacing.lg),
+              CardDrawerTitle(
+                icon: Icon(
+                  Icons.info_outline,
+                  color: theme.colorScheme.primary,
+                ),
+                title: context.l10n.aboutUs,
+                onTap: () => context.pushNamed(AppRouter.clientAboutUs),
+              ),
+              const SizedBox(height: AppSpacing.lg),
+              CardDrawerTitle(
+                icon: Icon(Icons.share, color: theme.colorScheme.primary),
+                title: context.l10n.shareApp,
+                onTap: () => AppLaunch.launchURL(''),
               ),
               const SizedBox(height: AppSpacing.lg),
               CardDrawerTitle(

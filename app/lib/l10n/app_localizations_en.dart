@@ -88,6 +88,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get appLanguage => 'App Language';
 
   @override
+  String get shareApp => 'To share';
+
+  @override
   String get logOut => 'Log Out';
 
   @override

@@ -28,6 +28,8 @@
   "@profile": {},
   "appLanguage": "Язык приложения",
   "@appLanguage": {},
+  "shareApp":"Поделиться",
+  "@shareApp": {},
   "logOut": "Выйти",
   "@logOut": {},
   "deleteAccount": "Удалить аккаунт",
