@@ -1,3 +1,4 @@
+import 'package:app/app/router/app_router.dart';
 import 'package:app/client/home/widgets/tour_description_section.dart';
 import 'package:app/client/home/widgets/tour_header_section.dart';
 import 'package:app/client/home/widgets/tour_image_carousel.dart';
@@ -7,6 +8,7 @@ import 'package:app/client/home/widgets/tour_organizer_tile.dart';
 import 'package:app/client/home/widgets/tour_program_section.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class ClientTourDetailsView extends StatefulWidget {
   const ClientTourDetailsView({super.key});
@@ -54,7 +56,7 @@ class _ClientTourDetailsViewState extends State<ClientTourDetailsView> {
       ),
       floatingActionButton: AppButton(
         margin: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
-        onPressed: () {},
+        onPressed: () => context.pushNamed(AppRouter.clientBookingDetails),
         child: const Text('Забронировать тур'),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,

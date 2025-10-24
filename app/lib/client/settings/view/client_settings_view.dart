@@ -33,13 +33,13 @@ class _ClientSettingsViewState extends State<ClientSettingsView>
               const AvatarWidget(
                 avatarUrl:
                     'https://avatars.mds.yandex.net/i?id=b4f305847bbf6a7b444a16a92ef1556f_l-10132791-images-thumbs&n=13',
-                size: 100,
+                size: 80,
                 isActive: true,
                 expand: true,
               ),
               const SizedBox(height: AppSpacing.md),
               Text(
-                'Bolsunbek uulu Duulat',
+                'Bolsunbek uulu Duulat'.toUpperCase(),
                 style: theme.textTheme.bodyLarge?.copyWith(
                   fontWeight: FontWeight.w600,
                 ),

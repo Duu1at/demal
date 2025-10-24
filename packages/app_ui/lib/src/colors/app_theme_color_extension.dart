@@ -12,6 +12,7 @@ class AppThemeColorExtension extends ThemeExtension<AppThemeColorExtension> {
     this.shimmerHighlight,
     this.blueShadow,
     this.grayShadow,
+    this.textSecondary,
   });
   final Color? bgCard;
   final Color? alert;
@@ -22,9 +23,10 @@ class AppThemeColorExtension extends ThemeExtension<AppThemeColorExtension> {
   final BoxShadow? grayShadow;
   final Color? shimmerBase;
   final Color? shimmerHighlight;
+  final Color? textSecondary;
 
   factory AppThemeColorExtension.light() {
-    return  AppThemeColorExtension(
+    return AppThemeColorExtension(
       bgCard: AppColors.white,
       alert: AppColors.red.shade90,
       disabled: AppColors.gray.shade20,
@@ -44,11 +46,12 @@ class AppThemeColorExtension extends ThemeExtension<AppThemeColorExtension> {
       ),
       shimmerBase: AppColors.lightShimmer.colors.last,
       shimmerHighlight: AppColors.lightShimmer.colors.first,
+      textSecondary: AppColors.gray.shade50,
     );
   }
 
   factory AppThemeColorExtension.dark() {
-    return  AppThemeColorExtension(
+    return AppThemeColorExtension(
       bgCard: AppColors.gray.shade50,
       alert: AppColors.red.shade90,
       disabled: AppColors.gray.shade20,
@@ -68,6 +71,7 @@ class AppThemeColorExtension extends ThemeExtension<AppThemeColorExtension> {
       ),
       shimmerBase: AppColors.lightShimmer.colors.last,
       shimmerHighlight: AppColors.lightShimmer.colors.first,
+      textSecondary: AppColors.gray.shade30,
     );
   }
 
@@ -81,6 +85,7 @@ class AppThemeColorExtension extends ThemeExtension<AppThemeColorExtension> {
     BoxShadow? blueShadow,
     Color? shimmerBase,
     Color? shimmerHighlight,
+    Color? textSecondary,
   }) {
     return AppThemeColorExtension(
       alert: alert ?? this.alert,
@@ -91,6 +96,7 @@ class AppThemeColorExtension extends ThemeExtension<AppThemeColorExtension> {
       blueShadow: blueShadow ?? this.blueShadow,
       shimmerBase: shimmerBase ?? this.shimmerBase,
       shimmerHighlight: shimmerHighlight ?? this.shimmerHighlight,
+      textSecondary: textSecondary ?? this.textSecondary,
     );
   }
 
@@ -115,6 +121,7 @@ class AppThemeColorExtension extends ThemeExtension<AppThemeColorExtension> {
       shimmerHighlight: Color.lerp(shimmerHighlight, other.shimmerHighlight, t),
       blueShadow: BoxShadow.lerp(blueShadow, other.blueShadow, t),
       grayShadow: BoxShadow.lerp(grayShadow, other.grayShadow, t),
+      textSecondary: Color.lerp(textSecondary, other.textSecondary, t),
     );
   }
 }

@@ -34,6 +34,7 @@ final class AppRouter {
   static const clientTourDetails = 'client-tour-details';
   static const clientTourTickets = 'client-tour-tickets';
   static const clientAboutUs = 'client-about-us';
+  static const clientBookingDetails = 'client-booking-details';
 
   ///route partner
   static const partner = 'partner';
@@ -127,6 +128,7 @@ final class AppRouter {
         name: clientAboutUs,
         builder: (context, state) => const ClientAboutView(),
       ),
+      GoRoute(path: clientBookingDetails,name: clientBookingDetails,builder: (context, state) => const ClientBookingDetailsView(),)
     ];
   }
 
