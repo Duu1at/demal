@@ -30,6 +30,7 @@ dependencies:
   flutter_map: ^8.2.2
   latlong2: ^0.9.1
   url_launcher: ^6.3.2
+  image_editor_plus: ^1.0.8
 
 dev_dependencies:
   melos: ^7.1.1 

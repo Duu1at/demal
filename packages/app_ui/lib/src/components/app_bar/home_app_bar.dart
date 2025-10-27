@@ -35,9 +35,6 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
       centerTitle: true,
       elevation: 0,
       scrolledUnderElevation: 0,
-      surfaceTintColor: Colors.transparent,
-      shadowColor: Colors.transparent,
-      backgroundColor: Colors.transparent,
       actions: [
         IconButton(
           onPressed: onNotificationTap,

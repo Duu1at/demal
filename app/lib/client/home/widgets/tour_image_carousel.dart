@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
@@ -38,14 +39,13 @@ class _TourImageCarouselState extends State<TourImageCarousel> {
             return Stack(
               fit: StackFit.expand,
               children: [
-                Image.network(
-                  _images[index],
+                CachedNetworkImage(
+                  imageUrl: _images[index],
                   fit: BoxFit.cover,
-                  loadingBuilder: (context, child, progress) {
-                    if (progress == null) return child;
+                  progressIndicatorBuilder: (context, child, progress) {
                     return const Center(child: CircularProgressIndicator());
                   },
-                  errorBuilder: (context, error, stack) =>
+                  errorWidget: (context, error, stack) =>
                       const Center(child: Icon(Icons.broken_image, size: 60)),
                 ),
                 Container(

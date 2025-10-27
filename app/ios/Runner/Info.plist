@@ -2,10 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>NSCameraUsageDescription</key>
-    <string>Приложению нужен доступ к камере для съёмки фото.</string>
-    <key>NSPhotoLibraryUsageDescription</key>
-    <string>Приложению нужен доступ к галерее для выбора фото.</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
@@ -56,5 +52,14 @@
 	<string>mailto</string> 
     <string>tg</string>
     </array>
+	<!-- ✅ Разрешения для камеры, фото и микрофона -->
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Приложению нужен доступ к фото, чтобы выбрать изображение для редактирования.</string>
+
+	<key>NSCameraUsageDescription</key>
+	<string>Приложению нужен доступ к камере, чтобы делать фотографии для аватара.</string>
+
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Приложению нужен доступ к микрофону для записи видео (если потребуется).</string>
 </dict>
 </plist>

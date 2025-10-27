@@ -5,7 +5,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
+import 'package:image_editor_plus/image_editor_plus.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:loader_overlay/loader_overlay.dart';
+
 
 enum EditorType { repeate, finish, error }
 
@@ -198,39 +201,34 @@ class _AvatarWidgetState extends State<AvatarWidget>
       visible = false;
       setState(() {});
     }
-    await BottomSheets.showModalSettingsSheet(
-      context: context,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          AppButton(
-            onPressed: () {
-              GoRouter.of(context).pop();
-              select(ImageSource.camera);
-            },
-
-            child: const Text('Cнимать на фото'),
-          ),
-          const DividerHorisontal(),
-          AppButton(
-            onPressed: () {
-              GoRouter.of(context).pop();
-              select(ImageSource.gallery);
-            },
-            child: const Text('Выберите фото'),
-          ),
-          const DividerHorisontal(),
-          AppButton(
-            onPressed: () {
-              if (widget.onDelete != null) {
-                widget.onDelete!();
-              }
-              GoRouter.of(context).pop();
-            },
-            child: const Text('Удалить  фото'),
-          ),
-        ],
-      ),
+    await BottomSheets.show(
+      context,
+      actions: [
+        CustomActionButton(
+          onTap: () {
+            GoRouter.of(context).pop();
+            select(ImageSource.camera);
+          },
+          title: 'Камера',
+          // icon:Icon(Icons.camera) ,
+        ),
+        CustomActionButton(
+          onTap: () {
+            GoRouter.of(context).pop();
+            select(ImageSource.gallery);
+          },
+          title: 'Gallery',
+        ),
+        CustomActionButton(
+          onTap: () {
+            if (widget.onDelete != null) {
+              widget.onDelete!();
+            }
+            GoRouter.of(context).pop();
+          },
+          title: 'Удалить',
+        ),
+      ],
     );
     if (widget.expand) {
       _animationController.reverse();
@@ -247,13 +245,34 @@ class _AvatarWidgetState extends State<AvatarWidget>
         )
         .then((value) async {
           if (value != null) {
-            final Uint8List bytes = await value.readAsBytes();
-            colorScheme = await ColorScheme.fromImageProvider(
-              provider: MemoryImage(bytes),
-            );
+            Uint8List? bytes = await value.readAsBytes();
 
-            if (widget.onUpdate != null) {
-              widget.onUpdate!(await File(value.path).writeAsBytes(bytes));
+            final editedImage = await Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ImageEditor(image: bytes),
+              ),
+            );
+            if (editedImage?.type == EditorType.finish) {
+              bytes = editedImage?.image;
+              if (bytes != null) {
+                colorScheme = await ColorScheme.fromImageProvider(
+                  provider: MemoryImage(bytes),
+                );
+                final convertedImage = await ImageUtils.convert(
+                  image: bytes,
+                  format: 'png',
+                );
+                if (widget.onUpdate != null) {
+                  widget.onUpdate!(await File(value.path).writeAsBytes(bytes));
+                }
+              }
+            } else if (editedImage?.type == EditorType.repeate) {
+              context.loaderOverlay.hide();
+
+              select(source);
+            } else if (editedImage?.type == EditorType.error) {
+              context.loaderOverlay.hide();
             }
           }
         })

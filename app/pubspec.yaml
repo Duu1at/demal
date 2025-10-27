@@ -33,6 +33,7 @@ dependencies:
   flutter_map:
   latlong2:
   url_launcher:
+  image_editor_plus:
   
 dev_dependencies:
   flutter_test:

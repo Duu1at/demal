@@ -1,3 +1,5 @@
+import 'dart:nativewrappers/_internal/vm/lib/developer.dart';
+
 import 'package:app/app/mixin/settings_change_mixin.dart';
 import 'package:app/app/router/app_router.dart';
 import 'package:app/l10n/l10n_extension.dart';
@@ -16,6 +18,7 @@ class ClientSettingsView extends StatefulWidget {
 
 class _ClientSettingsViewState extends State<ClientSettingsView>
     with SettingsChangeMixin<ClientSettingsView> {
+  String? pathUrl;
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -30,12 +33,19 @@ class _ClientSettingsViewState extends State<ClientSettingsView>
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const SizedBox(height: AppSpacing.sm),
-              const AvatarWidget(
-                avatarUrl:
-                    'https://avatars.mds.yandex.net/i?id=b4f305847bbf6a7b444a16a92ef1556f_l-10132791-images-thumbs&n=13',
+              AvatarWidget(
+                avatarUrl: pathUrl,
                 size: 80,
                 isActive: true,
                 expand: true,
+                onUpdate: (bytesImge) {
+                  if (bytesImge != null) {
+                    log('we are here');
+                    pathUrl =
+                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAxt_0PJ8T-KXXZa6YvyLG9iwdnCjpy-VfAQ&s';
+                    setState(() {});
+                  }
+                },
               ),
               const SizedBox(height: AppSpacing.md),
               Text(
