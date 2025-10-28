@@ -25,6 +25,7 @@ dependencies:
   
   storage:
   app_ui:
+  auth:
 
 dev_dependencies:
   flutter_test:

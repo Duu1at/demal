@@ -19,11 +19,7 @@ typedef ResolveValue = String? Function();
 /// responses.
 class RemoteClient {
   /// {@macro mq_remote_client}
-  const RemoteClient({
-    required this.dio,
-    required this.network,
-    this.token,
-  });
+  const RemoteClient({required this.dio, required this.network, this.token});
 
   /// The Dio instance used for making HTTP requests.
   final Dio dio;
@@ -43,12 +39,10 @@ class RemoteClient {
     dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) {
-          final tokenValue = token?.call();
           options.headers = {
             'Content-Type': 'application/json; charset=utf-8',
             'Accept': 'application/json',
-            if (tokenValue != null) 'Authorization': 'Token $tokenValue',
-            
+            'X-App-Type': 'client',
           };
           return handler.next(options);
         },
@@ -61,30 +55,6 @@ class RemoteClient {
     return _get<T>(url);
   }
 
-  /// Makes a GET request to the given [url] and parses the response as type [T]
-  /// from a JSON object.
-  ///
-  /// The [fromJson] parameter is used to parse the JSON response.
-  Future<Either<T, RemoteException>> getType<T>(
-    String url, {
-    required FromJson<T> fromJson,
-  }) async {
-    final data = await _get<Map<String, dynamic>>(url);
-    return _convertType<T>(jsonData: data, fromJson: fromJson);
-  }
-
-  /// Makes a GET request to the given [url] and parses the response as a list
-  /// of type [T].
-  ///
-  /// The [fromJson] parameter is used to parse each JSON object in the list.
-  Future<Either<List<T>, RemoteException>> getListOfType<T>(
-    String url, {
-    required FromJson<T> fromJson,
-  }) async {
-    final data = await _get<List<dynamic>>(url);
-    return _convertListOfType(jsonData: data, fromJson: fromJson);
-  }
-
   /// Makes a POST request to the given [url] with an optional [body] and parses
   /// the response as type [T].
   Future<Either<T, RemoteException>> post<T>(
@@ -94,138 +64,36 @@ class RemoteClient {
     return _post<T>(url, body: body);
   }
 
-  /// Makes a POST request to the given [url] with an optional [body] and parses
-  /// the response as type [T] from a JSON object.
-  ///
-  /// The [fromJson] parameter is used to parse the JSON response.
-  Future<Either<T, RemoteException>> postType<T>(
+  Future<Either<T, RemoteException>> _post<T>(
     String url, {
-    required FromJson<T> fromJson,
     Map<String, dynamic>? body,
   }) async {
-    final data = await _post<Map<String, dynamic>>(url, body: body);
-    return _convertType<T>(jsonData: data, fromJson: fromJson);
-  }
+    try {
+      // 1. Проверяем токен, если он есть
+      final headers = <String, dynamic>{};
+      final resolvedToken = token?.call();
+      if (resolvedToken != null) {
+        headers['Authorization'] = 'Bearer $resolvedToken';
+      }
 
-  /// Makes a POST request to the given [url] with an optional [body] and parses
-  /// the response as a list of type [T].
-  ///
-  /// The [fromJson] parameter is used to parse each JSON object in the list.
-  Future<Either<List<T>, RemoteException>> postListOfType<T>(
-    String url, {
-    required FromJson<T> fromJson,
-    Map<String, dynamic>? body,
-  }) async {
-    final data = await _post<List<dynamic>>(url, body: body);
-    return _convertListOfType(jsonData: data, fromJson: fromJson);
-  }
+      final response = await dio.post<Map<String, dynamic>>(
+        url,
+        data: body,
+        options: Options(headers: headers),
+      );
 
-  /// Makes a PUT request to the given [url] with an optional [body] and parses
-  /// the response as type [T].
-  Future<Either<T, RemoteException>> put<T>(
-    String url, {
-    Map<String, dynamic>? body,
-  }) {
-    return _put<T>(url, body: body);
-  }
+      final responseData = response.data;
+      if (responseData == null) {
+        throw Exception('Ответ сервера пуст.');
+      }
 
-  /// Makes a PUT request to the given [url] with an optional [body] and parses
-  /// the response as type [T] from a JSON object.
-  ///
-  /// The [fromJson] parameter is used to parse the JSON response.
-  Future<Either<T, RemoteException>> putType<T>(
-    String url, {
-    required FromJson<T> fromJson,
-    Map<String, dynamic>? body,
-  }) async {
-    final data = await _put<Map<String, dynamic>>(url, body: body);
-    return _convertType<T>(jsonData: data, fromJson: fromJson);
-  }
-
-  /// Makes a PUT request to the given [url] with an optional [body] and parses
-  /// the response as a list of type [T].
-  ///
-  /// The [fromJson] parameter is used to parse each JSON object in the list.
-  Future<Either<List<T>, RemoteException>> putListOfType<T>(
-    String url, {
-    required FromJson<T> fromJson,
-    Map<String, dynamic>? body,
-  }) async {
-    final data = await _put<List<dynamic>>(url, body: body);
-    return _convertListOfType(jsonData: data, fromJson: fromJson);
-  }
-
-  /// Makes a PATCH request to the given [url] with an optional [body] and
-  /// parses the response as type [T].
-  ///
-  /// The [fromJson] parameter is used to parse the JSON response.
-  Future<Either<T, RemoteException>> patch<T>(
-    String url, {
-    required FromJson<T> fromJson,
-    Map<String, dynamic>? body,
-  }) async {
-    final response = await _patch<T>(url, body: body);
-    return response;
-  }
-
-  /// Makes a PATCH request to the given [url] with an optional [body] and
-  /// parses the response as type [T] from a JSON object.
-  ///
-  /// The [fromJson] parameter is used to parse the JSON response.
-  Future<Either<T, RemoteException>> patchType<T>(
-    String url, {
-    required FromJson<T> fromJson,
-    Map<String, dynamic>? body,
-  }) async {
-    final data = await _patch<Map<String, dynamic>>(url, body: body);
-    return _convertType<T>(jsonData: data, fromJson: fromJson);
-  }
-
-  /// Makes a PATCH request to the given [url] with an optional [body] and
-  /// parses the response as a list of type [T].
-  ///
-  /// The [fromJson] parameter is used to parse each JSON object in the list.
-  Future<Either<List<T>, RemoteException>> patchListOfType<T>(
-    String url, {
-    required FromJson<T> fromJson,
-    Map<String, dynamic>? body,
-  }) async {
-    final data = await _patch<List<dynamic>>(url, body: body);
-    return _convertListOfType(jsonData: data, fromJson: fromJson);
-  }
-
-  /// Makes a DELETE request to the given [url] with an optional [body] and parses
-  /// the response as type [T].
-  Future<Either<T, RemoteException>> delete<T>(
-    String url, {
-    Map<String, dynamic>? body,
-  }) {
-    return _delete<T>(url, body: body);
-  }
-
-  /// Makes a DELETE request to the given [url] with an optional [body] and parses
-  /// the response as type [T] from a JSON object.
-  ///
-  /// The [fromJson] parameter is used to parse the JSON response.
-  Future<Either<T, RemoteException>> deleteType<T>(
-    String url, {
-    required FromJson<T> fromJson,
-    Map<String, dynamic>? body,
-  }) async {
-    final data = await _delete<Map<String, dynamic>>(url, body: body);
-    return _convertType<T>(jsonData: data, fromJson: fromJson);
-  }
-
-  /// Makes a DELETE request to the given [url] with an optional [body] and parses
-  /// the response as a list of type [T].
-  ///
-  /// The [fromJson] parameter is used to parse each JSON object in the list.
-  Future<Either<List<T>, RemoteException>> deleteListOfType<T>(
-    String url, {
-    required FromJson<T> fromJson,
-    Map<String, dynamic>? body,
-  }) async {
-    final data = await _delete<List<dynamic>>(url, body: body);
-    return _convertListOfType(jsonData: data, fromJson: fromJson);
+      return Right(true as T);
+    } on DioException catch (e) {
+      // 5. Ловим ошибку Dio (включая твою 400 Bad Request)
+      return Left(RemoteException(FailureType.deserialization, message: '$e'));
+    } catch (e) {
+      // 6. Ловим другие неизвестные ошибки
+      return Left(RemoteException(FailureType.deserialization, message: '$e'));
+    }
   }
 }

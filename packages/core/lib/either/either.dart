@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:meta/meta.dart';
 
 /// An abstract class representing a value that can be either Right or Left.
 @immutable

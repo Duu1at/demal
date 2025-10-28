@@ -1,4 +1,5 @@
 import 'package:app_ui/app_ui.dart';
+import 'package:auth/auth.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:core/network/network_client/network_client.dart';
 import 'package:core/network/remote_client.dart';
@@ -13,17 +14,21 @@ Future<void> setupDependencies() async {
   getIt.registerLazySingleton<Talker>(
     () => TalkerFlutter.init(settings: TalkerSettings(maxHistoryItems: 500)),
   );
-
   final Connectivity connectivity = Connectivity();
-
-  getIt.registerSingleton(Dio());
 
   getIt.registerLazySingleton<NetworkClient>(
     () => NetworkClient(connectivity: connectivity),
   );
 
+  final dio = Dio(
+    BaseOptions(
+      baseUrl: 'http://localhost:3000/api/v1',
+      connectTimeout: const Duration(seconds: 10),
+      receiveTimeout: const Duration(seconds: 10),
+    ),
+  );
   getIt.registerLazySingleton<RemoteClient>(
-    () => RemoteClient(dio: getIt<Dio>(), network: getIt<NetworkClient>()),
+    () => RemoteClient(dio: dio, network: getIt<NetworkClient>()),
   );
 
   final storage = await PreferencesStorage.getInstance();
@@ -32,6 +37,15 @@ Future<void> setupDependencies() async {
   getIt.registerLazySingleton<AppRepository>(
     () => AppRepositoryImpl(
       AppLocalDataSourceImpl(storage: getIt<PreferencesStorage>()),
+    ),
+  );
+
+  getIt.registerLazySingleton<AuthRepository>(
+    () => AuthRepositoryImpl(
+      AuthRemoteDataSourceImpl(
+        client: getIt<RemoteClient>(),
+        storage: getIt<PreferencesStorage>(),
+      ),
     ),
   );
 }

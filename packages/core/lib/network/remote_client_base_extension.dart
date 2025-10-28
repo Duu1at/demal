@@ -18,25 +18,25 @@ extension RemoteClientBaseMehtods on RemoteClient {
     }
   }
 
-  /// Performs an HTTP POST request to the specified [url] with an optional [body].
-  /// Returns either the response data [T] or an [RemoteException].
-  Future<Either<T, RemoteException>> _post<T>(
-    String url, {
-    Map<String, dynamic>? body,
-  }) async {
-    try {
-      if (await network.checkInternetConnection()) {
-        final response = await dio.post<T>(url, data: body);
-        return Right(response.data as T);
-      } else {
-        return const Left(RemoteException(FailureType.connection));
-      }
-    } on DioException catch (e) {
-      return Left(_parseDioException(e));
-    } catch (e, s) {
-      return Left(_unknownExc(e, s));
-    }
-  }
+  // /// Performs an HTTP POST request to the specified [url] with an optional [body].
+  // /// Returns either the response data [T] or an [RemoteException].
+  // Future<Either<T, RemoteException>> _post<T>(
+  //   String url, {
+  //   Map<String, dynamic>? body,
+  // }) async {
+  //   try {
+  //     if (await network.checkInternetConnection()) {
+  //       final response = await dio.post<T>(url, data: body);
+  //       return Right(response.data as T);
+  //     } else {
+  //       return const Left(RemoteException(FailureType.connection));
+  //     }
+  //   } on DioException catch (e) {
+  //     return Left(_parseDioException(e));
+  //   } catch (e, s) {
+  //     return Left(_unknownExc(e, s));
+  //   }
+  // }
 
   /// Performs an HTTP PUT request to the specified [url] with an optional [body].
   /// Returns either the response data [T] or an [RemoteException].

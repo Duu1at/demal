@@ -1,13 +1,22 @@
+import 'package:auth/auth.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'otp_state.dart';
 
 class OtpCubit extends Cubit<OtpState> {
-  OtpCubit() : super(const OtpState());
+  OtpCubit(this.repository) : super(const OtpState());
+
+  final AuthRepository repository;
 
   Future<void> sendOtp({required String phone}) async {
-    emit(state.copyWith(status: OtpStatus.loading, phone: phone));
+    try {
+      emit(state.copyWith(status: OtpStatus.loading));
+      final response = await repository.sendOtp(phone);
+      emit(state.copyWith(status: OtpStatus.success));
+    } catch (e) {
+      emit(state.copyWith(status: OtpStatus.failure));
+    }
   }
 
   Future<void> verifyPin(String pin) async {

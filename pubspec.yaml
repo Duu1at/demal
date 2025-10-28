@@ -11,6 +11,7 @@ workspace:
   - packages/app_ui
   - packages/storage
   - packages/app_ui/example
+  - packages/auth
 
 dependencies:
   flutter:
@@ -34,9 +35,15 @@ dependencies:
   dio: ^5.9.0
   pretty_dio_logger: ^1.4.0
   connectivity_plus: ^7.0.0
+  json_annotation: ^4.9.0
 
 dev_dependencies:
   melos: ^7.1.1 
   flutter_lints: ^5.0.0
   build_runner: ^2.9.0
   flutter_gen_runner: ^5.12.0
+  json_serializable: ^6.11.1
+
+flutter:
+  uses-material-design: true
+  generate: true
