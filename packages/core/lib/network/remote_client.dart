@@ -48,6 +48,7 @@ class RemoteClient {
             'Content-Type': 'application/json; charset=utf-8',
             'Accept': 'application/json',
             if (tokenValue != null) 'Authorization': 'Token $tokenValue',
+            
           };
           return handler.next(options);
         },

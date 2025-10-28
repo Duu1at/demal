@@ -3,7 +3,7 @@ import 'package:app/app/cubits/app_cubit.dart';
 import 'package:app/app/cubits/app_settings/app_locale_cubit.dart';
 import 'package:app/app/cubits/app_settings/app_theme_cubit.dart';
 import 'package:app/app_observer.dart';
-import 'package:core/di/setup_di.dart';
+import 'package:core/di/injector.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,8 +15,8 @@ final Talker talker = GetIt.instance<Talker>();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  setupTalker();
+  await setupDependencies();
+  
   FlutterError.onError = (details) {
     talker.log(details.exceptionAsString());
     talker.log(details.stack.toString());
@@ -26,19 +26,13 @@ void main() async {
   final storage = await PreferencesStorage.getInstance();
 
   runApp(
-    MultiRepositoryProvider(
+    MultiBlocProvider(
       providers: [
-        RepositoryProvider<PreferencesStorage>(create: (context) => storage),
-        RepositoryProvider<AppRepository>(
-          create: (context) => AppRepositoryImpl(
-            AppLocalDataSourceImpl(storage: context.read<PreferencesStorage>()),
-          ),
+        BlocProvider(
+          create: (context) => AppThemeCubit(getIt<AppRepository>()),
         ),
         BlocProvider(
-          create: (context) => AppThemeCubit(context.read<AppRepository>()),
-        ),
-        BlocProvider(
-          create: (context) => AppLocaleCubit(context.read<AppRepository>()),
+          create: (context) => AppLocaleCubit(getIt<AppRepository>()),
         ),
         BlocProvider(create: (context) => AppCubit()),
       ],

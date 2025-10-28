@@ -20,6 +20,12 @@ dependencies:
   meta:
   connectivity_plus:
 
+
+
+  
+  storage:
+  app_ui:
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
