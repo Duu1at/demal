@@ -15,6 +15,10 @@ dependencies:
   go_router:
   image_picker:
   url_launcher:
+  dio:
+  pretty_dio_logger:
+  meta:
+  connectivity_plus:
 
 dev_dependencies:
   flutter_test:

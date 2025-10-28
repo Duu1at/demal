@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:app/utils/image_storage/image_storage.dart';
 import 'package:app/utils/permission/permission_reqester.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -8,7 +9,6 @@ import 'package:go_router/go_router.dart';
 import 'package:image_editor_plus/image_editor_plus.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:loader_overlay/loader_overlay.dart';
-
 
 enum EditorType { repeate, finish, error }
 
@@ -184,7 +184,7 @@ class _AvatarWidgetState extends State<AvatarWidget>
             _animationController.reverse();
             GoRouter.of(context).pop();
           },
-          child: AvatarOverlay(
+          child: _ImageOverlay(
             avatarUrl: widget.avatarUrl,
             globalKey: _globalKey,
             animationController: _animationController,
@@ -210,7 +210,6 @@ class _AvatarWidgetState extends State<AvatarWidget>
             select(ImageSource.camera);
           },
           title: 'Камера',
-          // icon:Icon(Icons.camera) ,
         ),
         CustomActionButton(
           onTap: () {
@@ -258,10 +257,6 @@ class _AvatarWidgetState extends State<AvatarWidget>
               if (bytes != null) {
                 colorScheme = await ColorScheme.fromImageProvider(
                   provider: MemoryImage(bytes),
-                );
-                final convertedImage = await ImageUtils.convert(
-                  image: bytes,
-                  format: 'png',
                 );
                 if (widget.onUpdate != null) {
                   widget.onUpdate!(await File(value.path).writeAsBytes(bytes));
@@ -311,6 +306,124 @@ class _AvatarWidgetState extends State<AvatarWidget>
             child: const Text('Удалить  фото'),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _ImageOverlay extends StatefulWidget {
+  final String? avatarUrl;
+  final GlobalKey? globalKey;
+  final AnimationController animationController;
+
+  const _ImageOverlay({
+    this.avatarUrl,
+    this.globalKey,
+    required this.animationController,
+  }) : assert(globalKey != null);
+
+  @override
+  State<_ImageOverlay> createState() => _ImageOverlayState();
+}
+
+class _ImageOverlayState extends State<_ImageOverlay> {
+  late RectTween rectTween;
+  Rect? beginRect;
+
+  @override
+  void initState() {
+    widget.animationController.forward();
+    beginRect = _getRect(widget.globalKey!);
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final Size mediaSize = MediaQuery.sizeOf(context);
+    final double imageSize = mediaSize.height * 0.33;
+    final emptyState = Container(
+      width: imageSize,
+      height: imageSize,
+      decoration: BoxDecoration(
+        color: context.appColors.disabled,
+        shape: BoxShape.circle,
+      ),
+      child: Center(
+        child: Assets.icons.user.svg(
+          colorFilter: ColorFilter.mode(
+            Theme.of(context).colorScheme.onSurface,
+            BlendMode.srcIn,
+          ),
+          width: imageSize,
+          height: imageSize,
+        ),
+      ),
+    );
+    final result = widget.avatarUrl?.isNotEmpty == true
+        ? Center(
+            child: CachedNetworkImage(
+              imageUrl: widget.avatarUrl!,
+              fit: BoxFit.cover,
+              cacheManager: ImageStorage.instance.avatarManager,
+              width: imageSize,
+              height: imageSize,
+              imageBuilder: (context, image) {
+                return ClipRRect(
+                  borderRadius: BorderRadius.circular(imageSize),
+                  child: SizedBox(
+                    width: imageSize,
+                    height: imageSize,
+                    child: Image(image: image, fit: BoxFit.cover),
+                  ),
+                );
+              },
+              errorWidget: (context, error, stackTrace) => emptyState,
+              progressIndicatorBuilder: (context, child, loadingProgress) =>
+                  ShimmerContainer(
+                    radius: imageSize,
+                    width: imageSize,
+                    height: imageSize,
+                  ),
+            ),
+          )
+        : emptyState;
+    return AnimatedBuilder(
+      animation: widget.animationController,
+      builder: (context, child) {
+        rectTween = RectTween(
+          begin: beginRect,
+          end: Rect.fromCenter(
+            center: Offset(mediaSize.width / 2, mediaSize.height * 0.3),
+            width: imageSize,
+            height: imageSize,
+          ),
+        );
+
+        return Stack(
+          children: [
+            Positioned.fromRect(
+              rect: rectTween.evaluate(
+                CurvedAnimation(
+                  parent: widget.animationController,
+                  curve: Curves.easeInOut,
+                ),
+              )!,
+              child: result,
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Rect _getRect(GlobalKey globalKey) {
+    assert(globalKey.currentContext != null);
+    final RenderBox renderBoxContainer =
+        globalKey.currentContext!.findRenderObject()! as RenderBox;
+    return Rect.fromPoints(
+      renderBoxContainer.localToGlobal(renderBoxContainer.paintBounds.topLeft),
+      renderBoxContainer.localToGlobal(
+        renderBoxContainer.paintBounds.bottomRight,
       ),
     );
   }
