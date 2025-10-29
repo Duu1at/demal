@@ -1,6 +1,6 @@
 import 'package:app/app/cubits/app_settings/app_theme_cubit.dart';
 import 'package:app/app/cubits/auth/auth_cubit.dart';
-import 'package:core/enum/enum.dart';
+import 'package:auth/src/enums/role_enum.dart';
 import 'package:app/app/mixin/settings_change_mixin.dart';
 import 'package:app/app/router/app_router.dart';
 import 'package:app/l10n/app_localizations.dart';
@@ -129,14 +129,14 @@ class SettingsList extends StatelessWidget {
       children: [
         CardDrawerWithSubtitle(
           icon: const Icon(Icons.language_outlined),
-          title: 'Выберите язык',
+          title: context.l10n.selectLang,
           subtitle: locale,
           onTap: onChangeLocale,
         ),
         const DividerHorisontal(),
         CardDrawerWithSubtitle(
           icon: const Icon(Icons.sunny),
-          title: 'Выберите тему',
+          title: context.l10n.selectTheme,
           subtitle: themeName,
           onTap: onChangeTheme,
         ),

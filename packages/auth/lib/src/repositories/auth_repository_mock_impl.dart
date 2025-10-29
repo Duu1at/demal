@@ -1,15 +1,12 @@
-import 'package:core/enum/enum.dart';
+import 'package:auth/auth.dart';
+import 'package:auth/src/enums/role_enum.dart';
 import 'package:auth/src/models/auth_login_model.dart';
-import 'package:auth/src/models/user_model.dart';
-import 'package:auth/src/sources/auth_data_source.dart';
 import 'package:core/either/either.dart';
 import 'package:meta/meta.dart';
-import 'package:storage/storage.dart';
 
 @immutable
-final class AuthMockDataSourceImpl implements AuthDataSource {
-  const AuthMockDataSourceImpl(this.storage);
-  final PreferencesStorage storage;
+final class AuthRepositoryeMockImpl implements AuthRepository {
+  const AuthRepositoryeMockImpl();
 
   @override
   Future<void> deleteAccount() async {
@@ -76,7 +73,7 @@ final class AuthMockDataSourceImpl implements AuthDataSource {
   }
 
   @override
-  String? getPhoneNumver() {
+  String? getPhoneNumber() {
     return '+996702313611';
   }
 }

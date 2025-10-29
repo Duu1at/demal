@@ -1,4 +1,4 @@
-import 'package:core/enum/enum.dart';
+import 'package:auth/src/enums/role_enum.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 

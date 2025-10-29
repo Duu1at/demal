@@ -1,4 +1,4 @@
-import 'package:core/enum/enum.dart';
+import 'package:auth/src/enums/role_enum.dart';
 import 'package:app/client/client.dart';
 import 'package:app/login/view/login_view.dart';
 import 'package:app/login/view/otp_view.dart';

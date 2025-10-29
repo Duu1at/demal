@@ -1,7 +1,6 @@
 export 'di/injector.dart';
 export 'either/either.dart';
 export 'launch/app_launch.dart';
-export 'enum/enum.dart';
 export 'keys/storage_keys.dart';
 export 'network/remote_client.dart';
 export 'network/exception/remote_exception.dart';

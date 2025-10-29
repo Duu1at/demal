@@ -11,4 +11,5 @@ abstract class AuthRepository {
   );
   Future<void> deleteAccount();
   Future<void> logOut();
+  String? getPhoneNumber();
 }
