@@ -1,6 +1,6 @@
-import 'package:app/app/cubits/app_cubit.dart';
 import 'package:app/app/cubits/app_settings/app_locale_cubit.dart';
 import 'package:app/app/cubits/app_settings/app_theme_cubit.dart';
+import 'package:app/app/cubits/auth/auth_cubit.dart';
 import 'package:app/app/router/app_router.dart';
 import 'package:app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
@@ -17,10 +17,21 @@ class DemalApp extends StatefulWidget {
 
 class _DemalAppState extends State<DemalApp> {
   late final GoRouter _router;
+  late final AuthCubit authCubit;
 
   @override
   void initState() {
-    _router = AppRouter.instance(isNewUser: true, role: Role.client).router();
+    authCubit = context.read<AuthCubit>();
+    final token = authCubit.state.token;
+    final User? user = authCubit.state.user;
+
+    if (token != null && user != null && user.role != null) {
+      _router = AppRouter.instance(
+        isNewUser: user.isNewUser,
+        role: user.role!,
+      ).router();
+    }
+
     super.initState();
   }
 

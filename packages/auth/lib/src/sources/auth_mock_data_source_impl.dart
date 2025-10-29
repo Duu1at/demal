@@ -1,3 +1,4 @@
+import 'package:app/app/enum/enum.dart';
 import 'package:auth/src/models/auth_login_model.dart';
 import 'package:auth/src/models/user_model.dart';
 import 'package:auth/src/sources/auth_data_source.dart';
@@ -31,7 +32,7 @@ final class AuthMockDataSourceImpl implements AuthDataSource {
   }
 
   @override
-  UserModel? getUserData() {
+  AuthLoginModel? getUserData() {
     const user = UserModel(
       success: true,
       role: Role.client,
@@ -40,7 +41,14 @@ final class AuthMockDataSourceImpl implements AuthDataSource {
       userId: 'testId',
       phoneNumber: '+996 702 31 36 11',
     );
-    return user;
+    const data = AuthLoginModel(
+      success: true,
+      authToken: 'auth_token',
+      isNewUser: false,
+      user: user,
+    );
+
+    return data;
   }
 
   @override

@@ -25,7 +25,11 @@ class RemoteClient {
     dio.interceptors.addAll([
       TalkerDioLogger(
         talker: talker,
-        settings: const TalkerDioLoggerSettings(),
+        settings: const TalkerDioLoggerSettings(
+          printResponseData: true,
+          printRequestHeaders: true,
+          printResponseHeaders: true,
+        ),
       ),
       InterceptorsWrapper(
         onRequest: (options, handler) async {

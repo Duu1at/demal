@@ -1,29 +1,25 @@
-import 'package:app/app/cubits/app_cubit.dart';
+import 'package:app/app/enum/enum.dart';
 import 'package:app_ui/app_ui.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class RoleRedioWidget extends StatelessWidget {
   const RoleRedioWidget({
-    required this.role,
+     this.role,
     this.isClient = true,
     this.onChanged,
     this.title,
     super.key,
   });
-  final Role role;
+  final Role? role;
   final void Function(Role?)? onChanged;
   final String? title;
   final bool isClient;
 
   @override
   Widget build(BuildContext context) {
-    if (kDebugMode) {
-      print('InitialSettingsView build');
-    }
     final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
-    return RadioListTile<Role>(
+    return RadioListTile<Role?>(
       controlAffinity: ListTileControlAffinity.trailing,
       value: isClient ? Role.client : Role.partner,
       groupValue: role,

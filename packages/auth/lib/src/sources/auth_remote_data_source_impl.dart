@@ -1,5 +1,4 @@
 import 'package:auth/src/models/auth_login_model.dart';
-import 'package:auth/src/models/user_model.dart';
 import 'package:auth/src/sources/auth_data_source.dart';
 import 'package:core/either/either.dart';
 import 'package:core/network/remote_client.dart';
@@ -43,7 +42,7 @@ final class AuthRemoteDataSourceImpl implements AuthDataSource {
   }
 
   @override
-  UserModel? getUserData() {
+  AuthLoginModel? getUserData() {
     // TODO: implement saveUserData
     throw UnimplementedError();
   }

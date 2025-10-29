@@ -1,8 +1,10 @@
-import 'package:app/app/cubits/app_cubit.dart';
 import 'package:app/app/cubits/app_settings/app_theme_cubit.dart';
+import 'package:app/app/cubits/auth/auth_cubit.dart';
+import 'package:app/app/enum/enum.dart';
 import 'package:app/app/mixin/settings_change_mixin.dart';
 import 'package:app/app/router/app_router.dart';
 import 'package:app/l10n/app_localizations.dart';
+import 'package:app/l10n/l10n_extension.dart';
 import 'package:app/welcome/welcome.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +27,7 @@ class _InitialSettingsViewState extends State<InitialSettingsView>
   void initState() {
     super.initState();
     final isDark = context.read<AppThemeCubit>().state.isDark;
-    _themeName = isDark ? 'Темная' : 'Светлая';
+    _themeName = isDark ? context.l10n.darkTheme : context.l10n.lightTheme;
   }
 
   @override
@@ -52,9 +54,10 @@ class _InitialSettingsViewState extends State<InitialSettingsView>
               onChangeLocale: changeLocale,
               onChangeTheme: () async {
                 final resultIsDark = await changeTheme();
-                setState(() {
-                  _themeName = resultIsDark ? 'Темная' : 'Светлая';
-                });
+                _themeName = resultIsDark
+                    ? context.l10n.darkTheme
+                    : context.l10n.lightTheme;
+                setState(() {});
               },
             ),
           ],
@@ -75,10 +78,10 @@ class RoleSelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AppCubit, AppState>(
-      buildWhen: (previous, current) => previous.role != current.role,
+    return BlocBuilder<AuthCubit, AuthState>(
+      buildWhen: (previous, current) => previous.user != current.user,
       builder: (context, state) {
-        final role = state.role;
+        final role = state.user?.role;
         return Column(
           children: [
             RoleRedioWidget(
@@ -86,7 +89,7 @@ class RoleSelector extends StatelessWidget {
               title: 'Путешественник',
               role: role,
               onChanged: (_) =>
-                  context.read<AppCubit>().changeRole(role: Role.client),
+                  context.read<AuthCubit>().changeRole(Role.client),
             ),
             RoleRedioWidget(
               key: const Key('partner'),
@@ -94,7 +97,7 @@ class RoleSelector extends StatelessWidget {
               role: role,
               isClient: false,
               onChanged: (_) =>
-                  context.read<AppCubit>().changeRole(role: Role.partner),
+                  context.read<AuthCubit>().changeRole(Role.partner),
             ),
           ],
         );

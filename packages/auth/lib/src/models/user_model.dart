@@ -1,3 +1,4 @@
+import 'package:app/app/enum/enum.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 
@@ -33,5 +34,3 @@ final class UserModel {
   @JsonKey(name: 'created_at')
   final String createdAt;
 }
-
-enum Role { client, partner }

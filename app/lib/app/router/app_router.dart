@@ -1,4 +1,4 @@
-import 'package:app/app/cubits/app_cubit.dart' show Role;
+import 'package:app/app/enum/enum.dart';
 import 'package:app/client/client.dart';
 import 'package:app/login/view/login_view.dart';
 import 'package:app/login/view/otp_view.dart';

@@ -11,6 +11,7 @@ dependencies:
   json_annotation:
   storage:
   core:
+  app:
 
 dev_dependencies:
   flutter_test:

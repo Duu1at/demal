@@ -16,7 +16,7 @@ import 'package:talker_flutter/talker_flutter.dart';
 final getIt = GetIt.instance;
 
 Future<void> setupDependencies() async {
-  getIt.registerSingleton<Talker>(Talker());
+  getIt.registerSingleton<Talker>(TalkerFlutter.init());
   final Connectivity connectivity = Connectivity();
 
   Bloc.observer = TalkerBlocObserver(
