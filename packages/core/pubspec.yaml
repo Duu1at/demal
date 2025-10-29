@@ -10,19 +10,21 @@ dependencies:
   flutter:
     sdk: flutter
   get_it:
-  talker:
-  talker_flutter:
   go_router:
   image_picker:
   url_launcher:
   dio:
+  flutter_bloc:
   pretty_dio_logger:
   meta:
   connectivity_plus:
 
+  talker_flutter: 
+  talker_bloc_logger:
+  talker_dio_logger:
 
 
-  
+  app:
   storage:
   app_ui:
   auth:

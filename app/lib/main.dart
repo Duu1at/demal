@@ -2,7 +2,6 @@ import 'package:app/app/app_view.dart';
 import 'package:app/app/cubits/app_cubit.dart';
 import 'package:app/app/cubits/app_settings/app_locale_cubit.dart';
 import 'package:app/app/cubits/app_settings/app_theme_cubit.dart';
-import 'package:app/app_observer.dart';
 import 'package:core/di/injector.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +21,6 @@ void main() async {
     talker.log(details.stack.toString());
   };
 
-  Bloc.observer = const AppBlocObserver();
   final storage = await PreferencesStorage.getInstance();
 
   runApp(

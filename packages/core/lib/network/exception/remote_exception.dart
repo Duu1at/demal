@@ -1,6 +1,5 @@
 import 'package:meta/meta.dart';
 
-
 @immutable
 final class RemoteException implements Exception {
   const RemoteException(
@@ -42,7 +41,9 @@ enum FailureType {
   connection('Device unconected internet'),
 
   /// Unknown error.
-  unknown('Unknown error');
+  unknown('Unknown error'),
+
+  empty('Ответ сервера пуст');
 
   const FailureType(this.message);
 
