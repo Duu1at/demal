@@ -1,6 +1,5 @@
 import 'package:auth/auth.dart';
 import 'package:auth/src/models/auth_login_model.dart';
-import 'package:core/either/either.dart';
 import 'package:meta/meta.dart';
 
 @immutable
@@ -10,7 +9,7 @@ final class AuthRepositoryImpl implements AuthRepository {
     required this.authRemoteDataSource,
   });
 
-  final AutLocalDataSource authLocalDataSource;
+  final AuthLocalDataSource authLocalDataSource;
   final AuthRemoteDataSource authRemoteDataSource;
 
   @override
@@ -26,22 +25,14 @@ final class AuthRepositoryImpl implements AuthRepository {
   Future<void> logOut() => authLocalDataSource.logOut();
 
   @override
-  Future<void> sendOtp(String phoneNumber) =>
+  Future<String> sendOtp(String phoneNumber) =>
       authRemoteDataSource.sendOtp(phoneNumber);
 
   @override
-  Future<Either<AuthLoginModel, Exception>> verifyOtp(
-    String phoneNumber,
-    String otpCode,
-  ) async {
-    try {
-      final res = await authRemoteDataSource.verifyOtp(phoneNumber, otpCode);
-      return res.fold((l) => Left(l), (r) => Right(r));
-    } catch (e) {
-      return Left(AuthException(message: e.toString()));
-    }
+  Future<AuthLoginModel> verifyOtp(String phoneNumber, String otpCode) {
+    return authRemoteDataSource.verifyOtp(phoneNumber, otpCode);
   }
 
   @override
-  String? getPhoneNumber() => authLocalDataSource.getPhoneNumver();
+  String? getPhoneNumber() => authLocalDataSource.getPhoneNumber();
 }

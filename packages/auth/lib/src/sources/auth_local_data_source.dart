@@ -5,47 +5,37 @@ import 'package:meta/meta.dart';
 import 'package:storage/storage.dart';
 
 @immutable
-final class AutLocalDataSource {
-  const AutLocalDataSource(this.storage);
+final class AuthLocalDataSource {
+  const AuthLocalDataSource(this.storage);
   final PreferencesStorage storage;
 
-  Future<bool> deleteAccount() async {
-    try {
-      await Future.wait([
-        storage.delete(key: StorageKeys.tokenKey),
-        storage.delete(key: StorageKeys.userDataKey),
-        storage.delete(key: StorageKeys.phoneNumberKey),
-      ]);
-      return true;
-    } catch (e, s) {
-      throw StorageException(e, s);
-    }
+  Future<void> deleteAccount() async {
+    await Future.wait([
+      storage.delete(key: StorageKeys.tokenKey),
+      storage.delete(key: StorageKeys.userDataKey),
+      storage.delete(key: StorageKeys.phoneNumberKey),
+    ]);
   }
 
   String? getToken() {
-    try {
-      return storage.readString(key: StorageKeys.tokenKey);
-    } catch (e, s) {
-      throw StorageException(e, s);
-    }
+    return storage.readString(key: StorageKeys.tokenKey);
   }
 
-  Future<bool> logOut() {
-    try {
-      return storage.delete(key: StorageKeys.tokenKey);
-    } catch (e, s) {
-      throw StorageException(e, s);
-    }
+  Future<void> logOut() async {
+    await storage.delete(key: StorageKeys.tokenKey);
   }
 
   AuthLoginModel? getUserData() {
     final jsonString = storage.readString(key: StorageKeys.userDataKey);
     if (jsonString == null) return null;
-    final Map<String, dynamic> json = jsonDecode(jsonString);
 
-    return AuthLoginModel.fromJson(json);
+    final Map<String, dynamic> json = jsonDecode(jsonString);
+    final user = AuthLoginModel.fromJson(json);
+    return user;
   }
 
-  String? getPhoneNumver() =>
-      storage.readString(key: StorageKeys.phoneNumberKey);
+  String? getPhoneNumber() {
+    final number = storage.readString(key: StorageKeys.phoneNumberKey);
+    return number;
+  }
 }

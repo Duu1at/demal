@@ -43,7 +43,14 @@ enum FailureType {
   /// Unknown error.
   unknown('Unknown error'),
 
-  empty('Ответ сервера пуст');
+  /// Not found error.
+  notFound('Not found error'),
+
+  /// Time out error.
+  timeout('timeout'),
+
+  /// Empty response error.
+  emptyResponse('Ответ сервера пуст');
 
   const FailureType(this.message);
 

@@ -68,20 +68,22 @@ class _LoginViewState extends State<LoginView> {
                   listener: (context, state) {
                     final status = state.status;
                     if (status == OtpStatus.success) {
-                      context.goNamed(
+                      context.pushNamed(
                         AppRouter.otp,
                         extra: _phoneController.text.trim(),
                       );
-                    } else if (status == OtpStatus.failure) {}
+                    } else if (status == OtpStatus.failure) {
+                      
+                    }
                   },
                   builder: (context, state) {
                     return AppButton(
                       isLoading: state.status == OtpStatus.loading,
                       onPressed: () {
                         if (_formKey.currentState?.validate() ?? false) {
-                          context.read<OtpCubit>().sendOtp(
-                            phone: _phoneController.text.trim(),
-                          );
+                          final phoneNumber = InputFormatters.phoneFormatter
+                              .getUnmaskedText();
+                          context.read<OtpCubit>().sendOtp(phoneNumber);
                         }
                       },
                       child: const Text('Подтверждать'),

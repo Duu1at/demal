@@ -1,7 +1,6 @@
 import 'package:auth/auth.dart';
-import 'package:auth/src/enums/role_enum.dart';
 import 'package:auth/src/models/auth_login_model.dart';
-import 'package:core/either/either.dart';
+import 'package:core/core.dart';
 import 'package:meta/meta.dart';
 
 @immutable
@@ -50,10 +49,7 @@ final class AuthRepositoryeMockImpl implements AuthRepository {
   }
 
   @override
-  Future<Either<AuthLoginModel, Exception>> verifyOtp(
-    String phoneNumber,
-    String otpCode,
-  ) async {
+  Future<AuthLoginModel> verifyOtp(String phoneNumber, String otpCode) async {
     Future.delayed(const Duration(seconds: 1));
     const user = UserModel(
       success: true,
@@ -69,7 +65,7 @@ final class AuthRepositoryeMockImpl implements AuthRepository {
       isNewUser: false,
       user: user,
     );
-    return const Right(authModel);
+    return authModel;
   }
 
   @override

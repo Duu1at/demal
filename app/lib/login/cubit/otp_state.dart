@@ -12,7 +12,7 @@ class OtpState extends Equatable {
   OtpState copyWith({OtpStatus? status, String? error, String? phone}) {
     return OtpState(
       status: status ?? this.status,
-      error: error,
+      error: error ?? this.error,
       phone: phone ?? this.phone,
     );
   }

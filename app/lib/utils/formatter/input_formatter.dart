@@ -44,10 +44,6 @@ final class InputFormatters {
     },
   );
 
-  static String formatBankAccount(String accountNumber) {
-    final regex = RegExp(r'(\d{4})(?=\d)');
-    return accountNumber.replaceAllMapped(regex, (match) => '${match.group(1)} ');
-  }
 }
 
 class DecimalTextInputFormatter extends TextInputFormatter {
@@ -62,26 +58,3 @@ class DecimalTextInputFormatter extends TextInputFormatter {
   }
 }
 
-class CustomNumberInputFormatter extends TextInputFormatter {
-  final int maxIntegerLength;
-  final int maxDecimalLength;
-
-  CustomNumberInputFormatter({
-    required this.maxIntegerLength,
-    required this.maxDecimalLength,
-  });
-
-  @override
-  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
-    final text = newValue.text;
-    final parts = text.split('.');
-    if (parts[0].length > maxIntegerLength) {
-      return oldValue;
-    }
-    if (parts.length > 1 && parts[1].length > maxDecimalLength) {
-      return oldValue;
-    }
-
-    return newValue;
-  }
-}

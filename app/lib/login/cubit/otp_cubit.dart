@@ -9,20 +9,24 @@ class OtpCubit extends Cubit<OtpState> {
 
   final AuthRepository repository;
 
-  Future<void> sendOtp({required String phone}) async {
+  Future<void> sendOtp(String phoneNumber) async {
     try {
       emit(state.copyWith(status: OtpStatus.loading));
-      final response = await repository.sendOtp(phone);
+      final response = await repository.sendOtp(phoneNumber);
       emit(state.copyWith(status: OtpStatus.success));
     } catch (e) {
-      emit(state.copyWith(status: OtpStatus.failure));
+      emit(state.copyWith(status: OtpStatus.failure, error: e.toString()));
     }
   }
 
-  Future<void> verifyPin(String pin) async {
+  Future<void> verifyPin({
+    required String phoneNumber,
+    required String pin,
+  }) async {
     try {
-      emit(state.copyWith(status: OtpStatus.loading, error: null));
-      emit(state.copyWith(status: OtpStatus.success, error: null));
+      emit(state.copyWith(status: OtpStatus.loading));
+      final response = await repository.verifyOtp(phoneNumber, pin);
+      emit(state.copyWith(status: OtpStatus.success));
     } catch (e) {
       final message = (e is Exception) ? e.toString() : 'Unknown error';
       emit(state.copyWith(status: OtpStatus.failure, error: message));

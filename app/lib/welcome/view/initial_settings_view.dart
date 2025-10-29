@@ -1,12 +1,12 @@
 import 'package:app/app/cubits/app_settings/app_theme_cubit.dart';
 import 'package:app/app/cubits/auth/auth_cubit.dart';
-import 'package:auth/src/enums/role_enum.dart';
 import 'package:app/app/mixin/settings_change_mixin.dart';
 import 'package:app/app/router/app_router.dart';
 import 'package:app/l10n/app_localizations.dart';
 import 'package:app/l10n/l10n_extension.dart';
 import 'package:app/welcome/welcome.dart';
 import 'package:app_ui/app_ui.dart';
+import 'package:auth/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';

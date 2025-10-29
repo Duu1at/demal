@@ -4,3 +4,4 @@ export 'src/sources/auth_local_data_source.dart';
 export 'src/sources/auth_remote_data_source.dart';
 export 'src/models/user_model.dart';
 export 'src/exceptions/auth_exception.dart';
+export 'src/enums/role_enum.dart';
