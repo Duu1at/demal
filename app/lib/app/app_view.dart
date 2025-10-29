@@ -17,20 +17,15 @@ class DemalApp extends StatefulWidget {
 
 class _DemalAppState extends State<DemalApp> {
   late final GoRouter _router;
-  late final AuthCubit authCubit;
+  late final AuthState authState;
 
   @override
   void initState() {
-    authCubit = context.read<AuthCubit>();
-    final token = authCubit.state.token;
-    final User? user = authCubit.state.user;
-
-    if (token != null && user != null && user.role != null) {
-      _router = AppRouter.instance(
-        isNewUser: user.isNewUser,
-        role: user.role!,
-      ).router();
-    }
+    authState = context.read<AuthCubit>().state;
+    _router = AppRouter.instance(
+      isFirstTime: authState.isFirstTime,
+      role: authState.role,
+    ).router();
 
     super.initState();
   }

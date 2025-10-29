@@ -1,6 +1,6 @@
 import 'package:app/app/cubits/app_settings/app_theme_cubit.dart';
 import 'package:app/app/cubits/auth/auth_cubit.dart';
-import 'package:app/app/enum/enum.dart';
+import 'package:core/enum/enum.dart';
 import 'package:app/app/mixin/settings_change_mixin.dart';
 import 'package:app/app/router/app_router.dart';
 import 'package:app/l10n/app_localizations.dart';
@@ -21,13 +21,16 @@ class InitialSettingsView extends StatefulWidget {
 class _InitialSettingsViewState extends State<InitialSettingsView>
     with SettingsChangeMixin<InitialSettingsView> {
   String get _locale => AppLocalizations.of(context).localeName;
+  String get _lightTheme => context.l10n.lightTheme;
+  String get _darkTheme => context.l10n.darkTheme;
   String _themeName = '';
 
   @override
-  void initState() {
-    super.initState();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
     final isDark = context.read<AppThemeCubit>().state.isDark;
-    _themeName = isDark ? context.l10n.darkTheme : context.l10n.lightTheme;
+    _themeName = isDark ? _lightTheme : _darkTheme;
   }
 
   @override

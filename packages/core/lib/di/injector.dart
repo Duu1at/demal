@@ -1,5 +1,4 @@
-import 'package:app/env.dart';
-import 'package:app/main.dart';
+import 'package:core/api/api.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:auth/auth.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -20,7 +19,7 @@ Future<void> setupDependencies() async {
   final Connectivity connectivity = Connectivity();
 
   Bloc.observer = TalkerBlocObserver(
-    talker: talker,
+    talker: getIt<Talker>(),
     settings: const TalkerBlocLoggerSettings(),
   );
 
@@ -30,7 +29,7 @@ Future<void> setupDependencies() async {
 
   final dio = Dio(
     BaseOptions(
-      baseUrl: Env.baseUrl,
+      baseUrl: Api.baseUrl,
       connectTimeout: const Duration(seconds: 10),
       receiveTimeout: const Duration(seconds: 10),
     ),

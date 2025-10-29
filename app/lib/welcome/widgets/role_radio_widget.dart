@@ -1,4 +1,4 @@
-import 'package:app/app/enum/enum.dart';
+import 'package:core/enum/enum.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 

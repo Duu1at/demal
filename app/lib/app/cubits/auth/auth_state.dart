@@ -6,6 +6,10 @@ final class AuthState extends Equatable {
   final User? user;
   final String? token;
 
+  bool get isFirstTime => token == null;
+
+  Role get role => user?.role ?? Role.client;
+
   AuthState copyWith({User? user, String? token, bool? isNewUser}) {
     return AuthState(user: user ?? this.user, token: token ?? this.token);
   }
@@ -13,7 +17,6 @@ final class AuthState extends Equatable {
   @override
   List<Object?> get props => [user, token];
 }
-
 
 class User extends Equatable {
   const User({

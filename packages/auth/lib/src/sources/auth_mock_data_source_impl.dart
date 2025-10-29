@@ -1,4 +1,4 @@
-import 'package:app/app/enum/enum.dart';
+import 'package:core/enum/enum.dart';
 import 'package:auth/src/models/auth_login_model.dart';
 import 'package:auth/src/models/user_model.dart';
 import 'package:auth/src/sources/auth_data_source.dart';

@@ -1,4 +1,4 @@
-import 'package:app/app/enum/enum.dart';
+import 'package:core/enum/enum.dart';
 import 'package:auth/auth.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

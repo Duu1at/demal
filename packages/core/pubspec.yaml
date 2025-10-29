@@ -24,7 +24,6 @@ dependencies:
   talker_dio_logger:
 
 
-  app:
   storage:
   app_ui:
   auth:

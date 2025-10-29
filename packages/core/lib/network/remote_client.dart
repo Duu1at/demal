@@ -1,10 +1,11 @@
-import 'package:app/main.dart';
+import 'package:core/di/injector.dart';
 import 'package:core/either/either.dart';
 import 'package:core/network/exception/remote_exception.dart';
 import 'package:core/network/network_client/network_client.dart';
 import 'package:dio/dio.dart';
 import 'package:talker_dio_logger/talker_dio_logger_interceptor.dart';
 import 'package:talker_dio_logger/talker_dio_logger_settings.dart';
+import 'package:talker_flutter/talker_flutter.dart';
 
 typedef FromJson<T> = T Function(Map<String, dynamic>);
 
@@ -24,7 +25,7 @@ class RemoteClient {
   void initilize() {
     dio.interceptors.addAll([
       TalkerDioLogger(
-        talker: talker,
+        talker: getIt<Talker>(),
         settings: const TalkerDioLoggerSettings(
           printResponseData: true,
           printRequestHeaders: true,

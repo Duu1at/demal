@@ -1,4 +1,4 @@
-import 'package:app/app/enum/enum.dart';
+import 'package:core/enum/enum.dart';
 import 'package:app/client/client.dart';
 import 'package:app/login/view/login_view.dart';
 import 'package:app/login/view/otp_view.dart';
@@ -14,12 +14,12 @@ final partnerNavigatorKey = GlobalKey<NavigatorState>();
 
 @immutable
 final class AppRouter {
-  const AppRouter._({required this.isNewUser, required this.role});
+  const AppRouter._({required this.isFirstTime, required this.role});
 
-  factory AppRouter.instance({required bool isNewUser, required Role role}) =>
-      AppRouter._(isNewUser: isNewUser, role: role);
+  factory AppRouter.instance({required bool isFirstTime, required Role role}) =>
+      AppRouter._(isFirstTime: isFirstTime, role: role);
 
-  final bool isNewUser;
+  final bool isFirstTime;
   final Role role;
 
   static const onboardingOne = 'onboarding-one';
@@ -43,7 +43,7 @@ final class AppRouter {
 
   bool get isClient => role == Role.client;
   String get _initialRoute {
-    if (isNewUser) return '/';
+    if (isFirstTime) return '/';
     return isClient ? '/$client' : '/$partner';
   }
 
