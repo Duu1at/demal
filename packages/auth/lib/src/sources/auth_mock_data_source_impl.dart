@@ -27,8 +27,9 @@ final class AuthMockDataSourceImpl implements AuthDataSource {
   }
 
   @override
-  Future<void> sendOtp(String phoneNumber) async {
+  Future<Either<String, Exception>> sendOtp(String phoneNumber) async {
     Future.delayed(const Duration(seconds: 1));
+    return const Right('Succes');
   }
 
   @override
@@ -72,5 +73,10 @@ final class AuthMockDataSourceImpl implements AuthDataSource {
       user: user,
     );
     return const Right(authModel);
+  }
+
+  @override
+  String? getPhoneNumver() {
+    return '+996702313611';
   }
 }

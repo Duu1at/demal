@@ -3,8 +3,12 @@ import 'package:core/either/either.dart';
 
 abstract class AuthDataSource {
   String? getToken();
-  Future<void> sendOtp(String phoneNumber);
-  Future<Either<AuthLoginModel, Exception>> verifyOtp(String phoneNumber, String otpCode);
+  String? getPhoneNumver();
+  Future<Either<String, Exception>> sendOtp(String phoneNumber);
+  Future<Either<AuthLoginModel, Exception>> verifyOtp(
+    String phoneNumber,
+    String otpCode,
+  );
   AuthLoginModel? getUserData();
   Future<void> deleteAccount();
   Future<void> logOut();
