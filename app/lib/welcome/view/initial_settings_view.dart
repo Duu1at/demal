@@ -28,7 +28,6 @@ class _InitialSettingsViewState extends State<InitialSettingsView>
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-
     final isDark = context.read<AppThemeCubit>().state.isDark;
     _themeName = isDark ? _lightTheme : _darkTheme;
   }
@@ -49,13 +48,44 @@ class _InitialSettingsViewState extends State<InitialSettingsView>
               style: theme.textTheme.bodyMedium,
             ),
             const SizedBox(height: AppSpacing.xxxxlg),
-            const RoleSelector(),
+            BlocBuilder<AuthCubit, AuthState>(
+              buildWhen: (previous, current) => previous.user != current.user,
+              builder: (context, state) {
+                final role = state.user?.role;
+                return Column(
+                  children: [
+                    RoleRedioWidget(
+                      key: const Key('client'),
+                      title: 'Путешественник',
+                      role: role,
+                      onChanged: (_) =>
+                          context.read<AuthCubit>().changeRole(Role.client),
+                    ),
+                    RoleRedioWidget(
+                      key: const Key('partner'),
+                      title: 'Тур компания или гид',
+                      role: role,
+                      isClient: false,
+                      onChanged: (_) =>
+                          context.read<AuthCubit>().changeRole(Role.partner),
+                    ),
+                  ],
+                );
+              },
+            ),
             const DividerHorisontal(),
-            SettingsList(
-              locale: _locale,
-              themeName: _themeName,
-              onChangeLocale: changeLocale,
-              onChangeTheme: () async {
+            CardDrawerWithSubtitle(
+              icon: const Icon(Icons.language_outlined),
+              title: context.l10n.selectLang,
+              subtitle: _locale,
+              onTap: changeLocale,
+            ),
+            const DividerHorisontal(),
+            CardDrawerWithSubtitle(
+              icon: const Icon(Icons.sunny),
+              title: context.l10n.selectTheme,
+              subtitle: _themeName,
+              onTap: () async {
                 final resultIsDark = await changeTheme();
                 _themeName = resultIsDark
                     ? context.l10n.darkTheme
@@ -67,80 +97,20 @@ class _InitialSettingsViewState extends State<InitialSettingsView>
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: AppButton(
-        margin: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
-        child: const Text('Начать'),
-        onPressed: () => context.goNamed(AppRouter.onboardingOne),
+      floatingActionButton: BlocBuilder<AuthCubit, AuthState>(
+        builder: (context, state) {
+          final role = state.user?.hasSelectedRole;
+          return AppButton(
+            margin: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+            onPressed: (role ?? false)
+                ? () {
+                    context.goNamed(AppRouter.onboardingOne);
+                  }
+                : null,
+            child: const Text('Начать'),
+          );
+        },
       ),
-    );
-  }
-}
-
-class RoleSelector extends StatelessWidget {
-  const RoleSelector({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<AuthCubit, AuthState>(
-      buildWhen: (previous, current) => previous.user != current.user,
-      builder: (context, state) {
-        final role = state.user?.role;
-        return Column(
-          children: [
-            RoleRedioWidget(
-              key: const Key('client'),
-              title: 'Путешественник',
-              role: role,
-              onChanged: (_) =>
-                  context.read<AuthCubit>().changeRole(Role.client),
-            ),
-            RoleRedioWidget(
-              key: const Key('partner'),
-              title: 'Тур компания или гид',
-              role: role,
-              isClient: false,
-              onChanged: (_) =>
-                  context.read<AuthCubit>().changeRole(Role.partner),
-            ),
-          ],
-        );
-      },
-    );
-  }
-}
-
-class SettingsList extends StatelessWidget {
-  const SettingsList({
-    required this.locale,
-    required this.themeName,
-    required this.onChangeLocale,
-    required this.onChangeTheme,
-    super.key,
-  });
-
-  final String locale;
-  final String themeName;
-  final VoidCallback onChangeLocale;
-  final VoidCallback onChangeTheme;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        CardDrawerWithSubtitle(
-          icon: const Icon(Icons.language_outlined),
-          title: context.l10n.selectLang,
-          subtitle: locale,
-          onTap: onChangeLocale,
-        ),
-        const DividerHorisontal(),
-        CardDrawerWithSubtitle(
-          icon: const Icon(Icons.sunny),
-          title: context.l10n.selectTheme,
-          subtitle: themeName,
-          onTap: onChangeTheme,
-        ),
-      ],
     );
   }
 }

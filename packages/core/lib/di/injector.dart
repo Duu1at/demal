@@ -15,14 +15,24 @@ import 'package:talker_flutter/talker_flutter.dart';
 final getIt = GetIt.instance;
 
 Future<void> setupDependencies() async {
-  getIt.registerSingleton<Talker>(TalkerFlutter.init());
-  final Connectivity connectivity = Connectivity();
+  final talker = TalkerFlutter.init();
+  getIt.registerSingleton<Talker>(talker);
 
   Bloc.observer = TalkerBlocObserver(
     talker: getIt<Talker>(),
-    settings: const TalkerBlocLoggerSettings(),
+    settings: const TalkerBlocLoggerSettings(
+      enabled: true,
+      printEventFullData: false,
+      printStateFullData: false,
+      printChanges: true,
+      printClosings: true,
+      printCreations: true,
+      printEvents: true,
+      printTransitions: true,
+    ),
   );
 
+  final Connectivity connectivity = Connectivity();
   getIt.registerLazySingleton<NetworkClient>(
     () => NetworkClient(connectivity: connectivity),
   );

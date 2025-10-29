@@ -8,11 +8,8 @@ final class AuthState extends Equatable {
 
   bool get isFirstTime => token == null;
 
-  Role get role => user?.role ?? Role.client;
-
-  AuthState copyWith({User? user, String? token, bool? isNewUser}) {
-    return AuthState(user: user ?? this.user, token: token ?? this.token);
-  }
+  AuthState copyWith({User? user, String? token, bool? isNewUser}) =>
+      AuthState(user: user ?? this.user, token: token ?? this.token);
 
   @override
   List<Object?> get props => [user, token];
@@ -30,6 +27,8 @@ class User extends Equatable {
   final Role? role;
   final String? phoneNumber;
   final bool isNewUser;
+
+  bool get hasSelectedRole => role != null;
 
   User copyWith({
     String? imageUrl,

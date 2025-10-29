@@ -14,13 +14,13 @@ final partnerNavigatorKey = GlobalKey<NavigatorState>();
 
 @immutable
 final class AppRouter {
-  const AppRouter._({required this.isFirstTime, required this.role});
+  const AppRouter._({required this.isFirstTime, this.role});
 
-  factory AppRouter.instance({required bool isFirstTime, required Role role}) =>
+  factory AppRouter.instance({required bool isFirstTime, Role? role}) =>
       AppRouter._(isFirstTime: isFirstTime, role: role);
 
   final bool isFirstTime;
-  final Role role;
+  final Role? role;
 
   static const onboardingOne = 'onboarding-one';
   static const onboardingTwo = 'onboarding-two';

@@ -72,14 +72,24 @@ class AppButton extends StatelessWidget {
 
       switch (variant) {
         case AppButtonVariant.primary:
-          if (disabled) return colors.primary;
+          if (disabled) return colors.primary.withValues(alpha: .4);
           if (pressed) return colors.primaryContainer;
-          if (hovered) return Color.alphaBlend(colors.onPrimary.withValues(alpha: 0.08), colors.primary);
+          if (hovered) {
+            return Color.alphaBlend(
+              colors.onPrimary.withValues(alpha: 0.08),
+              colors.primary,
+            );
+          }
           return colors.primary;
         case AppButtonVariant.secondary:
           if (disabled) return colors.secondary.withValues(alpha: 0.2);
           if (pressed) return colors.secondaryContainer;
-          if (hovered) return Color.alphaBlend(colors.onSecondary.withValues(alpha: 0.08), colors.secondary);
+          if (hovered) {
+            return Color.alphaBlend(
+              colors.onSecondary.withValues(alpha: 0.08),
+              colors.secondary,
+            );
+          }
           return colors.secondary;
         case AppButtonVariant.tonal:
           if (disabled) return colors.secondaryContainer.withValues(alpha: 0.4);
@@ -91,7 +101,12 @@ class AppButton extends StatelessWidget {
           final base = colors.error;
           if (disabled) return base.withValues(alpha: 0.28);
           if (pressed) return colors.errorContainer;
-          if (hovered) return Color.alphaBlend(colors.onError.withValues(alpha: 0.08), base);
+          if (hovered) {
+            return Color.alphaBlend(
+              colors.onError.withValues(alpha: 0.08),
+              base,
+            );
+          }
           return base;
       }
     }
@@ -100,35 +115,52 @@ class AppButton extends StatelessWidget {
       final disabled = states.contains(WidgetState.disabled);
       switch (variant) {
         case AppButtonVariant.primary:
+          return disabled ? colors.onSurface : colors.onPrimary;
         case AppButtonVariant.secondary:
         case AppButtonVariant.destructive:
-          return disabled ? colors.onSurface.withValues(alpha: 0.38) : colors.onPrimary;
+          return disabled
+              ? colors.onSurface.withValues(alpha: 0.38)
+              : colors.onPrimary;
         case AppButtonVariant.tonal:
-          return disabled ? colors.onSurface.withValues(alpha: 0.38) : colors.onSecondaryContainer;
+          return disabled
+              ? colors.onSurface.withValues(alpha: 0.38)
+              : colors.onSecondaryContainer;
         case AppButtonVariant.outline:
-          return disabled ? colors.onSurface.withValues(alpha: 0.38) : colors.primary;
+          return disabled
+              ? colors.onSurface.withValues(alpha: 0.38)
+              : colors.primary;
       }
     }
 
     OutlinedBorder resolveShape(Set<WidgetState> states) {
       const radius = 16.0;
-      return RoundedRectangleBorder(borderRadius: BorderRadius.circular(radius));
+      return RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(radius),
+      );
     }
 
     BorderSide? resolveBorder(Set<WidgetState> states) {
       if (variant != AppButtonVariant.outline) return null;
       final disabled = states.contains(WidgetState.disabled);
-      return BorderSide(color: disabled ? colors.outlineVariant : colors.outline, width: 1.2);
+      return BorderSide(
+        color: disabled ? colors.outlineVariant : colors.outline,
+        width: 1.2,
+      );
     }
 
     final baseStyle = ButtonStyle(
-      minimumSize: WidgetStateProperty.all(Size(fullWidth ? double.infinity : 0, p.height)),
+      minimumSize: WidgetStateProperty.all(
+        Size(fullWidth ? double.infinity : 0, p.height),
+      ),
       maximumSize: WidgetStateProperty.all(Size(double.infinity, p.height)),
       padding: WidgetStateProperty.all(p.padding),
       shape: WidgetStateProperty.resolveWith(resolveShape),
       side: WidgetStateProperty.resolveWith(resolveBorder),
       elevation: WidgetStateProperty.resolveWith((states) {
-        if (variant == AppButtonVariant.outline || variant == AppButtonVariant.tonal) return 0;
+        if (variant == AppButtonVariant.outline ||
+            variant == AppButtonVariant.tonal) {
+          return 0;
+        }
         if (states.contains(WidgetState.pressed)) return 0;
         return 1;
       }),
@@ -140,13 +172,17 @@ class AppButton extends StatelessWidget {
         }
         return null;
       }),
-      textStyle: WidgetStateProperty.all(theme.textTheme.labelLarge?.merge(p.textStyle) ?? p.textStyle),
+      textStyle: WidgetStateProperty.all(
+        theme.textTheme.labelLarge?.merge(p.textStyle) ?? p.textStyle,
+      ),
       alignment: Alignment.center,
       enableFeedback: true,
       visualDensity: VisualDensity.standard,
     ).merge(style);
 
-    final effectiveOnPressed = (isLoading || onPressed == null) ? null : onPressed;
+    final effectiveOnPressed = (isLoading || onPressed == null)
+        ? null
+        : onPressed;
 
     final content = _ButtonContent(
       leading: leading,
@@ -225,7 +261,9 @@ class _ButtonContent extends StatelessWidget {
             child: child is Text
                 ? Text(
                     (child as Text).data ?? '',
-                    style: (child as Text).style?.copyWith(color: fg) ?? TextStyle(color: fg),
+                    style:
+                        (child as Text).style?.copyWith(color: fg) ??
+                        TextStyle(color: fg),
                     textAlign: (child as Text).textAlign,
                     maxLines: (child as Text).maxLines,
                     overflow: (child as Text).overflow,
@@ -252,7 +290,10 @@ class _ButtonContent extends StatelessWidget {
         SizedBox(
           width: 20,
           height: 20,
-          child: CircularProgressIndicator(strokeWidth: 2.2, valueColor: AlwaysStoppedAnimation<Color>(fg)),
+          child: CircularProgressIndicator(
+            strokeWidth: 2.2,
+            valueColor: AlwaysStoppedAnimation<Color>(fg),
+          ),
         ),
       ],
     );
@@ -260,7 +301,11 @@ class _ButtonContent extends StatelessWidget {
 }
 
 class _SizePreset {
-  const _SizePreset({required this.height, required this.padding, required this.textStyle});
+  const _SizePreset({
+    required this.height,
+    required this.padding,
+    required this.textStyle,
+  });
 
   final double height;
   final EdgeInsetsGeometry padding;

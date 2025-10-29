@@ -24,7 +24,7 @@ class _DemalAppState extends State<DemalApp> {
     authState = context.read<AuthCubit>().state;
     _router = AppRouter.instance(
       isFirstTime: authState.isFirstTime,
-      role: authState.role,
+      role: authState.user?.role,
     ).router();
 
     super.initState();
