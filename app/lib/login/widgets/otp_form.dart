@@ -1,8 +1,13 @@
-import 'dart:async';
-
+import 'package:app/app/router/app_router.dart';
 import 'package:app/l10n/l10n_extension.dart';
+import 'package:app/login/cubit/otp_cubit.dart';
+import 'package:app/utils/formatter/input_formatter.dart';
+import 'package:app/utils/styled_toasts.dart';
 import 'package:app_ui/app_ui.dart';
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:pinput/pinput.dart';
 
 class OtpForm extends StatefulWidget {
@@ -17,44 +22,18 @@ class _OtpFormState extends State<OtpForm> {
   late final FocusNode focusNode;
   late final GlobalKey<FormState> formKey;
 
-  static const int _initialSeconds = 120;
-  late int _remainingSeconds;
-  Timer? _timer;
-
-  bool get _isTimerFinished => _remainingSeconds == 0;
-
   @override
   void initState() {
     super.initState();
     formKey = GlobalKey<FormState>();
     pinController = TextEditingController();
     focusNode = FocusNode();
-    _remainingSeconds = _initialSeconds;
-    _startTimer();
-  }
-
-  void _startTimer() {
-    _timer?.cancel();
-    _remainingSeconds = _initialSeconds;
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      if (_remainingSeconds == 0) {
-        timer.cancel();
-      } else {
-        setState(() => _remainingSeconds--);
-      }
-    });
-  }
-
-  String _formatTime(int seconds) {
-    final minutes = (seconds ~/ 60).toString().padLeft(2, '0');
-    final secs = (seconds % 60).toString().padLeft(2, '0');
-    return '$minutes:$secs';
   }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final phone = '+996 ${widget.phoneNumer}';
+    final phone = '+996 ${InputFormatters.formatPhone(widget.phoneNumer)}';
     final otpMessage = context.l10n.otpMessage(phone);
     final parts = otpMessage.split(phone);
     final defaultPinTheme = PinTheme(
@@ -123,10 +102,18 @@ class _OtpFormState extends State<OtpForm> {
                 focusNode: focusNode,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 validator: (value) {
-                  return value == '2222' ? null : 'Pin is incorrect';
+                  if (value == null || value.length != 4) {
+                    return 'Введите 4 цифры';
+                  }
+                  return null;
                 },
                 hapticFeedbackType: HapticFeedbackType.lightImpact,
-                onCompleted: (pin) {},
+                onCompleted: (pin) {
+                  context.read<OtpCubit>().verifyOtpCode(
+                    phoneNumber: widget.phoneNumer,
+                    pin: pin,
+                  );
+                },
                 onChanged: (value) {},
                 errorPinTheme: defaultPinTheme.copyBorderWith(
                   border: Border.all(color: theme.colorScheme.error),
@@ -134,25 +121,58 @@ class _OtpFormState extends State<OtpForm> {
               ),
             ),
             const SizedBox(height: AppSpacing.lg + 4),
-            AppButton(
-              child: const Text('Проверить'),
-              onPressed: () => _success(context),
+            BlocListener<OtpCubit, OtpState>(
+              listener: (context, state) {
+                final verifyStatus = state.verifyStatus;
+                if (verifyStatus is RequestSuccess) {
+                  _success(context);
+                } else if (verifyStatus is RequestFailure) {
+                  AppSnackBar.showSnackBar(
+                    verifyStatus.exception.message ?? 'error',
+                  );
+                }
+              },
+              child: AppButton(
+                child: const Text('Проверить'),
+                onPressed: () {
+                  if (formKey.currentState?.validate() ?? false) {
+                    final pin = pinController.text.trim();
+                    context.read<OtpCubit>().verifyOtpCode(
+                      phoneNumber: widget.phoneNumer,
+                      pin: pin,
+                    );
+                  }
+                },
+              ),
             ),
             const SizedBox(height: AppSpacing.lg),
-            TextButton(
-              onPressed: _isTimerFinished
-                  ? () {
-                      _startTimer();
-                    }
-                  : null,
-              child: Text(
-                'Отправить повторно ${_isTimerFinished ? '' : '(${_formatTime(_remainingSeconds)})'}',
-                style: theme.primaryTextTheme.titleSmall!.copyWith(
-                  color: _isTimerFinished
-                      ? theme.colorScheme.primary
-                      : theme.disabledColor,
-                ),
-              ),
+            BlocConsumer<OtpCubit, OtpState>(
+              listenWhen: (previous, current) =>
+                  previous.sendStatus != current.sendStatus,
+              listener: (context, state) {
+                final sendStatus = state.sendStatus;
+                if (sendStatus is RequestFailure) {
+                  final error = sendStatus.exception;
+                  AppSnackBar.showSnackBar(error.message ?? 'Error');
+                }
+              },
+              builder: (context, state) {
+                final isTimerFinished = state.remainingSeconds <= 0;
+                return TextButton(
+                  onPressed: isTimerFinished
+                      ? () =>
+                            context.read<OtpCubit>().sendOtp(widget.phoneNumer)
+                      : null,
+                  child: Text(
+                    'Отправить повторно ${isTimerFinished ? '' : '(${state.remainingSeconds})'}',
+                    style: theme.primaryTextTheme.titleSmall!.copyWith(
+                      color: isTimerFinished
+                          ? theme.colorScheme.primary
+                          : theme.disabledColor,
+                    ),
+                  ),
+                );
+              },
             ),
           ],
         ),
@@ -171,7 +191,7 @@ class _OtpFormState extends State<OtpForm> {
       actions: [
         AppButton(
           size: AppButtonSize.sm,
-          onPressed: () => Navigator.pop(context),
+          onPressed: () => context.pushNamed(AppRouter.client),
           child: const Text('Продолжить'),
         ),
       ],
@@ -180,7 +200,6 @@ class _OtpFormState extends State<OtpForm> {
 
   @override
   void dispose() {
-    _timer?.cancel();
     pinController.dispose();
     focusNode.dispose();
     super.dispose();

@@ -15,6 +15,22 @@ final class RemoteException implements Exception {
   final StackTrace? stackTrace;
   final String? message;
   final int? statusCode;
+
+  RemoteException copyWith({
+    dynamic error,
+    FailureType? failureType,
+    StackTrace? stackTrace,
+    String? message,
+    int? statusCode,
+  }) {
+    return RemoteException(
+      failureType ?? this.failureType,
+      error: error ?? this.error,
+      message: message ?? this.message,
+      stackTrace: stackTrace ?? this.stackTrace,
+      statusCode: statusCode ?? this.statusCode,
+    );
+  }
 }
 
 /// Enum representing different failure types.

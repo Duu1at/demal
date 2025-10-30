@@ -14,10 +14,7 @@ final class AuthRemoteDataSource {
       body: {"phone_number": "+996$phoneNumber"},
     );
 
-    return result.fold(
-      (failure) => throw failure,
-      (data) => data['message'] as String,
-    );
+    return result['message'];
   }
 
   Future<AuthLoginModel> verifyOtp(String phoneNumber, String otpCode) async {
@@ -26,6 +23,6 @@ final class AuthRemoteDataSource {
       body: {"phone_number": "+996$phoneNumber", "otp_code": otpCode},
       fromJson: (json) => AuthLoginModel.fromJson(json),
     );
-    return result.fold((failure) => throw failure, (data) => data);
+    return result;
   }
 }

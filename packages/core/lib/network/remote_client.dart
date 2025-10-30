@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:core/di/injector.dart';
-import 'package:core/either/either.dart';
 import 'package:core/network/exception/remote_exception.dart';
 import 'package:core/network/network_client/network_client.dart';
 import 'package:dio/dio.dart';
@@ -62,40 +61,50 @@ class RemoteClient {
     ]);
   }
 
-  Future<Either<T, RemoteException>> _handleRequest<T>(
+  Future<T> _handleRequest<T>(
     Future<Response<Map<String, dynamic>>> Function() request, {
     FromJson<T>? fromJson,
   }) async {
     try {
+      
       if (!await network.checkInternetConnection()) {
-        return const Left(RemoteException(FailureType.connection));
+        throw const RemoteException(FailureType.connection);
       }
 
       final response = await request();
-
       final data = response.data;
+
       if (data == null) {
-        return const Left(RemoteException(FailureType.emptyResponse));
+        throw const RemoteException(FailureType.emptyResponse);
+      }
+
+      if (data['success'] is bool && data['success'] == false) {
+        throw RemoteException(
+          FailureType.unknown,
+          statusCode: response.statusCode,
+          message: data['message']?.toString(),
+          error: data['error']?.toString(),
+        );
       }
 
       if (fromJson != null) {
-        return Right(fromJson(data));
+        return fromJson(data);
       }
 
-      return Right(data as T);
+      return data as T;
     } on DioException catch (e) {
-      return Left(_parseDioException(e));
+      throw _parseDioException(e);
     } on SocketException {
-      return const Left(RemoteException(FailureType.connection));
+      throw const RemoteException(FailureType.connection);
     } on TimeoutException {
-      return const Left(RemoteException(FailureType.timeout));
+      throw const RemoteException(FailureType.timeout);
     } catch (e, s) {
-      return Left(_unknownExc(e, s));
+      throw _unknownExc(e, s);
     }
   }
 
   ///  🔹 GET
-  Future<Either<T, RemoteException>> get<T>(
+  Future<T> get<T>(
     String url, {
     Map<String, dynamic>? queryParameters,
     FromJson<T>? fromJson,
@@ -108,7 +117,7 @@ class RemoteClient {
   }
 
   ///  🔹 POST
-  Future<Either<T, RemoteException>> post<T>(
+  Future<T> post<T>(
     String url, {
     Map<String, dynamic>? body,
     Map<String, dynamic>? queryParameters,
@@ -125,7 +134,7 @@ class RemoteClient {
   }
 
   /// 🔹 PUT
-  Future<Either<T, RemoteException>> put<T>(
+  Future<T> put<T>(
     String url, {
     Map<String, dynamic>? body,
     Map<String, dynamic>? queryParameters,
@@ -142,7 +151,7 @@ class RemoteClient {
   }
 
   /// 🔹 DELETE
-  Future<Either<T, RemoteException>> delete<T>(
+  Future<T> delete<T>(
     String url, {
     Map<String, dynamic>? queryParameters,
     FromJson<T>? fromJson,

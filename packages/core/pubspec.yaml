@@ -22,6 +22,7 @@ dependencies:
   talker_flutter: 
   talker_bloc_logger:
   talker_dio_logger:
+  equatable: 
 
 
   storage:
