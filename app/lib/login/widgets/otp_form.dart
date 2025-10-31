@@ -1,13 +1,12 @@
-import 'package:app/app/router/app_router.dart';
 import 'package:app/l10n/l10n_extension.dart';
 import 'package:app/login/cubit/otp_cubit.dart';
 import 'package:app/utils/formatter/input_formatter.dart';
 import 'package:app/utils/styled_toasts.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:core/core.dart';
+import 'package:core/network/extension/object.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:pinput/pinput.dart';
 
 class OtpForm extends StatefulWidget {
@@ -124,12 +123,9 @@ class _OtpFormState extends State<OtpForm> {
             BlocListener<OtpCubit, OtpState>(
               listener: (context, state) {
                 final verifyStatus = state.verifyStatus;
-                if (verifyStatus is RequestSuccess) {
-                  _success(context);
+                if (verifyStatus.isSuccess) {
                 } else if (verifyStatus is RequestFailure) {
-                  AppSnackBar.showSnackBar(
-                    verifyStatus.exception.message ?? 'error',
-                  );
+                  AppSnackBar.showBaseSnack(verifyStatus.parseError());
                 }
               },
               child: AppButton(
@@ -147,13 +143,10 @@ class _OtpFormState extends State<OtpForm> {
             ),
             const SizedBox(height: AppSpacing.lg),
             BlocConsumer<OtpCubit, OtpState>(
-              listenWhen: (previous, current) =>
-                  previous.sendStatus != current.sendStatus,
               listener: (context, state) {
                 final sendStatus = state.sendStatus;
                 if (sendStatus is RequestFailure) {
-                  final error = sendStatus.exception;
-                  AppSnackBar.showSnackBar(error.message ?? 'Error');
+                  AppSnackBar.showBaseSnack(sendStatus.exception.parseError());
                 }
               },
               builder: (context, state) {
@@ -164,7 +157,7 @@ class _OtpFormState extends State<OtpForm> {
                             context.read<OtpCubit>().sendOtp(widget.phoneNumer)
                       : null,
                   child: Text(
-                    'Отправить повторно ${isTimerFinished ? '' : '(${state.remainingSeconds})'}',
+                    'Отправить повторно ${isTimerFinished ? '' : '(${_formatTime(state.remainingSeconds)})'}',
                     style: theme.primaryTextTheme.titleSmall!.copyWith(
                       color: isTimerFinished
                           ? theme.colorScheme.primary
@@ -180,22 +173,10 @@ class _OtpFormState extends State<OtpForm> {
     );
   }
 
-  void _success(BuildContext context) {
-    AlertDialogs.alertDialog(
-      barrierDismissible: false,
-      title: 'Успешно',
-      subTitle: 'Вы успешно авторизовались',
-      context: context,
-      showCloseButton: false,
-      typeAlertDialog: AlertDialogType.success,
-      actions: [
-        AppButton(
-          size: AppButtonSize.sm,
-          onPressed: () => context.pushNamed(AppRouter.client),
-          child: const Text('Продолжить'),
-        ),
-      ],
-    );
+  String _formatTime(int seconds) {
+    final minutes = (seconds ~/ 60).toString().padLeft(2, '0');
+    final secs = (seconds % 60).toString().padLeft(2, '0');
+    return '$minutes:$secs';
   }
 
   @override

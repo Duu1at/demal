@@ -1,5 +1,4 @@
 import 'package:auth/auth.dart';
-import 'package:auth/src/models/auth_login_model.dart';
 import 'package:core/core.dart';
 import 'package:meta/meta.dart';
 

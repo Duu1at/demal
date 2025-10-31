@@ -8,12 +8,12 @@ class OtpState extends Equatable {
   });
 
   final RequestStatus<void> sendStatus;
-  final RequestStatus<void> verifyStatus;
+  final RequestStatus<AuthLoginModel> verifyStatus;
   final int remainingSeconds;
 
   OtpState copyWith({
     RequestStatus<void>? sendStatus,
-    RequestStatus<void>? verifyStatus,
+    RequestStatus<AuthLoginModel>? verifyStatus,
     int? remainingSeconds,
   }) {
     return OtpState(

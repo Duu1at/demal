@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:auth/auth.dart';
 import 'package:core/models/request_status.dart';
-import 'package:core/network/extension/exception.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -20,29 +19,23 @@ class OtpCubit extends Cubit<OtpState> {
       await repository.sendOtp(phoneNumber);
       emit(state.copyWith(sendStatus: const RequestSuccess(null)));
       startTimer();
-    } on Exception catch (e, s) {
+    } on Object catch (e) {
       emit(
-        state.copyWith(
-          sendStatus: RequestFailure(e.toRemoteException(stackTrace: s)),
-        ),
+        state.copyWith(sendStatus: RequestFailure(e)),
       );
     }
   }
 
   Future<void> verifyOtpCode({
     required String phoneNumber,
-    required String pin
+    required String pin,
   }) async {
     emit(state.copyWith(verifyStatus: RequestLoading()));
     try {
-      await repository.verifyOtp(phoneNumber, pin);
-      emit(state.copyWith(verifyStatus: const RequestSuccess(null)));
-    } on Exception catch (e, s) {
-      emit(
-        state.copyWith(
-          verifyStatus: RequestFailure(e.toRemoteException(stackTrace: s)),
-        ),
-      );
+    final res= await repository.verifyOtp(phoneNumber, pin);
+      emit(state.copyWith(verifyStatus:  RequestSuccess<AuthLoginModel>(res)));
+    } on Object catch (e) {
+      emit(state.copyWith(verifyStatus: RequestFailure(e)));
     }
   }
 

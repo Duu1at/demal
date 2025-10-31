@@ -1,4 +1,3 @@
-import 'package:core/core.dart';
 import 'package:equatable/equatable.dart';
 
 sealed class RequestStatus<T> extends Equatable {
@@ -26,7 +25,7 @@ final class RequestSuccess<T> extends RequestStatus<T> {
 final class RequestFailure<T> extends RequestStatus<T> {
   const RequestFailure(this.exception);
 
-  final RemoteException exception;
+  final Object exception;
 
   @override
   List<Object?> get props => [exception];

@@ -66,7 +66,6 @@ class RemoteClient {
     FromJson<T>? fromJson,
   }) async {
     try {
-      
       if (!await network.checkInternetConnection()) {
         throw const RemoteException(FailureType.connection);
       }
@@ -93,7 +92,7 @@ class RemoteClient {
 
       return data as T;
     } on DioException catch (e) {
-      throw _parseDioException(e);
+      throw RemoteException.fromDioException(e);
     } on SocketException {
       throw const RemoteException(FailureType.connection);
     } on TimeoutException {
@@ -163,60 +162,6 @@ class RemoteClient {
       ),
       fromJson: fromJson,
     );
-  }
-
-  RemoteException _parseDioException(DioException e) {
-    final status = e.response?.statusCode;
-    final message = _extractMessage(e);
-
-    return switch (status) {
-      400 => RemoteException(
-        FailureType.badRequest,
-        statusCode: 400,
-        message: message,
-        error: e.error,
-      ),
-      401 => RemoteException(
-        FailureType.noAuthorization,
-        statusCode: 401,
-        message: message,
-        error: e.error,
-      ),
-      403 => RemoteException(
-        FailureType.forbidden,
-        statusCode: 403,
-        message: message,
-        error: e.error,
-      ),
-      404 => RemoteException(
-        FailureType.notFound,
-        statusCode: 404,
-        message: message,
-        error: e.error,
-      ),
-      500 => RemoteException(
-        FailureType.internalServer,
-        statusCode: 500,
-        message: message,
-        error: e.error,
-      ),
-      _ => RemoteException(
-        FailureType.unknown,
-        statusCode: status,
-        message: message,
-        error: e.error,
-      ),
-    };
-  }
-
-  String? _extractMessage(DioException e) {
-    final data = e.response?.data;
-    if (data is Map<String, dynamic>) {
-      return data['message']?.toString() ??
-          data['error']?.toString() ??
-          e.message;
-    }
-    return e.message;
   }
 
   RemoteException _unknownExc(Object e, StackTrace? s) {
