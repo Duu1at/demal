@@ -77,15 +77,6 @@ class RemoteClient {
         throw const RemoteException(FailureType.emptyResponse);
       }
 
-      if (data['success'] is bool && data['success'] == false) {
-        throw RemoteException(
-          FailureType.unknown,
-          statusCode: response.statusCode,
-          message: data['message']?.toString(),
-          error: data['error']?.toString(),
-        );
-      }
-
       if (fromJson != null) {
         return fromJson(data);
       }

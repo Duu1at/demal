@@ -17,18 +17,19 @@ final class RemoteException implements Exception {
     bool shouldLog = true,
   }) {
     final data = e.response?.data;
-    if (data is Map<String, dynamic>) {
-      final msg = (data['message'] ?? data['Message'] ?? data['error'])
-          ?.toString();
-      if (msg != null && msg.isNotEmpty) {
-        return RemoteException(
-          FailureType.unknown,
-          message: msg,
-          error: e,
-          stackTrace: e.stackTrace,
-        );
-      }
+    final status = e.response?.statusCode;
+
+    if (data is Map<String, dynamic> && data['success'] == false) {
+      final msg = data['message']?.toString() ?? data['error']?.toString();
+      return RemoteException(
+        FailureType.unknown,
+        message: msg?.isNotEmpty == true ? msg : 'Неизвестная ошибка',
+        error: e,
+        stackTrace: e.stackTrace,
+        statusCode: status,
+      );
     }
+    
     if (e.message != null && e.message!.isNotEmpty) {
       return RemoteException(
         FailureType.unknown,
@@ -38,7 +39,6 @@ final class RemoteException implements Exception {
       );
     }
 
-    final status = e.response?.statusCode;
     final message = _extractMessage(e);
 
     switch (status) {

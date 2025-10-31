@@ -9,20 +9,18 @@ final class AuthLocalDataSource {
   const AuthLocalDataSource(this.storage);
   final PreferencesStorage storage;
 
-  Future<void> deleteAccount() async {
-    await Future.wait([
-      storage.delete(key: StorageKeys.tokenKey),
-      storage.delete(key: StorageKeys.userDataKey),
-      storage.delete(key: StorageKeys.phoneNumberKey),
-    ]);
+  void deleteAccount()  {
+    storage.delete(key: StorageKeys.tokenKey);
+    storage.delete(key: StorageKeys.userDataKey);
+    storage.delete(key: StorageKeys.phoneNumberKey);
   }
 
   String? getToken() {
     return storage.readString(key: StorageKeys.tokenKey);
   }
 
-  Future<void> logOut() async {
-    await storage.delete(key: StorageKeys.tokenKey);
+  void logOut() async {
+     storage.delete(key: StorageKeys.tokenKey);
   }
 
   AuthLoginModel? getUserData() {
@@ -34,8 +32,9 @@ final class AuthLocalDataSource {
     return user;
   }
 
-  String? getPhoneNumber() {
-    final number = storage.readString(key: StorageKeys.phoneNumberKey);
-    return number;
+  void saveUserData(AuthLoginModel data) async {
+    await storage.writeString(key: StorageKeys.tokenKey, value: data.authToken);
+    final jsonString = jsonEncode(data.toJson());
+    await storage.writeString(key: StorageKeys.userDataKey, value: jsonString);
   }
 }

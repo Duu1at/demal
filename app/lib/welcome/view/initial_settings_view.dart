@@ -99,7 +99,7 @@ class _InitialSettingsViewState extends State<InitialSettingsView>
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: BlocBuilder<AuthCubit, AuthState>(
         builder: (context, state) {
-          final role = state.user?.hasSelectedRole;
+          final role = state.user?.hasRole;
           return AppButton(
             margin: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
             onPressed: (role ?? false)

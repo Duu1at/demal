@@ -1,49 +1,53 @@
 part of 'auth_cubit.dart';
 
+
 final class AuthState extends Equatable {
-  const AuthState({this.user, this.token});
-
-  final User? user;
-  final String? token;
-
-  bool get isFirstTime => token == null;
-
-  AuthState copyWith({User? user, String? token, bool? isNewUser}) =>
-      AuthState(user: user ?? this.user, token: token ?? this.token);
-
-  @override
-  List<Object?> get props => [user, token];
-}
-
-class User extends Equatable {
-  const User({
-    this.imageUrl,
-    this.role,
-    this.phoneNumber,
-    this.isNewUser = false,
+  const AuthState({
+    required this.status,
+    this.user,
+    this.token,
+    this.errorMessage,
   });
 
-  final String? imageUrl;
-  final Role? role;
-  final String? phoneNumber;
-  final bool isNewUser;
+  const AuthState.initial() : this(status: AuthStatus.initial);
 
-  bool get hasSelectedRole => role != null;
+  const AuthState.authenticated(UserModel user, String token)
+      : this(status: AuthStatus.authenticated, user: user, token: token);
 
-  User copyWith({
-    String? imageUrl,
-    Role? role,
-    String? phoneNumber,
-    bool? isNewUser,
+
+  const AuthState.unauthenticated()
+      : this(status: AuthStatus.unauthenticated);
+
+  const AuthState.failure(Object message)
+      : this(status: AuthStatus.failure, errorMessage: message);
+
+  final AuthStatus status;
+  final UserModel? user;
+  final String? token;
+  final Object? errorMessage;
+
+  AuthState copyWith({
+    AuthStatus? status,
+    UserModel? user,
+    String? token,
+    Object? errorMessage,
   }) {
-    return User(
-      imageUrl: imageUrl ?? this.imageUrl,
-      role: role ?? this.role,
-      phoneNumber: phoneNumber ?? this.phoneNumber,
-      isNewUser: isNewUser ?? this.isNewUser,
+    return AuthState(
+      status: status ?? this.status,
+      user: user ?? this.user,
+      token: token ?? this.token,
+      errorMessage: errorMessage ?? this.errorMessage,
     );
   }
 
   @override
-  List<Object?> get props => [imageUrl, role, phoneNumber, isNewUser];
+  List<Object?> get props => [status, user, token, errorMessage];
 }
+
+enum AuthStatus {
+  initial,
+  authenticated,
+  unauthenticated,
+  failure,
+}
+

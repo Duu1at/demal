@@ -20,9 +20,7 @@ class OtpCubit extends Cubit<OtpState> {
       emit(state.copyWith(sendStatus: const RequestSuccess(null)));
       startTimer();
     } on Object catch (e) {
-      emit(
-        state.copyWith(sendStatus: RequestFailure(e)),
-      );
+      emit(state.copyWith(sendStatus: RequestFailure(e)));
     }
   }
 
@@ -32,10 +30,11 @@ class OtpCubit extends Cubit<OtpState> {
   }) async {
     emit(state.copyWith(verifyStatus: RequestLoading()));
     try {
-    final res= await repository.verifyOtp(phoneNumber, pin);
-      emit(state.copyWith(verifyStatus:  RequestSuccess<AuthLoginModel>(res)));
+      final res = await repository.verifyOtp(phoneNumber, pin);
+      emit(state.copyWith(verifyStatus: RequestSuccess(res)));
     } on Object catch (e) {
       emit(state.copyWith(verifyStatus: RequestFailure(e)));
+      
     }
   }
 

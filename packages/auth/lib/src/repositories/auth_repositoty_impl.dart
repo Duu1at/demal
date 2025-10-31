@@ -18,20 +18,19 @@ final class AuthRepositoryImpl implements AuthRepository {
   AuthLoginModel? getUserData() => authLocalDataSource.getUserData();
 
   @override
-  Future<void> deleteAccount() => authLocalDataSource.deleteAccount();
+  void deleteAccount() => authLocalDataSource.deleteAccount();
 
   @override
-  Future<void> logOut() => authLocalDataSource.logOut();
+  void logOut() => authLocalDataSource.logOut();
 
   @override
   Future<String> sendOtp(String phoneNumber) =>
       authRemoteDataSource.sendOtp(phoneNumber);
 
   @override
-  Future<AuthLoginModel> verifyOtp(String phoneNumber, String otpCode) {
-    return authRemoteDataSource.verifyOtp(phoneNumber, otpCode);
+  Future<AuthLoginModel> verifyOtp(String phoneNumber, String otpCode) async {
+    final result = await authRemoteDataSource.verifyOtp(phoneNumber, otpCode);
+    authLocalDataSource.saveUserData(result);
+    return result;
   }
-
-  @override
-  String? getPhoneNumber() => authLocalDataSource.getPhoneNumber();
 }

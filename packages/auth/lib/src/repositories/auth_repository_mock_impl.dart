@@ -30,7 +30,6 @@ final class AuthRepositoryeMockImpl implements AuthRepository {
   @override
   AuthLoginModel? getUserData() {
     const user = UserModel(
-      success: true,
       role: Role.client,
       fullName: 'Duulat',
       createdAt: '',
@@ -51,7 +50,6 @@ final class AuthRepositoryeMockImpl implements AuthRepository {
   Future<AuthLoginModel> verifyOtp(String phoneNumber, String otpCode) async {
     Future.delayed(const Duration(seconds: 1));
     const user = UserModel(
-      success: true,
       role: Role.client,
       fullName: 'Duulat',
       createdAt: '',
@@ -65,10 +63,5 @@ final class AuthRepositoryeMockImpl implements AuthRepository {
       user: user,
     );
     return authModel;
-  }
-
-  @override
-  String? getPhoneNumber() {
-    return '+996702313611';
   }
 }

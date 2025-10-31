@@ -1,10 +1,11 @@
+import 'package:app/app/cubits/auth/auth_cubit.dart';
 import 'package:app/l10n/l10n_extension.dart';
 import 'package:app/login/cubit/otp_cubit.dart';
 import 'package:app/utils/formatter/input_formatter.dart';
 import 'package:app/utils/styled_toasts.dart';
 import 'package:app_ui/app_ui.dart';
+import 'package:auth/auth.dart';
 import 'package:core/core.dart';
-import 'package:core/network/extension/object.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pinput/pinput.dart';
@@ -123,9 +124,13 @@ class _OtpFormState extends State<OtpForm> {
             BlocListener<OtpCubit, OtpState>(
               listener: (context, state) {
                 final verifyStatus = state.verifyStatus;
-                if (verifyStatus.isSuccess) {
-                } else if (verifyStatus is RequestFailure) {
-                  AppSnackBar.showBaseSnack(verifyStatus.parseError());
+                if (verifyStatus is RequestSuccess<AuthLoginModel>) {
+                  context.read<AuthCubit>().checkAuthStatus();
+                }
+                if (verifyStatus is RequestFailure<AuthLoginModel>) {
+                  AppSnackBar.showBaseSnack(
+                    verifyStatus.exception.parseError(),
+                  );
                 }
               },
               child: AppButton(

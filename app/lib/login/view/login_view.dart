@@ -63,7 +63,7 @@ class _LoginViewState extends State<LoginView> {
                   if (_formKey.currentState?.validate() ?? false) {
                     final phoneNumber = InputFormatters.phoneFormatter
                         .getUnmaskedText();
-                    context.pushNamed(AppRouter.otp, extra: phoneNumber);
+                    context.goNamed(AppRouter.otp, extra: phoneNumber);
                   }
                 },
                 child: const Text('Подтверждать'),
