@@ -11,14 +11,6 @@ class AuthCubit extends Cubit<AuthState> {
 
   final AuthRepository _repository;
 
-  late StreamSubscription<UserModel> _userSubscription;
-
-  @override
-  Future<void> close() {
-    _userSubscription.cancel();
-    return super.close();
-  }
-
   Future<void> checkAuthStatus() async {
     try {
       final token = _repository.getToken();

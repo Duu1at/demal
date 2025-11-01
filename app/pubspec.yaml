@@ -36,6 +36,7 @@ dependencies:
   url_launcher:
   image_editor_plus:
   talker_bloc_logger: 
+  smart_auth:
   
 dev_dependencies:
   flutter_test:

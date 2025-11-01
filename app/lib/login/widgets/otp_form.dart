@@ -9,6 +9,7 @@ import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pinput/pinput.dart';
+import 'package:smart_auth/smart_auth.dart';
 
 class OtpForm extends StatefulWidget {
   const OtpForm(this.phoneNumer, {super.key});
@@ -18,6 +19,7 @@ class OtpForm extends StatefulWidget {
 }
 
 class _OtpFormState extends State<OtpForm> {
+  late final SmsRetrieverImpl smsRetriever;
   late final TextEditingController pinController;
   late final FocusNode focusNode;
   late final GlobalKey<FormState> formKey;
@@ -28,6 +30,7 @@ class _OtpFormState extends State<OtpForm> {
     formKey = GlobalKey<FormState>();
     pinController = TextEditingController();
     focusNode = FocusNode();
+    smsRetriever = SmsRetrieverImpl(SmartAuth.instance);
   }
 
   @override
@@ -100,6 +103,7 @@ class _OtpFormState extends State<OtpForm> {
                 enableInteractiveSelection: true,
                 controller: pinController,
                 focusNode: focusNode,
+                smsRetriever: smsRetriever,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 validator: (value) {
                   if (value == null || value.length != 4) {
@@ -107,6 +111,17 @@ class _OtpFormState extends State<OtpForm> {
                   }
                   return null;
                 },
+                cursor: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.only(bottom: 9),
+                      width: 22,
+                      height: 1,
+                      color: theme.colorScheme.primary,
+                    ),
+                  ],
+                ),
                 hapticFeedbackType: HapticFeedbackType.lightImpact,
                 onCompleted: (pin) {
                   context.read<OtpCubit>().verifyOtpCode(
@@ -136,7 +151,8 @@ class _OtpFormState extends State<OtpForm> {
               child: AppButton(
                 child: const Text('Проверить'),
                 onPressed: () {
-                  if (formKey.currentState?.validate() ?? false) {
+                  focusNode.unfocus();
+                  if (formKey.currentState!.validate()) {
                     final pin = pinController.text.trim();
                     context.read<OtpCubit>().verifyOtpCode(
                       phoneNumber: widget.phoneNumer,
@@ -188,6 +204,34 @@ class _OtpFormState extends State<OtpForm> {
   void dispose() {
     pinController.dispose();
     focusNode.dispose();
+    smsRetriever.dispose();
     super.dispose();
   }
+}
+
+class SmsRetrieverImpl implements SmsRetriever {
+  const SmsRetrieverImpl(this.smartAuth);
+
+  final SmartAuth smartAuth;
+
+  @override
+  Future<void> dispose() {
+    return smartAuth.removeSmsRetrieverApiListener();
+  }
+
+  @override
+  Future<String?> getSmsCode() async {
+    final signature = await smartAuth.getAppSignature();
+
+    final res = await smartAuth.getSmsWithUserConsentApi();
+    if (res.hasData) {
+      final code = res.requireData.code;
+      if (code != null) return code;
+    }
+
+    return null;
+  }
+
+  @override
+  bool get listenForMultipleSms => false;
 }
