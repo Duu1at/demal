@@ -6,6 +6,7 @@ import 'package:app/utils/styled_toasts.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:auth/auth.dart';
 import 'package:core/core.dart';
+import 'package:core/services/sms_retriever_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pinput/pinput.dart';
@@ -19,7 +20,7 @@ class OtpForm extends StatefulWidget {
 }
 
 class _OtpFormState extends State<OtpForm> {
-  late final SmsRetrieverImpl smsRetriever;
+  late final SmsRetrieverService smsRetriever;
   late final TextEditingController pinController;
   late final FocusNode focusNode;
   late final GlobalKey<FormState> formKey;
@@ -30,7 +31,7 @@ class _OtpFormState extends State<OtpForm> {
     formKey = GlobalKey<FormState>();
     pinController = TextEditingController();
     focusNode = FocusNode();
-    smsRetriever = SmsRetrieverImpl(SmartAuth.instance);
+    smsRetriever = SmsRetrieverService(SmartAuth.instance);
   }
 
   @override
@@ -146,6 +147,8 @@ class _OtpFormState extends State<OtpForm> {
                   AppSnackBar.showBaseSnack(
                     verifyStatus.exception.parseError(),
                   );
+                  pinController.clear();
+                  focusNode.requestFocus();
                 }
               },
               child: AppButton(
@@ -178,7 +181,7 @@ class _OtpFormState extends State<OtpForm> {
                             context.read<OtpCubit>().sendOtp(widget.phoneNumer)
                       : null,
                   child: Text(
-                    'Отправить повторно ${isTimerFinished ? '' : '(${_formatTime(state.remainingSeconds)})'}',
+                    'Отправить повторно ${isTimerFinished ? '' : '(${state.remainingSeconds.formatTime()})'}',
                     style: theme.primaryTextTheme.titleSmall!.copyWith(
                       color: isTimerFinished
                           ? theme.colorScheme.primary
@@ -194,12 +197,6 @@ class _OtpFormState extends State<OtpForm> {
     );
   }
 
-  String _formatTime(int seconds) {
-    final minutes = (seconds ~/ 60).toString().padLeft(2, '0');
-    final secs = (seconds % 60).toString().padLeft(2, '0');
-    return '$minutes:$secs';
-  }
-
   @override
   void dispose() {
     pinController.dispose();
@@ -209,29 +206,11 @@ class _OtpFormState extends State<OtpForm> {
   }
 }
 
-class SmsRetrieverImpl implements SmsRetriever {
-  const SmsRetrieverImpl(this.smartAuth);
-
-  final SmartAuth smartAuth;
-
-  @override
-  Future<void> dispose() {
-    return smartAuth.removeSmsRetrieverApiListener();
+extension IntX on int {
+  String formatTime() {
+    final minutes = (this ~/ 60).toString().padLeft(2, '0');
+    final secs = (this % 60).toString().padLeft(2, '0');
+    return '$minutes:$secs';
   }
-
-  @override
-  Future<String?> getSmsCode() async {
-    final signature = await smartAuth.getAppSignature();
-
-    final res = await smartAuth.getSmsWithUserConsentApi();
-    if (res.hasData) {
-      final code = res.requireData.code;
-      if (code != null) return code;
-    }
-
-    return null;
-  }
-
-  @override
-  bool get listenForMultipleSms => false;
 }
+

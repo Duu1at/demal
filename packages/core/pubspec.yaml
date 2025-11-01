@@ -23,8 +23,9 @@ dependencies:
   talker_bloc_logger:
   talker_dio_logger:
   equatable: 
-
-
+  smart_auth:
+  pinput:
+  
   storage:
   app_ui:
   auth:
