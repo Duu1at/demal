@@ -7,19 +7,17 @@ final class ClientTourRemoteDataSource {
   const ClientTourRemoteDataSource(this.client);
   final RemoteClient client;
 
-  Future<List<ToursModel>> getTours(ToursParams params) async {
-    final result = await client.get<Map<String, dynamic>>(
+  Future<ToursModel> getTours(ToursParams params) async {
+    final queryParams = params.toJson()
+      ..removeWhere((key, value) => value == null);
+
+    final result = await client.get<ToursModel>(
       '/api/v1/tours',
-      queryParameters: params.toJson(),
+      queryParameters: queryParams,
+      fromJson: (json) => ToursModel.fromJson(json),
     );
 
-    final tours = result['data']
-        .map(
-          (entry) => ToursModel.fromJson(entry.value as Map<String, dynamic>),
-        )
-        .toList();
-
-    return tours;
+    return result;
   }
 
   Future<TourDetailModel> getToursDetail(String tourId) async {

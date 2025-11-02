@@ -18,7 +18,7 @@ final class ClientTourRepositoryImpl implements ClientTourRepository {
   }
 
   @override
-  Future<List<ToursModel>> getTours(params) async {
+  Future<ToursModel> getTours(params) async {
     try {
       final result = await clientTourRemoteDataSource.getTours(params);
       return result;

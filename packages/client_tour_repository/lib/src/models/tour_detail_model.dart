@@ -1,3 +1,4 @@
+import 'package:client_tour_repository/client_tour_repository.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 
@@ -6,32 +7,13 @@ part 'tour_detail_model.g.dart';
 @JsonSerializable()
 @immutable
 final class TourDetailModel {
-  const TourDetailModel({
-    this.id,
-    this.name,
-    this.description,
-    this.image,
-    this.price,
-    this.duration,
-    this.difficulty,
-    this.location,
-  });
+  const TourDetailModel({this.success, this.tour});
 
   factory TourDetailModel.fromJson(Map<String, dynamic> json) =>
       _$TourDetailModelFromJson(json);
 
-  final String? id;
-  final String? name;
-  final String? description;
-  final String? image;
-  @JsonKey(name: 'price')
-  final String? price;
-  @JsonKey(name: 'duration')
-  final String? duration;
-  @JsonKey(name: 'difficulty')
-  final String? difficulty;
-  @JsonKey(name: 'location')
-  final String? location;
+  final bool? success;
+  final TourModel? tour;
 
   Map<String, dynamic> toJson() => _$TourDetailModelToJson(this);
 }

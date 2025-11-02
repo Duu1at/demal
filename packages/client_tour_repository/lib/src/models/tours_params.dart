@@ -15,6 +15,8 @@ final class ToursParams {
     this.priceMin,
     this.priceMax,
     this.sortBy,
+    this.page,
+    this.limit,
   });
 
   factory ToursParams.fromJson(Map<String, dynamic> json) =>
@@ -40,8 +42,11 @@ final class ToursParams {
   final num? priceMax;
 
   static String? _sortToJson(SortBy? sortBy) => sortBy?.toJson();
-  @JsonKey(fromJson: SortBy.fromString, toJson: _sortToJson)
+  @JsonKey(name: 'sort_by', fromJson: SortBy.fromString, toJson: _sortToJson)
   final SortBy? sortBy;
+
+  final int? page;
+  final int? limit;
 
   ToursParams copyWith({
     String? search,
@@ -52,16 +57,30 @@ final class ToursParams {
     num? priceMin,
     num? priceMax,
     SortBy? sortBy,
+    int? page,
+    int? limit,
+    bool clearSearch = false,
+    bool clearLocation = false,
+    bool clearTourType = false,
+    bool clearDateFrom = false,
+    bool clearDateTo = false,
+    bool clearPriceMin = false,
+    bool clearPriceMax = false,
+    bool clearSortBy = false,
+    bool clearPage = false,
+    bool clearLimit = false,
   }) {
     return ToursParams(
-      search: search ?? this.search,
-      location: location ?? this.location,
-      tourType: tourType ?? this.tourType,
-      dateFrom: dateFrom ?? this.dateFrom,
-      dateTo: dateTo ?? this.dateTo,
-      priceMin: priceMin ?? this.priceMin,
-      priceMax: priceMin ?? this.priceMin,
-      sortBy: sortBy ?? this.sortBy,
+      search: clearSearch ? null : (search ?? this.search),
+      location: clearLocation ? null : (location ?? this.location),
+      tourType: clearTourType ? null : (tourType ?? this.tourType),
+      dateFrom: clearDateFrom ? null : (dateFrom ?? this.dateFrom),
+      dateTo: clearDateTo ? null : (dateTo ?? this.dateTo),
+      priceMin: clearPriceMin ? null : (priceMin ?? this.priceMin),
+      priceMax: clearPriceMax ? null : (priceMax ?? this.priceMax),
+      sortBy: clearSortBy ? null : (sortBy ?? this.sortBy),
+      page: clearPage ? null : (page ?? this.page),
+      limit: clearLimit ? null : (limit ?? this.limit),
     );
   }
 

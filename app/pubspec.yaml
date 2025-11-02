@@ -40,6 +40,10 @@ dependencies:
   image_editor_plus:
   talker_bloc_logger: 
   smart_auth:
+  stream_transform:
+  bloc_concurrency:
+  shimmer:
+
   
 dev_dependencies:
   flutter_test:

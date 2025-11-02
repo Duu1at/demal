@@ -14,7 +14,9 @@ ToursParams _$ToursParamsFromJson(Map<String, dynamic> json) => ToursParams(
   dateTo: json['date_to'] as String?,
   priceMin: json['price_min'] as num?,
   priceMax: json['price_max'] as num?,
-  sortBy: SortBy.fromString(json['sortBy'] as String?),
+  sortBy: SortBy.fromString(json['sort_by'] as String?),
+  page: (json['page'] as num?)?.toInt(),
+  limit: (json['limit'] as num?)?.toInt(),
 );
 
 Map<String, dynamic> _$ToursParamsToJson(ToursParams instance) =>
@@ -26,5 +28,7 @@ Map<String, dynamic> _$ToursParamsToJson(ToursParams instance) =>
       'date_to': instance.dateTo,
       'price_min': instance.priceMin,
       'price_max': instance.priceMax,
-      'sortBy': ToursParams._sortToJson(instance.sortBy),
+      'sort_by': ToursParams._sortToJson(instance.sortBy),
+      'page': instance.page,
+      'limit': instance.limit,
     };
