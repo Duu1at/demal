@@ -26,3 +26,5 @@ final class AuthLoginModel {
 
   Map<String, dynamic> toJson() => _$AuthLoginModelToJson(this);
 }
+
+

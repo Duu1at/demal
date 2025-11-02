@@ -1,5 +1,5 @@
-import 'package:auth/src/enums/role_enum.dart';
 import 'package:app_ui/app_ui.dart';
+import 'package:auth/auth.dart';
 import 'package:flutter/material.dart';
 
 class RoleRedioWidget extends StatelessWidget {

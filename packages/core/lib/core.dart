@@ -5,3 +5,5 @@ export 'keys/storage_keys.dart';
 export 'network/remote_client.dart';
 export 'network/exception/remote_exception.dart';
 export 'network/network_client/network_client.dart';
+export 'models/request_status.dart';
+export 'network/extension/object.dart';

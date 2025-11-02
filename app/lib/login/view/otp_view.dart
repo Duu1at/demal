@@ -1,6 +1,10 @@
+import 'package:app/login/cubit/otp_cubit.dart';
+import 'package:auth/auth.dart';
+import 'package:core/di/injector.dart';
 import 'package:flutter/material.dart';
 import 'package:app/login/login.dart';
 import 'package:app_ui/app_ui.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class OtpView extends StatelessWidget {
   const OtpView(this.phoneNumer, {super.key});
@@ -20,7 +24,11 @@ class OtpView extends StatelessWidget {
               children: [Assets.images.otpImage.image()],
             ),
             const SizedBox(height: AppSpacing.spaceUnit * 3.5),
-            OtpForm(phoneNumer),
+            BlocProvider(
+              create: (context) =>
+                  OtpCubit(getIt<AuthRepository>())..sendOtp(phoneNumer),
+              child: OtpForm(phoneNumer),
+            ),
           ],
         ),
       ),

@@ -2,6 +2,7 @@ import 'package:core/api/api.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:auth/auth.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:core/keys/storage_keys.dart';
 import 'package:core/network/network_client/network_client.dart';
 import 'package:core/network/remote_client.dart';
 import 'package:dio/dio.dart';
@@ -15,14 +16,27 @@ import 'package:talker_flutter/talker_flutter.dart';
 final getIt = GetIt.instance;
 
 Future<void> setupDependencies() async {
-  getIt.registerSingleton<Talker>(TalkerFlutter.init());
-  final Connectivity connectivity = Connectivity();
+  final talker = TalkerFlutter.init();
+  getIt.registerSingleton<Talker>(talker);
 
   Bloc.observer = TalkerBlocObserver(
     talker: getIt<Talker>(),
-    settings: const TalkerBlocLoggerSettings(),
+    settings: const TalkerBlocLoggerSettings(
+      enabled: true,
+      printEventFullData: false,
+      printStateFullData: false,
+      printChanges: true,
+      printClosings: true,
+      printCreations: true,
+      printEvents: true,
+      printTransitions: true,
+    ),
   );
 
+  final storage = await PreferencesStorage.getInstance();
+  getIt.registerLazySingleton<PreferencesStorage>(() => storage);
+
+  final Connectivity connectivity = Connectivity();
   getIt.registerLazySingleton<NetworkClient>(
     () => NetworkClient(connectivity: connectivity),
   );
@@ -35,11 +49,12 @@ Future<void> setupDependencies() async {
     ),
   );
   getIt.registerLazySingleton<RemoteClient>(
-    () => RemoteClient(dio: dio, network: getIt<NetworkClient>()),
+    () => RemoteClient(
+      dio: dio,
+      network: getIt<NetworkClient>(),
+      resolveAppRole: () => storage.readString(key: StorageKeys.roleKey),
+    ),
   );
-
-  final storage = await PreferencesStorage.getInstance();
-  getIt.registerLazySingleton<PreferencesStorage>(() => storage);
 
   getIt.registerLazySingleton<AppRepository>(
     () => AppRepositoryImpl(
@@ -49,7 +64,7 @@ Future<void> setupDependencies() async {
 
   getIt.registerLazySingleton<AuthRepository>(
     () => AuthRepositoryImpl(
-      authLocalDataSource: AutLocalDataSource(storage),
+      authLocalDataSource: AuthLocalDataSource(storage),
       authRemoteDataSource: AuthRemoteDataSource(getIt<RemoteClient>()),
     ),
   );

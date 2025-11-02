@@ -1,6 +1,4 @@
 import 'package:auth/auth.dart';
-import 'package:auth/src/models/auth_login_model.dart';
-import 'package:core/either/either.dart';
 import 'package:meta/meta.dart';
 
 @immutable
@@ -10,7 +8,7 @@ final class AuthRepositoryImpl implements AuthRepository {
     required this.authRemoteDataSource,
   });
 
-  final AutLocalDataSource authLocalDataSource;
+  final AuthLocalDataSource authLocalDataSource;
   final AuthRemoteDataSource authRemoteDataSource;
 
   @override
@@ -20,28 +18,39 @@ final class AuthRepositoryImpl implements AuthRepository {
   AuthLoginModel? getUserData() => authLocalDataSource.getUserData();
 
   @override
-  Future<void> deleteAccount() => authLocalDataSource.deleteAccount();
+  Future<void> deleteAccount() async => authLocalDataSource.deleteAccount();
 
   @override
-  Future<void> logOut() => authLocalDataSource.logOut();
+  Future<void> logOut() async => authLocalDataSource.logOut();
 
   @override
-  Future<void> sendOtp(String phoneNumber) =>
+  Future<String> sendOtp(String phoneNumber) =>
       authRemoteDataSource.sendOtp(phoneNumber);
 
   @override
-  Future<Either<AuthLoginModel, Exception>> verifyOtp(
-    String phoneNumber,
-    String otpCode,
-  ) async {
-    try {
-      final res = await authRemoteDataSource.verifyOtp(phoneNumber, otpCode);
-      return res.fold((l) => Left(l), (r) => Right(r));
-    } catch (e) {
-      return Left(AuthException(message: e.toString()));
-    }
+  Future<AuthLoginModel> verifyOtp(String phoneNumber, String otpCode) async {
+    final result = await authRemoteDataSource.verifyOtp(phoneNumber, otpCode);
+    await authLocalDataSource.saveUserData(result);
+    return result;
   }
 
   @override
-  String? getPhoneNumber() => authLocalDataSource.getPhoneNumver();
+  bool getOnboardingStatus() {
+    return authLocalDataSource.getOnboardingStatus();
+  }
+
+  @override
+  Future<void> saveOnboardingStatus(bool completed) async {
+    await authLocalDataSource.saveOnboardingStatus(completed);
+  }
+
+  @override
+  Role? getRole()  {
+    return  authLocalDataSource.getRole();
+  }
+
+  @override
+  Future<void> setRole(Role role) async {
+    await authLocalDataSource.setRole(role);
+  }
 }

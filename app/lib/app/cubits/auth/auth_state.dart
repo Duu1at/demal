@@ -1,50 +1,72 @@
 part of 'auth_cubit.dart';
 
 final class AuthState extends Equatable {
-  const AuthState({this.user, this.token});
-
-  final User? user;
-  final String? token;
-
-  bool get isFirstTime => token == null;
-
-  Role get role => user?.role ?? Role.client;
-
-  AuthState copyWith({User? user, String? token, bool? isNewUser}) {
-    return AuthState(user: user ?? this.user, token: token ?? this.token);
-  }
-
-  @override
-  List<Object?> get props => [user, token];
-}
-
-class User extends Equatable {
-  const User({
-    this.imageUrl,
+  const AuthState({
+    required this.status,
+    this.user,
+    this.token,
+    this.errorMessage,
+    this.hasCompletedOnboarding = false,
     this.role,
-    this.phoneNumber,
-    this.isNewUser = false,
   });
 
-  final String? imageUrl;
-  final Role? role;
-  final String? phoneNumber;
-  final bool isNewUser;
+  const AuthState.initial() : this(status: AuthStatus.initial);
 
-  User copyWith({
-    String? imageUrl,
+  const AuthState.authenticated(
+    UserModel user,
+    String token, {
+    bool hasCompletedOnboarding = true,
+  }) : this(
+         status: AuthStatus.authenticated,
+         user: user,
+         token: token,
+         hasCompletedOnboarding: hasCompletedOnboarding,
+       );
+
+  const AuthState.unauthenticated({bool hasCompletedOnboarding = true})
+    : this(
+        status: AuthStatus.unauthenticated,
+        hasCompletedOnboarding: hasCompletedOnboarding,
+      );
+
+  const AuthState.failure(Object message)
+    : this(status: AuthStatus.failure, errorMessage: message);
+
+  final AuthStatus status;
+  final UserModel? user;
+  final String? token;
+  final Object? errorMessage;
+  final bool hasCompletedOnboarding;
+  final Role? role;
+
+  AuthState copyWith({
+    AuthStatus? status,
+    UserModel? user,
+    String? token,
+    Object? errorMessage,
+    bool? hasCompletedOnboarding,
     Role? role,
-    String? phoneNumber,
-    bool? isNewUser,
   }) {
-    return User(
-      imageUrl: imageUrl ?? this.imageUrl,
+    return AuthState(
+      status: status ?? this.status,
+      user: user ?? this.user,
+      token: token ?? this.token,
+      errorMessage: errorMessage ?? this.errorMessage,
+      hasCompletedOnboarding:
+          hasCompletedOnboarding ?? this.hasCompletedOnboarding,
       role: role ?? this.role,
-      phoneNumber: phoneNumber ?? this.phoneNumber,
-      isNewUser: isNewUser ?? this.isNewUser,
     );
   }
 
   @override
-  List<Object?> get props => throw UnimplementedError();
+  List<Object?> get props => [
+    status,
+    user,
+    token,
+    errorMessage,
+    hasCompletedOnboarding,
+    role,
+  ];
 }
+
+enum AuthStatus { initial, authenticated, unauthenticated, failure }

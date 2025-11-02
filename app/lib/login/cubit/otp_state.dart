@@ -1,22 +1,28 @@
 part of 'otp_cubit.dart';
 
-enum OtpStatus { initial, loading, success, failure }
-
 class OtpState extends Equatable {
-  const OtpState({this.status = OtpStatus.initial, this.error, this.phone});
+  const OtpState({
+    this.sendStatus = const RequestInitial(),
+    this.verifyStatus = const RequestInitial(),
+    this.remainingSeconds = 4,
+  });
 
-  final OtpStatus status;
-  final String? error;
-  final String? phone;
+  final RequestStatus<void> sendStatus;
+  final RequestStatus<AuthLoginModel> verifyStatus;
+  final int remainingSeconds;
 
-  OtpState copyWith({OtpStatus? status, String? error, String? phone}) {
+  OtpState copyWith({
+    RequestStatus<void>? sendStatus,
+    RequestStatus<AuthLoginModel>? verifyStatus,
+    int? remainingSeconds,
+  }) {
     return OtpState(
-      status: status ?? this.status,
-      error: error,
-      phone: phone ?? this.phone,
+      sendStatus: sendStatus ?? this.sendStatus,
+      verifyStatus: verifyStatus ?? this.verifyStatus,
+      remainingSeconds: remainingSeconds ?? this.remainingSeconds,
     );
   }
 
   @override
-  List<Object?> get props => [status, error, phone];
+  List<Object?> get props => [sendStatus, verifyStatus, remainingSeconds];
 }

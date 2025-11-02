@@ -1,7 +1,5 @@
 import 'package:auth/auth.dart';
-import 'package:auth/src/enums/role_enum.dart';
-import 'package:auth/src/models/auth_login_model.dart';
-import 'package:core/either/either.dart';
+import 'package:core/core.dart';
 import 'package:meta/meta.dart';
 
 @immutable
@@ -32,7 +30,6 @@ final class AuthRepositoryeMockImpl implements AuthRepository {
   @override
   AuthLoginModel? getUserData() {
     const user = UserModel(
-      success: true,
       role: Role.client,
       fullName: 'Duulat',
       createdAt: '',
@@ -50,13 +47,9 @@ final class AuthRepositoryeMockImpl implements AuthRepository {
   }
 
   @override
-  Future<Either<AuthLoginModel, Exception>> verifyOtp(
-    String phoneNumber,
-    String otpCode,
-  ) async {
+  Future<AuthLoginModel> verifyOtp(String phoneNumber, String otpCode) async {
     Future.delayed(const Duration(seconds: 1));
     const user = UserModel(
-      success: true,
       role: Role.client,
       fullName: 'Duulat',
       createdAt: '',
@@ -69,11 +62,24 @@ final class AuthRepositoryeMockImpl implements AuthRepository {
       isNewUser: false,
       user: user,
     );
-    return const Right(authModel);
+    return authModel;
   }
 
   @override
-  String? getPhoneNumber() {
-    return '+996702313611';
+  bool getOnboardingStatus() {
+    return true;
   }
+
+  @override
+  Future<void> saveOnboardingStatus(bool completed) async {
+    Future.delayed(const Duration(seconds: 1));
+  }
+
+  @override
+  Role? getRole()  {
+    return Role.client;
+  }
+
+  @override
+  Future<void> setRole(Role role) async {}
 }

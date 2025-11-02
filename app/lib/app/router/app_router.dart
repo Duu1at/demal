@@ -1,9 +1,12 @@
-import 'package:auth/src/enums/role_enum.dart';
+import 'dart:async';
+import 'package:app/app/cubits/auth/auth_cubit.dart';
+import 'package:app/app/view/splash_view.dart';
 import 'package:app/client/client.dart';
 import 'package:app/login/view/login_view.dart';
 import 'package:app/login/view/otp_view.dart';
 import 'package:app/partner/partner.dart';
 import 'package:app/welcome/welcome.dart';
+import 'package:auth/auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -12,23 +15,36 @@ final navigatorKey = GlobalKey<NavigatorState>();
 final clientNavigatorKey = GlobalKey<NavigatorState>();
 final partnerNavigatorKey = GlobalKey<NavigatorState>();
 
+class GoRouterRefreshStream extends ChangeNotifier {
+  GoRouterRefreshStream(Stream<dynamic> stream) {
+    _subscription = stream.listen((_) => notifyListeners());
+  }
+
+  late final StreamSubscription<dynamic> _subscription;
+
+  @override
+  void dispose() {
+    _subscription.cancel();
+    super.dispose();
+  }
+}
+
 @immutable
 final class AppRouter {
-  const AppRouter._({required this.isFirstTime, required this.role});
+  const AppRouter._();
+  factory AppRouter.instance() => const AppRouter._();
 
-  factory AppRouter.instance({required bool isFirstTime, required Role role}) =>
-      AppRouter._(isFirstTime: isFirstTime, role: role);
-
-  final bool isFirstTime;
-  final Role role;
-
+  /// onboarding
+  static const initialSettings = 'initial-settings';
   static const onboardingOne = 'onboarding-one';
   static const onboardingTwo = 'onboarding-two';
   static const onboardingThree = 'onboarding-three';
+
+  ///login
   static const login = 'login';
   static const otp = 'otp';
 
-  /// route client
+  /// client
   static const client = 'client';
   static const clientSettings = 'client-settings';
   static const clientTourDetails = 'client-tour-details';
@@ -37,24 +53,60 @@ final class AppRouter {
   static const clientBookingDetails = 'client-booking-details';
   static const clientBookingStatus = 'client-booking-status';
 
-  ///route partner
+  /// partner
   static const partner = 'partner';
   static const partnerSettings = 'partner-settings';
 
-  bool get isClient => role == Role.client;
-  String get _initialRoute {
-    if (isFirstTime) return '/';
-    return isClient ? '/$client' : '/$partner';
-  }
-
-  GoRouter router() {
+  GoRouter router(AuthCubit authCubit) {
     return GoRouter(
-      initialLocation: _initialRoute,
+      initialLocation: '/',
       navigatorKey: navigatorKey,
       debugLogDiagnostics: kDebugMode,
+      refreshListenable: GoRouterRefreshStream(authCubit.stream),
+      redirect: (context, state) {
+        final authState = authCubit.state;
+        final path = state.uri.path;
+
+        final onboardingComplete = authState.hasCompletedOnboarding;
+
+        switch (authState.status) {
+          case AuthStatus.initial:
+          case AuthStatus.failure:
+            return '/';
+
+          case AuthStatus.authenticated:
+            final role = authState.user?.role;
+
+            if (role == Role.client) {
+              if (path.startsWith('/$client')) return null;
+              return '/$client';
+            }
+            if (role == Role.partner) {
+              if (path.startsWith('/$partner')) return null;
+              return '/$partner';
+            }
+            return '/$initialSettings';
+
+          case AuthStatus.unauthenticated:
+
+            final isGoingToOnboarding = path.startsWith('/$initialSettings');
+            final isGoingToLogin = path.startsWith('/$login');
+
+            if (!onboardingComplete) {
+              if (isGoingToOnboarding) return null;
+              return '/$initialSettings';
+            } else {
+              if (isGoingToLogin) return null;
+
+              return '/$login';
+            }
+        }
+      },
       routes: [
+        GoRoute(path: '/', builder: (context, state) => const SplashView()),
+
         GoRoute(
-          path: '/',
+          path: '/$initialSettings',
           builder: (context, state) => const InitialSettingsView(),
           routes: [
             GoRoute(
@@ -74,6 +126,7 @@ final class AppRouter {
             ),
           ],
         ),
+
         GoRoute(
           path: '/$login',
           name: login,
@@ -82,10 +135,7 @@ final class AppRouter {
             GoRoute(
               path: otp,
               name: otp,
-              builder: (context, state) {
-                final phone = state.extra as String;
-                return OtpView(phone);
-              },
+              builder: (context, state) => OtpView(state.extra as String),
             ),
           ],
         ),

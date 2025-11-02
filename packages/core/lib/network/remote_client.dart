@@ -1,5 +1,6 @@
+import 'dart:async';
+import 'dart:io';
 import 'package:core/di/injector.dart';
-import 'package:core/either/either.dart';
 import 'package:core/network/exception/remote_exception.dart';
 import 'package:core/network/network_client/network_client.dart';
 import 'package:dio/dio.dart';
@@ -10,20 +11,45 @@ import 'package:talker_flutter/talker_flutter.dart';
 typedef FromJson<T> = T Function(Map<String, dynamic>);
 
 typedef ResolveValue = String? Function();
+typedef ResolveAppRole = String? Function();
 
 class RemoteClient {
-  RemoteClient({required this.dio, required this.network, this.token}) {
+  RemoteClient({
+    required this.dio,
+    required this.network,
+    this.token,
+    this.resolveAppRole,
+  }) {
     initilize();
   }
 
   final Dio dio;
-
   final NetworkClient network;
-
   final ResolveValue? token;
+  final ResolveAppRole? resolveAppRole;
 
   void initilize() {
     dio.interceptors.addAll([
+      InterceptorsWrapper(
+        onRequest: (options, handler) async {
+          // options.headers['Content-Type'] = 'application/json; charset=utf-8';
+          // options.headers['Accept'] = 'application/json';
+
+          final appRole = resolveAppRole?.call();
+          if (appRole != null) {
+            options.headers['X-App-Type'] = appRole;
+          }
+
+          final resolvedToken = token?.call();
+          if (resolvedToken != null) {
+            options.headers['Authorization'] = 'Bearer $resolvedToken';
+          }
+
+          return handler.next(options);
+        },
+        onError: (error, handler) => handler.next(error),
+        onResponse: (response, handler) => handler.next(response),
+      ),
       TalkerDioLogger(
         talker: getIt<Talker>(),
         settings: const TalkerDioLoggerSettings(
@@ -32,91 +58,104 @@ class RemoteClient {
           printResponseHeaders: true,
         ),
       ),
-      InterceptorsWrapper(
-        onRequest: (options, handler) async {
-          options.headers['Content-Type'] = 'application/json; charset=utf-8';
-          options.headers['Accept'] = 'application/json';
-          options.headers['X-App-Type'] = 'client';
-          return handler.next(options);
-        },
-        onError: (error, handler) => handler.next(error),
-        onResponse: (response, handler) => handler.next(response),
-      ),
     ]);
   }
 
-  Future<Either<T, RemoteException>> post<T>(
-    String url, {
-    Map<String, dynamic>? body,
-    Map<String, dynamic>? queryParameters,
+  Future<T> _handleRequest<T>(
+    Future<Response<Map<String, dynamic>>> Function() request, {
+    FromJson<T>? fromJson,
   }) async {
     try {
       if (!await network.checkInternetConnection()) {
-        return const Left(RemoteException(FailureType.connection));
+        throw const RemoteException(FailureType.connection);
       }
 
-      final headers = <String, dynamic>{};
-      final resolvedToken = token?.call();
-      if (resolvedToken != null) {
-        headers['Authorization'] = 'Bearer $resolvedToken';
+      final response = await request();
+      final data = response.data;
+
+      if (data == null) {
+        throw const RemoteException(FailureType.emptyResponse);
       }
 
-      final response = await dio.post<Map<String, dynamic>>(
+      if (fromJson != null) {
+        return fromJson(data);
+      }
+
+      return data as T;
+    } on DioException catch (e) {
+      throw RemoteException.fromDioException(e);
+    } on SocketException {
+      throw const RemoteException(FailureType.connection);
+    } on TimeoutException {
+      throw const RemoteException(FailureType.timeout);
+    } catch (e, s) {
+      throw _unknownExc(e, s);
+    }
+  }
+
+  ///  🔹 GET
+  Future<T> get<T>(
+    String url, {
+    Map<String, dynamic>? queryParameters,
+    FromJson<T>? fromJson,
+  }) async {
+    return _handleRequest(
+      () =>
+          dio.get<Map<String, dynamic>>(url, queryParameters: queryParameters),
+      fromJson: fromJson,
+    );
+  }
+
+  ///  🔹 POST
+  Future<T> post<T>(
+    String url, {
+    Map<String, dynamic>? body,
+    Map<String, dynamic>? queryParameters,
+    FromJson<T>? fromJson,
+  }) async {
+    return _handleRequest(
+      () => dio.post<Map<String, dynamic>>(
         url,
         data: body,
         queryParameters: queryParameters,
-        options: Options(headers: headers),
-      );
+      ),
+      fromJson: fromJson,
+    );
+  }
 
-      final responseData = response.data;
-      if (responseData == null) {
-        throw Exception('Ответ сервера пуст.');
-      }
+  /// 🔹 PUT
+  Future<T> put<T>(
+    String url, {
+    Map<String, dynamic>? body,
+    Map<String, dynamic>? queryParameters,
+    FromJson<T>? fromJson,
+  }) async {
+    return _handleRequest(
+      () => dio.put<Map<String, dynamic>>(
+        url,
+        data: body,
+        queryParameters: queryParameters,
+      ),
+      fromJson: fromJson,
+    );
+  }
 
-      return Right(true as T);
-    } on DioException catch (e) {
-      return Left(_parseDioException(e));
-    } catch (e, s) {
-      return Left(_unknownExc(e, s));
-    }
+  /// 🔹 DELETE
+  Future<T> delete<T>(
+    String url, {
+    Map<String, dynamic>? queryParameters,
+    FromJson<T>? fromJson,
+  }) async {
+    return _handleRequest(
+      () => dio.delete<Map<String, dynamic>>(
+        url,
+        queryParameters: queryParameters,
+      ),
+      fromJson: fromJson,
+    );
   }
 
   RemoteException _unknownExc(Object e, StackTrace? s) {
     return RemoteException(FailureType.unknown, error: e, stackTrace: s);
-  }
-
-  RemoteException _parseDioException(DioException exception) {
-    return switch (exception.response?.statusCode) {
-      400 => RemoteException(
-        FailureType.badRequest,
-        statusCode: 400,
-        message: exception.message,
-        error: exception.error,
-      ),
-      401 => RemoteException(
-        FailureType.noAuthorization,
-        message: exception.message,
-        statusCode: 401,
-        error: exception.error,
-      ),
-      403 => RemoteException(
-        FailureType.forbidden,
-        message: exception.message,
-        statusCode: 403,
-        error: exception.error,
-      ),
-      500 => RemoteException(
-        FailureType.internalServer,
-        message: exception.message,
-        statusCode: 500,
-        error: exception.error,
-      ),
-      _ => RemoteException(
-        FailureType.unknown,
-        message: exception.message,
-        statusCode: exception.response?.statusCode,
-        error: exception.error,
-      ),
-    };
   }
 }

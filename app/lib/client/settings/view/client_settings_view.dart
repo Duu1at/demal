@@ -1,3 +1,4 @@
+import 'package:app/app/cubits/auth/auth_cubit.dart';
 import 'package:app/app/mixin/settings_change_mixin.dart';
 import 'package:app/app/router/app_router.dart';
 import 'package:app/l10n/l10n_extension.dart';
@@ -5,6 +6,7 @@ import 'package:app/widgets/avatar_widget.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:core/launch/app_launch.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 class ClientSettingsView extends StatefulWidget {
@@ -36,9 +38,7 @@ class _ClientSettingsViewState extends State<ClientSettingsView>
                 size: 80,
                 isActive: true,
                 expand: true,
-                onUpdate: (bytesImge) {
-                 
-                },
+                onUpdate: (bytesImge) {},
               ),
               const SizedBox(height: AppSpacing.md),
               Text(
@@ -91,13 +91,13 @@ class _ClientSettingsViewState extends State<ClientSettingsView>
               CardDrawerTitle(
                 icon: const Icon(Icons.logout, color: Colors.red),
                 title: context.l10n.logOut,
-                onTap: () {},
+                onTap: () => context.read<AuthCubit>().logout(),
               ),
               const SizedBox(height: AppSpacing.lg),
               CardDrawerTitle(
                 icon: const Icon(Icons.delete_forever, color: Colors.red),
                 title: context.l10n.deleteAccount,
-                onTap: () {},
+                onTap: () => context.read<AuthCubit>().deleteAccount(),
               ),
               const Spacer(),
               Text(

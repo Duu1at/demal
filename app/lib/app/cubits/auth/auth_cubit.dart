@@ -1,4 +1,5 @@
-import 'package:auth/src/enums/role_enum.dart';
+import 'dart:async';
+
 import 'package:auth/auth.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,21 +7,68 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
-  AuthCubit(this.repository)
-    : super(
-        AuthState(
-          user: User(
-            imageUrl: repository.getUserData()?.user.imageUrl,
-            isNewUser: repository.getUserData()?.isNewUser ?? false,
-            role: repository.getUserData()?.user.role,
-          ),
-          token: repository.getToken(),
+  AuthCubit(this._repository) : super(const AuthState.initial());
+
+  final AuthRepository _repository;
+
+  Future<void> checkAuthStatus() async {
+    try {
+      final token = _repository.getToken();
+      final userData = _repository.getUserData();
+      final onboardingStatus = _repository.getOnboardingStatus();
+
+      if (token == null || userData == null) {
+        emit(
+          AuthState.unauthenticated(hasCompletedOnboarding: onboardingStatus),
+        );
+        return;
+      }
+
+      emit(
+        AuthState.authenticated(
+          userData.user,
+          token,
+          hasCompletedOnboarding: onboardingStatus,
         ),
       );
+    } on Object catch (e) {
+      emit(AuthState.failure(e));
+    }
+  }
 
-  final AuthRepository repository;
+  void changeRole(Role role) async {
+    await _repository.setRole(role);
 
-  void changeRole(Role role) {
-    emit(state.copyWith(user: state.user?.copyWith(role: role)));
+    emit(state.copyWith(role: role));
+  }
+
+  void logout()  {
+    final bool onboardingStatus = state.hasCompletedOnboarding;
+    _repository.logOut();
+    emit(AuthState.unauthenticated(hasCompletedOnboarding: onboardingStatus));
+  }
+
+  void deleteAccount() async {
+    _repository.deleteAccount();
+    await _repository.saveOnboardingStatus(false);
+    emit(const AuthState.unauthenticated(hasCompletedOnboarding: false));
+  }
+
+  Future<void> login(UserModel user, String token) async {
+    if (!state.hasCompletedOnboarding) {
+      await _repository.saveOnboardingStatus(true);
+    }
+
+    emit(AuthState.authenticated(user, token, hasCompletedOnboarding: true));
+  }
+
+  Future<void> completeOnboarding() async {
+    await _repository.saveOnboardingStatus(true);
+    emit(
+      state.copyWith(
+        hasCompletedOnboarding: true,
+        status: AuthStatus.unauthenticated,
+      ),
+    );
   }
 }
