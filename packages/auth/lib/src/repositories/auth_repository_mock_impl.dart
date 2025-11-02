@@ -64,4 +64,22 @@ final class AuthRepositoryeMockImpl implements AuthRepository {
     );
     return authModel;
   }
+
+  @override
+  bool getOnboardingStatus() {
+    return true;
+  }
+
+  @override
+  Future<void> saveOnboardingStatus(bool completed) async {
+    Future.delayed(const Duration(seconds: 1));
+  }
+
+  @override
+  Role? getRole()  {
+    return Role.client;
+  }
+
+  @override
+  Future<void> setRole(Role role) async {}
 }

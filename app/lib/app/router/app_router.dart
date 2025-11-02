@@ -66,26 +66,40 @@ final class AppRouter {
       redirect: (context, state) {
         final authState = authCubit.state;
         final path = state.uri.path;
-        
+
+        final onboardingComplete = authState.hasCompletedOnboarding;
+
         switch (authState.status) {
           case AuthStatus.initial:
-            return '/';
-          case AuthStatus.unauthenticated:
-            if (path.startsWith('/login')) return null;
-            return '/login';
-          case AuthStatus.authenticated:
-            final role = authState.user?.role;
-            if (role == Role.client) {
-              if (path.startsWith('/client')) return null;
-              return '/client';
-            }
-            if (role == Role.partner) {
-              if (path.startsWith('/partner')) return null;
-              return '/partner';
-            }
-            return '/login';
           case AuthStatus.failure:
             return '/';
+
+          case AuthStatus.authenticated:
+            final role = authState.user?.role;
+
+            if (role == Role.client) {
+              if (path.startsWith('/$client')) return null;
+              return '/$client';
+            }
+            if (role == Role.partner) {
+              if (path.startsWith('/$partner')) return null;
+              return '/$partner';
+            }
+            return '/$initialSettings';
+
+          case AuthStatus.unauthenticated:
+
+            final isGoingToOnboarding = path.startsWith('/$initialSettings');
+            final isGoingToLogin = path.startsWith('/$login');
+
+            if (!onboardingComplete) {
+              if (isGoingToOnboarding) return null;
+              return '/$initialSettings';
+            } else {
+              if (isGoingToLogin) return null;
+
+              return '/$login';
+            }
         }
       },
       routes: [

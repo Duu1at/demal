@@ -30,22 +30,14 @@ class RemoteClient {
 
   void initilize() {
     dio.interceptors.addAll([
-      TalkerDioLogger(
-        talker: getIt<Talker>(),
-        settings: const TalkerDioLoggerSettings(
-          printResponseData: true,
-          printRequestHeaders: true,
-          printResponseHeaders: true,
-        ),
-      ),
       InterceptorsWrapper(
         onRequest: (options, handler) async {
-          options.headers['Content-Type'] = 'application/json; charset=utf-8';
-          options.headers['Accept'] = 'application/json';
+          // options.headers['Content-Type'] = 'application/json; charset=utf-8';
+          // options.headers['Accept'] = 'application/json';
 
           final appRole = resolveAppRole?.call();
           if (appRole != null) {
-            options.headers['X-App-Role'] = appRole;
+            options.headers['X-App-Type'] = appRole;
           }
 
           final resolvedToken = token?.call();
@@ -57,6 +49,14 @@ class RemoteClient {
         },
         onError: (error, handler) => handler.next(error),
         onResponse: (response, handler) => handler.next(response),
+      ),
+      TalkerDioLogger(
+        talker: getIt<Talker>(),
+        settings: const TalkerDioLoggerSettings(
+          printResponseData: true,
+          printRequestHeaders: true,
+          printResponseHeaders: true,
+        ),
       ),
     ]);
   }

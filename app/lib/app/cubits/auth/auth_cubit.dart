@@ -15,32 +15,60 @@ class AuthCubit extends Cubit<AuthState> {
     try {
       final token = _repository.getToken();
       final userData = _repository.getUserData();
+      final onboardingStatus = _repository.getOnboardingStatus();
 
       if (token == null || userData == null) {
-        emit(const AuthState.unauthenticated());
+        emit(
+          AuthState.unauthenticated(hasCompletedOnboarding: onboardingStatus),
+        );
         return;
       }
 
-      emit(AuthState.authenticated(userData.user, token));
+      emit(
+        AuthState.authenticated(
+          userData.user,
+          token,
+          hasCompletedOnboarding: onboardingStatus,
+        ),
+      );
     } on Object catch (e) {
       emit(AuthState.failure(e));
     }
   }
 
-  void changeRole(Role role) {
-    final currentUser = state.user;
-    if (currentUser == null) return;
+  void changeRole(Role role) async {
+    await _repository.setRole(role);
 
-    emit(state.copyWith(user: currentUser.copyWith(role: role)));
+    emit(state.copyWith(role: role));
   }
 
-  void logout() async {
-     _repository.logOut();
-    emit(const AuthState.unauthenticated());
+  void logout()  {
+    final bool onboardingStatus = state.hasCompletedOnboarding;
+    _repository.logOut();
+    emit(AuthState.unauthenticated(hasCompletedOnboarding: onboardingStatus));
   }
 
- void deleteAccount() async {
-     _repository.deleteAccount();
-    emit(const AuthState.unauthenticated());
+  void deleteAccount() async {
+    _repository.deleteAccount();
+    await _repository.saveOnboardingStatus(false);
+    emit(const AuthState.unauthenticated(hasCompletedOnboarding: false));
+  }
+
+  Future<void> login(UserModel user, String token) async {
+    if (!state.hasCompletedOnboarding) {
+      await _repository.saveOnboardingStatus(true);
+    }
+
+    emit(AuthState.authenticated(user, token, hasCompletedOnboarding: true));
+  }
+
+  Future<void> completeOnboarding() async {
+    await _repository.saveOnboardingStatus(true);
+    emit(
+      state.copyWith(
+        hasCompletedOnboarding: true,
+        status: AuthStatus.unauthenticated,
+      ),
+    );
   }
 }

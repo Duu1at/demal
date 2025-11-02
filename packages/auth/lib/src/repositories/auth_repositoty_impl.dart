@@ -18,10 +18,10 @@ final class AuthRepositoryImpl implements AuthRepository {
   AuthLoginModel? getUserData() => authLocalDataSource.getUserData();
 
   @override
-  void deleteAccount() => authLocalDataSource.deleteAccount();
+  Future<void> deleteAccount() async => authLocalDataSource.deleteAccount();
 
   @override
-  void logOut() => authLocalDataSource.logOut();
+  Future<void> logOut() async => authLocalDataSource.logOut();
 
   @override
   Future<String> sendOtp(String phoneNumber) =>
@@ -30,7 +30,27 @@ final class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<AuthLoginModel> verifyOtp(String phoneNumber, String otpCode) async {
     final result = await authRemoteDataSource.verifyOtp(phoneNumber, otpCode);
-   await authLocalDataSource.saveUserData(result);
+    await authLocalDataSource.saveUserData(result);
     return result;
+  }
+
+  @override
+  bool getOnboardingStatus() {
+    return authLocalDataSource.getOnboardingStatus();
+  }
+
+  @override
+  Future<void> saveOnboardingStatus(bool completed) async {
+    await authLocalDataSource.saveOnboardingStatus(completed);
+  }
+
+  @override
+  Role? getRole()  {
+    return  authLocalDataSource.getRole();
+  }
+
+  @override
+  Future<void> setRole(Role role) async {
+    await authLocalDataSource.setRole(role);
   }
 }

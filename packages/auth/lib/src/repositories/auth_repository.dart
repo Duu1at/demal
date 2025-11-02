@@ -1,4 +1,4 @@
-import 'package:auth/src/models/auth_login_model.dart';
+import 'package:auth/auth.dart';
 
 abstract class AuthRepository {
   String? getToken();
@@ -7,4 +7,8 @@ abstract class AuthRepository {
   Future<AuthLoginModel> verifyOtp(String phoneNumber, String otpCode);
   void deleteAccount();
   void logOut();
+  Future<void> saveOnboardingStatus(bool completed);
+  bool getOnboardingStatus();
+  Future<void> setRole(Role role);
+ Role? getRole();
 }

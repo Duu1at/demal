@@ -49,9 +49,9 @@ class _InitialSettingsViewState extends State<InitialSettingsView>
             ),
             const SizedBox(height: AppSpacing.xxxxlg),
             BlocBuilder<AuthCubit, AuthState>(
-              buildWhen: (previous, current) => previous.user != current.user,
+              buildWhen: (previous, current) => previous.role != current.role,
               builder: (context, state) {
-                final role = state.user?.role;
+                final role = state.role;
                 return Column(
                   children: [
                     RoleRedioWidget(
@@ -99,10 +99,10 @@ class _InitialSettingsViewState extends State<InitialSettingsView>
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: BlocBuilder<AuthCubit, AuthState>(
         builder: (context, state) {
-          final role = state.user?.hasRole;
+          final role = state.role;
           return AppButton(
             margin: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
-            onPressed: (role ?? false)
+            onPressed: (role != null)
                 ? () {
                     context.goNamed(AppRouter.onboardingOne);
                   }
