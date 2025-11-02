@@ -16,7 +16,7 @@ dependencies:
   core:
   app_ui:
   storage:
-  auth:
+  auth_repository:
 
   
   flutter_bloc:

@@ -1,4 +1,4 @@
-import 'package:auth/src/models/auth_login_model.dart';
+import '../models/auth_login_model.dart';
 import 'package:core/network/remote_client.dart';
 import 'package:meta/meta.dart';
 

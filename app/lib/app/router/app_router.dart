@@ -6,7 +6,7 @@ import 'package:app/login/view/login_view.dart';
 import 'package:app/login/view/otp_view.dart';
 import 'package:app/partner/partner.dart';
 import 'package:app/welcome/welcome.dart';
-import 'package:auth/auth.dart';
+import 'package:auth_repository/auth_repository.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';

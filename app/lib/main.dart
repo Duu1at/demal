@@ -5,7 +5,7 @@ import 'package:app/app/cubits/app_settings/app_locale_cubit.dart';
 import 'package:app/app/cubits/app_settings/app_theme_cubit.dart';
 import 'package:app/app/cubits/auth/auth_cubit.dart';
 import 'package:app/app_observer.dart';
-import 'package:auth/auth.dart';
+import 'package:auth_repository/auth_repository.dart';
 import 'package:core/di/injector.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';

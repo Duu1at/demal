@@ -1,4 +1,4 @@
-name: auth
+name: auth_repository
 description: A starting point for Dart libraries or applications.
 resolution: workspace
 version: 0.0.1

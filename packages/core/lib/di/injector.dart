@@ -1,6 +1,6 @@
+import 'package:auth_repository/auth_repository.dart';
 import 'package:core/api/api.dart';
 import 'package:app_ui/app_ui.dart';
-import 'package:auth/auth.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:core/keys/storage_keys.dart';
 import 'package:core/network/network_client/network_client.dart';

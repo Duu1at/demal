@@ -1,4 +1,4 @@
-import 'package:auth/auth.dart';
+import '../../auth_repository.dart';
 
 abstract class AuthRepository {
   String? getToken();

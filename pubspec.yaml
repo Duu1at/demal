@@ -11,7 +11,7 @@ workspace:
   - packages/app_ui
   - packages/storage
   - packages/app_ui/example
-  - packages/auth
+  - packages/auth_repository
 
 dependencies:
   flutter:

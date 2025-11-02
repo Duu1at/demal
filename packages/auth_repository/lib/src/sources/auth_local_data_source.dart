@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:auth/auth.dart';
+import '../../auth_repository.dart';
 import 'package:core/keys/storage_keys.dart';
 import 'package:meta/meta.dart';
 import 'package:storage/storage.dart';

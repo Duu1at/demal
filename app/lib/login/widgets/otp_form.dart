@@ -4,7 +4,7 @@ import 'package:app/login/cubit/otp_cubit.dart';
 import 'package:app/utils/formatter/input_formatter.dart';
 import 'package:app/utils/styled_toasts.dart';
 import 'package:app_ui/app_ui.dart';
-import 'package:auth/auth.dart';
+import 'package:auth_repository/auth_repository.dart';
 import 'package:core/core.dart';
 import 'package:core/services/sms_retriever_service.dart';
 import 'package:flutter/material.dart';

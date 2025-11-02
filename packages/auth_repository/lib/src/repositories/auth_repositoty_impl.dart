@@ -1,4 +1,4 @@
-import 'package:auth/auth.dart';
+import '../../auth_repository.dart';
 import 'package:meta/meta.dart';
 
 @immutable

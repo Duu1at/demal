@@ -1,4 +1,4 @@
-import 'package:auth/src/models/user_model.dart';
+import 'user_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 
