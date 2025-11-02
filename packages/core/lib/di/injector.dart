@@ -1,4 +1,5 @@
 import 'package:auth_repository/auth_repository.dart';
+import 'package:client_tour_repository/client_tour_repository.dart';
 import 'package:core/api/api.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -66,6 +67,12 @@ Future<void> setupDependencies() async {
     () => AuthRepositoryImpl(
       authLocalDataSource: AuthLocalDataSource(storage),
       authRemoteDataSource: AuthRemoteDataSource(getIt<RemoteClient>()),
+    ),
+  );
+
+  getIt.registerLazySingleton<ClientTourRepository>(
+    () => ClientTourRepositoryImpl(
+      ClientTourRemoteDataSource(getIt<RemoteClient>()),
     ),
   );
 }

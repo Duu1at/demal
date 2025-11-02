@@ -17,6 +17,7 @@ dependencies:
   app_ui:
   storage:
   auth_repository:
+  client_tour_repository:
 
   
   flutter_bloc:

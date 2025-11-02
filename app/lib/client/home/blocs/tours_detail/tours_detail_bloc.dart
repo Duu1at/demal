@@ -1,0 +1,13 @@
+import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
+
+part 'tours_detail_event.dart';
+part 'tours_detail_state.dart';
+
+class ToursDetailBloc extends Bloc<ToursDetailEvent, ToursDetailState> {
+  ToursDetailBloc() : super(ToursDetailInitial()) {
+    on<ToursDetailEvent>((event, emit) {
+      // TODO: implement event handler
+    });
+  }
+}

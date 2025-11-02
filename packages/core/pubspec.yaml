@@ -26,6 +26,7 @@ dependencies:
   smart_auth:
   pinput:
   
+  client_tour_repository:
   storage:
   app_ui:
   auth_repository:

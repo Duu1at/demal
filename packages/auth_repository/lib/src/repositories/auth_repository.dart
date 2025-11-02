@@ -1,4 +1,4 @@
-import '../../auth_repository.dart';
+import 'package:auth_repository/auth_repository.dart';
 
 abstract class AuthRepository {
   String? getToken();
@@ -10,5 +10,5 @@ abstract class AuthRepository {
   Future<void> saveOnboardingStatus(bool completed);
   bool getOnboardingStatus();
   Future<void> setRole(Role role);
- Role? getRole();
+  Role? getRole();
 }

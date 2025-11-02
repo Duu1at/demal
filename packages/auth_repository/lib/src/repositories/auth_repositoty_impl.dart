@@ -21,7 +21,13 @@ final class AuthRepositoryImpl implements AuthRepository {
   Future<void> deleteAccount() async => authLocalDataSource.deleteAccount();
 
   @override
-  Future<void> logOut() async => authLocalDataSource.logOut();
+  Future<void> logOut() async {
+    try {
+      authLocalDataSource.logOut();
+    } catch (e, s) {
+      throw AuthException(e, s);
+    }
+  }
 
   @override
   Future<String> sendOtp(String phoneNumber) =>
@@ -45,8 +51,8 @@ final class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Role? getRole()  {
-    return  authLocalDataSource.getRole();
+  Role? getRole() {
+    return authLocalDataSource.getRole();
   }
 
   @override
