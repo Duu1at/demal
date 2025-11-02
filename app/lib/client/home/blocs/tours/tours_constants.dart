@@ -1,4 +1,3 @@
-/// Константы для ToursBloc
 class ToursConstants {
   ToursConstants._();
 

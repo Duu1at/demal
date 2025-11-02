@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
-/// Виджет для отображения списка туров
+
 class ToursListContent extends StatelessWidget {
   const ToursListContent({super.key});
 
@@ -37,7 +37,7 @@ class ToursListContent extends StatelessWidget {
   }
 }
 
-/// Виджет для отображения индикатора загрузки внизу списка
+
 class BottomLoader extends StatelessWidget {
   const BottomLoader({super.key});
 

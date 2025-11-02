@@ -1,5 +1,6 @@
 import 'package:app/client/home/widgets/tour_card/tour_card_constants.dart';
 import 'package:app/client/home/utils/tour_card_utils.dart';
+import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 
 class TourHeaderRow extends StatelessWidget {
@@ -21,7 +22,28 @@ class TourHeaderRow extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(typeOfTour ?? '', style: textTheme.bodySmall),
+        Expanded(
+          child: Row(
+            children: [
+              Icon(
+                Icons.travel_explore_outlined,
+                size: 16,
+                color: context.appColors.disabled,
+              ),
+              const SizedBox(width: AppSpacing.xs),
+              Expanded(
+                child: Text(
+                  typeOfTour ?? '',
+                  style: textTheme.bodySmall?.copyWith(
+                    color: context.appColors.disabled,
+                  ),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ],
+          ),
+        ),
         _buildRatingSection(textTheme),
       ],
     );

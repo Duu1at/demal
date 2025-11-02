@@ -1,7 +1,6 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 
-/// Виджет для отображения пустого состояния (нет туров)
 class ToursEmptyState extends StatelessWidget {
   const ToursEmptyState({
     required this.hasSearchQuery,

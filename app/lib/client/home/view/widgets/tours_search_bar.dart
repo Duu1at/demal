@@ -1,7 +1,6 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 
-/// Виджет поисковой строки для туров
 class ToursSearchBar extends StatelessWidget {
   const ToursSearchBar({
     required this.controller,

@@ -99,12 +99,11 @@ class ToursBloc extends Bloc<ToursEvent, ToursState> {
     ToursLoadMoreEvent event,
     Emitter<ToursState> emit,
   ) async {
-    // Защита от множественных запросов
+
     if (state.status == ToursStatus.loading || !state.canLoadMore) {
       return;
     }
 
-    // Дополнительная проверка на валидность следующей страницы
     if (state.pagination != null) {
       final nextPage = state.currentPage + 1;
       if (nextPage > state.pagination!.totalPages) {
@@ -124,7 +123,7 @@ class ToursBloc extends Bloc<ToursEvent, ToursState> {
 
       final result = await _clientTourRepository.getTours(params);
 
-      // Проверка на пустой результат
+  
       if (result.tours == null || result.tours!.isEmpty) {
         emit(state.copyWith(status: ToursStatus.success, hasReachedMax: true));
         return;
@@ -133,7 +132,6 @@ class ToursBloc extends Bloc<ToursEvent, ToursState> {
       final newTours = result.tours ?? [];
       final allTours = [...state.tours, ...newTours];
 
-      // Проверка достижения максимального количества страниц
       final pagination = result.pagination;
       final hasReachedMax = pagination != null
           ? nextPage >= pagination.totalPages
@@ -150,7 +148,6 @@ class ToursBloc extends Bloc<ToursEvent, ToursState> {
         ),
       );
     } catch (e) {
-      // При ошибке загрузки следующей страницы не сбрасываем список
       emit(state.copyWith(status: ToursStatus.failure, exception: e));
     }
   }

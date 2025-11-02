@@ -22,7 +22,7 @@ class TourCardFooter extends StatelessWidget {
   Widget _buildPrice(TextTheme textTheme) {
     return Text(
       TourCardUtils.formatPrice(price),
-      style: textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
+      style: textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold),
     );
   }
 

@@ -1,10 +1,8 @@
-import 'package:app/client/home/widgets/tour_card/tour_card_constants.dart';
 import 'package:app/client/home/widgets/tour_card/tour_card_footer.dart';
 import 'package:app/client/home/utils/tour_card_utils.dart';
-import 'package:app/client/home/widgets/tour_card/tour_features_row.dart';
 import 'package:app/client/home/widgets/tour_card/tour_header_row.dart';
+import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
-
 
 class TourCardContent extends StatelessWidget {
   const TourCardContent({
@@ -39,24 +37,22 @@ class TourCardContent extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
 
     return Padding(
-      padding: const EdgeInsets.all(TourCardConstants.cardPadding),
+      padding: const EdgeInsets.all(AppSpacing.md),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          _buildTitle(textTheme),
+          const SizedBox(height: AppSpacing.xs),
           TourHeaderRow(
             typeOfTour: typeOfTour,
             rating: rating,
             ratingCount: ratingCount,
           ),
-          const SizedBox(height: TourCardConstants.spacingSmall),
-          _buildTitle(textTheme),
-          const SizedBox(height: TourCardConstants.spacingMedium),
-          TourFeaturesRow(features: features ?? []),
-          const SizedBox(height: TourCardConstants.spacingSmall),
-          _buildDuration(textTheme),
-          const SizedBox(height: 2),
-          _buildLocation(textTheme),
-          const SizedBox(height: TourCardConstants.spacingLarge),
+          const SizedBox(height: AppSpacing.xs),
+          _buildDuration(textTheme, context),
+          const SizedBox(height: AppSpacing.xs),
+          _buildLocation(textTheme, context),
+          const SizedBox(height: AppSpacing.sm),
           TourCardFooter(price: price, onBookTap: onBookTap),
         ],
       ),
@@ -67,20 +63,53 @@ class TourCardContent extends StatelessWidget {
     return Text(
       title ?? '',
       style: textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
+      maxLines: 3,
+      overflow: TextOverflow.ellipsis,
     );
   }
 
-  Widget _buildDuration(TextTheme textTheme) {
+  Widget _buildDuration(TextTheme textTheme, BuildContext context) {
     final durationText = TourCardUtils.formatDuration(duration, distance);
     if (durationText.isEmpty) return const SizedBox.shrink();
 
-    return Text(durationText, style: textTheme.bodySmall);
+    return Row(
+      children: [
+        Icon(
+          Icons.calendar_month_outlined,
+          size: 16,
+          color: context.appColors.disabled,
+        ),
+        const SizedBox(width: AppSpacing.xs),
+        Text(
+          durationText,
+          style: textTheme.bodySmall?.copyWith(
+            color: context.appColors.disabled,
+          ),
+        ),
+      ],
+    );
   }
 
-  Widget _buildLocation(TextTheme textTheme) {
+  Widget _buildLocation(TextTheme textTheme, BuildContext context) {
     final locationText = TourCardUtils.formatLocation(city, country);
     if (locationText.isEmpty) return const SizedBox.shrink();
-
-    return Text(locationText, style: textTheme.bodySmall);
+    return Row(
+      children: [
+        Icon(
+          Icons.location_on_outlined,
+          size: 16,
+          color: context.appColors.disabled,
+        ),
+        const SizedBox(width: AppSpacing.xs),
+        Text(
+          locationText,
+          style: textTheme.bodySmall?.copyWith(
+            color: context.appColors.disabled,
+          ),
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
+        ),
+      ],
+    );
   }
 }
