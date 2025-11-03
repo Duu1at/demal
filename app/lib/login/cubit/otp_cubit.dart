@@ -33,7 +33,6 @@ class OtpCubit extends Cubit<OtpState> {
       emit(state.copyWith(verifyStatus: RequestSuccess(res)));
     } on Object catch (e) {
       emit(state.copyWith(verifyStatus: RequestFailure(e)));
-      
     }
   }
 

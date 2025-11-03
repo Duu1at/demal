@@ -13,17 +13,11 @@ class TourLocationSection extends StatelessWidget {
       children: [
         Text("Место сбора", style: theme.textTheme.titleMedium),
         const SizedBox(height: AppSpacing.sm),
-        Text(
-          "Площадь Ала-Тоо, Бишкек",
-          style: theme.textTheme.bodyMedium,
-        ),
+        Text("Площадь Ала-Тоо, Бишкек", style: theme.textTheme.bodyMedium),
         const SizedBox(height: AppSpacing.md),
         ClipRRect(
           borderRadius: BorderRadius.circular(AppSpacing.lg),
-          child: const SizedBox(
-            height: 200,
-            child: MapWidget(),
-          ),
+          child: const SizedBox(height: 200, child: MapWidget()),
         ),
       ],
     );

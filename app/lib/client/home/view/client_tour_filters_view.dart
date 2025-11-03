@@ -14,7 +14,6 @@ class ClientTourFiltersView extends StatefulWidget {
 class _ClientTourFiltersViewState extends State<ClientTourFiltersView> {
   final _formKey = GlobalKey<FormState>();
 
-  final _searchController = TextEditingController();
   final _locationController = TextEditingController();
   final _tourTypeController = TextEditingController();
   final _priceMinController = TextEditingController();
@@ -37,7 +36,6 @@ class _ClientTourFiltersViewState extends State<ClientTourFiltersView> {
         final p = state.params;
         if (p != null) {
           setState(() {
-            _searchController.text = p.search ?? '';
             _locationController.text = p.location ?? '';
             _tourType = p.tourType;
             _tourTypeController.text = p.tourType ?? '';
@@ -60,7 +58,6 @@ class _ClientTourFiltersViewState extends State<ClientTourFiltersView> {
 
   @override
   void dispose() {
-    _searchController.dispose();
     _locationController.dispose();
     _tourTypeController.dispose();
     _priceMinController.dispose();
@@ -82,14 +79,6 @@ class _ClientTourFiltersViewState extends State<ClientTourFiltersView> {
           child: ListView(
             padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
             children: [
-              const SizedBox(height: AppSpacing.lg),
-              Text('Search', style: theme.textTheme.labelLarge),
-              const SizedBox(height: AppSpacing.xs),
-              AppTextField(
-                controller: _searchController,
-                hintText: 'Name, place...',
-              ),
-
               const SizedBox(height: AppSpacing.lg),
               Text('Location', style: theme.textTheme.labelLarge),
               const SizedBox(height: AppSpacing.xs),
@@ -204,7 +193,6 @@ class _ClientTourFiltersViewState extends State<ClientTourFiltersView> {
     if (!_validateDateRange()) return;
 
     final params = ToursParams(
-      search: _trimOrNull(_searchController.text),
       location: _trimOrNull(_locationController.text),
       tourType: _tourType,
       dateFrom: _formatDate(_dateFrom),
@@ -220,17 +208,18 @@ class _ClientTourFiltersViewState extends State<ClientTourFiltersView> {
 
   void _onReset() {
     setState(() {
-      _searchController.clear();
-      _locationController.clear();
       _tourType = null;
       _dateFrom = null;
       _dateTo = null;
       _priceMin = null;
       _priceMax = null;
       _sortBy = null;
+      _locationController.clear();
+      _tourTypeController.clear();
+      _priceMinController.clear();
+      _priceMaxController.clear();
     });
-    final bloc = context.read<ToursBloc>();
-    bloc.add(const ToursFilterChangedEvent(ToursParams()));
+    context.read<ToursBloc>().add(const ToursFilterChangedEvent(ToursParams()));
     Navigator.of(context).pop();
   }
 

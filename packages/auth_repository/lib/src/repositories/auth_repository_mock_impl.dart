@@ -76,7 +76,7 @@ final class AuthRepositoryeMockImpl implements AuthRepository {
   }
 
   @override
-  Role? getRole()  {
+  Role? getRole() {
     return Role.client;
   }
 

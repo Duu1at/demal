@@ -15,10 +15,12 @@ final class InputFormatters {
   );
 
   static String formatPhone(String rawPhone) {
-    return phoneFormatter.formatEditUpdate(
-      TextEditingValue.empty,
-      TextEditingValue(text: rawPhone),
-    ).text;
+    return phoneFormatter
+        .formatEditUpdate(
+          TextEditingValue.empty,
+          TextEditingValue(text: rawPhone),
+        )
+        .text;
   }
 
   static final phoneFormatterZero = MaskTextInputFormatter(
@@ -41,4 +43,3 @@ final class InputFormatters {
     filter: {'#': RegExp(r'[0-9]')},
   );
 }
-

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class ToursLoadingState extends StatelessWidget {
   const ToursLoadingState({super.key});
 
@@ -11,4 +10,3 @@ class ToursLoadingState extends StatelessWidget {
     );
   }
 }
-

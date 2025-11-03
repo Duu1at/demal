@@ -6,7 +6,6 @@ part 'tours_detail_state.dart';
 
 class ToursDetailBloc extends Bloc<ToursDetailEvent, ToursDetailState> {
   ToursDetailBloc() : super(ToursDetailInitial()) {
-    on<ToursDetailEvent>((event, emit) {
-    });
+    on<ToursDetailEvent>((event, emit) {});
   }
 }

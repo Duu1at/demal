@@ -7,7 +7,9 @@ class PreferencesStorage implements StorageInterfaceRead {
   PreferencesStorage._(this._sharedPreferences);
   final SharedPreferences _sharedPreferences;
 
-  static Future<PreferencesStorage> getInstance([SharedPreferences? pref]) async =>
+  static Future<PreferencesStorage> getInstance([
+    SharedPreferences? pref,
+  ]) async =>
       PreferencesStorage._(pref ?? await SharedPreferences.getInstance());
 
   @override
@@ -92,7 +94,10 @@ class PreferencesStorage implements StorageInterfaceRead {
   }
 
   @override
-  Future<bool> writeStringList({required String key, required List<String> value}) {
+  Future<bool> writeStringList({
+    required String key,
+    required List<String> value,
+  }) {
     try {
       return _sharedPreferences.setStringList(key, value);
     } catch (error, stackTrace) {

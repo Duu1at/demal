@@ -10,6 +10,8 @@ class BgImageBodyPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ScaffoldWithBgImage(appBar: AppBar(elevation: 0, title: const Text('Background Image Body')));
+    return ScaffoldWithBgImage(
+      appBar: AppBar(elevation: 0, title: const Text('Background Image Body')),
+    );
   }
 }

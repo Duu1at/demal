@@ -9,6 +9,7 @@ import 'package:app/welcome/welcome.dart';
 import 'package:auth_repository/auth_repository.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
@@ -49,6 +50,7 @@ final class AppRouter {
   static const clientSettings = 'client-settings';
   static const clientTourDetails = 'client-tour-details';
   static const clientTourTickets = 'client-tour-tickets';
+  static const clientTourFilters = 'client-tour-filters';
   static const clientAboutUs = 'client-about-us';
   static const clientBookingDetails = 'client-booking-details';
   static const clientBookingStatus = 'client-booking-status';
@@ -88,7 +90,6 @@ final class AppRouter {
             return '/$initialSettings';
 
           case AuthStatus.unauthenticated:
-
             final isGoingToOnboarding = path.startsWith('/$initialSettings');
             final isGoingToLogin = path.startsWith('/$login');
 
@@ -173,6 +174,16 @@ final class AppRouter {
         path: clientSettings,
         name: clientSettings,
         builder: (context, state) => const ClientSettingsView(),
+      ),
+      GoRoute(
+        path: clientTourFilters,
+        name: clientTourFilters,
+        builder: (context, state) {
+          return BlocProvider.value(
+            value: state.extra as ToursBloc,
+            child: const ClientTourFiltersView(),
+          );
+        },
       ),
       GoRoute(
         path: clientAboutUs,

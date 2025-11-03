@@ -1,7 +1,6 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 
-
 class ToursErrorState extends StatelessWidget {
   const ToursErrorState({super.key});
 
@@ -17,11 +16,9 @@ class ToursErrorState extends StatelessWidget {
               style: Theme.of(context).textTheme.titleMedium,
             ),
             const SizedBox(height: AppSpacing.md),
-           
           ],
         ),
       ),
     );
   }
 }
-

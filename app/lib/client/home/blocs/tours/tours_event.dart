@@ -11,7 +11,6 @@ final class ToursInitialFetchEvent extends ToursEvent {
   const ToursInitialFetchEvent();
 }
 
-
 final class ToursRefreshEvent extends ToursEvent {
   const ToursRefreshEvent({this.params});
 

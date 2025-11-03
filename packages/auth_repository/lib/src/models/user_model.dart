@@ -19,7 +19,6 @@ final class UserModel {
   factory UserModel.fromJson(Map<String, dynamic> json) =>
       _$UserModelFromJson(json);
 
-
   @JsonKey(name: 'user_id')
   final String? userId;
 

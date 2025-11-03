@@ -28,8 +28,6 @@ abstract class AppTheme {
     return const DividerThemeData();
   }
 
-
-
   ButtonThemeData get buttonTheme {
     return const ButtonThemeData();
   }
@@ -112,9 +110,7 @@ abstract class AppTheme {
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(16),
-        borderSide: BorderSide(
-          color: colorScheme.primary,
-        ),
+        borderSide: BorderSide(color: colorScheme.primary),
       ),
     );
   }

@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 mixin ToursScrollControllerMixin<T extends StatefulWidget> on State<T> {
   late final ScrollController scrollController;
-  
+
   static const double _scrollThreshold = 0.9;
 
   void initializeScrollController() {

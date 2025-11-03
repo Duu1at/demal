@@ -2,10 +2,7 @@ import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 
 class ToursEmptyState extends StatelessWidget {
-  const ToursEmptyState({
-    required this.hasSearchQuery,
-    super.key,
-  });
+  const ToursEmptyState({required this.hasSearchQuery, super.key});
 
   final bool hasSearchQuery;
 
@@ -19,10 +16,9 @@ class ToursEmptyState extends StatelessWidget {
             Icon(
               Icons.search_off,
               size: 64,
-              color: Theme.of(context)
-                  .colorScheme
-                  .onSurface
-                  .withValues(alpha: 0.5),
+              color: Theme.of(
+                context,
+              ).colorScheme.onSurface.withValues(alpha: 0.5),
             ),
             const SizedBox(height: AppSpacing.md),
             Text(
@@ -34,11 +30,10 @@ class ToursEmptyState extends StatelessWidget {
               Text(
                 'Try adjusting your search',
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: Theme.of(context)
-                          .colorScheme
-                          .onSurface
-                          .withValues(alpha: 0.7),
-                    ),
+                  color: Theme.of(
+                    context,
+                  ).colorScheme.onSurface.withValues(alpha: 0.7),
+                ),
               ),
             ],
           ],
@@ -47,4 +42,3 @@ class ToursEmptyState extends StatelessWidget {
     );
   }
 }
-

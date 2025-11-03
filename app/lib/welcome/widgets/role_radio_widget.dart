@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class RoleRedioWidget extends StatelessWidget {
   const RoleRedioWidget({
-     this.role,
+    this.role,
     this.isClient = true,
     this.onChanged,
     this.title,

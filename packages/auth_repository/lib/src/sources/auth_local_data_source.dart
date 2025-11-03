@@ -89,7 +89,7 @@ final class AuthLocalDataSource {
     }
   }
 
-  Role? getRole()  {
+  Role? getRole() {
     try {
       final roleString = storage.readString(key: StorageKeys.roleKey);
 
