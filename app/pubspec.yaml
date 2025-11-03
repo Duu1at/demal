@@ -43,7 +43,7 @@ dependencies:
   stream_transform:
   bloc_concurrency:
   shimmer:
-
+  infinite_scroll_pagination:
   
 dev_dependencies:
   flutter_test:

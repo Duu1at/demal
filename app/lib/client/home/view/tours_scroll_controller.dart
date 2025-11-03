@@ -1,10 +1,11 @@
 import 'package:app/client/home/blocs/tours/tours_bloc.dart';
-import 'package:app/client/home/blocs/tours/tours_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 mixin ToursScrollControllerMixin<T extends StatefulWidget> on State<T> {
   late final ScrollController scrollController;
+  
+  static const double _scrollThreshold = 0.9;
 
   void initializeScrollController() {
     scrollController = ScrollController();
@@ -25,6 +26,6 @@ mixin ToursScrollControllerMixin<T extends StatefulWidget> on State<T> {
     if (!scrollController.hasClients) return false;
     final maxScroll = scrollController.position.maxScrollExtent;
     final currentScroll = scrollController.offset;
-    return currentScroll >= (maxScroll * ToursConstants.scrollThreshold);
+    return currentScroll >= (maxScroll * _scrollThreshold);
   }
 }

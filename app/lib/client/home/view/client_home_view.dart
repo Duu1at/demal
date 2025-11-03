@@ -74,7 +74,7 @@ class _ClientHomeViewBodyState extends State<ClientHomeViewBody>
       ),
       body: RefreshIndicator(
         onRefresh: _onRefresh,
-        child: BlocBuilder<ToursBloc, ToursState>(
+        child: BlocBuilder<ToursBloc, ToursPagingState>(
           builder: (context, state) {
             return CustomScrollView(
               controller: scrollController,
@@ -87,8 +87,8 @@ class _ClientHomeViewBodyState extends State<ClientHomeViewBody>
                   child: SizedBox(height: AppSpacing.sm),
                 ),
                 _buildStateContent(state),
-                if (state.status == ToursStatus.loading &&
-                    state.tours.isNotEmpty &&
+                if (state.isLoading &&
+                    state.allTours.isNotEmpty &&
                     !state.isRefreshing)
                   const SliverToBoxAdapter(
                     child: Padding(
@@ -111,17 +111,16 @@ class _ClientHomeViewBodyState extends State<ClientHomeViewBody>
     );
   }
 
-  Widget _buildStateContent(ToursState state) {
-    if (state.status == ToursStatus.initial ||
-        (state.status == ToursStatus.loading && state.tours.isEmpty)) {
+  Widget _buildStateContent(ToursPagingState state) {
+    if ((state.pages == null || state.pages!.isEmpty) && state.isLoading) {
       return const ToursLoadingState();
     }
 
-    if (state.status == ToursStatus.failure && state.tours.isEmpty) {
+    if (state.error != null && state.allTours.isEmpty) {
       return const ToursErrorState();
     }
 
-    if (state.status == ToursStatus.success && state.tours.isEmpty) {
+    if (state.allTours.isEmpty && !state.isLoading) {
       return ToursEmptyState(hasSearchQuery: _searchController.text.isNotEmpty);
     }
 

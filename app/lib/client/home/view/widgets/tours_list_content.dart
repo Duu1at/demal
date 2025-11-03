@@ -5,38 +5,37 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
-
 class ToursListContent extends StatelessWidget {
   const ToursListContent({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ToursBloc, ToursState>(
+    return BlocBuilder<ToursBloc, ToursPagingState>(
       builder: (context, state) {
+        final tours = state.allTours;
+        final hasMore = state.canLoadMore;
+
         return SliverPadding(
           padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
           sliver: SliverList.separated(
             itemBuilder: (context, index) {
-              if (index >= state.tours.length) {
+              if (index >= tours.length) {
                 return const BottomLoader();
               }
-              final tour = state.tours[index];
+              final tour = tours[index];
               return TourCardWidget(
                 tour: tour,
                 cacheManager: DefaultCacheManager(),
               );
             },
             separatorBuilder: (_, __) => const SizedBox(height: AppSpacing.md),
-            itemCount: state.hasReachedMax
-                ? state.tours.length
-                : state.tours.length + 1,
+            itemCount: hasMore ? tours.length + 1 : tours.length,
           ),
         );
       },
     );
   }
 }
-
 
 class BottomLoader extends StatelessWidget {
   const BottomLoader({super.key});
@@ -52,4 +51,3 @@ class BottomLoader extends StatelessWidget {
     );
   }
 }
-
