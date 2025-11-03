@@ -39,7 +39,7 @@ class ClientAboutView extends StatelessWidget {
               const SizedBox(height: AppSpacing.md),
               const TourBenefits(),
               const Spacer(),
-               Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const Expanded(child: DividerHorisontal()),

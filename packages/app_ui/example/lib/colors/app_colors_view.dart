@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class AppColorsView extends StatelessWidget {
@@ -10,17 +9,16 @@ class AppColorsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const colorItems = [
-      
-
-    ];
+    const colorItems = [];
 
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(title: const Text('App Colors')),
       body: GridView.builder(
         itemCount: colorItems.length,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 4,
+        ),
         itemBuilder: (_, index) => colorItems[index],
       ),
     );

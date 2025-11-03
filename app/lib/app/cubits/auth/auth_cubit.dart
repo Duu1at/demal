@@ -1,6 +1,5 @@
 import 'dart:async';
-
-import 'package:auth/auth.dart';
+import 'package:auth_repository/auth_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -42,7 +41,7 @@ class AuthCubit extends Cubit<AuthState> {
     emit(state.copyWith(role: role));
   }
 
-  void logout()  {
+  void logout() {
     final bool onboardingStatus = state.hasCompletedOnboarding;
     _repository.logOut();
     emit(AuthState.unauthenticated(hasCompletedOnboarding: onboardingStatus));

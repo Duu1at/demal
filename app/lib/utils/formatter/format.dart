@@ -4,8 +4,9 @@ import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 @immutable
 final class Fmt {
-
-  static final emailregex = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+  static final emailregex = RegExp(
+    r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
+  );
 
   static String? phoneHint(String countryCode) {
     if (countryCode.toLowerCase() == 'kg') {

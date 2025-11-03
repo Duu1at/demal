@@ -16,7 +16,8 @@ dependencies:
   core:
   app_ui:
   storage:
-  auth:
+  auth_repository:
+  client_tour_repository:
 
   
   flutter_bloc:
@@ -39,6 +40,10 @@ dependencies:
   image_editor_plus:
   talker_bloc_logger: 
   smart_auth:
+  stream_transform:
+  bloc_concurrency:
+  shimmer:
+  infinite_scroll_pagination:
   
 dev_dependencies:
   flutter_test:

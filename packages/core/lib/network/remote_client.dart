@@ -32,14 +32,12 @@ class RemoteClient {
     dio.interceptors.addAll([
       InterceptorsWrapper(
         onRequest: (options, handler) async {
-          // options.headers['Content-Type'] = 'application/json; charset=utf-8';
-          // options.headers['Accept'] = 'application/json';
-
+          options.headers['accept'] = 'application/json';
+          options.headers['Content-Type'] = 'application/json; charset=utf-8';
           final appRole = resolveAppRole?.call();
           if (appRole != null) {
-            options.headers['X-App-Type'] = appRole;
+            options.headers['x-app-role'] = appRole;
           }
-
           final resolvedToken = token?.call();
           if (resolvedToken != null) {
             options.headers['Authorization'] = 'Bearer $resolvedToken';

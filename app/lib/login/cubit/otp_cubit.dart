@@ -1,6 +1,5 @@
 import 'dart:async';
-
-import 'package:auth/auth.dart';
+import 'package:auth_repository/auth_repository.dart';
 import 'package:core/models/request_status.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,7 +33,6 @@ class OtpCubit extends Cubit<OtpState> {
       emit(state.copyWith(verifyStatus: RequestSuccess(res)));
     } on Object catch (e) {
       emit(state.copyWith(verifyStatus: RequestFailure(e)));
-      
     }
   }
 

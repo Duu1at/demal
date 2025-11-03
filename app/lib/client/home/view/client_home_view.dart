@@ -1,26 +1,68 @@
 import 'package:app/app/router/app_router.dart';
+import 'package:app/client/home/blocs/tours/tours_bloc.dart';
+import 'package:app/client/home/view/tours_scroll_controller.dart';
+import 'package:app/client/home/view/widgets/tours_empty_state.dart';
+import 'package:app/client/home/view/widgets/tours_error_state.dart';
+import 'package:app/client/home/view/widgets/tours_list_content.dart';
+import 'package:app/client/home/view/widgets/tours_loading_state.dart';
+import 'package:app/client/home/view/widgets/tours_search_bar.dart';
+import 'package:client_tour_repository/client_tour_repository.dart';
+import 'package:core/di/injector.dart';
 import 'package:flutter/material.dart';
 import 'package:app_ui/app_ui.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-class ClientHomeView extends StatefulWidget {
+class ClientHomeView extends StatelessWidget {
   const ClientHomeView({super.key});
-
   @override
-  State<ClientHomeView> createState() => _ClientHomeViewState();
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => ToursBloc(getIt<ClientTourRepository>()),
+      child: const ClientHomeViewBody(),
+    );
+  }
 }
 
-class _ClientHomeViewState extends State<ClientHomeView> {
-  final _controller = TextEditingController();
+class ClientHomeViewBody extends StatefulWidget {
+  const ClientHomeViewBody({super.key});
 
-  Future<void> _onBottomRefresh() async {
-    await Future.delayed(const Duration(seconds: 2));
+  @override
+  State<ClientHomeViewBody> createState() => _ClientHomeViewBodyState();
+}
+
+class _ClientHomeViewBodyState extends State<ClientHomeViewBody>
+    with ToursScrollControllerMixin {
+  final _searchController = TextEditingController();
+  ToursParams _params = const ToursParams();
+
+  @override
+  void initState() {
+    super.initState();
+    initializeScrollController();
+    _searchController.addListener(_onSearchChanged);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<ToursBloc>().add(const ToursInitialFetchEvent());
+    });
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _searchController.dispose();
+    disposeScrollController();
     super.dispose();
+  }
+
+  void _onSearchChanged() {
+    final searchQuery = _searchController.text.trim();
+    _params = _params.copyWith(
+      search: searchQuery.isEmpty ? null : searchQuery,
+    );
+    context.read<ToursBloc>().add(ToursFilterChangedEvent(_params));
+  }
+
+  Future<void> _onRefresh() async {
+    context.read<ToursBloc>().add(const ToursRefreshEvent());
   }
 
   @override
@@ -31,54 +73,35 @@ class _ClientHomeViewState extends State<ClientHomeView> {
         onNotificationTap: () {},
       ),
       body: RefreshIndicator(
-        onRefresh: _onBottomRefresh,
-        child: CustomScrollView(
-          slivers: [
-            const SliverToBoxAdapter(child: SizedBox(height: AppSpacing.sm)),
-            SliverAppBar(
-              pinned: false,
-              floating: true,
-              elevation: 0,
-              scrolledUnderElevation: 0,
-              surfaceTintColor: Colors.transparent,
-              shadowColor: Colors.transparent,
-              backgroundColor: Colors.transparent,
-              title: SearchTextField(
-                onChanged: (_) {},
-                hintText: 'Search any tours...',
-                controller: _controller,
-              ),
-            ),
-            const SliverToBoxAdapter(child: SizedBox(height: AppSpacing.sm)),
-            SliverPadding(
-              padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
-              sliver: SliverList.separated(
-                itemBuilder: (context, index) => TourCard(
-                  imageUrl:
-                      'https://avatars.mds.yandex.net/i?id=b4f305847bbf6a7b444a16a92ef1556f_l-10132791-images-thumbs&n=13',
-                  rating: 5.0,
-                  ratingCount: 12,
-                  typeOfTour: 'Adventure',
-                  title: 'Explore the Mountains',
-                  features: ['Pickup', 'Skip the Line', 'Free Entry'],
-                  duration: '5h',
-                  distance: '2km',
-                  city: 'City',
-                  country: 'Country',
-                  oldPrice: 100,
-                  price: 80,
-                  onTap: () {
-                    context.goNamed(AppRouter.clientTourDetails);
-                  },
-                  onBookTap: () {},
+        onRefresh: _onRefresh,
+        child: BlocBuilder<ToursBloc, ToursPagingState>(
+          builder: (context, state) {
+            return CustomScrollView(
+              controller: scrollController,
+              slivers: [
+                const SliverToBoxAdapter(
+                  child: SizedBox(height: AppSpacing.sm),
                 ),
-                separatorBuilder: (_, __) => const SizedBox(height: 16),
-                itemCount: 18,
-              ),
-            ),
-
-            const SliverToBoxAdapter(child: SizedBox(height: 100)),
-          ],
+                ToursSearchBar(controller: _searchController),
+                const SliverToBoxAdapter(
+                  child: SizedBox(height: AppSpacing.sm),
+                ),
+                _buildStateContent(state),
+                if (state.isLoading &&
+                    state.allTours.isNotEmpty &&
+                    !state.isRefreshing)
+                  const SliverToBoxAdapter(
+                    child: Padding(
+                      padding: EdgeInsets.all(AppSpacing.md),
+                      child: Center(child: CircularProgressIndicator()),
+                    ),
+                  ),
+                const SliverToBoxAdapter(
+                  child: SizedBox(height: AppSpacing.xl),
+                ),
+              ],
+            );
+          },
         ),
       ),
       floatingActionButton: FloatingActionButton(
@@ -86,5 +109,21 @@ class _ClientHomeViewState extends State<ClientHomeView> {
         child: const Icon(Icons.add),
       ),
     );
+  }
+
+  Widget _buildStateContent(ToursPagingState state) {
+    if ((state.pages == null || state.pages!.isEmpty) && state.isLoading) {
+      return const ToursLoadingState();
+    }
+
+    if (state.error != null && state.allTours.isEmpty) {
+      return const ToursErrorState();
+    }
+
+    if (state.allTours.isEmpty && !state.isLoading) {
+      return ToursEmptyState(hasSearchQuery: _searchController.text.isNotEmpty);
+    }
+
+    return const ToursListContent();
   }
 }

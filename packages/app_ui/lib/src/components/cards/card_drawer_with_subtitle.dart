@@ -31,7 +31,10 @@ class CardDrawerWithSubtitle extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
         side: withBorder
-            ? BorderSide(color: color.onSurface.withValues(alpha: 0.2), width: 1)
+            ? BorderSide(
+                color: color.onSurface.withValues(alpha: 0.2),
+                width: 1,
+              )
             : BorderSide.none,
       ),
       shadowColor: context.appColors.grayShadow?.color,
@@ -60,7 +63,10 @@ class CardDrawerWithSubtitle extends StatelessWidget {
                 children: [
                   Text(title, style: Theme.of(context).textTheme.bodyLarge),
                   const SizedBox(height: 4),
-                  Text(subtitle ?? '', style: Theme.of(context).textTheme.bodySmall),
+                  Text(
+                    subtitle ?? '',
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
                 ],
               ),
               const Spacer(),

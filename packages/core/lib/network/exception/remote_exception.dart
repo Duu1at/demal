@@ -29,7 +29,7 @@ final class RemoteException implements Exception {
         statusCode: status,
       );
     }
-    
+
     if (e.message != null && e.message!.isNotEmpty) {
       return RemoteException(
         FailureType.unknown,

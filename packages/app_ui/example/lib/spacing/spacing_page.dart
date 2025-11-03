@@ -29,7 +29,10 @@ class SpacingPage extends StatelessWidget {
 
       appBar: AppBar(title: const Text('Spacing')),
       body: Center(
-        child: ListView.builder(itemCount: spacingList.length, itemBuilder: (_, index) => spacingList[index]),
+        child: ListView.builder(
+          itemCount: spacingList.length,
+          itemBuilder: (_, index) => spacingList[index],
+        ),
       ),
     );
   }
@@ -51,8 +54,16 @@ class SpacingItem extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
-              Container(color: AppColors.orange, width: AppSpacing.xxlg, height: AppSpacing.lg),
-              Container(color: AppColors.orange, width: AppSpacing.xxlg, height: AppSpacing.lg),
+              Container(
+                color: AppColors.orange,
+                width: AppSpacing.xxlg,
+                height: AppSpacing.lg,
+              ),
+              Container(
+                color: AppColors.orange,
+                width: AppSpacing.xxlg,
+                height: AppSpacing.lg,
+              ),
             ],
           ),
           const SizedBox(width: AppSpacing.sm),
