@@ -40,7 +40,6 @@ class TourCardWidget extends StatelessWidget {
           onTap ??
           () {
             if (tour.tourId != null) {
-              // TODO: Реализовать передачу tourId в ClientTourDetailsView
               context.pushNamed(AppRouter.clientTourDetails);
             }
           },
