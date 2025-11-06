@@ -17,7 +17,6 @@ dependencies:
   flutter_bloc:
   pretty_dio_logger:
   meta:
-  connectivity_plus:
 
   talker_flutter: 
   talker_bloc_logger:
@@ -32,6 +31,4 @@ dependencies:
   auth_repository:
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
-  flutter_lints:
+  very_good_analysis:

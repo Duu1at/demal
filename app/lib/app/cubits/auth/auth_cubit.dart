@@ -49,20 +49,20 @@ class AuthCubit extends Cubit<AuthState> {
 
   void deleteAccount() async {
     _repository.deleteAccount();
-    await _repository.saveOnboardingStatus(false);
+    await _repository.saveOnboardingStatus(completed: false);
     emit(const AuthState.unauthenticated(hasCompletedOnboarding: false));
   }
 
   Future<void> login(UserModel user, String token) async {
     if (!state.hasCompletedOnboarding) {
-      await _repository.saveOnboardingStatus(true);
+      await _repository.saveOnboardingStatus(completed: true);
     }
 
     emit(AuthState.authenticated(user, token, hasCompletedOnboarding: true));
   }
 
   Future<void> completeOnboarding() async {
-    await _repository.saveOnboardingStatus(true);
+    await _repository.saveOnboardingStatus(completed: true);
     emit(
       state.copyWith(
         hasCompletedOnboarding: true,

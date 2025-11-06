@@ -9,14 +9,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 
-class DemalApp extends StatefulWidget {
-  const DemalApp({super.key});
+class App extends StatefulWidget {
+  const App({super.key});
 
   @override
-  State<DemalApp> createState() => _DemalAppState();
+  State<App> createState() => _AppState();
 }
 
-class _DemalAppState extends State<DemalApp> {
+class _AppState extends State<App> {
   late final GoRouter _router;
   @override
   void initState() {

@@ -1,13 +1,15 @@
-
-include: package:flutter_lints/flutter.yaml
+include: package:very_good_analysis/analysis_options.yaml
 
 analyzer:
   exclude:
     - '**.g.dart'
     - '**.freezed.dart'
   errors:
+    avoid_catches_without_on_clauses: ignore
+    avoid_positional_boolean_parameters: ignore
     avoid_print: error
     empty_catches: ignore
+    public_member_api_docs: ignore
     unused_local_variable: ignore
     use_build_context_synchronously: ignore
 

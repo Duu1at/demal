@@ -1,53 +1,79 @@
 import 'dart:async';
 
 import 'package:app/app/app_view.dart';
-import 'package:app/app/cubits/app_settings/app_locale_cubit.dart';
-import 'package:app/app/cubits/app_settings/app_theme_cubit.dart';
-import 'package:app/app/cubits/auth/auth_cubit.dart';
-import 'package:app/app_observer.dart';
-import 'package:auth_repository/auth_repository.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:core/api/api.dart';
 import 'package:core/di/injector.dart';
-import 'package:app_ui/app_ui.dart';
+import 'package:core/keys/storage_keys.dart';
+import 'package:core/network/network_client/network_client.dart';
+import 'package:core/network/remote_client.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:storage/storage.dart';
+import 'package:talker_bloc_logger/talker_bloc_logger_observer.dart';
+import 'package:talker_bloc_logger/talker_bloc_logger_settings.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 final scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
 
 void main() async {
+  final talker = TalkerFlutter.init();
   runZonedGuarded(
     () async {
       WidgetsFlutterBinding.ensureInitialized();
-      await setupDependencies();
 
-      final talker = getIt<Talker>();
-      Bloc.observer = AppBlocObserver(talker);
+      Bloc.observer = TalkerBlocObserver(
+        talker: talker,
+        settings: const TalkerBlocLoggerSettings(
+          enabled: true,
+          printEventFullData: false,
+          printStateFullData: false,
+          printChanges: true,
+          printClosings: true,
+          printCreations: true,
+          printEvents: true,
+          printTransitions: true,
+        ),
+      );
 
       FlutterError.onError = (details) {
-        talker.log(details.exceptionAsString());
-        talker.log(details.stack.toString());
+        talker.error(details.exceptionAsString());
+        talker.error(details.stack.toString());
         FlutterError.dumpErrorToConsole(details);
       };
+
+      final storage = await PreferencesStorage.getInstance();
       runApp(
-        MultiBlocProvider(
+        MultiRepositoryProvider(
           providers: [
-            BlocProvider(
-              create: (context) => AppThemeCubit(getIt<AppRepository>()),
+            RepositoryProvider<PreferencesStorage>(
+              create: (context) => storage,
             ),
-            BlocProvider(
-              create: (context) => AppLocaleCubit(getIt<AppRepository>()),
+            RepositoryProvider<NetworkClient>(
+              create: (context) => NetworkClient(connectivity: Connectivity()),
             ),
-            BlocProvider(
-              create: (context) =>
-                  AuthCubit(getIt<AuthRepository>())..checkAuthStatus(),
+            RepositoryProvider<RemoteClient>(
+              create: (context) => RemoteClient(
+                dio: Dio(
+                  BaseOptions(
+                    baseUrl: Api.baseUrl,
+                    connectTimeout: const Duration(seconds: 10),
+                    receiveTimeout: const Duration(seconds: 10),
+                  ),
+                ),
+                network: context.read<NetworkClient>(),
+                resolveAppRole: () =>
+                    storage.readString(key: StorageKeys.roleKey),
+              ),
             ),
           ],
-          child: const DemalApp(),
+          child: const App(),
         ),
       );
     },
     (error, stack) {
-      getIt<Talker>().handle(error, stack);
+      talker.handle(error, stack);
     },
   );
 }

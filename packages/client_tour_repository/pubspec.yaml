@@ -1,6 +1,6 @@
 name: client_tour_repository
 description: "Demal APP Client Tour Repository."
-version: 1.0.0
+version: 0.0.1
 resolution: workspace
 
 environment:
@@ -13,6 +13,6 @@ dependencies:
 
 
 dev_dependencies:
-  flutter_lints: 
+  very_good_analysis:
   build_runner: 
   json_serializable:

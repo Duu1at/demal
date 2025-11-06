@@ -60,7 +60,7 @@ class ToursBloc extends Bloc<ToursEvent, ToursPagingState> {
 
     final params =
         event.params ??
-        state.params?.copyWith(page: null, limit: tourLimit) ??
+        state.params?.copyWith(limit: tourLimit) ??
         const ToursParams(page: 1, limit: tourLimit);
 
     emit(state.reset().copyWithParams(params: params));
@@ -81,7 +81,7 @@ class ToursBloc extends Bloc<ToursEvent, ToursPagingState> {
     ToursFilterChangedEvent event,
     Emitter<ToursPagingState> emit,
   ) async {
-    final params = event.params.copyWith(page: null, limit: tourLimit);
+    final params = event.params.copyWith(limit: tourLimit);
 
     emit(state.reset().copyWithParams(params: params));
     await _fetchPage(emit, 1, params);
@@ -97,7 +97,7 @@ class ToursBloc extends Bloc<ToursEvent, ToursPagingState> {
       limit: tourLimit,
     );
 
-    emit(state.copyWithParams(isLoading: true, error: null, params: params));
+    emit(state.copyWithParams(isLoading: true, params: params));
 
     try {
       final result = await _clientTourRepository.getTours(params);
@@ -111,7 +111,6 @@ class ToursBloc extends Bloc<ToursEvent, ToursPagingState> {
       emit(
         state.copyWithParams(
           isLoading: false,
-          error: null,
           hasNextPage: !isLastPage,
           pages: pageKey == 1 ? [tours] : [...?state.pages, tours],
           keys: pageKey == 1 ? [pageKey] : [...?state.keys, pageKey],

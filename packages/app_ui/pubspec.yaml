@@ -1,6 +1,6 @@
 name: app_ui
 description: Demal APP UI package.
-version: 1.0.0
+version: 0.0.1
 resolution: workspace
 
 environment:
@@ -14,17 +14,15 @@ dependencies:
   flutter_svg: 
   flutter_cache_manager:
   cached_network_image:
-  shimmer: ^3.0.0
+  shimmer:
   go_router:
 
-dev_dependencies:
-  flutter_test:
-    sdk: flutter
-  
-  build_runner: ^2.10.0
-  flutter_gen_runner:
 
-  flutter_lints:
+dev_dependencies:
+  build_runner:
+  json_serializable:
+  flutter_gen_runner:
+  very_good_analysis:
 
 flutter:
   uses-material-design: true

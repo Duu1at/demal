@@ -258,9 +258,9 @@ class _AvatarWidgetState extends State<AvatarWidget>
                 colorScheme = await ColorScheme.fromImageProvider(
                   provider: MemoryImage(bytes),
                 );
-                if (widget.onUpdate != null) {
-                  widget.onUpdate!(await File(value.path).writeAsBytes(bytes));
-                }
+                await widget.onUpdate?.call(
+                  await File(value.path).writeAsBytes(bytes),
+                );
               }
             } else if (editedImage?.type == EditorType.repeate) {
               context.loaderOverlay.hide();
