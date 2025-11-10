@@ -1,4 +1,3 @@
-export 'di/injector.dart';
 export 'either/either.dart';
 export 'keys/storage_keys.dart';
 export 'launch/app_launch.dart';
