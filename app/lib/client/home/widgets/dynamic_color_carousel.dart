@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 
 class DynamicColorCarousel extends StatefulWidget {
   const DynamicColorCarousel({
-    super.key,
     required this.imageUrls,
+    super.key,
     this.height = 300,
     this.onAccentColorChanged,
     this.fit = BoxFit.cover,
@@ -30,7 +30,7 @@ class _DynamicColorCarouselState extends State<DynamicColorCarousel> {
   @override
   void initState() {
     super.initState();
-    _updateAccentColor(widget.imageUrls[_currentIndex]);
+    unawaited(_updateAccentColor(widget.imageUrls[_currentIndex]));
     h = MediaQuery.of(context).size.height * 0.4;
   }
 
@@ -41,7 +41,7 @@ class _DynamicColorCarouselState extends State<DynamicColorCarousel> {
       // ).obtainKey(const ImageConfiguration());
       final imageStream = CachedNetworkImageProvider(
         url,
-      ).resolve(const ImageConfiguration());
+      ).resolve(ImageConfiguration.empty);
 
       final completer = Completer<ui.Image>();
       late ImageStreamListener listener;
@@ -53,17 +53,17 @@ class _DynamicColorCarouselState extends State<DynamicColorCarousel> {
 
       imageStream.addListener(listener);
 
-      final ui.Image image = await completer.future;
-      final byteData = await image.toByteData(
-        format: ui.ImageByteFormat.rawRgba,
-      );
+      final image = await completer.future;
+      final byteData = await image.toByteData();
       if (byteData == null) return;
 
       final pixels = byteData.buffer.asUint32List();
-      int r = 0, g = 0, b = 0;
-      final int step = (pixels.length ~/ 30000).clamp(1, 50);
+      var r = 0;
+      var g = 0;
+      var b = 0;
+      final step = (pixels.length ~/ 30000).clamp(1, 50);
 
-      for (int i = 0; i < pixels.length; i += step) {
+      for (var i = 0; i < pixels.length; i += step) {
         final color = pixels[i];
         r += (color >> 16) & 0xFF;
         g += (color >> 8) & 0xFF;
@@ -95,20 +95,17 @@ class _DynamicColorCarouselState extends State<DynamicColorCarousel> {
             viewportFraction: 1,
             autoPlay: widget.enableAutoPlay,
             autoPlayInterval: const Duration(seconds: 5),
-            enableInfiniteScroll: true,
-            onPageChanged: (index, reason) {
+            onPageChanged: (index, reason) async {
               setState(() => _currentIndex = index);
-              _updateAccentColor(widget.imageUrls[index]);
+              await _updateAccentColor(widget.imageUrls[index]);
             },
           ),
           itemBuilder: (context, index, realIndex) {
             return CachedNetworkImage(
               imageUrl: widget.imageUrls[index],
               fit: widget.fit,
-              placeholder: (context, url) =>
-                  const Center(child: CircularProgressIndicator()),
-              errorWidget: (context, url, error) =>
-                  const Center(child: Icon(Icons.broken_image, size: 60)),
+              placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+              errorWidget: (context, url, error) => const Center(child: Icon(Icons.broken_image, size: 60)),
             );
           },
         ),
@@ -124,9 +121,7 @@ class _DynamicColorCarouselState extends State<DynamicColorCarousel> {
                 width: isActive ? 10 : 6,
                 height: 6,
                 decoration: BoxDecoration(
-                  color: isActive
-                      ? _accentColor.withValues(alpha: 0.9)
-                      : _accentColor.withValues(alpha: 0.4),
+                  color: isActive ? _accentColor.withValues(alpha: 0.9) : _accentColor.withValues(alpha: 0.4),
                   borderRadius: BorderRadius.circular(3),
                 ),
               );

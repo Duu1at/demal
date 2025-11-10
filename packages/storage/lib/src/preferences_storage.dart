@@ -1,7 +1,7 @@
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:storage/src/interface/storage_exception.dart';
+import 'package:storage/src/interface/storage_interface_read.dart';
 
-import 'interface/storage_interface_read.dart';
 
 class PreferencesStorage implements StorageInterfaceRead {
   PreferencesStorage._(this._sharedPreferences);
@@ -9,8 +9,7 @@ class PreferencesStorage implements StorageInterfaceRead {
 
   static Future<PreferencesStorage> getInstance([
     SharedPreferences? pref,
-  ]) async =>
-      PreferencesStorage._(pref ?? await SharedPreferences.getInstance());
+  ]) async => PreferencesStorage._(pref ?? await SharedPreferences.getInstance());
 
   @override
   String? readString({required String key}) {

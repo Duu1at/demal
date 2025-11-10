@@ -26,14 +26,12 @@ class CardDrawerWithSubtitle extends StatelessWidget {
 
     return Material(
       color: bg,
-      elevation: 0,
       clipBehavior: Clip.hardEdge,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
         side: withBorder
             ? BorderSide(
                 color: color.onSurface.withValues(alpha: 0.2),
-                width: 1,
               )
             : BorderSide.none,
       ),

@@ -14,9 +14,10 @@ class AppBlocObserver extends BlocObserver {
   @override
   void onChange(BlocBase bloc, Change change) {
     super.onChange(bloc, change);
-    talker.info('🔄 [CHANGE] ${bloc.runtimeType}');
-    talker.info('    │ CURRENT: ${change.currentState}');
-    talker.info('    │ NEXT:    ${change.nextState}');
+    talker
+      ..info('🔄 [CHANGE] ${bloc.runtimeType}')
+      ..info('    │ CURRENT: ${change.currentState}')
+      ..info('    │ NEXT:    ${change.nextState}');
   }
 
   @override
@@ -28,10 +29,11 @@ class AppBlocObserver extends BlocObserver {
   @override
   void onTransition(Bloc bloc, Transition transition) {
     super.onTransition(bloc, transition);
-    talker.info('⚡ [TRANSITION] ${bloc.runtimeType}');
-    talker.info('    │ EVENT: ${transition.event}');
-    talker.info('    │ CURRENT: ${transition.currentState}');
-    talker.info('    │ NEXT: ${transition.nextState}');
+    talker
+      ..info('⚡ [TRANSITION] ${bloc.runtimeType}')
+      ..info('    │ EVENT: ${transition.event}')
+      ..info('    │ CURRENT: ${transition.currentState}')
+      ..info('    │ NEXT: ${transition.nextState}');
   }
 
   @override
@@ -43,7 +45,8 @@ class AppBlocObserver extends BlocObserver {
   @override
   void onError(BlocBase bloc, Object error, StackTrace stackTrace) {
     super.onError(bloc, error, stackTrace);
-    talker.error('🚨 [ERROR] ${bloc.runtimeType} → $error');
-    talker.error(stackTrace.toString());
+    talker
+      ..error('🚨 [ERROR] ${bloc.runtimeType} → $error')
+      ..error(stackTrace.toString());
   }
 }

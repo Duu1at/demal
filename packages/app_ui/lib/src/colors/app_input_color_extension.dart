@@ -9,12 +9,6 @@ class AppInputColorExtension extends ThemeExtension<AppInputColorExtension> {
     this.success,
   });
 
-  final Color? primary;
-  final Color? background;
-  final Color? focused;
-  final Color? error;
-  final Color? success;
-
   factory AppInputColorExtension.light() {
     return const AppInputColorExtension(
       primary: Color(0xFF9C9FAF),
@@ -32,6 +26,12 @@ class AppInputColorExtension extends ThemeExtension<AppInputColorExtension> {
       success: Color(0xFF22C55E),
     );
   }
+
+  final Color? primary;
+  final Color? background;
+  final Color? focused;
+  final Color? error;
+  final Color? success;
 
   @override
   ThemeExtension<AppInputColorExtension> copyWith({
@@ -68,6 +68,5 @@ class AppInputColorExtension extends ThemeExtension<AppInputColorExtension> {
 }
 
 extension AppInputColors on BuildContext {
-  AppInputColorExtension get inputColors =>
-      Theme.of(this).extension<AppInputColorExtension>()!;
+  AppInputColorExtension get inputColors => Theme.of(this).extension<AppInputColorExtension>()!;
 }

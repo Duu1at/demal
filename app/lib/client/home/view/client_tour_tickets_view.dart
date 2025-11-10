@@ -128,8 +128,7 @@ class ClientTourTicketsView extends StatelessWidget {
               ),
             );
           },
-          separatorBuilder: (context, index) =>
-              const SizedBox(height: AppSpacing.sm),
+          separatorBuilder: (context, index) => const SizedBox(height: AppSpacing.sm),
           itemCount: 10,
         ),
       ),

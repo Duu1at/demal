@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 
 class ContactForm extends StatelessWidget {
   const ContactForm({
-    super.key,
     required this.nameController,
     required this.emailController,
+    super.key,
   });
 
   final TextEditingController nameController;
@@ -23,7 +23,7 @@ class ContactForm extends StatelessWidget {
         AppTextField(
           hintText: 'Full Name',
           prefixIcon: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8),
             child: Assets.icons.user.svg(
               width: 20,
               height: 20,
@@ -40,7 +40,7 @@ class ContactForm extends StatelessWidget {
         AppTextField(
           hintText: 'Email',
           prefixIcon: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(AppSpacing.sm),
             child: Assets.icons.email.svg(
               width: 20,
               height: 20,

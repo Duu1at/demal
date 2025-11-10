@@ -21,9 +21,8 @@ class TourIncludedSection extends StatelessWidget {
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Text("Что включено", style: theme.textTheme.titleMedium),
+              Text('Что включено', style: theme.textTheme.titleMedium),
               const SizedBox(height: AppSpacing.sm),
               ...included.map((item) => _buildRow(context, item, true)),
             ],
@@ -32,9 +31,8 @@ class TourIncludedSection extends StatelessWidget {
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Text("Не включено", style: theme.textTheme.titleMedium),
+              Text('Не включено', style: theme.textTheme.titleMedium),
               const SizedBox(height: AppSpacing.sm),
               ...notIncluded.map((item) => _buildRow(context, item, false)),
             ],
@@ -52,9 +50,7 @@ class TourIncludedSection extends StatelessWidget {
           Icon(
             included ? Icons.check_circle_rounded : Icons.cancel_rounded,
             size: 20,
-            color: included
-                ? Theme.of(context).colorScheme.primary
-                : Theme.of(context).colorScheme.error,
+            color: included ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.error,
           ),
           const SizedBox(width: 8),
           Flexible(

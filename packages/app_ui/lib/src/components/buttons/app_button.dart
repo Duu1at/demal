@@ -118,17 +118,11 @@ class AppButton extends StatelessWidget {
           return disabled ? colors.onSurface : colors.onPrimary;
         case AppButtonVariant.secondary:
         case AppButtonVariant.destructive:
-          return disabled
-              ? colors.onSurface.withValues(alpha: 0.38)
-              : colors.onPrimary;
+          return disabled ? colors.onSurface.withValues(alpha: 0.38) : colors.onPrimary;
         case AppButtonVariant.tonal:
-          return disabled
-              ? colors.onSurface.withValues(alpha: 0.38)
-              : colors.onSecondaryContainer;
+          return disabled ? colors.onSurface.withValues(alpha: 0.38) : colors.onSecondaryContainer;
         case AppButtonVariant.outline:
-          return disabled
-              ? colors.onSurface.withValues(alpha: 0.38)
-              : colors.primary;
+          return disabled ? colors.onSurface.withValues(alpha: 0.38) : colors.primary;
       }
     }
 
@@ -157,8 +151,7 @@ class AppButton extends StatelessWidget {
       shape: WidgetStateProperty.resolveWith(resolveShape),
       side: WidgetStateProperty.resolveWith(resolveBorder),
       elevation: WidgetStateProperty.resolveWith((states) {
-        if (variant == AppButtonVariant.outline ||
-            variant == AppButtonVariant.tonal) {
+        if (variant == AppButtonVariant.outline || variant == AppButtonVariant.tonal) {
           return 0;
         }
         if (states.contains(WidgetState.pressed)) return 0;
@@ -180,9 +173,7 @@ class AppButton extends StatelessWidget {
       visualDensity: VisualDensity.standard,
     ).merge(style);
 
-    final effectiveOnPressed = (isLoading || onPressed == null)
-        ? null
-        : onPressed;
+    final effectiveOnPressed = (isLoading || onPressed == null) ? null : onPressed;
 
     final content = _ButtonContent(
       leading: leading,
@@ -261,9 +252,7 @@ class _ButtonContent extends StatelessWidget {
             child: child is Text
                 ? Text(
                     (child as Text).data ?? '',
-                    style:
-                        (child as Text).style?.copyWith(color: fg) ??
-                        TextStyle(color: fg),
+                    style: (child as Text).style?.copyWith(color: fg) ?? TextStyle(color: fg),
                     textAlign: (child as Text).textAlign,
                     maxLines: (child as Text).maxLines,
                     overflow: (child as Text).overflow,

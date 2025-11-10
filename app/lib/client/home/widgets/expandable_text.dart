@@ -2,7 +2,11 @@ import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 
 class ExpandableText extends StatefulWidget {
-  const ExpandableText({super.key, required this.text, this.maxLines = 4});
+  const ExpandableText({
+    required this.text,
+    super.key,
+    this.maxLines = 4,
+  });
   final String text;
   final int maxLines;
 
@@ -29,7 +33,7 @@ class _ExpandableTextState extends State<ExpandableText> {
         GestureDetector(
           onTap: () => setState(() => _isExpanded = !_isExpanded),
           child: Text(
-            _isExpanded ? "Read less..." : "Read more...",
+            _isExpanded ? 'Read less...' : 'Read more...',
             style: theme.textTheme.bodyMedium?.copyWith(
               color: theme.colorScheme.primary,
               fontWeight: FontWeight.w700,

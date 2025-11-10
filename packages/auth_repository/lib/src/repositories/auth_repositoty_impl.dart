@@ -1,6 +1,7 @@
 import 'package:auth_repository/auth_repository.dart';
 import 'package:meta/meta.dart';
 
+
 @immutable
 final class AuthRepositoryImpl implements AuthRepository {
   const AuthRepositoryImpl({
@@ -23,15 +24,14 @@ final class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<void> logOut() async {
     try {
-      authLocalDataSource.logOut();
+    await  authLocalDataSource.logOut();
     } catch (e, s) {
       throw AuthException(e, s);
     }
   }
 
   @override
-  Future<String> sendOtp(String phoneNumber) =>
-      authRemoteDataSource.sendOtp(phoneNumber);
+  Future<String> sendOtp(String phoneNumber) => authRemoteDataSource.sendOtp(phoneNumber);
 
   @override
   Future<AuthLoginModel> verifyOtp(String phoneNumber, String otpCode) async {

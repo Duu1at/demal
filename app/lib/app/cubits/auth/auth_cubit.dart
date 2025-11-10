@@ -35,34 +35,34 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  void changeRole(Role role) async {
+  Future<void> changeRole(Role role) async {
     await _repository.setRole(role);
 
     emit(state.copyWith(role: role));
   }
 
   void logout() {
-    final bool onboardingStatus = state.hasCompletedOnboarding;
+    final onboardingStatus = state.hasCompletedOnboarding;
     _repository.logOut();
     emit(AuthState.unauthenticated(hasCompletedOnboarding: onboardingStatus));
   }
 
-  void deleteAccount() async {
+  Future<void> deleteAccount() async {
     _repository.deleteAccount();
-    await _repository.saveOnboardingStatus(completed: false);
+    await _repository.saveOnboardingStatus(false);
     emit(const AuthState.unauthenticated(hasCompletedOnboarding: false));
   }
 
   Future<void> login(UserModel user, String token) async {
     if (!state.hasCompletedOnboarding) {
-      await _repository.saveOnboardingStatus(completed: true);
+      await _repository.saveOnboardingStatus(true);
     }
 
-    emit(AuthState.authenticated(user, token, hasCompletedOnboarding: true));
+    emit(AuthState.authenticated(user, token));
   }
 
   Future<void> completeOnboarding() async {
-    await _repository.saveOnboardingStatus(completed: true);
+    await _repository.saveOnboardingStatus(true);
     emit(
       state.copyWith(
         hasCompletedOnboarding: true,

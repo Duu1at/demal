@@ -15,6 +15,7 @@ import 'package:go_router/go_router.dart';
 final navigatorKey = GlobalKey<NavigatorState>();
 final clientNavigatorKey = GlobalKey<NavigatorState>();
 final partnerNavigatorKey = GlobalKey<NavigatorState>();
+final scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
 
 class GoRouterRefreshStream extends ChangeNotifier {
   GoRouterRefreshStream(Stream<dynamic> stream) {
@@ -24,8 +25,8 @@ class GoRouterRefreshStream extends ChangeNotifier {
   late final StreamSubscription<dynamic> _subscription;
 
   @override
-  void dispose() {
-    _subscription.cancel();
+  Future<void> dispose() async {
+    await _subscription.cancel();
     super.dispose();
   }
 }
@@ -136,7 +137,7 @@ final class AppRouter {
             GoRoute(
               path: otp,
               name: otp,
-              builder: (context, state) => OtpView(state.extra as String),
+              builder: (context, state) => OtpView(state.extra! as String),
             ),
           ],
         ),
@@ -180,7 +181,7 @@ final class AppRouter {
         name: clientTourFilters,
         builder: (context, state) {
           return BlocProvider.value(
-            value: state.extra as ToursBloc,
+            value: state.extra! as ToursBloc,
             child: const ClientTourFiltersView(),
           );
         },

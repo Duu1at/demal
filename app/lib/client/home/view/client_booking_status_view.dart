@@ -8,7 +8,6 @@ class ClientBookingStatusView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScaffoldWithBgImage(
       body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Assets.images.succesStatus.image(),

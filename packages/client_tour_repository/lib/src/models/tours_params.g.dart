@@ -19,16 +19,15 @@ ToursParams _$ToursParamsFromJson(Map<String, dynamic> json) => ToursParams(
   limit: (json['limit'] as num?)?.toInt(),
 );
 
-Map<String, dynamic> _$ToursParamsToJson(ToursParams instance) =>
-    <String, dynamic>{
-      'search': instance.search,
-      'location': instance.location,
-      'tour_type': instance.tourType,
-      'date_from': instance.dateFrom,
-      'date_to': instance.dateTo,
-      'price_min': instance.priceMin,
-      'price_max': instance.priceMax,
-      'sort_by': ToursParams._sortToJson(instance.sortBy),
-      'page': instance.page,
-      'limit': instance.limit,
-    };
+Map<String, dynamic> _$ToursParamsToJson(ToursParams instance) => <String, dynamic>{
+  'search': instance.search,
+  'location': instance.location,
+  'tour_type': instance.tourType,
+  'date_from': instance.dateFrom,
+  'date_to': instance.dateTo,
+  'price_min': instance.priceMin,
+  'price_max': instance.priceMax,
+  'sort_by': ToursParams._sortToJson(instance.sortBy),
+  'page': instance.page,
+  'limit': instance.limit,
+};

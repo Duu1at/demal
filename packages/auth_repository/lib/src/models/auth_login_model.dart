@@ -1,6 +1,7 @@
-import 'user_model.dart';
+import 'package:auth_repository/auth_repository.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
+
 
 part 'auth_login_model.g.dart';
 
@@ -14,8 +15,7 @@ final class AuthLoginModel {
     required this.user,
   });
 
-  factory AuthLoginModel.fromJson(Map<String, dynamic> json) =>
-      _$AuthLoginModelFromJson(json);
+  factory AuthLoginModel.fromJson(Map<String, dynamic> json) => _$AuthLoginModelFromJson(json);
 
   final bool success;
   @JsonKey(name: 'auth_token')

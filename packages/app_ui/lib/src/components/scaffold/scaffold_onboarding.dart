@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 
 class ScaffoldOnboarding extends StatelessWidget {
   const ScaffoldOnboarding({
+    required this.image,
     this.appBar,
     this.body,
     this.floatingActionButton,
     this.floatingActionButtonLocation,
-    required this.image,
     super.key,
   });
 

@@ -8,7 +8,7 @@ final class ClientTourRepositoryImpl implements ClientTourRepository {
   final ClientTourRemoteDataSource clientTourRemoteDataSource;
 
   @override
-  Future<TourDetailModel> getTourDetail(tourId) async {
+  Future<TourDetailModel> getTourDetail(String tourId) async {
     try {
       final result = await clientTourRemoteDataSource.getToursDetail(tourId);
       return result;
@@ -18,7 +18,7 @@ final class ClientTourRepositoryImpl implements ClientTourRepository {
   }
 
   @override
-  Future<ToursModel> getTours(params) async {
+  Future<ToursModel> getTours(ToursParams params) async {
     try {
       final result = await clientTourRemoteDataSource.getTours(params);
       return result;

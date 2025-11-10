@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AppLocaleCubit extends Cubit<Locale> {
-  AppLocaleCubit(this.appThemeRepository)
-    : super(appThemeRepository.getInitialLocale());
+  AppLocaleCubit(this.appThemeRepository) : super(appThemeRepository.getInitialLocale());
 
   final AppRepository appThemeRepository;
 

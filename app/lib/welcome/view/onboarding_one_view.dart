@@ -13,7 +13,6 @@ class OnboardingOneView extends StatelessWidget {
       image: Assets.images.onboarding1.provider(),
       appBar: AppBar(elevation: 0, automaticallyImplyLeading: false),
       body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Align(
             alignment: Alignment.centerRight,

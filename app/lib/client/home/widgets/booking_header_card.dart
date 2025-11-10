@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 
 class BookingHeaderCard extends StatelessWidget {
   const BookingHeaderCard({
-    super.key,
     required this.imageUrl,
+    super.key,
     this.region,
     this.tourTitle,
     this.data,

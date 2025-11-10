@@ -32,7 +32,6 @@ class _LoginViewState extends State<LoginView> {
         child: Form(
           key: _formKey,
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
               CircleAvatar(
@@ -61,8 +60,7 @@ class _LoginViewState extends State<LoginView> {
               AppButton(
                 onPressed: () {
                   if (_formKey.currentState?.validate() ?? false) {
-                    final phoneNumber = InputFormatters.phoneFormatter
-                        .getUnmaskedText();
+                    final phoneNumber = InputFormatters.phoneFormatter.getUnmaskedText();
                     context.goNamed(AppRouter.otp, extra: phoneNumber);
                   }
                 },

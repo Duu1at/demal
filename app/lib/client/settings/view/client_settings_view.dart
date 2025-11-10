@@ -16,8 +16,7 @@ class ClientSettingsView extends StatefulWidget {
   State<ClientSettingsView> createState() => _ClientSettingsViewState();
 }
 
-class _ClientSettingsViewState extends State<ClientSettingsView>
-    with SettingsChangeMixin<ClientSettingsView> {
+class _ClientSettingsViewState extends State<ClientSettingsView> with SettingsChangeMixin<ClientSettingsView> {
   String? pathUrl;
   @override
   Widget build(BuildContext context) {
@@ -30,7 +29,6 @@ class _ClientSettingsViewState extends State<ClientSettingsView>
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const SizedBox(height: AppSpacing.sm),
               AvatarWidget(
@@ -63,7 +61,7 @@ class _ClientSettingsViewState extends State<ClientSettingsView>
                   color: theme.colorScheme.primary,
                 ),
                 title: context.l10n.appTheme,
-                onTap: () async => await changeTheme(),
+                onTap: () async => changeTheme(),
               ),
 
               const SizedBox(height: AppSpacing.lg),

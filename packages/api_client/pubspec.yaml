@@ -7,10 +7,10 @@ environment:
   sdk: ^3.9.0
 
 dependencies:
+  connectivity_plus:
+  dio:
   flutter:
     sdk: flutter
-  dio:
-  connectivity_plus:
   meta:
 
 dev_dependencies:

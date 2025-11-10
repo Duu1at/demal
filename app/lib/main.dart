@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:app/app/app_view.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:core/api/api.dart';
-import 'package:core/di/injector.dart';
 import 'package:core/keys/storage_keys.dart';
 import 'package:core/network/network_client/network_client.dart';
 import 'package:core/network/remote_client.dart';
@@ -15,31 +14,27 @@ import 'package:talker_bloc_logger/talker_bloc_logger_observer.dart';
 import 'package:talker_bloc_logger/talker_bloc_logger_settings.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
-final scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
-
 void main() async {
   final talker = TalkerFlutter.init();
-  runZonedGuarded(
+  await runZonedGuarded(
     () async {
       WidgetsFlutterBinding.ensureInitialized();
 
       Bloc.observer = TalkerBlocObserver(
         talker: talker,
         settings: const TalkerBlocLoggerSettings(
-          enabled: true,
           printEventFullData: false,
           printStateFullData: false,
           printChanges: true,
           printClosings: true,
           printCreations: true,
-          printEvents: true,
-          printTransitions: true,
         ),
       );
 
       FlutterError.onError = (details) {
-        talker.error(details.exceptionAsString());
-        talker.error(details.stack.toString());
+        talker
+          ..error(details.exceptionAsString())
+          ..error(details.stack.toString());
         FlutterError.dumpErrorToConsole(details);
       };
 
@@ -47,9 +42,7 @@ void main() async {
       runApp(
         MultiRepositoryProvider(
           providers: [
-            RepositoryProvider<PreferencesStorage>(
-              create: (context) => storage,
-            ),
+            RepositoryProvider<PreferencesStorage>(create: (context) => storage),
             RepositoryProvider<NetworkClient>(
               create: (context) => NetworkClient(connectivity: Connectivity()),
             ),
@@ -58,13 +51,12 @@ void main() async {
                 dio: Dio(
                   BaseOptions(
                     baseUrl: Api.baseUrl,
-                    connectTimeout: const Duration(seconds: 10),
-                    receiveTimeout: const Duration(seconds: 10),
+                    connectTimeout: const Duration(seconds: 100),
+                    receiveTimeout: const Duration(seconds: 100),
                   ),
                 ),
                 network: context.read<NetworkClient>(),
-                resolveAppRole: () =>
-                    storage.readString(key: StorageKeys.roleKey),
+                resolveAppRole: () => storage.readString(key: StorageKeys.roleKey),
               ),
             ),
           ],
@@ -72,8 +64,6 @@ void main() async {
         ),
       );
     },
-    (error, stack) {
-      talker.handle(error, stack);
-    },
+    talker.handle,
   );
 }

@@ -1,12 +1,10 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:core/di/injector.dart';
 import 'package:core/network/exception/remote_exception.dart';
 import 'package:core/network/network_client/network_client.dart';
 import 'package:dio/dio.dart';
 import 'package:talker_dio_logger/talker_dio_logger_interceptor.dart';
 import 'package:talker_dio_logger/talker_dio_logger_settings.dart';
-import 'package:talker_flutter/talker_flutter.dart';
 
 typedef FromJson<T> = T Function(Map<String, dynamic>);
 
@@ -49,9 +47,8 @@ class RemoteClient {
         onResponse: (response, handler) => handler.next(response),
       ),
       TalkerDioLogger(
-        talker: getIt<Talker>(),
+        // talker: getIt<Talker>(),
         settings: const TalkerDioLoggerSettings(
-          printResponseData: true,
           printRequestHeaders: true,
           printResponseHeaders: true,
         ),
@@ -98,8 +95,7 @@ class RemoteClient {
     FromJson<T>? fromJson,
   }) async {
     return _handleRequest(
-      () =>
-          dio.get<Map<String, dynamic>>(url, queryParameters: queryParameters),
+      () => dio.get<Map<String, dynamic>>(url, queryParameters: queryParameters),
       fromJson: fromJson,
     );
   }

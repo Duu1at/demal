@@ -9,42 +9,39 @@ environment:
   sdk: ^3.9.0
 
 dependencies:
+  app_ui:
+  auth_repository:
+  bloc_concurrency:
+  cached_network_image:
+  carousel_slider:
+  client_tour_repository:
+  connectivity_plus:
+  core:
+  dio:
+  equatable:
   flutter:
     sdk: flutter
+  flutter_bloc:
+  flutter_cache_manager:
   flutter_localizations:
     sdk: flutter
-  core:
-  app_ui:
-  storage:
-  auth_repository:
-  client_tour_repository:
-
-  
-  flutter_bloc:
-  intl:
-  equatable: 
-  loader_overlay:
-  pinput:
-  mask_text_input_formatter:
-  go_router:
-  talker_flutter:
-  permission_handler:
-  flutter_cache_manager:
-  cached_network_image:
-  image_picker:
-  carousel_slider:
   flutter_map:
-  latlong2:
-  url_launcher:
-  image_editor_plus:
-  talker_bloc_logger: 
-  smart_auth:
-  stream_transform:
-  bloc_concurrency:
-  shimmer:
+  go_router:
+  image_picker:
   infinite_scroll_pagination:
-  connectivity_plus:
-  dio:
+  intl:
+  latlong2:
+  loader_overlay:
+  mask_text_input_formatter:
+  permission_handler:
+  pinput:
+  shimmer:
+  smart_auth:
+  storage:
+  stream_transform:
+  talker_bloc_logger:
+  talker_flutter:
+  url_launcher:
   
 dev_dependencies:
   very_good_analysis:

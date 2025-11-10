@@ -26,19 +26,11 @@ TourModel _$TourModelFromJson(Map<String, dynamic> json) => TourModel(
       : MeetingPointModel.fromJson(
           json['meeting_point'] as Map<String, dynamic>,
         ),
-  whatsIncluded: (json['whats_included'] as List<dynamic>?)
-      ?.map((e) => e as String)
-      .toList(),
-  whatsNotIncluded: (json['whats_not_included'] as List<dynamic>?)
-      ?.map((e) => e as String)
-      .toList(),
+  whatsIncluded: (json['whats_included'] as List<dynamic>?)?.map((e) => e as String).toList(),
+  whatsNotIncluded: (json['whats_not_included'] as List<dynamic>?)?.map((e) => e as String).toList(),
   whatToBring: json['what_to_bring'] as String?,
-  imageGalleryUrls: (json['image_gallery_urls'] as List<dynamic>?)
-      ?.map((e) => e as String)
-      .toList(),
-  organizer: json['organizer'] == null
-      ? null
-      : OrganizerModel.fromJson(json['organizer'] as Map<String, dynamic>),
+  imageGalleryUrls: (json['image_gallery_urls'] as List<dynamic>?)?.map((e) => e as String).toList(),
+  organizer: json['organizer'] == null ? null : OrganizerModel.fromJson(json['organizer'] as Map<String, dynamic>),
   status: json['status'] as String?,
   averageRating: (json['average_rating'] as num?)?.toDouble(),
   reviewsCount: (json['reviews_count'] as num?)?.toInt(),

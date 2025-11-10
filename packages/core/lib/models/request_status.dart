@@ -5,6 +5,12 @@ sealed class RequestStatus<T> extends Equatable {
 
   @override
   List<Object?> get props => [];
+  bool get isInitial => this is RequestInitial;
+  bool get isLoading => this is RequestLoading;
+  bool get isSuccess => this is RequestSuccess;
+  bool get isFailure => this is RequestFailure;
+  bool get isInitLoading => isInitial || isLoading;
+  bool get notInitLoading => !isInitial && !isLoading;
 }
 
 final class RequestInitial<T> extends RequestStatus<T> {
@@ -29,13 +35,4 @@ final class RequestFailure<T> extends RequestStatus<T> {
 
   @override
   List<Object?> get props => [exception];
-}
-
-extension RequestStatusX<T> on RequestStatus<T> {
-  bool get isInitial => this is RequestInitial;
-  bool get isLoading => this is RequestLoading;
-  bool get isSuccess => this is RequestSuccess;
-  bool get isFailure => this is RequestFailure;
-  bool get isInitLoading => isInitial || isLoading;
-  bool get notInitLoading => !isInitial && !isLoading;
 }

@@ -1,8 +1,9 @@
 import 'package:app_ui/src/colors/app_theme_color_extension.dart';
+import 'package:app_ui/src/spacing/app_spacing.dart';
 import 'package:flutter/material.dart';
 
 class AppCard extends StatelessWidget {
-  const AppCard({super.key, required this.child});
+  const AppCard({required this.child, super.key});
 
   final Widget child;
 
@@ -23,13 +24,11 @@ class AppCard extends StatelessWidget {
                 offset: const Offset(0, 1),
               ),
         ],
-        shape: BoxShape.rectangle,
         border: Border.all(
           color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.2),
-          width: 1,
         ),
       ),
-      child: Padding(padding: const EdgeInsets.all(16.0), child: child),
+      child: Padding(padding: const EdgeInsets.all(AppSpacing.lg), child: child),
     );
   }
 }

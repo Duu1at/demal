@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 
 class GuestsSelector extends StatelessWidget {
   const GuestsSelector({
-    super.key,
     required this.count,
     required this.onChanged,
+    super.key,
   });
   final int count;
   final ValueChanged<int> onChanged;

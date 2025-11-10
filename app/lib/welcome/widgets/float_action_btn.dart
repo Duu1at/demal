@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 
 class FloatActionBtn extends StatelessWidget {
   const FloatActionBtn({
-    super.key,
-    this.onPressed,
     required this.title,
     required this.subtitle,
     required this.fillPointIndex,
     required this.textBtn,
+    this.onPressed,
+    super.key,
   });
   final void Function()? onPressed;
   final String title;

@@ -12,8 +12,7 @@ class MapWidget extends StatelessWidget {
       options: const MapOptions(initialCenter: point, initialZoom: 14),
       children: [
         TileLayer(
-          urlTemplate:
-              'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
+          urlTemplate: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
           subdomains: const ['a', 'b', 'c', 'd'],
           userAgentPackageName: 'com.example.app',
         ),

@@ -1,17 +1,19 @@
-import 'package:flutter/material.dart';
+import 'dart:async';
+
 import 'package:app_ui/app_ui.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
 class AvatarOverlay extends StatefulWidget {
   const AvatarOverlay({
-    super.key,
     required this.globalKey,
     required this.avatarUrl,
     required this.animationController,
     this.cacheManager,
     this.themeData,
     this.fallbackSize,
+    super.key,
   });
   final GlobalKey globalKey;
   final String? avatarUrl;
@@ -32,7 +34,7 @@ class _AvatarOverlayState extends State<AvatarOverlay> {
   void initState() {
     super.initState();
     beginRect = _getRect(widget.globalKey);
-    widget.animationController.forward();
+    unawaited(widget.animationController.forward());
   }
 
   @override
@@ -73,8 +75,8 @@ class _AvatarOverlayState extends State<AvatarOverlay> {
                   child: Image(image: provider, fit: BoxFit.cover),
                 ),
               ),
-              errorWidget: (_, __, ___) => emptyState,
-              progressIndicatorBuilder: (_, __, ___) => ShimmerContainer(
+              errorWidget: (_, _, _) => emptyState,
+              progressIndicatorBuilder: (_, _, _) => ShimmerContainer(
                 radius: imageSize,
                 width: imageSize,
                 height: imageSize,
@@ -111,8 +113,7 @@ class _AvatarOverlayState extends State<AvatarOverlay> {
   }
 
   Rect _getRect(GlobalKey key) {
-    assert(key.currentContext != null);
-    final RenderBox box = key.currentContext!.findRenderObject()! as RenderBox;
+    final box = key.currentContext!.findRenderObject()! as RenderBox;
     final topLeftGlobal = box.localToGlobal(box.paintBounds.topLeft);
     final bottomRightGlobal = box.localToGlobal(box.paintBounds.bottomRight);
     return Rect.fromPoints(topLeftGlobal, bottomRightGlobal);

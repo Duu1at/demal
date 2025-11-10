@@ -15,10 +15,7 @@ final class AppLaunch {
   }) async {
     try {
       final isSuccess = await launchUrl(Uri(scheme: 'mailto', path: email));
-      if (!isSuccess &&
-          snackBarText != null &&
-          context != null &&
-          context.mounted) {
+      if (!isSuccess && snackBarText != null && context != null && context.mounted) {
         ScaffoldMessenger.of(
           context,
         ).showSnackBar(SnackBar(content: Text(snackBarText)));
@@ -38,10 +35,7 @@ final class AppLaunch {
         Uri.parse('https://telegram.me/$username'),
         mode: LaunchMode.externalApplication,
       );
-      if (!isSuccess &&
-          snackBarText != null &&
-          context != null &&
-          context.mounted) {
+      if (!isSuccess && snackBarText != null && context != null && context.mounted) {
         ScaffoldMessenger.of(
           context,
         ).showSnackBar(SnackBar(content: Text(snackBarText)));
@@ -61,10 +55,7 @@ final class AppLaunch {
         Uri.parse('whatsapp://send?phone=$whatsapp'),
         mode: LaunchMode.externalApplication,
       );
-      if (!isSuccess &&
-          snackBarText != null &&
-          context != null &&
-          context.mounted) {
+      if (!isSuccess && snackBarText != null && context != null && context.mounted) {
         ScaffoldMessenger.of(
           context,
         ).showSnackBar(SnackBar(content: Text(snackBarText)));
@@ -81,10 +72,7 @@ final class AppLaunch {
   }) async {
     try {
       final isSuccess = await launchUrl(Uri.parse(url));
-      if (!isSuccess &&
-          snackBarText != null &&
-          context != null &&
-          context.mounted) {
+      if (!isSuccess && snackBarText != null && context != null && context.mounted) {
         ScaffoldMessenger.of(
           context,
         ).showSnackBar(SnackBar(content: Text(snackBarText)));
@@ -102,9 +90,7 @@ final class AppLaunch {
     try {
       await launchUrl(
         Uri.parse(url),
-        mode: Platform.isAndroid
-            ? LaunchMode.externalApplication
-            : LaunchMode.platformDefault,
+        mode: Platform.isAndroid ? LaunchMode.externalApplication : LaunchMode.platformDefault,
       );
     } catch (e, s) {
       log('launch Error: $e, \n launch StackTrace: $s');
@@ -119,10 +105,7 @@ final class AppLaunch {
     final uri = Uri(scheme: 'tel', path: phoneNumber);
     try {
       final isSuccess = await launchUrl(uri);
-      if (!isSuccess &&
-          snackBarText != null &&
-          context != null &&
-          context.mounted) {
+      if (!isSuccess && snackBarText != null && context != null && context.mounted) {
         ScaffoldMessenger.of(
           context,
         ).showSnackBar(SnackBar(content: Text(snackBarText)));

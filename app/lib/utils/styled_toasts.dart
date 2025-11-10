@@ -1,8 +1,8 @@
-import 'package:app/main.dart';
+import 'package:app/app/router/app_router.dart';
 import 'package:flutter/material.dart';
 
 class AppSnackBar {
-  static Future<void> showBaseSnack(String text) async {
+  static void showBaseSnack(String text) {
     scaffoldMessengerKey.currentState?.showSnackBar(
       SnackBar(
         content: Text(text),
@@ -25,9 +25,7 @@ class AppSnackBar {
         content: Container(
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: isSuccess
-                ? const Color(0xff54B25A)
-                : const Color(0xFFFC4637),
+            color: isSuccess ? const Color(0xff54B25A) : const Color(0xFFFC4637),
             borderRadius: BorderRadius.circular(16),
           ),
           child: Text(

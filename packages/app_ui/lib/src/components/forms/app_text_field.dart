@@ -46,8 +46,6 @@ class AppTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       color: Colors.transparent,
-      elevation: 0,
-      clipBehavior: Clip.none,
       child: TextFormField(
         enabled: enabled,
         cursorColor: Theme.of(context).colorScheme.onSecondary,
@@ -64,7 +62,6 @@ class AppTextField extends StatelessWidget {
           border: OutlineInputBorder(
             borderRadius: const BorderRadius.all(Radius.circular(16)),
             borderSide: BorderSide(
-              width: 1,
               color: context.inputColors.primary ?? Colors.transparent,
             ),
           ),
@@ -72,21 +69,18 @@ class AppTextField extends StatelessWidget {
             borderRadius: const BorderRadius.all(Radius.circular(16)),
             borderSide: BorderSide(
               color: context.inputColors.focused ?? Colors.transparent,
-              width: 1,
             ),
           ),
           disabledBorder: OutlineInputBorder(
             borderRadius: const BorderRadius.all(Radius.circular(16)),
             borderSide: BorderSide(
               color: context.inputColors.background ?? Colors.transparent,
-              width: 1,
             ),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: const BorderRadius.all(Radius.circular(16)),
             borderSide: BorderSide(
               color: context.inputColors.primary ?? Colors.transparent,
-              width: 1,
             ),
           ),
 

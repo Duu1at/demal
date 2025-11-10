@@ -1,10 +1,10 @@
+
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:meta/meta.dart';
 
 @immutable
 final class NetworkClient {
-  NetworkClient({Connectivity? connectivity})
-    : connectivity = connectivity ?? Connectivity();
+  NetworkClient({Connectivity? connectivity}) : connectivity = connectivity ?? Connectivity();
 
   final Connectivity connectivity;
 

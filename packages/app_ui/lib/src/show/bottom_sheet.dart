@@ -5,7 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-abstract class BottomSheets {
+abstract final class BottomSheets {
   static Future<T?> showModalSettingsSheet<T>({
     required BuildContext context,
     required Widget child,
@@ -80,8 +80,7 @@ abstract class BottomSheets {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [...actions as List<Widget>],
+                children: actions?.cast<Widget>() ?? const [],
               ),
             );
           },
@@ -91,13 +90,14 @@ abstract class BottomSheets {
 }
 
 class CustomActionButton extends StatefulWidget {
-  final String title;
-  final VoidCallback onTap;
   const CustomActionButton({
-    super.key,
     required this.onTap,
     required this.title,
+    super.key,
   });
+
+  final String title;
+  final VoidCallback onTap;
 
   @override
   State<CustomActionButton> createState() => _CustomActionButtonState();
@@ -130,13 +130,16 @@ class _CustomActionButtonState extends State<CustomActionButton> {
 }
 
 class MaterialActionSheetAction extends StatefulWidget {
-  const MaterialActionSheetAction({super.key, required this.title, this.onTap});
+  const MaterialActionSheetAction({
+    required this.title,
+    super.key,
+    this.onTap,
+  });
   final String title;
   final VoidCallback? onTap;
 
   @override
-  State<MaterialActionSheetAction> createState() =>
-      _MaterialActionSheetActionState();
+  State<MaterialActionSheetAction> createState() => _MaterialActionSheetActionState();
 }
 
 class _MaterialActionSheetActionState extends State<MaterialActionSheetAction> {

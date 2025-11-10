@@ -29,8 +29,7 @@ final class AuthState extends Equatable {
         hasCompletedOnboarding: hasCompletedOnboarding,
       );
 
-  const AuthState.failure(Object message)
-    : this(status: AuthStatus.failure, errorMessage: message);
+  const AuthState.failure(Object message) : this(status: AuthStatus.failure, errorMessage: message);
 
   final AuthStatus status;
   final UserModel? user;
@@ -52,8 +51,7 @@ final class AuthState extends Equatable {
       user: user ?? this.user,
       token: token ?? this.token,
       errorMessage: errorMessage ?? this.errorMessage,
-      hasCompletedOnboarding:
-          hasCompletedOnboarding ?? this.hasCompletedOnboarding,
+      hasCompletedOnboarding: hasCompletedOnboarding ?? this.hasCompletedOnboarding,
       role: role ?? this.role,
     );
   }

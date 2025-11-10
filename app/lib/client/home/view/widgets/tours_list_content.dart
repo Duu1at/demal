@@ -28,7 +28,7 @@ class ToursListContent extends StatelessWidget {
                 cacheManager: DefaultCacheManager(),
               );
             },
-            separatorBuilder: (_, __) => const SizedBox(height: AppSpacing.md),
+            separatorBuilder: (_, _) => const SizedBox(height: AppSpacing.md),
             itemCount: hasMore ? tours.length + 1 : tours.length,
           ),
         );
