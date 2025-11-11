@@ -2,27 +2,23 @@ import 'package:api_client/api_client.dart';
 
 class BaseInterceptor extends Interceptor {
   const BaseInterceptor({
-    this.language,
-    this.buildNumber,
-    this.platform,
+    this.role,
+    this.token,
   });
 
-  final ResolveValue? language;
-  final ResolveValue? buildNumber;
-  final ResolveValue? platform;
+  final ResolveValue? role;
+  final ResolveValue? token;
 
   @override
   void onRequest(
     RequestOptions options,
     RequestInterceptorHandler handler,
   ) {
-    final languageValue = language?.call();
-    final buildNumberValue = buildNumber?.call();
-    final platformValue = platform?.call();
+    final tokenValue = token?.call();
+    final roleValue = role?.call();
     options.headers.addAll({
-      if (languageValue != null && languageValue.isNotEmpty) 'Accept-Language': languageValue,
-      if (buildNumberValue != null && buildNumberValue.isNotEmpty) 'versionBuild': buildNumberValue,
-      if (platformValue != null && platformValue.isNotEmpty) 'os': platformValue,
+      if (tokenValue != null && tokenValue.isNotEmpty) 'Authorization': 'Bearer $tokenValue',
+      if (roleValue != null && roleValue.isNotEmpty) 'X-App-Role': roleValue,
     });
     return handler.next(options);
   }

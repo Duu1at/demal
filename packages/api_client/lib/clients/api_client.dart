@@ -18,9 +18,6 @@ class ApiClient with ConverterMixin {
     return ApiClient._(DioRequestExecutor(dio, connection));
   }
 
-  static const bearerInstance = 'bearerInstance';
-  static const basicInstance = 'basicInstance';
-
   final RequestExecutor requestExecutor;
 
   Future<Response<T>> getResponse<T>(

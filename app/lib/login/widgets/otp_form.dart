@@ -1,12 +1,10 @@
-import 'package:app/app/cubits/auth_cubit/auth_cubit.dart';
+import 'package:app/app/app.dart';
+import 'package:app/core/core.dart';
 import 'package:app/l10n/l10n_extension.dart';
 import 'package:app/login/cubit/otp_cubit.dart';
 import 'package:app/utils/formatter/input_formatter.dart';
-import 'package:app/utils/styled_toasts.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:auth_repository/auth_repository.dart';
-import 'package:core/core.dart';
-import 'package:core/services/sms_retriever_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pinput/pinput.dart';
@@ -20,7 +18,7 @@ class OtpForm extends StatefulWidget {
 }
 
 class _OtpFormState extends State<OtpForm> {
-  late final SmsRetrieverService smsRetriever;
+  late final SmsRetrieverImpl smsRetriever;
   late final TextEditingController pinController;
   late final FocusNode focusNode;
   late final GlobalKey<FormState> formKey;
@@ -31,7 +29,7 @@ class _OtpFormState extends State<OtpForm> {
     formKey = GlobalKey<FormState>();
     pinController = TextEditingController();
     focusNode = FocusNode();
-    smsRetriever = SmsRetrieverService(SmartAuth.instance);
+    smsRetriever = SmsRetrieverImpl(SmartAuth.instance);
   }
 
   @override
@@ -143,9 +141,7 @@ class _OtpFormState extends State<OtpForm> {
                   await context.read<AuthCubit>().checkAuthStatus();
                 }
                 if (verifyStatus is RequestFailure<AuthLoginModel>) {
-                  AppSnackBar.showBaseSnack(
-                    verifyStatus.exception.parseError(),
-                  );
+                  // AppSnackBar.showBaseSnack(verifyStatus.exception.parseError());
                   pinController.clear();
                   focusNode.requestFocus();
                 }
@@ -169,7 +165,7 @@ class _OtpFormState extends State<OtpForm> {
               listener: (context, state) async {
                 final sendStatus = state.sendStatus;
                 if (sendStatus is RequestFailure) {
-                  AppSnackBar.showBaseSnack(sendStatus.exception.parseError());
+                  // AppSnackBar.showBaseSnack(sendStatus.exception.parseError());
                 }
               },
               builder: (context, state) {

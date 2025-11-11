@@ -1,10 +1,10 @@
 import 'package:app/app/cubits/auth_cubit/auth_cubit.dart';
 import 'package:app/app/mixin/settings_change_mixin.dart';
 import 'package:app/app/router/app_router.dart';
+import 'package:app/core/core.dart';
 import 'package:app/l10n/l10n_extension.dart';
 import 'package:app/widgets/avatar_widget.dart';
 import 'package:app_ui/app_ui.dart';
-import 'package:core/launch/app_launch.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';

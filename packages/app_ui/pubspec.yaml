@@ -8,7 +8,6 @@ environment:
 
 dependencies:
   cached_network_image:
-  core:
   flutter:
     sdk: flutter
   flutter_cache_manager:
@@ -35,7 +34,7 @@ flutter_gen:
     enabled: true
     outputs:
       package_parameter_enabled: true
-  output: lib/src/generated/
+  output: lib/generated/
   line_length: 120
 
   integrations:

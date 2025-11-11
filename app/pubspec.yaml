@@ -9,6 +9,7 @@ environment:
   sdk: ^3.9.0
 
 dependencies:
+  api_client:
   app_ui:
   auth_repository:
   bloc_concurrency:
@@ -41,6 +42,7 @@ dependencies:
   stream_transform:
   talker_bloc_logger:
   talker_flutter:
+  talker_dio_logger:
   url_launcher:
   
 dev_dependencies:
