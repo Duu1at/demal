@@ -244,7 +244,7 @@ class _ClientTourFiltersViewState extends State<ClientTourFiltersView> {
     if (s == null || s.isEmpty) return null;
     try {
       return DateTime.parse(s);
-    } catch (_) {
+    } on Object catch (_) {
       return null;
     }
   }

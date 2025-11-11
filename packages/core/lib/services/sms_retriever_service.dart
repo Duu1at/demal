@@ -13,7 +13,7 @@ class SmsRetrieverService implements SmsRetriever {
 
   @override
   Future<String?> getSmsCode() async {
-    final signature = await smartAuth.getAppSignature();
+    await smartAuth.getAppSignature();
 
     final res = await smartAuth.getSmsWithUserConsentApi();
     if (res.hasData) {

@@ -1,4 +1,4 @@
-import 'package:app/app/cubits/app_settings/app_theme_cubit.dart';
+import 'package:app/app/cubits/app_theme_cubit/app_theme_cubit.dart';
 import 'package:app/widgets/locale_settings_sheet.dart';
 import 'package:app/widgets/theme_settings_sheet.dart';
 import 'package:app_ui/app_ui.dart';
@@ -22,9 +22,11 @@ mixin SettingsChangeMixin<T extends StatefulWidget> on State<T> {
       context: context,
       child: const ThemeSelectorSheet(),
     );
-    if (result == null && context.mounted) {
+
+    if (mounted && result == null) {
       return context.read<AppThemeCubit>().state.isDark;
     }
+    
     return result;
   }
 }

@@ -1,10 +1,12 @@
-import 'package:api_client/src/src.dart';
+import 'package:api_client/api_client.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:meta/meta.dart';
 
 @immutable
-final class ConnectionService {
-  ConnectionService({Connectivity? connectivity}) : connectivity = connectivity ?? Connectivity();
+final class ConnectionChecker {
+  ConnectionChecker([
+    Connectivity? connectivity,
+  ]) : connectivity = connectivity ?? Connectivity();
 
   final Connectivity connectivity;
 

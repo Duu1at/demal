@@ -2,26 +2,19 @@ include: package:very_good_analysis/analysis_options.yaml
 
 analyzer:
   exclude:
-    - '**.g.dart'
-    - '**.freezed.dart'
+    - "**/*.g.dart"
   errors:
-    avoid_catches_without_on_clauses: ignore
-    avoid_positional_boolean_parameters: ignore
-    avoid_print: error
-    discarded_futures: ignore
-    empty_catches: ignore
-    lines_longer_than_80_chars: ignore
-    public_member_api_docs: ignore
-    strict_raw_type: ignore
-    unused_local_variable: ignore
-    use_build_context_synchronously: ignore
+    todo: ignore
+
+formatter:
+  trailing_commas: preserve
+  page_width: 120
 
 linter:
   rules:
-    - prefer_const_constructors
-    - prefer_const_declarations
-    - require_trailing_commas
-    - prefer_final_locals
-    - always_declare_return_types
-    - unnecessary_parenthesis
-    - sort_child_properties_last
+    public_member_api_docs: false
+    lines_longer_than_80_chars: false
+    sort_pub_dependencies: false
+    avoid_positional_boolean_parameters: false
+    one_member_abstracts: false
+    discarded_futures: false

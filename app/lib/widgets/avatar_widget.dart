@@ -176,7 +176,9 @@ class _AvatarWidgetState extends State<AvatarWidget> with SingleTickerProviderSt
         return GestureDetector(
           onTap: () async {
             await _animationController.reverse();
-            GoRouter.of(context).pop();
+            if (context.mounted) {
+              GoRouter.of(context).pop();
+            }
           },
           child: _ImageOverlay(
             avatarUrl: widget.avatarUrl,
@@ -195,6 +197,8 @@ class _AvatarWidgetState extends State<AvatarWidget> with SingleTickerProviderSt
       visible = false;
       setState(() {});
     }
+    if (!mounted) return;
+
     await BottomSheets.show<void>(
       context,
       actions: [

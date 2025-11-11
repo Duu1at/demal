@@ -1,4 +1,4 @@
-import 'package:app/app/cubits/app_settings/app_locale_cubit.dart';
+import 'package:app/app/cubits/app_locale_cubit/app_locale_cubit.dart';
 import 'package:app/l10n/app_localizations.dart';
 import 'package:app/l10n/l10n_extension.dart';
 import 'package:app_ui/app_ui.dart';

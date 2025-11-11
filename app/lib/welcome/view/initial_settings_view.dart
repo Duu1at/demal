@@ -1,5 +1,5 @@
-import 'package:app/app/cubits/app_settings/app_theme_cubit.dart';
-import 'package:app/app/cubits/auth/auth_cubit.dart';
+import 'package:app/app/cubits/app_theme_cubit/app_theme_cubit.dart';
+import 'package:app/app/cubits/auth_cubit/auth_cubit.dart';
 import 'package:app/app/mixin/settings_change_mixin.dart';
 import 'package:app/app/router/app_router.dart';
 import 'package:app/l10n/app_localizations.dart';
@@ -71,9 +71,10 @@ class _InitialSettingsViewState extends State<InitialSettingsView> with Settings
               title: context.l10n.selectTheme,
               subtitle: _themeName,
               onTap: () async {
-                final resultIsDark = await changeTheme();
-                _themeName = (resultIsDark ?? false) ? context.l10n.darkTheme : context.l10n.lightTheme;
-                setState(() {});
+                final resultIsDark = await changeTheme() ?? false;
+                if (mounted) {
+                  setState(() => _themeName = resultIsDark ? context.l10n.darkTheme : context.l10n.lightTheme);
+                }
               },
             ),
           ],

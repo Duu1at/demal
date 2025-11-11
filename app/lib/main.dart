@@ -37,6 +37,7 @@ void main() async {
           ..error(details.stack.toString());
         FlutterError.dumpErrorToConsole(details);
       };
+    
 
       final storage = await PreferencesStorage.getInstance();
       runApp(

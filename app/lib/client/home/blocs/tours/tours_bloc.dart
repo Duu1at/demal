@@ -116,7 +116,7 @@ class ToursBloc extends Bloc<ToursEvent, ToursPagingState> {
           pagination: pagination,
         ),
       );
-    } catch (e) {
+    } on Object catch (e) {
       emit(state.copyWithParams(isLoading: false, error: e));
     }
   }

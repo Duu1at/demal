@@ -1,4 +1,4 @@
-import 'package:app/app/cubits/auth/auth_cubit.dart';
+import 'package:app/app/cubits/auth_cubit/auth_cubit.dart';
 import 'package:app/app/mixin/settings_change_mixin.dart';
 import 'package:app/app/router/app_router.dart';
 import 'package:app/l10n/l10n_extension.dart';

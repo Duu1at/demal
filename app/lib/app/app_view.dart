@@ -1,6 +1,6 @@
-import 'package:app/app/cubits/app_settings/app_locale_cubit.dart';
-import 'package:app/app/cubits/app_settings/app_theme_cubit.dart';
-import 'package:app/app/cubits/auth/auth_cubit.dart';
+import 'package:app/app/cubits/app_locale_cubit/app_locale_cubit.dart';
+import 'package:app/app/cubits/app_theme_cubit/app_theme_cubit.dart';
+import 'package:app/app/cubits/auth_cubit/auth_cubit.dart';
 import 'package:app/app/router/app_router.dart';
 import 'package:app/l10n/app_localizations.dart';
 import 'package:app_ui/app_ui.dart';

@@ -1,4 +1,4 @@
-import 'package:app/app/cubits/auth/auth_cubit.dart';
+import 'package:app/app/cubits/auth_cubit/auth_cubit.dart';
 import 'package:app/l10n/l10n_extension.dart';
 import 'package:app/login/cubit/otp_cubit.dart';
 import 'package:app/utils/formatter/input_formatter.dart';

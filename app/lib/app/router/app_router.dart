@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:app/app/cubits/auth/auth_cubit.dart';
+import 'package:app/app/cubits/auth_cubit/auth_cubit.dart';
 import 'package:app/app/view/splash_view.dart';
 import 'package:app/client/client.dart';
 import 'package:app/login/view/login_view.dart';

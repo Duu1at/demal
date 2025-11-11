@@ -1,0 +1,44 @@
+import 'dart:developer';
+import 'package:api_client/api_client.dart';
+
+class DioRequestExecutor implements RequestExecutor {
+  const DioRequestExecutor(this.dio, this.connection);
+
+  final Dio dio;
+  final ConnectionChecker connection;
+
+  @override
+  Future<Response<T>> request<T>(
+    String path, {
+    required RequestType method,
+    Object? data,
+    Map<String, dynamic>? queryParameters,
+    CancelToken? cancelToken,
+    Options? options,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
+  }) async {
+    try {
+      if (await connection.checkInternetConnection()) {
+        return dio.request<T>(
+          path,
+          data: data,
+          queryParameters: queryParameters,
+          onSendProgress: onSendProgress,
+          onReceiveProgress: onReceiveProgress,
+          cancelToken: cancelToken,
+          options: (options ?? Options()).copyWith(method: method.value),
+        );
+      } else {
+        log('ApiClient connection error $method $path');
+        throw const ConnectionException();
+      }
+    } on DioException catch (e, s) {
+      log('ApiClient request $method $path', error: e, stackTrace: s);
+      throw ApiClientException(e, s);
+    } catch (e, s) {
+      log('ApiClient request $method $path', error: e, stackTrace: s);
+      throw ApiClientUnknownException(e, s);
+    }
+  }
+}

@@ -20,7 +20,7 @@ final class AppLaunch {
           context,
         ).showSnackBar(SnackBar(content: Text(snackBarText)));
       }
-    } catch (e, s) {
+    }on Object catch (e, s) {
       log('launch Error: $e, \n launch StackTrace: $s');
     }
   }
@@ -40,7 +40,7 @@ final class AppLaunch {
           context,
         ).showSnackBar(SnackBar(content: Text(snackBarText)));
       }
-    } catch (e, s) {
+    }on Object catch (e, s) {
       log('launch Error: $e, \n launch StackTrace: $s');
     }
   }
@@ -60,7 +60,7 @@ final class AppLaunch {
           context,
         ).showSnackBar(SnackBar(content: Text(snackBarText)));
       }
-    } catch (e, s) {
+    }on Object catch (e, s) {
       log('launch Error: $e, \n launch StackTrace: $s');
     }
   }
@@ -77,7 +77,7 @@ final class AppLaunch {
           context,
         ).showSnackBar(SnackBar(content: Text(snackBarText)));
       }
-    } catch (e, s) {
+    }on Object catch (e, s) {
       log('launch Error: $e, \n launch StackTrace: $s');
     }
   }
@@ -92,7 +92,7 @@ final class AppLaunch {
         Uri.parse(url),
         mode: Platform.isAndroid ? LaunchMode.externalApplication : LaunchMode.platformDefault,
       );
-    } catch (e, s) {
+    }on Object catch (e, s) {
       log('launch Error: $e, \n launch StackTrace: $s');
     }
   }
@@ -110,7 +110,7 @@ final class AppLaunch {
           context,
         ).showSnackBar(SnackBar(content: Text(snackBarText)));
       }
-    } catch (e, s) {
+    } on Object catch (e, s) {
       log('launch Error: $e, \n launch StackTrace: $s');
     }
   }
