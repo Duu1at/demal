@@ -12,8 +12,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get onboardingTitle1 => 'All tours in one place';
 
   @override
-  String get onboardingSubTitle1 =>
-      'Hundreds of weekend offers in one convenient feed';
+  String get onboardingSubTitle1 => 'Hundreds of weekend offers in one convenient feed';
 
   @override
   String get onboardingTitle2 => 'Verified guides';
@@ -81,8 +80,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get simplicityAndConvenienceTitle => 'Simplicity and Convenience:';
 
   @override
-  String get simplicityAndConvenienceDescription =>
-      'book and pay for tours online in the app with a few clicks.';
+  String get simplicityAndConvenienceDescription => 'book and pay for tours online in the app with a few clicks.';
 
   @override
   String get myTickets => 'My Tickets';

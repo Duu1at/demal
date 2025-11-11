@@ -12,22 +12,19 @@ class AppLocalizationsKy extends AppLocalizations {
   String get onboardingTitle1 => 'Бардык турлар бир жерде';
 
   @override
-  String get onboardingSubTitle1 =>
-      'Бир ыңгайлуу лентада жүздөгөн дем алыш күндөрү сунуштар';
+  String get onboardingSubTitle1 => 'Бир ыңгайлуу лентада жүздөгөн дем алыш күндөрү сунуштар';
 
   @override
   String get onboardingTitle2 => 'Текшерилген гиддер';
 
   @override
-  String get onboardingSubTitle2 =>
-      'Чыныгы туристтердин калыс пикирлерин окуңуз';
+  String get onboardingSubTitle2 => 'Чыныгы туристтердин калыс пикирлерин окуңуз';
 
   @override
   String get onboardingTitle3 => '3 басуу менен брондоо';
 
   @override
-  String get onboardingSubTitle3 =>
-      'Узак кат алышуулар, скриншоттор жана күтүүлөр жок';
+  String get onboardingSubTitle3 => 'Узак кат алышуулар, скриншоттор жана күтүүлөр жок';
 
   @override
   String get next => 'Кийинкиси';

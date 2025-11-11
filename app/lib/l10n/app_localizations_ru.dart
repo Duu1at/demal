@@ -12,22 +12,19 @@ class AppLocalizationsRu extends AppLocalizations {
   String get onboardingTitle1 => 'Все туры в одном месте';
 
   @override
-  String get onboardingSubTitle1 =>
-      'Сотни предложений на выходные в одной удобной ленте';
+  String get onboardingSubTitle1 => 'Сотни предложений на выходные в одной удобной ленте';
 
   @override
   String get onboardingTitle2 => 'Проверенные гиды';
 
   @override
-  String get onboardingSubTitle2 =>
-      'Читайте честные отзывы от реальных туристов';
+  String get onboardingSubTitle2 => 'Читайте честные отзывы от реальных туристов';
 
   @override
   String get onboardingTitle3 => 'Бронируй в 3 клика';
 
   @override
-  String get onboardingSubTitle3 =>
-      'Без долгих переписок, скриншотов и ожидания';
+  String get onboardingSubTitle3 => 'Без долгих переписок, скриншотов и ожидания';
 
   @override
   String get next => 'Далее';
