@@ -33,8 +33,7 @@ final class TourModel {
     this.updatedAt,
   });
 
-  factory TourModel.fromJson(Map<String, dynamic> json) =>
-      _$TourModelFromJson(json);
+  factory TourModel.fromJson(Map<String, dynamic> json) => _$TourModelFromJson(json);
 
   @JsonKey(name: 'tour_id')
   final String? tourId;

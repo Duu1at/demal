@@ -11,8 +11,7 @@ class ClientBookingDetailsView extends StatefulWidget {
   const ClientBookingDetailsView({super.key});
 
   @override
-  State<ClientBookingDetailsView> createState() =>
-      _ClientBookingDetailsViewState();
+  State<ClientBookingDetailsView> createState() => _ClientBookingDetailsViewState();
 }
 
 class _ClientBookingDetailsViewState extends State<ClientBookingDetailsView> {
@@ -79,9 +78,8 @@ class _ClientBookingDetailsViewState extends State<ClientBookingDetailsView> {
 }
 
 class _TotalPriceRow extends StatelessWidget {
-  final int total;
-
   const _TotalPriceRow({required this.total});
+  final int total;
 
   @override
   Widget build(BuildContext context) {

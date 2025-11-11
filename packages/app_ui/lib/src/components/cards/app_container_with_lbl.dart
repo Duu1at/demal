@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 class AppContainerWithLbl extends StatelessWidget {
   const AppContainerWithLbl({
-    super.key,
     required this.label,
     required this.child,
+    super.key,
   });
   final String label;
   final Widget child;

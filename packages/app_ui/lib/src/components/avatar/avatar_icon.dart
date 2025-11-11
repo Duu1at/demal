@@ -5,7 +5,6 @@ import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
 class AvatarIcon extends StatefulWidget {
   const AvatarIcon({
-    super.key,
     required this.imageUrl,
     required this.cacheManager,
     this.size,
@@ -13,6 +12,7 @@ class AvatarIcon extends StatefulWidget {
     this.avatarController,
     this.errorWidget,
     this.framePadding,
+    super.key,
   });
 
   final CacheManager cacheManager;
@@ -27,8 +27,7 @@ class AvatarIcon extends StatefulWidget {
   State<AvatarIcon> createState() => _AvatarIconState();
 }
 
-class _AvatarIconState extends State<AvatarIcon>
-    with SingleTickerProviderStateMixin {
+class _AvatarIconState extends State<AvatarIcon> with SingleTickerProviderStateMixin {
   OverlayEntry? _overlayEntry;
   GlobalKey globalKey = GlobalKey();
   late AnimationController _animationController;
@@ -45,7 +44,7 @@ class _AvatarIconState extends State<AvatarIcon>
       );
       _animationController.addStatusListener((status) async {
         if (status == AnimationStatus.reverse) {
-          await Future.delayed(const Duration(milliseconds: 300));
+          await Future<void>.delayed(const Duration(milliseconds: 300));
           removeOverlay();
           visible = true;
           setState(() {});
@@ -61,17 +60,17 @@ class _AvatarIconState extends State<AvatarIcon>
     super.dispose();
   }
 
-  void _createOverlay() async {
+  Future<void> _createOverlay() async {
     if (isError) return;
     visible = false;
     setState(() {});
-    final OverlayState overlay = Overlay.of(context, rootOverlay: true);
+    final overlay = Overlay.of(context, rootOverlay: true);
     _overlayEntry = OverlayEntry(
       canSizeOverlay: true,
       builder: (context) {
         return GestureDetector(
-          onTap: () {
-            _animationController.reverse();
+          onTap: () async {
+            await _animationController.reverse();
           },
           child: AvatarOverlay(
             avatarUrl: widget.imageUrl,
@@ -95,7 +94,7 @@ class _AvatarIconState extends State<AvatarIcon>
 
   @override
   Widget build(BuildContext context) {
-    final double size = widget.size ?? 40;
+    final size = widget.size ?? 40;
     final Widget emptyState = Container(
       width: size,
       height: size,
@@ -120,7 +119,7 @@ class _AvatarIconState extends State<AvatarIcon>
 
     Widget result;
 
-    if (widget.imageUrl?.isNotEmpty == true) {
+    if (widget.imageUrl?.isNotEmpty ?? false) {
       result = CachedNetworkImage(
         key: globalKey,
         imageUrl: widget.imageUrl!,
@@ -141,14 +140,12 @@ class _AvatarIconState extends State<AvatarIcon>
             ),
           );
         },
-        errorWidget: (context, error, stackTrace) =>
-            widget.errorWidget ?? emptyState,
-        progressIndicatorBuilder: (context, child, loadingProgress) =>
-            ShimmerContainer(
-              height: widget.size ?? 56,
-              width: widget.size ?? 56,
-              radius: widget.size ?? 56,
-            ),
+        errorWidget: (context, error, stackTrace) => widget.errorWidget ?? emptyState,
+        progressIndicatorBuilder: (context, child, loadingProgress) => ShimmerContainer(
+          height: widget.size ?? 56,
+          width: widget.size ?? 56,
+          radius: widget.size ?? 56,
+        ),
       );
     } else {
       result = widget.errorWidget ?? emptyState;

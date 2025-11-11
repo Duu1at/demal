@@ -15,14 +15,14 @@ class TourHeaderSection extends StatelessWidget {
           children: [
             Flexible(
               child: Text(
-                "Saint Martin’s Island",
+                'Saint Martin’s Island',
                 style: theme.textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
               ),
             ),
             Text(
-              "2400c",
+              '2400c',
               style: theme.textTheme.titleLarge?.copyWith(
                 fontWeight: FontWeight.bold,
               ),
@@ -41,7 +41,7 @@ class TourHeaderSection extends StatelessWidget {
               ),
             ),
             const SizedBox(width: AppSpacing.sm),
-            Text("2025-09-20, 08:00", style: theme.textTheme.bodyMedium),
+            Text('2025-09-20, 08:00', style: theme.textTheme.bodyMedium),
           ],
         ),
         const SizedBox(height: AppSpacing.sm),
@@ -56,10 +56,10 @@ class TourHeaderSection extends StatelessWidget {
               ),
             ),
             const SizedBox(width: AppSpacing.sm),
-            Text("4.5", style: theme.textTheme.bodyMedium),
+            Text('4.5', style: theme.textTheme.bodyMedium),
             const SizedBox(width: AppSpacing.xs),
             Text(
-              "(150 Reviews)",
+              '(150 Reviews)',
               style: theme.textTheme.bodyMedium?.copyWith(
                 color: theme.hintColor,
               ),

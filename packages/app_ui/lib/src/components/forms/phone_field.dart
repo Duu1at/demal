@@ -4,8 +4,8 @@ import 'package:flutter/services.dart';
 
 class PhoneField extends StatelessWidget {
   const PhoneField({
-    super.key,
     required this.controller,
+    super.key,
     this.validator,
     this.onChanged,
     this.hintText = '(___) ___ ___',

@@ -12,8 +12,7 @@ final class OrganizerModel {
     required this.imageUrl,
   });
 
-  factory OrganizerModel.fromJson(Map<String, dynamic> json) =>
-      _$OrganizerModelFromJson(json);
+  factory OrganizerModel.fromJson(Map<String, dynamic> json) => _$OrganizerModelFromJson(json);
 
   final String id;
   @JsonKey(name: 'fullName')

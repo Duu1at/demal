@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'package:app/utils/image_storage/image_storage.dart';
 import 'package:app/utils/permission/permission_reqester.dart';
@@ -6,9 +7,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
-import 'package:image_editor_plus/image_editor_plus.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:loader_overlay/loader_overlay.dart';
 
 enum EditorType { repeate, finish, error }
 
@@ -27,15 +26,14 @@ class AvatarWidget extends StatefulWidget {
   final bool isActive;
   final double? size;
   final bool expand;
-  final Function(File? bytesImge)? onUpdate;
-  final Function()? onDelete;
+  final ValueChanged<File>? onUpdate;
+  final VoidCallback? onDelete;
 
   @override
   State<AvatarWidget> createState() => _AvatarWidgetState();
 }
 
-class _AvatarWidgetState extends State<AvatarWidget>
-    with SingleTickerProviderStateMixin {
+class _AvatarWidgetState extends State<AvatarWidget> with SingleTickerProviderStateMixin {
   ColorScheme? colorScheme;
   final GlobalKey _globalKey = GlobalKey();
   late AnimationController _animationController;
@@ -44,17 +42,17 @@ class _AvatarWidgetState extends State<AvatarWidget>
 
   @override
   void initState() {
+    super.initState();
     _animationController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 300),
     );
     _animationController.addStatusListener((status) async {
       if (status == AnimationStatus.reverse) {
-        await Future.delayed(const Duration(milliseconds: 300));
+        await Future<void>.delayed(const Duration(milliseconds: 300));
         _removeOverlay();
       }
     });
-    super.initState();
   }
 
   void _removeOverlay() {
@@ -101,7 +99,7 @@ class _AvatarWidgetState extends State<AvatarWidget>
             shape: BoxShape.circle,
             color: context.appColors.bgCard,
           ),
-          child: widget.avatarUrl?.isNotEmpty == true
+          child: widget.avatarUrl?.isNotEmpty ?? false
               ? CachedNetworkImage(
                   key: UniqueKey(),
                   imageUrl: widget.avatarUrl!,
@@ -111,9 +109,7 @@ class _AvatarWidgetState extends State<AvatarWidget>
                   imageBuilder: (context, image) {
                     return InkResponse(
                       key: _globalKey,
-                      onTap: widget.isActive
-                          ? () => _onTap(createOverlay: true)
-                          : null,
+                      onTap: widget.isActive ? () => _onTap(createOverlay: true) : null,
                       radius: (widget.size ?? 72) / 2,
                       splashColor: colorScheme?.primaryContainer,
                       child: ClipRRect(
@@ -128,14 +124,12 @@ class _AvatarWidgetState extends State<AvatarWidget>
                       ),
                     );
                   },
-                  errorWidget: (context, error, stackTrace) =>
-                      _buildEmpty(context),
-                  progressIndicatorBuilder: (context, child, loadingProgress) =>
-                      ShimmerContainer(
-                        height: widget.size ?? 72,
-                        width: widget.size ?? 72,
-                        radius: widget.size ?? 72,
-                      ),
+                  errorWidget: (context, error, stackTrace) => _buildEmpty(context),
+                  progressIndicatorBuilder: (context, child, loadingProgress) => ShimmerContainer(
+                    height: widget.size ?? 72,
+                    width: widget.size ?? 72,
+                    radius: widget.size ?? 72,
+                  ),
                 )
               : _buildEmpty(context),
         ),
@@ -173,16 +167,18 @@ class _AvatarWidgetState extends State<AvatarWidget>
     return Opacity(opacity: visible ? 1 : 0, child: result);
   }
 
-  void _createOverlay() async {
-    final OverlayState overlay = Overlay.of(context, rootOverlay: true);
+  Future<void> _createOverlay() async {
+    final overlay = Overlay.of(context, rootOverlay: true);
 
     _overlayEntry = OverlayEntry(
       canSizeOverlay: true,
       builder: (context) {
         return GestureDetector(
-          onTap: () {
-            _animationController.reverse();
-            GoRouter.of(context).pop();
+          onTap: () async {
+            await _animationController.reverse();
+            if (context.mounted) {
+              GoRouter.of(context).pop();
+            }
           },
           child: _ImageOverlay(
             avatarUrl: widget.avatarUrl,
@@ -195,34 +191,34 @@ class _AvatarWidgetState extends State<AvatarWidget>
     overlay.insert(_overlayEntry!);
   }
 
-  void _onTap({bool createOverlay = false}) async {
+  Future<void> _onTap({bool createOverlay = false}) async {
     if (widget.expand && createOverlay) {
-      _createOverlay();
+      await _createOverlay();
       visible = false;
       setState(() {});
     }
-    await BottomSheets.show(
+    if (!mounted) return;
+
+    await BottomSheets.show<void>(
       context,
       actions: [
         CustomActionButton(
-          onTap: () {
+          onTap: () async {
             GoRouter.of(context).pop();
-            select(ImageSource.camera);
+            await select(ImageSource.camera);
           },
           title: 'Камера',
         ),
         CustomActionButton(
-          onTap: () {
+          onTap: () async {
             GoRouter.of(context).pop();
-            select(ImageSource.gallery);
+            await select(ImageSource.gallery);
           },
           title: 'Gallery',
         ),
         CustomActionButton(
-          onTap: () {
-            if (widget.onDelete != null) {
-              widget.onDelete!();
-            }
+          onTap: () async {
+            widget.onDelete?.call();
             GoRouter.of(context).pop();
           },
           title: 'Удалить',
@@ -230,12 +226,12 @@ class _AvatarWidgetState extends State<AvatarWidget>
       ],
     );
     if (widget.expand) {
-      _animationController.reverse();
+      await _animationController.reverse();
     }
   }
 
-  void select(ImageSource source) {
-    ImagePicker()
+  Future<void> select(ImageSource source) async {
+    await ImagePicker()
         .pickImage(
           source: source,
           imageQuality: 70,
@@ -243,38 +239,35 @@ class _AvatarWidgetState extends State<AvatarWidget>
           maxWidth: 700,
         )
         .then((value) async {
-          if (value != null) {
-            Uint8List? bytes = await value.readAsBytes();
+          // if (value != null) {
+          //   Uint8List? bytes = await value.readAsBytes();
 
-            final editedImage = await Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => ImageEditor(image: bytes),
-              ),
-            );
-            if (editedImage?.type == EditorType.finish) {
-              bytes = editedImage?.image;
-              if (bytes != null) {
-                colorScheme = await ColorScheme.fromImageProvider(
-                  provider: MemoryImage(bytes),
-                );
-                if (widget.onUpdate != null) {
-                  widget.onUpdate!(await File(value.path).writeAsBytes(bytes));
-                }
-              }
-            } else if (editedImage?.type == EditorType.repeate) {
-              context.loaderOverlay.hide();
+          //   final editedImage = await Navigator.push<Uint8List>(
 
-              select(source);
-            } else if (editedImage?.type == EditorType.error) {
-              context.loaderOverlay.hide();
-            }
-          }
+          //   );
+          //   if (editedImage == EditorType.finish) {
+          //     bytes = editedImage;
+          //     if (bytes != null) {
+          //       colorScheme = await ColorScheme.fromImageProvider(
+          //         provider: MemoryImage(bytes),
+          //       );
+          //       widget.onUpdate?.call(
+          //         await File(value.path).writeAsBytes(bytes),
+          //       );
+          //     }
+          //   } else if (editedImage?.type == EditorType.repeate) {
+          //     context.loaderOverlay.hide();
+
+          //     select(source);
+          //   } else if (editedImage?.type == EditorType.error) {
+          //     context.loaderOverlay.hide();
+          //   }
+          // }
         })
-        .catchError((err) {
-          if (err is PlatformException) {
-            if (err.code == 'photo_access_denied' ||
-                err.code == 'camera_access_denied') {
+        .catchError((Object error) {
+          if (error is PlatformException) {
+            if ((error.code.toLowerCase().contains('photo_access_denied')) ||
+                (error.code.toLowerCase().contains('camera_access_denied'))) {
               switch (source) {
                 case ImageSource.camera:
                   PermissionReqeuster.requestCamera(
@@ -290,17 +283,15 @@ class _AvatarWidgetState extends State<AvatarWidget>
         });
   }
 
-  void accessModal(ImageSource source) async {
-    await BottomSheets.showModalSettingsSheet(
+  Future<void> accessModal(ImageSource source) async {
+    await BottomSheets.showModalSettingsSheet<void>(
       context: context,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           AppButton(
             onPressed: () {
-              if (widget.onDelete != null) {
-                widget.onDelete!();
-              }
+              widget.onDelete?.call();
               GoRouter.of(context).pop();
             },
             child: const Text('Удалить  фото'),
@@ -312,15 +303,15 @@ class _AvatarWidgetState extends State<AvatarWidget>
 }
 
 class _ImageOverlay extends StatefulWidget {
+  const _ImageOverlay({
+    required this.animationController,
+    this.avatarUrl,
+    this.globalKey,
+  });
+
   final String? avatarUrl;
   final GlobalKey? globalKey;
   final AnimationController animationController;
-
-  const _ImageOverlay({
-    this.avatarUrl,
-    this.globalKey,
-    required this.animationController,
-  }) : assert(globalKey != null);
 
   @override
   State<_ImageOverlay> createState() => _ImageOverlayState();
@@ -332,15 +323,15 @@ class _ImageOverlayState extends State<_ImageOverlay> {
 
   @override
   void initState() {
-    widget.animationController.forward();
+    unawaited(widget.animationController.forward());
     beginRect = _getRect(widget.globalKey!);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    final Size mediaSize = MediaQuery.sizeOf(context);
-    final double imageSize = mediaSize.height * 0.33;
+    final mediaSize = MediaQuery.sizeOf(context);
+    final imageSize = mediaSize.height * 0.33;
     final emptyState = Container(
       width: imageSize,
       height: imageSize,
@@ -359,7 +350,7 @@ class _ImageOverlayState extends State<_ImageOverlay> {
         ),
       ),
     );
-    final result = widget.avatarUrl?.isNotEmpty == true
+    final result = widget.avatarUrl?.isNotEmpty ?? false
         ? Center(
             child: CachedNetworkImage(
               imageUrl: widget.avatarUrl!,
@@ -378,12 +369,11 @@ class _ImageOverlayState extends State<_ImageOverlay> {
                 );
               },
               errorWidget: (context, error, stackTrace) => emptyState,
-              progressIndicatorBuilder: (context, child, loadingProgress) =>
-                  ShimmerContainer(
-                    radius: imageSize,
-                    width: imageSize,
-                    height: imageSize,
-                  ),
+              progressIndicatorBuilder: (context, child, loadingProgress) => ShimmerContainer(
+                radius: imageSize,
+                width: imageSize,
+                height: imageSize,
+              ),
             ),
           )
         : emptyState;
@@ -417,9 +407,7 @@ class _ImageOverlayState extends State<_ImageOverlay> {
   }
 
   Rect _getRect(GlobalKey globalKey) {
-    assert(globalKey.currentContext != null);
-    final RenderBox renderBoxContainer =
-        globalKey.currentContext!.findRenderObject()! as RenderBox;
+    final renderBoxContainer = globalKey.currentContext!.findRenderObject()! as RenderBox;
     return Rect.fromPoints(
       renderBoxContainer.localToGlobal(renderBoxContainer.paintBounds.topLeft),
       renderBoxContainer.localToGlobal(

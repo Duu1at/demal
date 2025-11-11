@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-abstract class AppColors {
+abstract final class AppColors {
   static const Color white = Color(0xFFFFFFFF);
   static const Color black = Color(0xFF000000);
   static const Color transparent = Colors.transparent;
@@ -84,7 +84,7 @@ abstract class AppColors {
 }
 
 class AppColorSwatch extends ColorSwatch<int> {
-  const AppColorSwatch(super.primary, super.swatch);
+  const AppColorSwatch(super.primary, super._swatch);
 
   Color? get shade0 => this[0];
   Color? get shade10 => this[10];
@@ -101,11 +101,16 @@ class AppColorSwatch extends ColorSwatch<int> {
 }
 
 class AppShadow {
+  const AppShadow({
+    this.blur,
+    this.color,
+    this.spread,
+    this.x,
+    this.y,
+  });
   final Color? color;
   final double? x;
   final double? y;
   final double? blur;
   final double? spread;
-
-  const AppShadow({this.blur, this.color, this.spread, this.x, this.y});
 }

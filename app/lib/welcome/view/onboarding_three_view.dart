@@ -1,4 +1,4 @@
-import 'package:app/app/cubits/auth/auth_cubit.dart';
+import 'package:app/app/cubits/auth_cubit/auth_cubit.dart';
 import 'package:app/l10n/l10n_extension.dart';
 import 'package:app/welcome/widgets/float_action_btn.dart';
 import 'package:app_ui/app_ui.dart';

@@ -1,6 +1,6 @@
+import 'package:app/client/home/widgets/expandable_text.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
-import 'expandable_text.dart';
 
 class TourDescriptionSection extends StatelessWidget {
   const TourDescriptionSection({super.key});
@@ -12,7 +12,7 @@ class TourDescriptionSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Описание",
+          'Описание',
           style: theme.textTheme.titleMedium?.copyWith(
             fontWeight: FontWeight.w600,
           ),
@@ -20,8 +20,8 @@ class TourDescriptionSection extends StatelessWidget {
         const SizedBox(height: AppSpacing.sm),
         const ExpandableText(
           text:
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. '
+              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
         ),
       ],
     );

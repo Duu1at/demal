@@ -28,9 +28,7 @@ class _TourImageCarouselState extends State<TourImageCarousel> {
           options: CarouselOptions(
             height: 400,
             viewportFraction: 1,
-            enableInfiniteScroll: true,
             enlargeCenterPage: true,
-            aspectRatio: 16 / 9,
             onPageChanged: (index, reason) {
               setState(() => _currentIndex = index);
             },
@@ -45,8 +43,7 @@ class _TourImageCarouselState extends State<TourImageCarousel> {
                   progressIndicatorBuilder: (context, child, progress) {
                     return const Center(child: CircularProgressIndicator());
                   },
-                  errorWidget: (context, error, stack) =>
-                      const Center(child: Icon(Icons.broken_image, size: 60)),
+                  errorWidget: (context, error, stack) => const Center(child: Icon(Icons.broken_image, size: 60)),
                 ),
                 Container(
                   decoration: BoxDecoration(
@@ -69,7 +66,7 @@ class _TourImageCarouselState extends State<TourImageCarousel> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: List.generate(_images.length, (index) {
-              final bool isActive = index == _currentIndex;
+              final isActive = index == _currentIndex;
               return AnimatedContainer(
                 duration: const Duration(milliseconds: 250),
                 margin: const EdgeInsets.symmetric(horizontal: 3),

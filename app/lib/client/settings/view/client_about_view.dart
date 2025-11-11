@@ -55,8 +55,7 @@ class ClientAboutView extends StatelessWidget {
                 children: [
                   AppCard(
                     child: GestureDetector(
-                      onTap: () =>
-                          AppLaunch.makeCall('0702313611', context: context),
+                      onTap: () => AppLaunch.makeCall('0702313611', context: context),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
                           horizontal: AppSpacing.lg,
@@ -91,8 +90,7 @@ class ClientAboutView extends StatelessWidget {
                   ),
                   AppCard(
                     child: GestureDetector(
-                      onTap: () =>
-                          AppLaunch.sendTelegram('Duu1at', context: context),
+                      onTap: () => AppLaunch.sendTelegram('Duu1at', context: context),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
                           horizontal: AppSpacing.lg,

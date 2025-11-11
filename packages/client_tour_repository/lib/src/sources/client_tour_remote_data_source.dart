@@ -8,13 +8,12 @@ final class ClientTourRemoteDataSource {
   final RemoteClient client;
 
   Future<ToursModel> getTours(ToursParams params) async {
-    final queryParams = params.toJson()
-      ..removeWhere((key, value) => value == null);
+    final queryParams = params.toJson()..removeWhere((key, value) => value == null);
 
     final result = await client.get<ToursModel>(
       '/api/v1/tours',
       queryParameters: queryParams,
-      fromJson: (json) => ToursModel.fromJson(json),
+      fromJson: ToursModel.fromJson,
     );
 
     return result;
@@ -23,7 +22,7 @@ final class ClientTourRemoteDataSource {
   Future<TourDetailModel> getToursDetail(String tourId) async {
     final result = await client.get<TourDetailModel>(
       '/api/v1/tours/$tourId',
-      fromJson: (json) => TourDetailModel.fromJson(json),
+      fromJson: TourDetailModel.fromJson,
     );
     return result;
   }

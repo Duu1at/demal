@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:permission_handler/permission_handler.dart';
 
-class PermissionReqeuster {
+abstract final class PermissionReqeuster {
   static Future<void> requestCamera({
     void Function(PermissionStatus status)? onDenied,
     void Function(PermissionStatus status)? onGranted,
@@ -22,10 +22,10 @@ class PermissionReqeuster {
     }
   }
 
-  static void requestGallery({
+  static Future<void> requestGallery({
     void Function(PermissionStatus status)? onDenied,
   }) async {
-    final PermissionStatus status = await Permission.photos.request();
+    final status = await Permission.photos.request();
     if (status != PermissionStatus.granted) {
       onDenied?.call(status);
     }

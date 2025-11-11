@@ -37,19 +37,11 @@ final class ToursPagingState extends PagingStateBase<int, TourModel> {
     FutureOr<bool>? isLoading,
   }) {
     return ToursPagingState(
-      pages: pages != null
-          ? (pages is Future ? this.pages : pages)
-          : this.pages,
+      pages: pages != null ? (pages is Future ? this.pages : pages) : this.pages,
       keys: keys != null ? (keys is Future ? this.keys : keys) : this.keys,
-      error: error != null
-          ? (error is Future ? this.error : error)
-          : this.error,
-      hasNextPage: hasNextPage != null
-          ? (hasNextPage is Future ? this.hasNextPage : hasNextPage)
-          : this.hasNextPage,
-      isLoading: isLoading != null
-          ? (isLoading is Future ? this.isLoading : isLoading)
-          : this.isLoading,
+      error: error != null ? (error is Future ? this.error : error) : this.error,
+      hasNextPage: hasNextPage != null ? (hasNextPage is Future ? this.hasNextPage : hasNextPage) : this.hasNextPage,
+      isLoading: isLoading != null ? (isLoading is Future ? this.isLoading : isLoading) : this.isLoading,
       params: params,
       pagination: pagination,
     );
@@ -65,19 +57,11 @@ final class ToursPagingState extends PagingStateBase<int, TourModel> {
     PaginationModel? pagination,
   }) {
     return ToursPagingState(
-      pages: pages != null
-          ? (pages is Future ? this.pages : pages)
-          : this.pages,
+      pages: pages != null ? (pages is Future ? this.pages : pages) : this.pages,
       keys: keys != null ? (keys is Future ? this.keys : keys) : this.keys,
-      error: error != null
-          ? (error is Future ? this.error : error)
-          : this.error,
-      hasNextPage: hasNextPage != null
-          ? (hasNextPage is Future ? this.hasNextPage : hasNextPage)
-          : this.hasNextPage,
-      isLoading: isLoading != null
-          ? (isLoading is Future ? this.isLoading : isLoading)
-          : this.isLoading,
+      error: error != null ? (error is Future ? this.error : error) : this.error,
+      hasNextPage: hasNextPage != null ? (hasNextPage is Future ? this.hasNextPage : hasNextPage) : this.hasNextPage,
+      isLoading: isLoading != null ? (isLoading is Future ? this.isLoading : isLoading) : this.isLoading,
       params: params ?? this.params,
       pagination: pagination ?? this.pagination,
     );
@@ -85,15 +69,7 @@ final class ToursPagingState extends PagingStateBase<int, TourModel> {
 
   @override
   ToursPagingState reset() {
-    return ToursPagingState(
-      pages: null,
-      keys: null,
-      error: null,
-      hasNextPage: true,
-      isLoading: false,
-      params: params,
-      pagination: null,
-    );
+    return ToursPagingState(params: params);
   }
 
   @override

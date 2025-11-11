@@ -69,10 +69,9 @@ abstract class AlertDialogs {
         return AlertDialog(
           iconPadding: EdgeInsets.zero,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16.0),
+            borderRadius: BorderRadius.circular(AppSpacing.lg),
             side: BorderSide(
               color: AlertDialogType._getTextColor(typeAlertDialog),
-              width: 1,
             ),
           ),
           backgroundColor: AlertDialogType._getBgColor(typeAlertDialog),
@@ -83,7 +82,6 @@ abstract class AlertDialogs {
             color: AlertDialogType._getTextColor(typeAlertDialog),
           ),
           title: Row(
-            mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -92,8 +90,6 @@ abstract class AlertDialogs {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
-                      mainAxisSize: MainAxisSize.max,
-                      crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         AlertDialogType._getIconPath(typeAlertDialog),
@@ -107,19 +103,20 @@ abstract class AlertDialogs {
                           ),
                         ),
                         const Spacer(),
-                        showCloseButton
-                            ? GestureDetector(
-                                onTap: () => Navigator.pop(context),
-                                child: Assets.icons.close.svg(
-                                  colorFilter: ColorFilter.mode(
-                                    AlertDialogType._getTextColor(
-                                      typeAlertDialog,
-                                    ),
-                                    BlendMode.srcIn,
-                                  ),
+                        if (showCloseButton)
+                          GestureDetector(
+                            onTap: () => Navigator.pop(context),
+                            child: Assets.icons.close.svg(
+                              colorFilter: ColorFilter.mode(
+                                AlertDialogType._getTextColor(
+                                  typeAlertDialog,
                                 ),
-                              )
-                            : const SizedBox.shrink(),
+                                BlendMode.srcIn,
+                              ),
+                            ),
+                          )
+                        else
+                          const SizedBox.shrink(),
                       ],
                     ),
                     const SizedBox(height: 8),

@@ -1,10 +1,10 @@
-import 'package:app/app/cubits/app_settings/app_theme_cubit.dart';
-import 'package:app/app/cubits/auth/auth_cubit.dart';
+import 'package:app/app/cubits/app_theme_cubit/app_theme_cubit.dart';
+import 'package:app/app/cubits/auth_cubit/auth_cubit.dart';
 import 'package:app/app/mixin/settings_change_mixin.dart';
 import 'package:app/app/router/app_router.dart';
 import 'package:app/l10n/app_localizations.dart';
 import 'package:app/l10n/l10n_extension.dart';
-import 'package:app/welcome/welcome.dart';
+import 'package:app/welcome/widgets/role_radio_group.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:auth_repository/auth_repository.dart';
 import 'package:flutter/material.dart';
@@ -18,8 +18,7 @@ class InitialSettingsView extends StatefulWidget {
   State<InitialSettingsView> createState() => _InitialSettingsViewState();
 }
 
-class _InitialSettingsViewState extends State<InitialSettingsView>
-    with SettingsChangeMixin<InitialSettingsView> {
+class _InitialSettingsViewState extends State<InitialSettingsView> with SettingsChangeMixin<InitialSettingsView> {
   String get _locale => AppLocalizations.of(context).localeName;
   String get _lightTheme => context.l10n.lightTheme;
   String get _darkTheme => context.l10n.darkTheme;
@@ -36,7 +35,6 @@ class _InitialSettingsViewState extends State<InitialSettingsView>
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return ScaffoldWithBgImage(
-      bgImageTop: false,
       appBar: AppBar(elevation: 0),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
@@ -52,24 +50,11 @@ class _InitialSettingsViewState extends State<InitialSettingsView>
               buildWhen: (previous, current) => previous.role != current.role,
               builder: (context, state) {
                 final role = state.role;
-                return Column(
-                  children: [
-                    RoleRedioWidget(
-                      key: const Key('client'),
-                      title: 'Путешественник',
-                      role: role,
-                      onChanged: (_) =>
-                          context.read<AuthCubit>().changeRole(Role.client),
-                    ),
-                    RoleRedioWidget(
-                      key: const Key('partner'),
-                      title: 'Тур компания или гид',
-                      role: role,
-                      isClient: false,
-                      onChanged: (_) =>
-                          context.read<AuthCubit>().changeRole(Role.partner),
-                    ),
-                  ],
+                return RoleRadioGroup(
+                  groupValue: role,
+                  onChanged: (newRole) {
+                    context.read<AuthCubit>().changeRole(newRole ?? Role.client);
+                  },
                 );
               },
             ),
@@ -86,11 +71,10 @@ class _InitialSettingsViewState extends State<InitialSettingsView>
               title: context.l10n.selectTheme,
               subtitle: _themeName,
               onTap: () async {
-                final resultIsDark = await changeTheme();
-                _themeName = resultIsDark
-                    ? context.l10n.darkTheme
-                    : context.l10n.lightTheme;
-                setState(() {});
+                final resultIsDark = await changeTheme() ?? false;
+                if (mounted) {
+                  setState(() => _themeName = resultIsDark ? context.l10n.darkTheme : context.l10n.lightTheme);
+                }
               },
             ),
           ],

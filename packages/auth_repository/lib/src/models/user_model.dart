@@ -1,4 +1,4 @@
-import '../enums/role_enum.dart';
+import 'package:auth_repository/src/enums/role_enum.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 
@@ -16,8 +16,7 @@ final class UserModel {
     this.phoneNumber,
   });
 
-  factory UserModel.fromJson(Map<String, dynamic> json) =>
-      _$UserModelFromJson(json);
+  factory UserModel.fromJson(Map<String, dynamic> json) => _$UserModelFromJson(json);
 
   @JsonKey(name: 'user_id')
   final String? userId;

@@ -10,9 +10,7 @@ class TourBenefits extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final baseTextStyle = textTheme.labelLarge ?? const TextStyle();
-    final boldStyle =
-        textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w700) ??
-        const TextStyle();
+    final boldStyle = textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w700) ?? const TextStyle();
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

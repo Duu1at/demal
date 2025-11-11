@@ -93,8 +93,7 @@ class _ClientTourFiltersViewState extends State<ClientTourFiltersView> {
               AppTextField(
                 controller: _tourTypeController,
                 hintText: 'e.g. hiking, safari',
-                onChanged: (v) =>
-                    _tourType = v.trim().isEmpty ? null : v.trim(),
+                onChanged: (v) => _tourType = v.trim().isEmpty ? null : v.trim(),
               ),
 
               const SizedBox(height: AppSpacing.lg),
@@ -152,7 +151,7 @@ class _ClientTourFiltersViewState extends State<ClientTourFiltersView> {
               Text('Sort by', style: theme.textTheme.labelLarge),
               const SizedBox(height: AppSpacing.xs),
               DropdownButtonFormField<SortBy>(
-                value: _sortBy,
+                initialValue: _sortBy,
                 isExpanded: true,
                 items: const [
                   DropdownMenuItem(
@@ -245,7 +244,7 @@ class _ClientTourFiltersViewState extends State<ClientTourFiltersView> {
     if (s == null || s.isEmpty) return null;
     try {
       return DateTime.parse(s);
-    } catch (_) {
+    } on Object catch (_) {
       return null;
     }
   }

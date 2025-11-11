@@ -7,12 +7,11 @@ class TourProgramSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    int count = 1;
+    var count = 1;
     final program = [
       {
         'day': 'День 1',
-        'desc':
-            'Встреча группы в Бишкеке, выезд в Ала-Арчу, установка лагеря и прогулка по ущелью.',
+        'desc': 'Встреча группы в Бишкеке, выезд в Ала-Арчу, установка лагеря и прогулка по ущелью.',
       },
       {
         'day': 'День 2',
@@ -24,7 +23,7 @@ class TourProgramSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text("Программа тура", style: theme.textTheme.titleMedium),
+        Text('Программа тура', style: theme.textTheme.titleMedium),
         const SizedBox(height: AppSpacing.sm),
         ...program.map(
           (e) => ListTile(

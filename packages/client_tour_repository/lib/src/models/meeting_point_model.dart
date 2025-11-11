@@ -8,8 +8,7 @@ part 'meeting_point_model.g.dart';
 final class MeetingPointModel {
   const MeetingPointModel({this.address, this.coordinates});
 
-  factory MeetingPointModel.fromJson(Map<String, dynamic> json) =>
-      _$MeetingPointModelFromJson(json);
+  factory MeetingPointModel.fromJson(Map<String, dynamic> json) => _$MeetingPointModelFromJson(json);
 
   final String? address;
   final String? coordinates;

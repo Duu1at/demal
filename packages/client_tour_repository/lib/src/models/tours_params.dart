@@ -19,8 +19,7 @@ final class ToursParams {
     this.limit,
   });
 
-  factory ToursParams.fromJson(Map<String, dynamic> json) =>
-      _$ToursParamsFromJson(json);
+  factory ToursParams.fromJson(Map<String, dynamic> json) => _$ToursParamsFromJson(json);
 
   final String? search;
 
@@ -87,18 +86,7 @@ final class ToursParams {
   Map<String, dynamic> toJson() => _$ToursParamsToJson(this);
 
   ToursParams clearAll() {
-    return const ToursParams(
-      search: null,
-      location: null,
-      tourType: null,
-      dateFrom: null,
-      dateTo: null,
-      priceMin: null,
-      priceMax: null,
-      sortBy: null,
-      page: null,
-      limit: null,
-    );
+    return const ToursParams();
   }
 }
 

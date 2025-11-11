@@ -1,5 +1,5 @@
-import 'package:app/client/home/widgets/tour_card/tour_card_constants.dart';
 import 'package:app/client/home/utils/tour_card_utils.dart';
+import 'package:app/client/home/widgets/tour_card/tour_card_constants.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 

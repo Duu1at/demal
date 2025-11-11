@@ -12,10 +12,7 @@ final class RemoteException implements Exception {
   });
 
   factory RemoteException.fromDioException(
-    DioException e, {
-    void Function(DioException error)? onError,
-    bool shouldLog = true,
-  }) {
+    DioException e) {
     final data = e.response?.data;
     final status = e.response?.statusCode;
 
@@ -23,7 +20,7 @@ final class RemoteException implements Exception {
       final msg = data['message']?.toString() ?? data['error']?.toString();
       return RemoteException(
         FailureType.unknown,
-        message: msg?.isNotEmpty == true ? msg : 'Неизвестная ошибка',
+        message: msg?.isNotEmpty ?? false ? msg : 'Неизвестная ошибка',
         error: e,
         stackTrace: e.stackTrace,
         statusCode: status,
@@ -90,9 +87,7 @@ final class RemoteException implements Exception {
   static String? _extractMessage(DioException e) {
     final data = e.response?.data;
     if (data is Map<String, dynamic>) {
-      return data['message']?.toString() ??
-          data['error']?.toString() ??
-          e.message;
+      return data['message']?.toString() ?? data['error']?.toString() ?? e.message;
     }
     return e.message;
   }

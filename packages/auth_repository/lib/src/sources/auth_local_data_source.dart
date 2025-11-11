@@ -1,5 +1,6 @@
 import 'dart:convert';
-import '../../auth_repository.dart';
+
+import 'package:auth_repository/auth_repository.dart';
 import 'package:core/keys/storage_keys.dart';
 import 'package:meta/meta.dart';
 import 'package:storage/storage.dart';
@@ -9,11 +10,11 @@ final class AuthLocalDataSource {
   const AuthLocalDataSource(this.storage);
   final PreferencesStorage storage;
 
-  void deleteAccount() {
+  Future<void> deleteAccount() async {
     try {
-      storage.delete(key: StorageKeys.tokenKey);
-      storage.delete(key: StorageKeys.userDataKey);
-      storage.delete(key: StorageKeys.roleKey);
+      await storage.delete(key: StorageKeys.tokenKey);
+      await storage.delete(key: StorageKeys.userDataKey);
+      await storage.delete(key: StorageKeys.roleKey);
     } catch (e, s) {
       throw StorageException(e, s);
     }
@@ -27,9 +28,9 @@ final class AuthLocalDataSource {
     }
   }
 
-  void logOut() async {
+  Future<void> logOut() async {
     try {
-      storage.delete(key: StorageKeys.tokenKey);
+      await storage.delete(key: StorageKeys.tokenKey);
     } catch (e, s) {
       throw StorageException(e, s);
     }
@@ -40,9 +41,8 @@ final class AuthLocalDataSource {
       final jsonString = storage.readString(key: StorageKeys.userDataKey);
       if (jsonString == null) return null;
 
-      final Map<String, dynamic> json = jsonDecode(jsonString);
-      final user = AuthLoginModel.fromJson(json);
-      return user;
+      final json = jsonDecode(jsonString) as Map<String, dynamic>;
+      return AuthLoginModel.fromJson(json);
     } catch (e, s) {
       throw StorageException(e, s);
     }
@@ -54,10 +54,9 @@ final class AuthLocalDataSource {
         key: StorageKeys.tokenKey,
         value: data.authToken,
       );
-      final jsonString = jsonEncode(data.toJson());
       await storage.writeString(
         key: StorageKeys.userDataKey,
-        value: jsonString,
+        value: jsonEncode(data.toJson()),
       );
     } catch (e, s) {
       throw StorageException(e, s);

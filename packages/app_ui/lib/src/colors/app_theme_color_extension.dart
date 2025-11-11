@@ -14,41 +14,6 @@ class AppThemeColorExtension extends ThemeExtension<AppThemeColorExtension> {
     this.grayShadow,
     this.textSecondary,
   });
-  final Color? bgCard;
-  final Color? alert;
-  final Color? alertBackground;
-  final Color? disabled;
-  final Color? disabledForeground;
-  final BoxShadow? blueShadow;
-  final BoxShadow? grayShadow;
-  final Color? shimmerBase;
-  final Color? shimmerHighlight;
-  final Color? textSecondary;
-
-  factory AppThemeColorExtension.light() {
-    return AppThemeColorExtension(
-      bgCard: AppColors.white,
-      alert: AppColors.red.shade90,
-      disabled: AppColors.gray.shade20,
-      disabledForeground: AppColors.gray.shade30,
-      alertBackground: AppColors.red.shade10,
-      grayShadow: BoxShadow(
-        color: AppColors.grayShadow.color!,
-        offset: Offset(AppColors.grayShadow.x!, AppColors.grayShadow.y!),
-        blurRadius: AppColors.grayShadow.blur!,
-        spreadRadius: AppColors.grayShadow.spread!,
-      ),
-      blueShadow: BoxShadow(
-        color: AppColors.blueShadow.color!,
-        offset: Offset(AppColors.blueShadow.x!, AppColors.blueShadow.y!),
-        blurRadius: AppColors.blueShadow.blur!,
-        spreadRadius: AppColors.blueShadow.spread!,
-      ),
-      shimmerBase: AppColors.lightShimmer.colors.last,
-      shimmerHighlight: AppColors.lightShimmer.colors.first,
-      textSecondary: AppColors.gray.shade50,
-    );
-  }
 
   factory AppThemeColorExtension.dark() {
     return AppThemeColorExtension(
@@ -74,6 +39,41 @@ class AppThemeColorExtension extends ThemeExtension<AppThemeColorExtension> {
       textSecondary: AppColors.gray.shade30,
     );
   }
+
+  factory AppThemeColorExtension.light() {
+    return AppThemeColorExtension(
+      bgCard: AppColors.white,
+      alert: AppColors.red.shade90,
+      disabled: AppColors.gray.shade20,
+      disabledForeground: AppColors.gray.shade30,
+      alertBackground: AppColors.red.shade10,
+      grayShadow: BoxShadow(
+        color: AppColors.grayShadow.color!,
+        offset: Offset(AppColors.grayShadow.x!, AppColors.grayShadow.y!),
+        blurRadius: AppColors.grayShadow.blur!,
+        spreadRadius: AppColors.grayShadow.spread!,
+      ),
+      blueShadow: BoxShadow(
+        color: AppColors.blueShadow.color!,
+        offset: Offset(AppColors.blueShadow.x!, AppColors.blueShadow.y!),
+        blurRadius: AppColors.blueShadow.blur!,
+        spreadRadius: AppColors.blueShadow.spread!,
+      ),
+      shimmerBase: AppColors.lightShimmer.colors.last,
+      shimmerHighlight: AppColors.lightShimmer.colors.first,
+      textSecondary: AppColors.gray.shade50,
+    );
+  }
+  final Color? bgCard;
+  final Color? alert;
+  final Color? alertBackground;
+  final Color? disabled;
+  final Color? disabledForeground;
+  final BoxShadow? blueShadow;
+  final BoxShadow? grayShadow;
+  final Color? shimmerBase;
+  final Color? shimmerHighlight;
+  final Color? textSecondary;
 
   @override
   ThemeExtension<AppThemeColorExtension> copyWith({

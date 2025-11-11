@@ -9,8 +9,7 @@ part 'tour_detail_model.g.dart';
 final class TourDetailModel {
   const TourDetailModel({this.success, this.tour});
 
-  factory TourDetailModel.fromJson(Map<String, dynamic> json) =>
-      _$TourDetailModelFromJson(json);
+  factory TourDetailModel.fromJson(Map<String, dynamic> json) => _$TourDetailModelFromJson(json);
 
   final bool? success;
   final TourModel? tour;

@@ -1,4 +1,4 @@
-import 'package:app/app/cubits/auth/auth_cubit.dart';
+import 'package:app/app/cubits/auth_cubit/auth_cubit.dart';
 import 'package:app/l10n/l10n_extension.dart';
 import 'package:app/login/cubit/otp_cubit.dart';
 import 'package:app/utils/formatter/input_formatter.dart';
@@ -46,13 +46,13 @@ class _OtpFormState extends State<OtpForm> {
       textStyle: theme.textTheme.headlineSmall,
       decoration: BoxDecoration(
         color: theme.colorScheme.surface,
-        border: Border.all(color: theme.colorScheme.onSurface, width: 1),
+        border: Border.all(color: theme.colorScheme.onSurface),
         borderRadius: BorderRadius.circular(10),
       ),
     );
 
     final focusedPinTheme = defaultPinTheme.copyDecorationWith(
-      border: Border.all(color: theme.colorScheme.primary, width: 1),
+      border: Border.all(color: theme.colorScheme.primary),
       borderRadius: BorderRadius.circular(10),
     );
 
@@ -97,7 +97,6 @@ class _OtpFormState extends State<OtpForm> {
             Directionality(
               textDirection: TextDirection.ltr,
               child: Pinput(
-                length: 4,
                 defaultPinTheme: defaultPinTheme,
                 focusedPinTheme: focusedPinTheme,
                 submittedPinTheme: submittedPinTheme,
@@ -124,8 +123,8 @@ class _OtpFormState extends State<OtpForm> {
                   ],
                 ),
                 hapticFeedbackType: HapticFeedbackType.lightImpact,
-                onCompleted: (pin) {
-                  context.read<OtpCubit>().verifyOtpCode(
+                onCompleted: (pin) async {
+                  await context.read<OtpCubit>().verifyOtpCode(
                     phoneNumber: widget.phoneNumer,
                     pin: pin,
                   );
@@ -138,10 +137,10 @@ class _OtpFormState extends State<OtpForm> {
             ),
             const SizedBox(height: AppSpacing.lg + 4),
             BlocListener<OtpCubit, OtpState>(
-              listener: (context, state) {
+              listener: (context, state) async {
                 final verifyStatus = state.verifyStatus;
                 if (verifyStatus is RequestSuccess<AuthLoginModel>) {
-                  context.read<AuthCubit>().checkAuthStatus();
+                  await context.read<AuthCubit>().checkAuthStatus();
                 }
                 if (verifyStatus is RequestFailure<AuthLoginModel>) {
                   AppSnackBar.showBaseSnack(
@@ -153,11 +152,11 @@ class _OtpFormState extends State<OtpForm> {
               },
               child: AppButton(
                 child: const Text('Проверить'),
-                onPressed: () {
+                onPressed: () async {
                   focusNode.unfocus();
                   if (formKey.currentState!.validate()) {
                     final pin = pinController.text.trim();
-                    context.read<OtpCubit>().verifyOtpCode(
+                    await context.read<OtpCubit>().verifyOtpCode(
                       phoneNumber: widget.phoneNumer,
                       pin: pin,
                     );
@@ -167,7 +166,7 @@ class _OtpFormState extends State<OtpForm> {
             ),
             const SizedBox(height: AppSpacing.lg),
             BlocConsumer<OtpCubit, OtpState>(
-              listener: (context, state) {
+              listener: (context, state) async {
                 final sendStatus = state.sendStatus;
                 if (sendStatus is RequestFailure) {
                   AppSnackBar.showBaseSnack(sendStatus.exception.parseError());
@@ -176,16 +175,11 @@ class _OtpFormState extends State<OtpForm> {
               builder: (context, state) {
                 final isTimerFinished = state.remainingSeconds <= 0;
                 return TextButton(
-                  onPressed: isTimerFinished
-                      ? () =>
-                            context.read<OtpCubit>().sendOtp(widget.phoneNumer)
-                      : null,
+                  onPressed: isTimerFinished ? () => context.read<OtpCubit>().sendOtp(widget.phoneNumer) : null,
                   child: Text(
                     'Отправить повторно ${isTimerFinished ? '' : '(${state.remainingSeconds.formatTime()})'}',
                     style: theme.primaryTextTheme.titleSmall!.copyWith(
-                      color: isTimerFinished
-                          ? theme.colorScheme.primary
-                          : theme.disabledColor,
+                      color: isTimerFinished ? theme.colorScheme.primary : theme.disabledColor,
                     ),
                   ),
                 );
@@ -198,15 +192,15 @@ class _OtpFormState extends State<OtpForm> {
   }
 
   @override
-  void dispose() {
+  Future<void> dispose() async {
     pinController.dispose();
     focusNode.dispose();
-    smsRetriever.dispose();
+    await smsRetriever.dispose();
     super.dispose();
   }
 }
 
-extension IntX on int {
+extension IntX on num {
   String formatTime() {
     final minutes = (this ~/ 60).toString().padLeft(2, '0');
     final secs = (this % 60).toString().padLeft(2, '0');

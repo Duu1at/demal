@@ -6,10 +6,9 @@ import 'package:app/client/home/view/widgets/tours_error_state.dart';
 import 'package:app/client/home/view/widgets/tours_list_content.dart';
 import 'package:app/client/home/view/widgets/tours_loading_state.dart';
 import 'package:app/client/home/view/widgets/tours_search_bar.dart';
-import 'package:client_tour_repository/client_tour_repository.dart';
-import 'package:core/di/injector.dart';
-import 'package:flutter/material.dart';
 import 'package:app_ui/app_ui.dart';
+import 'package:client_tour_repository/client_tour_repository.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
@@ -18,7 +17,7 @@ class ClientHomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ToursBloc(getIt<ClientTourRepository>()),
+      create: (context) => ToursBloc(context.read<ClientTourRepository>()),
       child: const ClientHomeViewBody(),
     );
   }
@@ -31,8 +30,7 @@ class ClientHomeViewBody extends StatefulWidget {
   State<ClientHomeViewBody> createState() => _ClientHomeViewBodyState();
 }
 
-class _ClientHomeViewBodyState extends State<ClientHomeViewBody>
-    with ToursScrollControllerMixin {
+class _ClientHomeViewBodyState extends State<ClientHomeViewBody> with ToursScrollControllerMixin {
   final _searchController = TextEditingController();
   ToursParams _params = const ToursParams();
 
@@ -87,9 +85,7 @@ class _ClientHomeViewBodyState extends State<ClientHomeViewBody>
                   child: SizedBox(height: AppSpacing.sm),
                 ),
                 _buildStateContent(state),
-                if (state.isLoading &&
-                    state.allTours.isNotEmpty &&
-                    !state.isRefreshing)
+                if (state.isLoading && state.allTours.isNotEmpty && !state.isRefreshing)
                   const SliverToBoxAdapter(
                     child: Padding(
                       padding: EdgeInsets.all(AppSpacing.md),

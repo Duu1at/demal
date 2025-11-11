@@ -2,10 +2,14 @@ import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 
 class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
+  const HomeAppBar({
+    super.key,
+    this.onMenuTap,
+    this.onNotificationTap,
+  });
+  
   final VoidCallback? onMenuTap;
   final VoidCallback? onNotificationTap;
-
-  const HomeAppBar({super.key, this.onMenuTap, this.onNotificationTap});
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);

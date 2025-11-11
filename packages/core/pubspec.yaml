@@ -7,31 +7,24 @@ environment:
   sdk: ^3.9.0
 
 dependencies:
-  flutter:
-    sdk: flutter
-  get_it:
-  go_router:
-  image_picker:
-  url_launcher:
-  dio:
-  flutter_bloc:
-  pretty_dio_logger:
-  meta:
-  connectivity_plus:
-
-  talker_flutter: 
-  talker_bloc_logger:
-  talker_dio_logger:
-  equatable: 
-  smart_auth:
-  pinput:
-  
-  client_tour_repository:
-  storage:
   app_ui:
   auth_repository:
+  connectivity_plus:
+  dio:
+  equatable:
+  flutter:
+    sdk: flutter
+  flutter_bloc:
+  meta:
+
+  pinput:
+
+  smart_auth:
+  storage:
+  talker_bloc_logger:
+  talker_dio_logger:
+  url_launcher:
+
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
-  flutter_lints:
+  very_good_analysis:

@@ -1,3 +1,5 @@
+import 'package:storage/storage.dart';
+
 /// A Dart StorageInterface Client Interface
 abstract class StorageInterfaceRead {
   /// Returns the [String] value associated with the provided [key].

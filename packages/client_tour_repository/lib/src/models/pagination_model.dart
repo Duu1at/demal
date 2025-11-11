@@ -13,8 +13,7 @@ final class PaginationModel {
     required this.totalPages,
   });
 
-  factory PaginationModel.fromJson(Map<String, dynamic> json) =>
-      _$PaginationModelFromJson(json);
+  factory PaginationModel.fromJson(Map<String, dynamic> json) => _$PaginationModelFromJson(json);
 
   final int page;
 

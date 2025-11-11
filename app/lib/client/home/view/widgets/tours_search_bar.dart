@@ -13,7 +13,6 @@ class ToursSearchBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-      pinned: false,
       floating: true,
       elevation: 0,
       scrolledUnderElevation: 0,

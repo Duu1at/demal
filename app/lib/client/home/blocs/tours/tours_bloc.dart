@@ -1,10 +1,11 @@
 import 'dart:async';
+
+import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:client_tour_repository/client_tour_repository.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:stream_transform/stream_transform.dart';
 
 part 'tours_event.dart';
@@ -59,9 +60,7 @@ class ToursBloc extends Bloc<ToursEvent, ToursPagingState> {
     if (state.isLoading && !state.isRefreshing) return;
 
     final params =
-        event.params ??
-        state.params?.copyWith(page: null, limit: tourLimit) ??
-        const ToursParams(page: 1, limit: tourLimit);
+        event.params ?? state.params?.copyWith(limit: tourLimit) ?? const ToursParams(page: 1, limit: tourLimit);
 
     emit(state.reset().copyWithParams(params: params));
     await _fetchPage(emit, 1, params);
@@ -81,7 +80,7 @@ class ToursBloc extends Bloc<ToursEvent, ToursPagingState> {
     ToursFilterChangedEvent event,
     Emitter<ToursPagingState> emit,
   ) async {
-    final params = event.params.copyWith(page: null, limit: tourLimit);
+    final params = event.params.copyWith(limit: tourLimit);
 
     emit(state.reset().copyWithParams(params: params));
     await _fetchPage(emit, 1, params);
@@ -97,7 +96,7 @@ class ToursBloc extends Bloc<ToursEvent, ToursPagingState> {
       limit: tourLimit,
     );
 
-    emit(state.copyWithParams(isLoading: true, error: null, params: params));
+    emit(state.copyWithParams(isLoading: true, params: params));
 
     try {
       final result = await _clientTourRepository.getTours(params);
@@ -111,14 +110,13 @@ class ToursBloc extends Bloc<ToursEvent, ToursPagingState> {
       emit(
         state.copyWithParams(
           isLoading: false,
-          error: null,
           hasNextPage: !isLastPage,
           pages: pageKey == 1 ? [tours] : [...?state.pages, tours],
           keys: pageKey == 1 ? [pageKey] : [...?state.keys, pageKey],
           pagination: pagination,
         ),
       );
-    } catch (e) {
+    } on Object catch (e) {
       emit(state.copyWithParams(isLoading: false, error: e));
     }
   }

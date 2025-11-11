@@ -1,4 +1,4 @@
-import '../../auth_repository.dart';
+import 'package:auth_repository/auth_repository.dart';
 import 'package:core/core.dart';
 import 'package:meta/meta.dart';
 
@@ -8,7 +8,7 @@ final class AuthRepositoryeMockImpl implements AuthRepository {
 
   @override
   Future<void> deleteAccount() async {
-    Future.delayed(const Duration(milliseconds: 50));
+    await Future.delayed(const Duration(milliseconds: 50), () {});
   }
 
   @override
@@ -18,12 +18,12 @@ final class AuthRepositoryeMockImpl implements AuthRepository {
 
   @override
   Future<void> logOut() async {
-    Future.delayed(const Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 1), () {});
   }
 
   @override
   Future<Either<String, Exception>> sendOtp(String phoneNumber) async {
-    Future.delayed(const Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 1), () {});
     return const Right('Succes');
   }
 
@@ -48,7 +48,7 @@ final class AuthRepositoryeMockImpl implements AuthRepository {
 
   @override
   Future<AuthLoginModel> verifyOtp(String phoneNumber, String otpCode) async {
-    Future.delayed(const Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 1), () {});
     const user = UserModel(
       role: Role.client,
       fullName: 'Duulat',
@@ -72,7 +72,7 @@ final class AuthRepositoryeMockImpl implements AuthRepository {
 
   @override
   Future<void> saveOnboardingStatus(bool completed) async {
-    Future.delayed(const Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 1), () {});
   }
 
   @override

@@ -30,24 +30,22 @@ class TourCardWidget extends StatelessWidget {
       title: tour.title ?? '',
       features: tour.whatsIncluded ?? [],
       duration: tour.formatDuration(),
-      distance: null,
       city: tour.city,
       country: tour.country,
-      oldPrice: null,
       price: tour.price?.toDouble(),
       cacheManager: cacheManager,
       onTap:
           onTap ??
-          () {
+          () async {
             if (tour.tourId != null) {
-              context.pushNamed(AppRouter.clientTourDetails);
+              await context.pushNamed(AppRouter.clientTourDetails);
             }
           },
       onBookTap:
           onBookTap ??
-          () {
+          () async {
             if (tour.tourId != null) {
-              context.pushNamed(AppRouter.clientTourTickets);
+              await context.pushNamed(AppRouter.clientTourTickets);
             }
           },
     );
