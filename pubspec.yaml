@@ -8,7 +8,6 @@ environment:
 workspace:
   - app
   - packages/api_client
-  - packages/core
   - packages/app_ui
   - packages/storage
   - packages/auth_repository

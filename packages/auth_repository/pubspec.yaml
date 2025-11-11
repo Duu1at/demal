@@ -7,7 +7,7 @@ environment:
   sdk: ^3.9.0
 
 dependencies:
-  core:
+  api_client:
   json_annotation:
   meta:
   storage:

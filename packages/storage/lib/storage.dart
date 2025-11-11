@@ -1,2 +1,2 @@
-export './src/interface/storage_exception.dart';
-export 'src/storage_base.dart';
+export 'exception/storage_exception.dart';
+export 'repositories/preferences_storage.dart';

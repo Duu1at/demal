@@ -1,17 +1,16 @@
 import 'dart:async';
 
-import 'package:app/app/app_view.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:core/api/api.dart';
-import 'package:core/keys/storage_keys.dart';
-import 'package:core/network/network_client/network_client.dart';
-import 'package:core/network/remote_client.dart';
-import 'package:dio/dio.dart';
+import 'package:api_client/api_client.dart';
+import 'package:api_client/interceptors/base_interceptor.dart';
+import 'package:app/app/view/app_view.dart';
+import 'package:app/env.dart';
+import 'package:auth_repository/auth_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:storage/storage.dart';
 import 'package:talker_bloc_logger/talker_bloc_logger_observer.dart';
 import 'package:talker_bloc_logger/talker_bloc_logger_settings.dart';
+import 'package:talker_dio_logger/talker_dio_logger.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 void main() async {
@@ -37,27 +36,41 @@ void main() async {
           ..error(details.stack.toString());
         FlutterError.dumpErrorToConsole(details);
       };
-    
 
       final storage = await PreferencesStorage.getInstance();
-      runApp(
+      
+      final baseOptions = BaseOptions(
+        baseUrl: Env.baseUrl,
+        contentType: 'application/json; charset=utf-8',
+        connectTimeout: const Duration(seconds: 120),
+        receiveTimeout: const Duration(seconds: 120),
+      );
+
+      final bearerDio = Dio(baseOptions)
+        ..interceptors.addAll(
+          [
+            BaseInterceptor(
+              token: () => storage.readString(key: AuthStorageKey.tokenKey),
+              role: () => storage.readString(key: AuthStorageKey.roleKey),
+            ),
+            TalkerDioLogger(
+              talker: talker,
+              settings: const TalkerDioLoggerSettings(
+                printRequestHeaders: true,
+                printResponseHeaders: true,
+              ),
+            ),
+          ],
+        );
+
+       runApp(
         MultiRepositoryProvider(
           providers: [
             RepositoryProvider<PreferencesStorage>(create: (context) => storage),
-            RepositoryProvider<NetworkClient>(
-              create: (context) => NetworkClient(connectivity: Connectivity()),
-            ),
-            RepositoryProvider<RemoteClient>(
-              create: (context) => RemoteClient(
-                dio: Dio(
-                  BaseOptions(
-                    baseUrl: Api.baseUrl,
-                    connectTimeout: const Duration(seconds: 100),
-                    receiveTimeout: const Duration(seconds: 100),
-                  ),
-                ),
-                network: context.read<NetworkClient>(),
-                resolveAppRole: () => storage.readString(key: StorageKeys.roleKey),
+            RepositoryProvider<ApiClient>(
+              create: (context) => ApiClient.fromDio(
+                connection: ConnectionChecker(),
+                dio: bearerDio,
               ),
             ),
           ],
