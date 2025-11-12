@@ -38,7 +38,7 @@ void main() async {
       };
 
       final storage = await PreferencesStorage.getInstance();
-      
+
       final baseOptions = BaseOptions(
         baseUrl: Env.baseUrl,
         contentType: 'application/json; charset=utf-8',
@@ -63,7 +63,7 @@ void main() async {
           ],
         );
 
-       runApp(
+      runApp(
         MultiRepositoryProvider(
           providers: [
             RepositoryProvider<PreferencesStorage>(create: (context) => storage),

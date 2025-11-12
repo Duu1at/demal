@@ -2,7 +2,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:storage/exception/storage_exception.dart';
 import 'package:storage/repositories/storage_interface_read.dart';
 
-
 class PreferencesStorage implements StorageInterfaceRead {
   PreferencesStorage._(this._sharedPreferences);
   final SharedPreferences _sharedPreferences;

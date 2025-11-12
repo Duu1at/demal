@@ -6,12 +6,12 @@ final class TourRepositoryMockImpl implements TourRepository {
   const TourRepositoryMockImpl();
 
   @override
-  Future<TourDetailModel> getTourDetail(String tourId) async {
+  Future<TourDetailModel> getClientTourDetail(String tourId) async {
     return const TourDetailModel();
   }
 
   @override
-  Future<ToursModel> getTours(ToursParams params) async {
+  Future<ToursModel> getClientTours(ToursParams params) async {
     const data = {
       'success': true,
       'tours': [
@@ -181,5 +181,35 @@ final class TourRepositoryMockImpl implements TourRepository {
     };
 
     return ToursModel.fromJson(data);
+  }
+
+  @override
+  Future<void> createPartnerTour(TourCreateParam tourCreateParam) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> deletePartnerTour(String tourId) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> getClientTourReviews(String tourId, int page, int limit) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<TourDetailModel> getClientTourTickets(int page, int limit) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> getPartnerTours(ToursParams params) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> updatePartnerTour(String tourId, TourCreateParam tourCreateParam) {
+    throw UnimplementedError();
   }
 }

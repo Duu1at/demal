@@ -7,7 +7,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.onMenuTap,
     this.onNotificationTap,
   });
-  
+
   final VoidCallback? onMenuTap;
   final VoidCallback? onNotificationTap;
 

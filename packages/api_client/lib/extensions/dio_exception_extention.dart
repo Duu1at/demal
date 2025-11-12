@@ -18,4 +18,14 @@ extension DioExceptionX on DioException {
     }
     return msg;
   }
+
+  String? get errorMessage {
+    final data = response?.data;
+    if (data is String) {
+      return data;
+    } else if (data is Map<String, dynamic> && data.containsKey('error')) {
+      return data['error'] as String;
+    }
+    return null;
+  }
 }

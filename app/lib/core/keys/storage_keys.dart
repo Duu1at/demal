@@ -1,3 +1,1 @@
-abstract final class StorageKeys {
-
-}
+abstract final class StorageKeys {}

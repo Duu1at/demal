@@ -1,5 +1,6 @@
 import 'package:app/client/home/blocs/tours/tours_bloc.dart';
 import 'package:app/client/home/widgets/tour_card/tour_card_widget.dart';
+import 'package:app/core/core.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,6 +27,15 @@ class ToursListContent extends StatelessWidget {
               return TourCardWidget(
                 tour: tour,
                 cacheManager: DefaultCacheManager(),
+                onTap: () {
+                  SnackBarErrorHandle.I.handleError(
+                    SnackBarErrorHandleParam(
+                      'duulat',
+                      context: context,
+                      type: SnackBarType.error,
+                    ),
+                  );
+                },
               );
             },
             separatorBuilder: (_, _) => const SizedBox(height: AppSpacing.md),

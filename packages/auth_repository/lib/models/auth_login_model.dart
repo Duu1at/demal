@@ -2,7 +2,6 @@ import 'package:auth_repository/auth_repository.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 
-
 part 'auth_login_model.g.dart';
 
 @JsonSerializable()

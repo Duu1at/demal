@@ -99,7 +99,7 @@ class ToursBloc extends Bloc<ToursEvent, ToursPagingState> {
     emit(state.copyWithParams(isLoading: true, params: params));
 
     try {
-      final result = await _tourRepository.getTours(params);
+      final result = await _tourRepository.getClientTours(params);
       final tours = result.tours ?? [];
       final pagination = result.pagination;
 
