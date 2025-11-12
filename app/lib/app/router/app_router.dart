@@ -163,7 +163,7 @@ final class AppRouter {
       GoRoute(
         path: clientTourDetails,
         name: clientTourDetails,
-        builder: (context, state) => const ClientTourDetailsView(),
+        builder: (context, state) => ClientTourDetailsView(state.extra! as String),
       ),
       GoRoute(
         path: clientTourTickets,

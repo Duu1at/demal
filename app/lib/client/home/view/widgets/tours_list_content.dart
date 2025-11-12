@@ -1,10 +1,11 @@
+import 'package:app/app/app.dart';
 import 'package:app/client/home/blocs/tours/tours_bloc.dart';
 import 'package:app/client/home/widgets/tour_card/tour_card_widget.dart';
-import 'package:app/core/core.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:go_router/go_router.dart';
 
 class ToursListContent extends StatelessWidget {
   const ToursListContent({super.key});
@@ -28,13 +29,7 @@ class ToursListContent extends StatelessWidget {
                 tour: tour,
                 cacheManager: DefaultCacheManager(),
                 onTap: () {
-                  SnackBarErrorHandle.I.handleError(
-                    SnackBarErrorHandleParam(
-                      'duulat',
-                      context: context,
-                      type: SnackBarType.error,
-                    ),
-                  );
+                  context.pushNamed(AppRouter.clientTourDetails, extra: tour.tourId ?? '');
                 },
               );
             },

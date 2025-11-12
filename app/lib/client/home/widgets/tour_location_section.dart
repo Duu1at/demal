@@ -1,9 +1,10 @@
-import 'package:app/client/home/widgets/map_widget.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
+import 'package:tour_repository/tour_repository.dart';
 
 class TourLocationSection extends StatelessWidget {
-  const TourLocationSection({super.key});
+  const TourLocationSection(this.tour, {super.key});
+  final TourModel tour;
 
   @override
   Widget build(BuildContext context) {
@@ -12,13 +13,8 @@ class TourLocationSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text('Место сбора', style: theme.textTheme.titleMedium),
-        const SizedBox(height: AppSpacing.sm),
-        Text('Площадь Ала-Тоо, Бишкек', style: theme.textTheme.bodyMedium),
-        const SizedBox(height: AppSpacing.md),
-        ClipRRect(
-          borderRadius: BorderRadius.circular(AppSpacing.lg),
-          child: const SizedBox(height: 200, child: MapWidget()),
-        ),
+        const SizedBox(height: AppSpacing.xs),
+        Text(tour.meetingPoint?.address ?? '', style: theme.textTheme.bodyMedium),
       ],
     );
   }

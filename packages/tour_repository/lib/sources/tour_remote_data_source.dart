@@ -17,10 +17,10 @@ final class TourRemoteDataSource {
     );
   }
 
-  Future<TourDetailModel> getToursDetail(String tourId) {
-    return client.getType(
+  Future<TourModel> getToursDetail(String tourId) async {
+    final response = await client.getResponse<Map<String, dynamic>>(
       '/api/v1/tours/$tourId',
-      fromJson: TourDetailModel.fromJson,
     );
+    return TourModel.fromJson(response.data?['tour'] as Map<String, dynamic>);
   }
 }

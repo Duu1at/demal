@@ -6,8 +6,43 @@ final class TourRepositoryMockImpl implements TourRepository {
   const TourRepositoryMockImpl();
 
   @override
-  Future<TourDetailModel> getClientTourDetail(String tourId) async {
-    return const TourDetailModel();
+  Future<TourModel> getClientTourDetail(String tourId) async {
+    return const TourModel(
+      tourId: '63296682-0d17-4746-9f2f-1fac4366f5a0',
+      title: 'Тур по озеру Иссык-Куль',
+      mainImageUrl: 'https://example.com/main-image.jpg',
+      location: 'Озеро Иссык-Куль',
+      tourType: 'Активный отдых',
+      date: '2024-06-15',
+      time: '09:00',
+      price: 5000,
+      currency: 'KGS',
+      availableSpots: 20,
+      description: 'Прекрасный однодневный тур с посещением основных достопримечательностей',
+      program: {
+        '09:00': 'Встреча',
+        '10:00': 'Выезд',
+        '12:00': 'Прибытие',
+      },
+
+      whatsIncluded: ['Трансфер', 'Обед', 'Гид'],
+      whatsNotIncluded: ['Личные расходы', 'Алкоголь'],
+      whatToBring: 'Удобная одежда, солнцезащитный крем, вода',
+      imageGalleryUrls: [
+        'https://example.com/image1.jpg',
+        'https://example.com/image2.jpg',
+      ],
+      organizer: OrganizerModel(
+        id: '45393e26-ca81-4ac7-82e2-13a823ead911',
+        fullName: 'Исабек Абазов',
+        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/NestJS.svg/1200px-NestJS.svg.png',
+      ),
+      status: 'ACTIVE',
+      averageRating: 0,
+      reviewsCount: 0,
+      createdAt: '2025-11-02T12:54:52.322Z',
+      updatedAt: '2025-11-02T12:54:52.322Z',
+    );
   }
 
   @override

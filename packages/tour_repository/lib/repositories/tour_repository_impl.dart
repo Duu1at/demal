@@ -8,7 +8,7 @@ final class TourRepositoryImpl implements TourRepository {
   final TourRemoteDataSource tourRemoteDataSource;
 
   @override
-  Future<TourDetailModel> getClientTourDetail(String tourId) {
+  Future<TourModel> getClientTourDetail(String tourId) {
     return tourRemoteDataSource.getToursDetail(tourId);
   }
 
