@@ -19,24 +19,4 @@ abstract final class InputFormatters {
         )
         .text;
   }
-
-  static final phoneFormatterZero = MaskTextInputFormatter(
-    mask: '#### ## ## ##',
-    filter: {'#': RegExp('[0-9]')},
-  );
-
-  static final dateFormatter = MaskTextInputFormatter(
-    mask: '##.##.####',
-    filter: {'#': RegExp('[0-9]')},
-  );
-
-  static final phoneFormatterWith996 = MaskTextInputFormatter(
-    mask: '+996 (###) ###-###',
-    filter: {'#': RegExp('[0-9]')},
-  );
-
-  static final cardFormatter = MaskTextInputFormatter(
-    mask: '#### #### #### ####',
-    filter: {'#': RegExp('[0-9]')},
-  );
 }
