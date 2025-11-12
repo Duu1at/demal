@@ -1,8 +1,8 @@
 import 'package:app/client/home/blocs/tours/tours_bloc.dart';
 import 'package:app_ui/app_ui.dart';
-import 'package:client_tour_repository/client_tour_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tour_repository/tour_repository.dart';
 
 class ClientTourFiltersView extends StatefulWidget {
   const ClientTourFiltersView({super.key});

@@ -1,10 +1,10 @@
 import 'package:api_client/api_client.dart';
-import 'package:client_tour_repository/client_tour_repository.dart';
 import 'package:meta/meta.dart';
+import 'package:tour_repository/tour_repository.dart';
 
 @immutable
-final class ClientTourRemoteDataSource {
-  const ClientTourRemoteDataSource(this.client);
+final class TourRemoteDataSource {
+  const TourRemoteDataSource(this.client);
   final ApiClient client;
 
   Future<ToursModel> getTours(ToursParams params) {

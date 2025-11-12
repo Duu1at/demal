@@ -1,10 +1,12 @@
-import 'package:client_tour_repository/client_tour_repository.dart';
 import 'package:meta/meta.dart';
+import 'package:tour_repository/tour_repository.dart';
 
 @immutable
-final class ClientTourRepositoryMockImpl implements ClientTourRepository {
+final class TourRepositoryMockImpl implements TourRepository {
+  const TourRepositoryMockImpl();
+
   @override
-  Future<TourDetailModel> getTourDetail(String tourid) async {
+  Future<TourDetailModel> getTourDetail(String tourId) async {
     return const TourDetailModel();
   }
 

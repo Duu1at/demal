@@ -15,9 +15,8 @@ dependencies:
   bloc_concurrency:
   cached_network_image:
   carousel_slider:
-  client_tour_repository:
+  tour_repository:
   connectivity_plus:
-  core:
   dio:
   equatable:
   flutter:
