@@ -1,6 +1,6 @@
-import 'package:client_tour_repository/client_tour_repository.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
+import 'package:tour_repository/tour_repository.dart';
 
 part 'tour_detail_model.g.dart';
 

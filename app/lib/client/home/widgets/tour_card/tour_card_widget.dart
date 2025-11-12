@@ -1,10 +1,10 @@
 import 'package:app/app/router/app_router.dart';
 import 'package:app/client/home/utils/tour_model_extensions.dart';
 import 'package:app/client/home/widgets/tour_card/tour_card.dart';
-import 'package:client_tour_repository/client_tour_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tour_repository/tour_repository.dart';
 
 class TourCardWidget extends StatelessWidget {
   const TourCardWidget({

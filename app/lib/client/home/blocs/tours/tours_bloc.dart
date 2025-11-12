@@ -1,12 +1,12 @@
 import 'dart:async';
 
 import 'package:bloc_concurrency/bloc_concurrency.dart';
-import 'package:client_tour_repository/client_tour_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:stream_transform/stream_transform.dart';
+import 'package:tour_repository/tour_repository.dart';
 
 part 'tours_event.dart';
 part 'tours_paging_state.dart';
@@ -32,7 +32,7 @@ EventTransformer<E> throttleDroppable<E>() {
 const int tourLimit = 10;
 
 class ToursBloc extends Bloc<ToursEvent, ToursPagingState> {
-  ToursBloc(this._clientTourRepository) : super(ToursPagingState()) {
+  ToursBloc(this._tourRepository) : super(ToursPagingState()) {
     on<ToursInitialFetchEvent>(_onInitialFetch);
     on<ToursRefreshEvent>(_onRefresh, transformer: throttleDroppable());
     on<ToursLoadMoreEvent>(_onLoadMore, transformer: throttleDroppable());
@@ -42,7 +42,7 @@ class ToursBloc extends Bloc<ToursEvent, ToursPagingState> {
     );
   }
 
-  final ClientTourRepository _clientTourRepository;
+  final TourRepository _tourRepository;
 
   Future<void> _onInitialFetch(
     ToursInitialFetchEvent event,
@@ -99,7 +99,7 @@ class ToursBloc extends Bloc<ToursEvent, ToursPagingState> {
     emit(state.copyWithParams(isLoading: true, params: params));
 
     try {
-      final result = await _clientTourRepository.getTours(params);
+      final result = await _tourRepository.getTours(params);
       final tours = result.tours ?? [];
       final pagination = result.pagination;
 

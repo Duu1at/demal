@@ -3,12 +3,12 @@ import 'package:app/app/app.dart';
 import 'package:app/l10n/app_localizations.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:auth_repository/auth_repository.dart';
-import 'package:client_tour_repository/client_tour_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:storage/storage.dart';
+import 'package:tour_repository/tour_repository.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -29,9 +29,9 @@ class App extends StatelessWidget {
           ),
         ),
 
-        RepositoryProvider<ClientTourRepository>(
-          create: (context) => ClientTourRepositoryImpl(
-            ClientTourRemoteDataSource(context.read<ApiClient>()),
+        RepositoryProvider<TourRepository>(
+          create: (context) => TourRepositoryImpl(
+            TourRemoteDataSource(context.read<ApiClient>()),
           ),
         ),
         BlocProvider<AppThemeCubit>(

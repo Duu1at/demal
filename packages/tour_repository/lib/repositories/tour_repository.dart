@@ -1,8 +1,9 @@
-import 'package:client_tour_repository/client_tour_repository.dart';
 import 'package:meta/meta.dart';
 
+import 'package:tour_repository/tour_repository.dart';
+
 @immutable
-abstract interface class ClientTourRepository {
+abstract interface class TourRepository {
   Future<ToursModel> getTours(ToursParams params);
   Future<TourDetailModel> getTourDetail(String tourId);
 }

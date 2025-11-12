@@ -11,7 +11,7 @@ workspace:
   - packages/app_ui
   - packages/storage
   - packages/auth_repository
-  - packages/client_tour_repository
+  - packages/tour_repository
 
 dependencies:
   bloc_concurrency: ^0.3.0

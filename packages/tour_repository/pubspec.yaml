@@ -1,5 +1,5 @@
-name: client_tour_repository
-description: "Demal APP Client Tour Repository."
+name: tour_repository
+description: "Demal APP  Tour Repository."
 version: 0.0.1
 resolution: workspace
 

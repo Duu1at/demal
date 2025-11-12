@@ -7,17 +7,17 @@ import 'package:app/client/home/view/widgets/tours_list_content.dart';
 import 'package:app/client/home/view/widgets/tours_loading_state.dart';
 import 'package:app/client/home/view/widgets/tours_search_bar.dart';
 import 'package:app_ui/app_ui.dart';
-import 'package:client_tour_repository/client_tour_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tour_repository/tour_repository.dart';
 
 class ClientHomeView extends StatelessWidget {
   const ClientHomeView({super.key});
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ToursBloc(context.read<ClientTourRepository>()),
+      create: (context) => ToursBloc(context.read<TourRepository>()),
       child: const ClientHomeViewBody(),
     );
   }

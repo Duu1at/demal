@@ -1,4 +1,5 @@
-import 'package:client_tour_repository/client_tour_repository.dart';
+
+import 'package:tour_repository/tour_repository.dart';
 
 extension TourModelExtensions on TourModel {
   Map<String, String?> parseLocation() {
