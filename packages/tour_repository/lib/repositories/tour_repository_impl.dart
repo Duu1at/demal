@@ -13,7 +13,7 @@ final class TourRepositoryImpl implements TourRepository {
   }
 
   @override
-  Future<ToursModel> getClientTours(ToursParams params) {
+  Future<ToursModel> getClientTours(ToursParam params) {
     return tourRemoteDataSource.getTours(params);
   }
 
@@ -33,7 +33,7 @@ final class TourRepositoryImpl implements TourRepository {
   }
 
   @override
-  Future<void> getPartnerTours(ToursParams params) {
+  Future<void> getPartnerTours(ToursParam params) {
     throw UnimplementedError();
   }
 

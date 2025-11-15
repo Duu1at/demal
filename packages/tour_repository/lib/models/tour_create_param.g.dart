@@ -13,18 +13,22 @@ TourCreateParam _$TourCreateParamFromJson(Map<String, dynamic> json) => TourCrea
   date: json['date'] as String,
   time: json['time'] as String,
   price: (json['price'] as num).toDouble(),
-  currency: json['currency'] as String,
-  description: json['description'] as String,
-  program: (json['program'] as Map<String, dynamic>?)?.map(
-    (k, e) => MapEntry(k, e as String),
-  ),
-  meetingPoint: Map<String, String>.from(json['meeting_point'] as Map),
+  meetingPoint: json['meeting_point'] == null
+      ? null
+      : MeetingPoint.fromJson(
+          json['meeting_point'] as Map<String, dynamic>,
+        ),
   tourType: json['tour_type'] as String?,
   availableSpots: (json['available_spots'] as num?)?.toInt(),
   whatsIncluded: (json['whats_included'] as List<dynamic>?)?.map((e) => e as String).toList(),
   whatsNotIncluded: (json['whats_not_included'] as List<dynamic>?)?.map((e) => e as String).toList(),
-  whatToBring: json['what_to_bring'] as String?,
   imageGalleryUrls: (json['image_gallery_urls'] as List<dynamic>?)?.map((e) => e as String).toList(),
+  currency: json['currency'] as String?,
+  description: json['description'] as String?,
+  program: (json['program'] as Map<String, dynamic>?)?.map(
+    (k, e) => MapEntry(k, e as String),
+  ),
+  whatToBring: json['what_to_bring'] as String?,
 );
 
 Map<String, dynamic> _$TourCreateParamToJson(TourCreateParam instance) => <String, dynamic>{
@@ -44,4 +48,14 @@ Map<String, dynamic> _$TourCreateParamToJson(TourCreateParam instance) => <Strin
   'whats_not_included': instance.whatsNotIncluded,
   'what_to_bring': instance.whatToBring,
   'image_gallery_urls': instance.imageGalleryUrls,
+};
+
+MeetingPoint _$MeetingPointFromJson(Map<String, dynamic> json) => MeetingPoint(
+  address: json['address'] as String,
+  coordinates: json['coordinates'] as String?,
+);
+
+Map<String, dynamic> _$MeetingPointToJson(MeetingPoint instance) => <String, dynamic>{
+  'address': instance.address,
+  'coordinates': instance.coordinates,
 };

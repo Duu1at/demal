@@ -13,16 +13,16 @@ final class TourCreateParam {
     required this.date,
     required this.time,
     required this.price,
-    required this.currency,
-    required this.description,
-    required this.program,
     required this.meetingPoint,
-    this.tourType,
-    this.availableSpots,
-    this.whatsIncluded,
-    this.whatsNotIncluded,
+    required this.tourType,
+    required this.availableSpots,
+    required this.whatsIncluded,
+    required this.whatsNotIncluded,
+    required this.imageGalleryUrls,
+    this.currency,
+    this.description,
+    this.program,
     this.whatToBring,
-    this.imageGalleryUrls,
   });
   factory TourCreateParam.fromJson(Map<String, dynamic> json) => _$TourCreateParamFromJson(json);
 
@@ -42,17 +42,17 @@ final class TourCreateParam {
 
   final double price;
 
-  final String currency;
+  final String? currency;
 
   @JsonKey(name: 'available_spots')
   final int? availableSpots;
 
-  final String description;
+  final String? description;
 
   final Map<String, String>? program;
 
   @JsonKey(name: 'meeting_point')
-  final Map<String, String> meetingPoint;
+  final MeetingPoint? meetingPoint;
 
   @JsonKey(name: 'whats_included')
   final List<String>? whatsIncluded;
@@ -67,4 +67,18 @@ final class TourCreateParam {
   final List<String>? imageGalleryUrls;
 
   Map<String, dynamic> toJson() => _$TourCreateParamToJson(this);
+}
+
+@JsonSerializable()
+@immutable
+final class MeetingPoint {
+  const MeetingPoint({
+    required this.address,
+    this.coordinates,
+  });
+  factory MeetingPoint.fromJson(Map<String, dynamic> json) => _$MeetingPointFromJson(json);
+  final String address;
+  final String? coordinates;
+
+  Map<String, dynamic> toJson() => _$MeetingPointToJson(this);
 }

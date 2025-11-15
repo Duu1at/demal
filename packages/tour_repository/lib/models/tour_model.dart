@@ -89,10 +89,10 @@ final class TourModel {
   final int? reviewsCount;
 
   @JsonKey(name: 'created_at')
-  final String? createdAt;
+  final DateTime? createdAt;
 
   @JsonKey(name: 'updated_at')
-  final String? updatedAt;
+  final DateTime? updatedAt;
 
   Map<String, dynamic> toJson() => _$TourModelToJson(this);
 }

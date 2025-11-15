@@ -34,4 +34,9 @@ final class ProfileRepositoryImpl implements ProfileRepository {
   Future<PartnerProfileModel> updatePartnerProfile(PartnerProfileParam param) {
     return remoteDataSource.updatePartnerProfile(param);
   }
+
+  @override
+  ProfileModel getProfileFromLocal() {
+    return localDataSource.getProfileData();
+  }
 }

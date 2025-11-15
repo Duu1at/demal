@@ -7,7 +7,7 @@ final class TourRemoteDataSource {
   const TourRemoteDataSource(this.client);
   final ApiClient client;
 
-  Future<ToursModel> getTours(ToursParams params) {
+  Future<ToursModel> getTours(ToursParam params) {
     final queryParams = params.toJson()..removeWhere((key, value) => value == null);
 
     return client.getType(

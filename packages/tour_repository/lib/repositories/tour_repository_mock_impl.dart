@@ -7,7 +7,7 @@ final class TourRepositoryMockImpl implements TourRepository {
 
   @override
   Future<TourModel> getClientTourDetail(String tourId) async {
-    return const TourModel(
+    return TourModel(
       tourId: '63296682-0d17-4746-9f2f-1fac4366f5a0',
       title: 'Тур по озеру Иссык-Куль',
       mainImageUrl: 'https://example.com/main-image.jpg',
@@ -19,20 +19,20 @@ final class TourRepositoryMockImpl implements TourRepository {
       currency: 'KGS',
       availableSpots: 20,
       description: 'Прекрасный однодневный тур с посещением основных достопримечательностей',
-      program: {
+      program: const {
         '09:00': 'Встреча',
         '10:00': 'Выезд',
         '12:00': 'Прибытие',
       },
 
-      whatsIncluded: ['Трансфер', 'Обед', 'Гид'],
-      whatsNotIncluded: ['Личные расходы', 'Алкоголь'],
+      whatsIncluded: const ['Трансфер', 'Обед', 'Гид'],
+      whatsNotIncluded: const ['Личные расходы', 'Алкоголь'],
       whatToBring: 'Удобная одежда, солнцезащитный крем, вода',
-      imageGalleryUrls: [
+      imageGalleryUrls: const [
         'https://example.com/image1.jpg',
         'https://example.com/image2.jpg',
       ],
-      organizer: OrganizerModel(
+      organizer: const OrganizerModel(
         id: '45393e26-ca81-4ac7-82e2-13a823ead911',
         fullName: 'Исабек Абазов',
         imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/NestJS.svg/1200px-NestJS.svg.png',
@@ -40,13 +40,13 @@ final class TourRepositoryMockImpl implements TourRepository {
       status: 'ACTIVE',
       averageRating: 0,
       reviewsCount: 0,
-      createdAt: '2025-11-02T12:54:52.322Z',
-      updatedAt: '2025-11-02T12:54:52.322Z',
+      createdAt: DateTime.now(),
+      updatedAt: DateTime.now(),
     );
   }
 
   @override
-  Future<ToursModel> getClientTours(ToursParams params) async {
+  Future<ToursModel> getClientTours(ToursParam params) async {
     const data = {
       'success': true,
       'tours': [
@@ -234,7 +234,7 @@ final class TourRepositoryMockImpl implements TourRepository {
   }
 
   @override
-  Future<void> getPartnerTours(ToursParams params) {
+  Future<void> getPartnerTours(ToursParam params) {
     throw UnimplementedError();
   }
 

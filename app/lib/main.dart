@@ -4,7 +4,6 @@ import 'package:api_client/api_client.dart';
 import 'package:api_client/interceptors/app_interceptor.dart';
 import 'package:app/app/view/app_view.dart';
 import 'package:app/env.dart';
-import 'package:auth_repository/auth_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:storage/storage.dart';

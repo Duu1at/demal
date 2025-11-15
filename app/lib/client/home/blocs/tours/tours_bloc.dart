@@ -60,7 +60,7 @@ class ToursBloc extends Bloc<ToursEvent, ToursPagingState> {
     if (state.isLoading && !state.isRefreshing) return;
 
     final params =
-        event.params ?? state.params?.copyWith(limit: tourLimit) ?? const ToursParams(page: 1, limit: tourLimit);
+        event.params ?? state.params?.copyWith(limit: tourLimit) ?? const ToursParam(page: 1, limit: tourLimit);
 
     emit(state.reset().copyWithParams(params: params));
     await _fetchPage(emit, 1, params);
@@ -89,9 +89,9 @@ class ToursBloc extends Bloc<ToursEvent, ToursPagingState> {
   Future<void> _fetchPage(
     Emitter<ToursPagingState> emit,
     int pageKey,
-    ToursParams? baseParams,
+    ToursParam? baseParams,
   ) async {
-    final params = (baseParams ?? const ToursParams()).copyWith(
+    final params = (baseParams ?? const ToursParam()).copyWith(
       page: pageKey,
       limit: tourLimit,
     );
@@ -104,7 +104,7 @@ class ToursBloc extends Bloc<ToursEvent, ToursPagingState> {
       final pagination = result.pagination;
 
       final isLastPage = pagination != null
-          ? pageKey >= pagination.totalPages
+          ? pageKey >= pagination.totalPages!
           : tours.isEmpty || tours.length < tourLimit;
 
       emit(
@@ -123,7 +123,7 @@ class ToursBloc extends Bloc<ToursEvent, ToursPagingState> {
 
   @override
   Future<void> close() {
-    state.params?.clearAll();
+    state.params?.isEmpty = false;
     return super.close();
   }
 }

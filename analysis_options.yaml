@@ -5,6 +5,7 @@ analyzer:
     - "**/*.g.dart"
   errors:
     todo: ignore
+    directives_ordering: ignore
 
 formatter:
   trailing_commas: preserve
