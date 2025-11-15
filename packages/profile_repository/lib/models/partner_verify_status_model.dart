@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
+import 'package:profile_repository/profile_repository.dart';
 
 part 'partner_verify_status_model.g.dart';
 
@@ -35,16 +36,4 @@ final class PartnerVerifyStatusModel extends Equatable {
 
   @override
   List<Object?> get props => [success, verificationStatus, adminComments, submittedAt, reviewedAt];
-}
-
-enum PartnerVerifyStatusEnum {
-  @JsonValue('PENDING')
-  pending('PENDING'),
-  @JsonValue('VERIFIED')
-  verified('VERIFIED'),
-  @JsonValue('REJECTED')
-  rejected('REJECTED');
-
-  const PartnerVerifyStatusEnum(this.value);
-  final String value;
 }

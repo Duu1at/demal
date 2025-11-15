@@ -10,26 +10,15 @@ final class ProfileLocalDataSource {
 
   final PreferencesStorage storage;
 
-  static const String clientProfileKey = 'client_profile';
-  static const String partnerProfileKey = 'partner_profile';
+  static const String profileKey = 'profile';
 
-  Future<void> setClientProfileData(ClientProfileModel data) async {
+  Future<void> setProfileData(ProfileModel data) async {
     final json = jsonEncode(data.toJson());
-    await storage.writeString(key: clientProfileKey, value: json);
+    await storage.writeString(key: profileKey, value: json);
   }
 
-  ClientProfileModel getClientProfileData() {
-    final json = storage.readString(key: clientProfileKey) ?? '{}';
-    return ClientProfileModel.fromJson(jsonDecode(json) as Map<String, dynamic>);
-  }
-
-  Future<void> setPartnerProfileData(PartnerProfileModel data) async {
-    final json = jsonEncode(data.toJson());
-    await storage.writeString(key: partnerProfileKey, value: json);
-  }
-
-  PartnerProfileModel getPartnerProfileData() {
-    final json = storage.readString(key: partnerProfileKey) ?? '{}';
-    return PartnerProfileModel.fromJson(jsonDecode(json) as Map<String, dynamic>);
+  ProfileModel getProfileData() {
+    final json = storage.readString(key: profileKey) ?? '{}';
+    return ProfileModel.fromJson(jsonDecode(json) as Map<String, dynamic>);
   }
 }

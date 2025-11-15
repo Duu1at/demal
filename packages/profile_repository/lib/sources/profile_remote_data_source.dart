@@ -8,18 +8,18 @@ final class ProfileRemoteDataSource {
 
   final ApiClient apiClient;
 
-  Future<ClientProfileModel> getClientProfile() {
-    return apiClient.getType<ClientProfileModel>(
+  Future<ProfileModel> getProfile() {
+    return apiClient.getType<ProfileModel>(
       '/api/v1/users/me',
-      fromJson: ClientProfileModel.fromJson,
+      fromJson: ProfileModel.fromJson,
     );
   }
 
-  Future<ClientProfileModel> updateClientProfile(ClientUpdateProfileParam clientUpdateProfileParam) {
-    return apiClient.patchType<ClientProfileModel>(
+  Future<ProfileModel> updateProfile(ProfileUpdateParam param) {
+    return apiClient.patchType<ProfileModel>(
       '/api/v1/users/profile',
-      data: clientUpdateProfileParam.toJson(),
-      fromJson: ClientProfileModel.fromJson,
+      data: param.toJson(),
+      fromJson: ProfileModel.fromJson,
     );
   }
 
@@ -30,11 +30,11 @@ final class ProfileRemoteDataSource {
     );
   }
 
-  Future<PartnerProfileModel> updatePartnerProfile(PartnerUpdateProfileParam partnerUpdateProfileParam) {
-    return apiClient.postType<PartnerProfileModel>(
+  Future<PartnerProfileModel> updatePartnerProfile(PartnerProfileParam param) async {
+    final response = await apiClient.postResponse<Map<String, dynamic>>(
       '/api/v1/partners/profile',
-      data: partnerUpdateProfileParam.toJson(),
-      fromJson: PartnerProfileModel.fromJson,
+      data: param.toJson(),
     );
+    return PartnerProfileModel.fromJson(response.data?['profile'] as Map<String, dynamic>);
   }
 }

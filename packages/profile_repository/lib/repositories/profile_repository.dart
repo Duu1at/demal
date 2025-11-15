@@ -1,9 +1,9 @@
 import 'package:profile_repository/profile_repository.dart';
 
 abstract class ProfileRepository {
-  Future<ClientProfileModel> getClientProfile();
-  Future<ClientProfileModel> updateClientProfile(ClientUpdateProfileParam clientUpdateProfileParam);
+  Future<ProfileModel> getProfile();
+  Future<ProfileModel> updateProfile(ProfileUpdateParam param);
 
   Future<PartnerVerifyStatusModel> getPartnerVerifyStatus();
-  Future<PartnerProfileModel> updatePartnerProfile(PartnerUpdateProfileParam updatePartnerProfileParam);
+  Future<PartnerProfileModel> updatePartnerProfile(PartnerProfileParam param);
 }

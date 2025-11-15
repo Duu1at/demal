@@ -1,7 +1,7 @@
 import 'package:api_client/api_client.dart';
 
-class BaseInterceptor extends Interceptor {
-  const BaseInterceptor({
+class AppInterceptor extends Interceptor {
+  const AppInterceptor({
     this.role,
     this.token,
   });
@@ -18,7 +18,7 @@ class BaseInterceptor extends Interceptor {
     final roleValue = role?.call();
     options.headers.addAll({
       if (tokenValue != null && tokenValue.isNotEmpty) 'Authorization': 'Bearer $tokenValue',
-      if (roleValue != null && roleValue.isNotEmpty) 'X-App-Role': roleValue,
+      if (roleValue != null && roleValue.isNotEmpty) 'x-app-role': roleValue,
     });
     return handler.next(options);
   }

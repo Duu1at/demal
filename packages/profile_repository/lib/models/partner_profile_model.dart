@@ -8,23 +8,7 @@ part 'partner_profile_model.g.dart';
 @immutable
 final class PartnerProfileModel {
   const PartnerProfileModel({
-    required this.success,
-    required this.profile,
-  });
-
-  factory PartnerProfileModel.fromJson(Map<String, dynamic> json) => _$PartnerProfileModelFromJson(json);
-  Map<String, dynamic> toJson() => _$PartnerProfileModelToJson(this);
-
-  final bool success;
-  final PartnerProfileSubModel profile;
-}
-
-@JsonSerializable()
-@immutable
-final class PartnerProfileSubModel {
-  const PartnerProfileSubModel({
     this.profileId,
-    this.userId,
     this.companyName,
     this.description,
     this.documentsUrl,
@@ -32,27 +16,20 @@ final class PartnerProfileSubModel {
     this.cardNumber,
   });
 
-  factory PartnerProfileSubModel.fromJson(Map<String, dynamic> json) => _$PartnerProfileSubModelFromJson(json);
+  factory PartnerProfileModel.fromJson(Map<String, dynamic> json) => _$PartnerProfileModelFromJson(json);
 
   @JsonKey(name: 'profile_id')
   final String? profileId;
-
-  @JsonKey(name: 'user_id')
-  final String? userId;
-
   @JsonKey(name: 'company_name')
   final String? companyName;
-
+  @JsonKey(name: 'description')
   final String? description;
-
   @JsonKey(name: 'documents_url')
   final String? documentsUrl;
-
   @JsonKey(name: 'verification_status')
   final PartnerVerifyStatusEnum? verificationStatus;
-
   @JsonKey(name: 'card_number')
   final String? cardNumber;
 
-  Map<String, dynamic> toJson() => _$PartnerProfileSubModelToJson(this);
+  Map<String, dynamic> toJson() => _$PartnerProfileModelToJson(this);
 }

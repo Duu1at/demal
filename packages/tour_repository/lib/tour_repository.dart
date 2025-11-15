@@ -1,3 +1,4 @@
+export './models/create_tour_review_param.dart';
 export 'exceptions/tour_exception.dart';
 export 'models/models.dart';
 export 'repositories/tour_repository.dart';

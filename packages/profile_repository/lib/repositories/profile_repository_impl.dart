@@ -12,19 +12,17 @@ final class ProfileRepositoryImpl implements ProfileRepository {
   final ProfileLocalDataSource localDataSource;
 
   @override
-  Future<ClientProfileModel> getClientProfile() async {
-    final clientProfile = await remoteDataSource.getClientProfile();
-    await localDataSource.setClientProfileData(clientProfile);
-    return clientProfile;
+  Future<ProfileModel> getProfile() async {
+    final profile = await remoteDataSource.getProfile();
+    await localDataSource.setProfileData(profile);
+    return profile;
   }
 
   @override
-  Future<ClientProfileModel> updateClientProfile(
-    ClientUpdateProfileParam clientUpdateProfileParam,
-  ) async {
-    final clientProfile = await remoteDataSource.updateClientProfile(clientUpdateProfileParam);
-    await localDataSource.setClientProfileData(clientProfile);
-    return clientProfile;
+  Future<ProfileModel> updateProfile(ProfileUpdateParam param) async {
+    final profile = await remoteDataSource.updateProfile(param);
+    await localDataSource.setProfileData(profile);
+    return profile;
   }
 
   @override
@@ -33,9 +31,7 @@ final class ProfileRepositoryImpl implements ProfileRepository {
   }
 
   @override
-  Future<PartnerProfileModel> updatePartnerProfile(
-    PartnerUpdateProfileParam updatePartnerProfileParam,
-  ) {
-    return remoteDataSource.updatePartnerProfile(updatePartnerProfileParam);
+  Future<PartnerProfileModel> updatePartnerProfile(PartnerProfileParam param) {
+    return remoteDataSource.updatePartnerProfile(param);
   }
 }

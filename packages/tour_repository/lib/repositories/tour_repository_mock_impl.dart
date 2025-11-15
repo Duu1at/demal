@@ -229,11 +229,6 @@ final class TourRepositoryMockImpl implements TourRepository {
   }
 
   @override
-  Future<void> getClientTourReviews(String tourId, int page, int limit) {
-    throw UnimplementedError();
-  }
-
-  @override
   Future<TourDetailModel> getClientTourTickets(int page, int limit) {
     throw UnimplementedError();
   }
@@ -245,6 +240,18 @@ final class TourRepositoryMockImpl implements TourRepository {
 
   @override
   Future<void> updatePartnerTour(String tourId, TourCreateParam tourCreateParam) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> createTourReview(CreateTourReviewParam createTourReviewParam) {
+    // TODO: implement createTourReview
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> getTourReviews(String tourId, int page, int limit) {
+    // TODO: implement getTourReviews
     throw UnimplementedError();
   }
 }
