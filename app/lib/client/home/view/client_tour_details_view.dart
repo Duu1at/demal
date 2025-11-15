@@ -35,7 +35,6 @@ class ClientTourDetailsViewBody extends StatefulWidget {
 }
 
 class _ClientTourDetailsViewBodyState extends State<ClientTourDetailsViewBody> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -99,7 +98,7 @@ class ToursSuccessState extends StatelessWidget {
               color: Theme.of(context).colorScheme.surface,
             ),
             padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
-            child:  Column(
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: AppSpacing.lg),

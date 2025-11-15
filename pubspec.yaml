@@ -12,6 +12,7 @@ workspace:
   - packages/storage
   - packages/auth_repository
   - packages/tour_repository
+  - packages/profile_repository
 
 dependencies:
   bloc_concurrency: ^0.3.0

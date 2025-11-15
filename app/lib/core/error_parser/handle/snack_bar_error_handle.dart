@@ -11,7 +11,7 @@ final class SnackBarErrorHandle implements ErrorHandle<SnackBarErrorHandleParam>
   @override
   void handleError(SnackBarErrorHandleParam param) {
     final message = Parser.getMessage(param.error);
-    
+
     switch (param.type) {
       case SnackBarType.error:
         AppSnackbar.showError(context: param.context, title: message);

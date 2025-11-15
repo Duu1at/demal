@@ -38,6 +38,7 @@ void main() async {
       };
 
       final storage = await PreferencesStorage.getInstance();
+      final connectionChecker = ConnectionChecker();
 
       final baseOptions = BaseOptions(
         baseUrl: Env.baseUrl,
@@ -50,8 +51,11 @@ void main() async {
         ..interceptors.addAll(
           [
             BaseInterceptor(
-              token: () => storage.readString(key: AuthStorageKey.tokenKey),
-              role: () => storage.readString(key: AuthStorageKey.roleKey),
+              // token: () => storage.readString(key: AuthStorageKey.tokenKey),
+              // role: () => storage.readString(key: AuthStorageKey.roleKey),
+              token: () =>
+                  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMGE5MzgyOC1kMDcyLTQ3MzUtOTA3ZC1hY2UxZmNmNjY3M2IiLCJwaG9uZU51bWJlciI6Iis5OTY1NTU1NTU1NTUiLCJyb2xlIjoiQ0xJRU5UIiwiaWF0IjoxNzYzMDU0NzAzLCJleHAiOjE3NjM2NTk1MDN9.0kEZ-ykjGOs1rutzVNMDNSp5l_jJGXfeuYYJFCXRQYs',
+              role: () => 'CLIENT',
             ),
             TalkerDioLogger(
               talker: talker,
@@ -69,7 +73,7 @@ void main() async {
             RepositoryProvider<PreferencesStorage>(create: (context) => storage),
             RepositoryProvider<ApiClient>(
               create: (context) => ApiClient.fromDio(
-                connection: ConnectionChecker(),
+                connection: connectionChecker,
                 dio: bearerDio,
               ),
             ),
