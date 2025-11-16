@@ -20,7 +20,7 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
   userId: json['userId'] as String?,
   phoneNumber: json['phone_number'] as String?,
   fullName: json['full_name'] as String?,
-  role: $enumDecodeNullable(_$RoleEnumMap, json['role']),
+  role: $enumDecodeNullable(_$RoleEnumEnumMap, json['role']),
   imageUrl: json['image_url'] as String?,
   createdAt: json['created_at'] as String?,
   partnerProfile: json['partnerProfile'] == null
@@ -34,14 +34,15 @@ Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
   'userId': instance.userId,
   'phone_number': instance.phoneNumber,
   'full_name': instance.fullName,
-  'role': instance.role,
+  'role': _$RoleEnumEnumMap[instance.role],
   'image_url': instance.imageUrl,
   'created_at': instance.createdAt,
   'partnerProfile': instance.partnerProfile,
 };
 
-const _$RoleEnumMap = {
-  Role.admin: 'admin',
-  Role.partner: 'partner',
-  Role.client: 'client',
+const _$RoleEnumEnumMap = {
+  RoleEnum.admin: 'ADMIN',
+  RoleEnum.partner: 'PARTNER',
+  RoleEnum.client: 'CLIENT',
+  RoleEnum.unknown: '',
 };
