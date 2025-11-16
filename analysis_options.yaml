@@ -6,6 +6,7 @@ analyzer:
   errors:
     todo: ignore
     directives_ordering: ignore
+    constant_identifier_names: ignore
 
 formatter:
   trailing_commas: preserve

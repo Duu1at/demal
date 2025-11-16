@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:app/app/app.dart';
 import 'package:app/client/client.dart';
+import 'package:app/login/cubit/otp_cubit.dart';
 import 'package:app/login/view/login_view.dart';
 import 'package:app/login/view/otp_view.dart';
 import 'package:app/partner/partner.dart';
@@ -79,11 +80,11 @@ final class AppRouter {
           case AuthStatus.authenticated:
             final role = authState.user?.role;
 
-            if (role == RoleEnum.client) {
+            if (role == RoleEnum.CLIENT) {
               if (path.startsWith('/$client')) return null;
               return '/$client';
             }
-            if (role == RoleEnum.partner) {
+            if (role == RoleEnum.PARTNER) {
               if (path.startsWith('/$partner')) return null;
               return '/$partner';
             }
@@ -131,12 +132,28 @@ final class AppRouter {
         GoRoute(
           path: '/$login',
           name: login,
-          builder: (context, state) => const LoginView(),
+          builder: (context, state) {
+            final authRepository = context.read<AuthRepository>();
+            return BlocProvider(
+              create: (_) => OtpCubit(authRepository),
+              child: const LoginView(),
+            );
+          },
           routes: [
             GoRoute(
               path: otp,
               name: otp,
-              builder: (context, state) => OtpView(state.extra! as String),
+              builder: (context, state) {
+                final extra = state.extra! as Map<String, dynamic>;
+                final phoneNumber = extra['phoneNumber'] as String;
+                final otpCubit = extra['otpCubit'] as OtpCubit;
+                return BlocProvider.value(
+                  value: otpCubit,
+                  child: OtpView(
+                    phoneNumber,
+                  ),
+                );
+              },
             ),
           ],
         ),

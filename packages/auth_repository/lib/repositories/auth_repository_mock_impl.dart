@@ -29,7 +29,7 @@ final class AuthRepositoryeMockImpl implements AuthRepository {
   @override
   AuthLoginModel? getUserData() {
     const user = UserModel(
-      role: RoleEnum.client,
+      role: RoleEnum.CLIENT,
       fullName: 'Duulat',
       createdAt: '',
       userId: 'testId',
@@ -49,7 +49,7 @@ final class AuthRepositoryeMockImpl implements AuthRepository {
   Future<AuthLoginModel> verifyOtp(String phoneNumber, String otpCode) async {
     await Future.delayed(const Duration(seconds: 1), () {});
     const user = UserModel(
-      role: RoleEnum.client,
+      role: RoleEnum.CLIENT,
       fullName: 'Duulat',
       createdAt: '',
       userId: 'testId',
@@ -76,7 +76,7 @@ final class AuthRepositoryeMockImpl implements AuthRepository {
 
   @override
   RoleEnum? getRole() {
-    return RoleEnum.client;
+    return RoleEnum.CLIENT;
   }
 
   @override

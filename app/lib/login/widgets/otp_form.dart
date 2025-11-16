@@ -127,7 +127,6 @@ class _OtpFormState extends State<OtpForm> {
                     pin: pin,
                   );
                 },
-                onChanged: (value) {},
                 errorPinTheme: defaultPinTheme.copyBorderWith(
                   border: Border.all(color: theme.colorScheme.error),
                 ),
@@ -135,13 +134,20 @@ class _OtpFormState extends State<OtpForm> {
             ),
             const SizedBox(height: AppSpacing.lg + 4),
             BlocListener<OtpCubit, OtpState>(
-              listener: (context, state) async {
+              listenWhen: (p, c) => p.verifyStatus != c.verifyStatus,
+              listener: (context, state) {
                 final verifyStatus = state.verifyStatus;
                 if (verifyStatus is RequestSuccess<AuthLoginModel>) {
-                  await context.read<AuthCubit>().checkAuthStatus();
+                  context.read<AuthCubit>().checkAuthStatus();
                 }
                 if (verifyStatus is RequestFailure<AuthLoginModel>) {
-                  // AppSnackBar.showBaseSnack(verifyStatus.exception.parseError());
+                  SnackBarErrorHandle.I.handleError(
+                    SnackBarErrorHandleParam(
+                      context: context,
+                      verifyStatus.exception,
+                      type: SnackBarType.error,
+                    ),
+                  );
                   pinController.clear();
                   focusNode.requestFocus();
                 }
@@ -161,13 +167,8 @@ class _OtpFormState extends State<OtpForm> {
               ),
             ),
             const SizedBox(height: AppSpacing.lg),
-            BlocConsumer<OtpCubit, OtpState>(
-              listener: (context, state) async {
-                final sendStatus = state.sendStatus;
-                if (sendStatus is RequestFailure) {
-                  // AppSnackBar.showBaseSnack(sendStatus.exception.parseError());
-                }
-              },
+            BlocBuilder<OtpCubit, OtpState>(
+              buildWhen: (p, c) => p.remainingSeconds != c.remainingSeconds,
               builder: (context, state) {
                 final isTimerFinished = state.remainingSeconds <= 0;
                 return TextButton(

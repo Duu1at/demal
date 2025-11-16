@@ -1,7 +1,10 @@
 import 'package:app/app/router/app_router.dart';
+import 'package:app/core/core.dart';
+import 'package:app/login/cubit/otp_cubit.dart';
 import 'package:app/utils/utils.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 class LoginView extends StatefulWidget {
@@ -57,14 +60,45 @@ class _LoginViewState extends State<LoginView> {
                 validator: InputValidators.phoneValidatorWithout996,
               ),
               const SizedBox(height: AppSpacing.lg),
-              AppButton(
-                onPressed: () {
-                  if (_formKey.currentState?.validate() ?? false) {
-                    final phoneNumber = InputFormatters.phoneFormatter.getUnmaskedText();
-                    context.goNamed(AppRouter.otp, extra: phoneNumber);
+
+              BlocConsumer<OtpCubit, OtpState>(
+                listenWhen: (previous, current) => previous.sendStatus != current.sendStatus,
+                listener: (context, state) {
+                  final sendStatus = state.sendStatus;
+                  switch (sendStatus) {
+                    case RequestSuccess():
+                      context.goNamed(
+                        AppRouter.otp,
+                        extra: <String, dynamic>{
+                          'phoneNumber': InputFormatters.phoneFormatter.getUnmaskedText(),
+                          'otpCubit': context.read<OtpCubit>(),
+                        },
+                      );
+                    case RequestFailure():
+                      SnackBarErrorHandle.I.handleError(
+                        SnackBarErrorHandleParam(
+                          context: context,
+                          sendStatus.exception,
+                          type: SnackBarType.error,
+                        ),
+                      );
+                    default:
+                      break;
                   }
                 },
-                child: const Text('Подтверждать'),
+                buildWhen: (previous, current) => previous.sendStatus != current.sendStatus,
+                builder: (context, state) {
+                  return AppButton(
+                    isLoading: state.sendStatus is RequestLoading,
+                    onPressed: () {
+                      if (_formKey.currentState?.validate() ?? false) {
+                        final phoneNumber = InputFormatters.phoneFormatter.getUnmaskedText();
+                        context.read<OtpCubit>().sendOtp(phoneNumber);
+                      }
+                    },
+                    child: const Text('Подтверждать'),
+                  );
+                },
               ),
             ],
           ),

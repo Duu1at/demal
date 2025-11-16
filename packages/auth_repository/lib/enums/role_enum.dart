@@ -1,13 +1,13 @@
 import 'package:json_annotation/json_annotation.dart';
 
-@JsonEnum(valueField: 'name')
+@JsonEnum()
 enum RoleEnum {
   @JsonValue('ADMIN')
-  admin,
+  ADMIN,
   @JsonValue('PARTNER')
-  partner,
+  PARTNER,
   @JsonValue('CLIENT')
-  client,
+  CLIENT,
   @JsonValue('')
-  unknown,
+  UNKNOWN,
 }

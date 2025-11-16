@@ -51,8 +51,8 @@ class _RoleRedioWidget extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
     final group = RadioGroup.maybeOf<RoleEnum?>(context);
     final role = group?.groupValue;
-    final selected = isClient ? role == RoleEnum.client : role == RoleEnum.partner;
-    final value = isClient ? RoleEnum.client : RoleEnum.partner;
+    final selected = isClient ? role == RoleEnum.CLIENT : role == RoleEnum.PARTNER;
+    final value = isClient ? RoleEnum.CLIENT : RoleEnum.PARTNER;
 
     return RadioListTile<RoleEnum?>(
       controlAffinity: ListTileControlAffinity.trailing,
