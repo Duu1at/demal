@@ -53,7 +53,7 @@ class _InitialSettingsViewState extends State<InitialSettingsView> with Settings
                 return RoleRadioGroup(
                   groupValue: role,
                   onChanged: (newRole) {
-                    context.read<AuthCubit>().changeRole(newRole ?? Role.client);
+                    context.read<AuthCubit>().changeRole(newRole ?? RoleEnum.client);
                   },
                 );
               },

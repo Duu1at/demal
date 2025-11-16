@@ -1,29 +1,13 @@
-enum Role {
+import 'package:json_annotation/json_annotation.dart';
+
+@JsonEnum(valueField: 'name')
+enum RoleEnum {
+  @JsonValue('ADMIN')
   admin,
+  @JsonValue('PARTNER')
   partner,
-  client;
-
-  static Role? fromString(String? value) {
-    switch (value) {
-      case 'ADMIN':
-        return Role.admin;
-      case 'PARTNER':
-        return Role.partner;
-      case 'CLIENT':
-        return Role.client;
-      default:
-        return null;
-    }
-  }
-
-  String toJson() {
-    switch (this) {
-      case Role.admin:
-        return 'ADMIN';
-      case Role.partner:
-        return 'PARTNER';
-      case Role.client:
-        return 'CLIENT';
-    }
-  }
+  @JsonValue('CLIENT')
+  client,
+  @JsonValue('')
+  unknown,
 }

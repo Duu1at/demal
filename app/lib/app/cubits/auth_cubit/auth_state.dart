@@ -36,7 +36,7 @@ final class AuthState extends Equatable {
   final String? token;
   final Object? errorMessage;
   final bool hasCompletedOnboarding;
-  final Role? role;
+  final RoleEnum? role;
 
   AuthState copyWith({
     AuthStatus? status,
@@ -44,7 +44,7 @@ final class AuthState extends Equatable {
     String? token,
     Object? errorMessage,
     bool? hasCompletedOnboarding,
-    Role? role,
+    RoleEnum? role,
   }) {
     return AuthState(
       status: status ?? this.status,

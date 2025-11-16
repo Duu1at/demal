@@ -79,11 +79,11 @@ final class AppRouter {
           case AuthStatus.authenticated:
             final role = authState.user?.role;
 
-            if (role == Role.client) {
+            if (role == RoleEnum.client) {
               if (path.startsWith('/$client')) return null;
               return '/$client';
             }
-            if (role == Role.partner) {
+            if (role == RoleEnum.partner) {
               if (path.startsWith('/$partner')) return null;
               return '/$partner';
             }

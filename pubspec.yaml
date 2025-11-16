@@ -14,6 +14,7 @@ workspace:
   - packages/tour_repository
   - packages/profile_repository
   - packages/bookings_repository
+  - packages/upload_repository
 
 dependencies:
   bloc_concurrency: ^0.3.0

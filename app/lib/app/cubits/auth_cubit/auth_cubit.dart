@@ -35,7 +35,7 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  Future<void> changeRole(Role role) async {
+  Future<void> changeRole(RoleEnum role) async {
     await _repository.setRole(role);
 
     emit(state.copyWith(role: role));

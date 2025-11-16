@@ -41,7 +41,7 @@ final class UserModel {
   final String? phoneNumber;
   @JsonKey(name: 'full_name')
   final String? fullName;
-  final Role? role;
+  final RoleEnum? role;
   @JsonKey(name: 'image_url')
   final String? imageUrl;
   @JsonKey(name: 'created_at')

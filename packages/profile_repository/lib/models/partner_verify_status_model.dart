@@ -1,4 +1,3 @@
-import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 import 'package:profile_repository/profile_repository.dart';
@@ -7,7 +6,7 @@ part 'partner_verify_status_model.g.dart';
 
 @JsonSerializable()
 @immutable
-final class PartnerVerifyStatusModel extends Equatable {
+final class PartnerVerifyStatusModel {
   const PartnerVerifyStatusModel({
     this.success,
     this.verificationStatus,
@@ -33,7 +32,4 @@ final class PartnerVerifyStatusModel extends Equatable {
   final DateTime? reviewedAt;
 
   Map<String, dynamic> toJson() => _$PartnerVerifyStatusModelToJson(this);
-
-  @override
-  List<Object?> get props => [success, verificationStatus, adminComments, submittedAt, reviewedAt];
 }
