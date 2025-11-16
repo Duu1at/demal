@@ -4,6 +4,7 @@ import 'package:api_client/api_client.dart';
 import 'package:api_client/interceptors/app_interceptor.dart';
 import 'package:app/app/view/app_view.dart';
 import 'package:app/env.dart';
+import 'package:auth_repository/auth_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:storage/storage.dart';
@@ -50,11 +51,8 @@ void main() async {
         ..interceptors.addAll(
           [
             AppInterceptor(
-              // token: () => storage.readString(key: AuthStorageKey.tokenKey),
-              // role: () => storage.readString(key: AuthStorageKey.roleKey),
-              token: () =>
-                  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMGE5MzgyOC1kMDcyLTQ3MzUtOTA3ZC1hY2UxZmNmNjY3M2IiLCJwaG9uZU51bWJlciI6Iis5OTY1NTU1NTU1NTUiLCJyb2xlIjoiQ0xJRU5UIiwiaWF0IjoxNzYzMDU0NzAzLCJleHAiOjE3NjM2NTk1MDN9.0kEZ-ykjGOs1rutzVNMDNSp5l_jJGXfeuYYJFCXRQYs',
-              role: () => 'CLIENT',
+              token: () => storage.readString(key: AuthStorageKey.tokenKey),
+              role: () => storage.readString(key: AuthStorageKey.roleKey),
             ),
             TalkerDioLogger(
               talker: talker,
