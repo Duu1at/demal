@@ -3,6 +3,7 @@ import 'package:app/app/app.dart';
 import 'package:app/l10n/app_localizations.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:auth_repository/auth_repository.dart';
+import 'package:bookings_repository/bookings_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -32,6 +33,11 @@ class App extends StatelessWidget {
         RepositoryProvider<TourRepository>(
           create: (context) => TourRepositoryImpl(
             TourRemoteDataSource(context.read<ApiClient>()),
+          ),
+        ),
+        RepositoryProvider<BookingsRepository>(
+          create: (context) => BookingRepositoryImpl(
+            BookingRemoteDataSource(context.read<ApiClient>()),
           ),
         ),
         BlocProvider<AppThemeCubit>(

@@ -1,21 +1,17 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:tour_repository/tour_repository.dart';
 
 class TourImageCarousel extends StatefulWidget {
-  const TourImageCarousel({super.key});
+  const TourImageCarousel(this.tour, {super.key});
+  final TourModel tour;
 
   @override
   State<TourImageCarousel> createState() => _TourImageCarouselState();
 }
 
 class _TourImageCarouselState extends State<TourImageCarousel> {
-  final List<String> _images = [
-    'https://images.unsplash.com/photo-1507525428034-b723cf961d3e',
-    'https://images.unsplash.com/photo-1493558103817-58b2924bce98',
-    'https://images.unsplash.com/photo-1507525428034-b723cf961d3e',
-  ];
-
   int _currentIndex = 0;
 
   @override
@@ -24,7 +20,7 @@ class _TourImageCarouselState extends State<TourImageCarousel> {
       alignment: Alignment.bottomCenter,
       children: [
         CarouselSlider.builder(
-          itemCount: _images.length,
+          itemCount: widget.tour.imageGalleryUrls?.length ?? 0,
           options: CarouselOptions(
             height: 400,
             viewportFraction: 1,
@@ -38,7 +34,7 @@ class _TourImageCarouselState extends State<TourImageCarousel> {
               fit: StackFit.expand,
               children: [
                 CachedNetworkImage(
-                  imageUrl: _images[index],
+                  imageUrl: widget.tour.imageGalleryUrls?[index] ?? '',
                   fit: BoxFit.cover,
                   progressIndicatorBuilder: (context, child, progress) {
                     return const Center(child: CircularProgressIndicator());
@@ -65,7 +61,7 @@ class _TourImageCarouselState extends State<TourImageCarousel> {
           bottom: 20,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: List.generate(_images.length, (index) {
+            children: List.generate(widget.tour.imageGalleryUrls?.length ?? 0, (index) {
               final isActive = index == _currentIndex;
               return AnimatedContainer(
                 duration: const Duration(milliseconds: 250),

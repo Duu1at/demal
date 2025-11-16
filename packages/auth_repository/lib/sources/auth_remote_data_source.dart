@@ -10,7 +10,7 @@ final class AuthRemoteDataSource {
 
   Future<String> sendOtp(String phoneNumber) async {
     final result = await client.postResponse<Map<String, dynamic>>(
-      '/auth/send-otp',
+      '/api/v1/auth/send-otp',
       data: {'phone_number': '+996$phoneNumber'},
     );
 
@@ -19,7 +19,7 @@ final class AuthRemoteDataSource {
 
   Future<AuthLoginModel> verifyOtp(String phoneNumber, String otpCode) {
     return client.postType(
-      '/auth/verify-otp',
+      '/api/v1/auth/verify-otp',
       data: {'phone_number': '+996$phoneNumber', 'otp_code': otpCode},
       fromJson: AuthLoginModel.fromJson,
     );

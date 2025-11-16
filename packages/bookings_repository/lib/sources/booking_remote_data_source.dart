@@ -8,29 +8,29 @@ final class BookingRemoteDataSource {
 
   Future<CreateBookingsModel> createBookings(CreateBookingsParam param) {
     return _apiClient.postType<CreateBookingsModel>(
-      '/bookings',
+      'api/v1/bookings',
       data: param.toJson(),
       fromJson: CreateBookingsModel.fromJson,
     );
   }
 
-  Future<List<MyBookingsModel>> getMyTickets(int page, int limit) {
-    return _apiClient.getListOfType<MyBookingsModel>(
-      '/bookings/me?page=$page&limit=$limit',
+  Future<MyBookingsModel> getMyTickets(int page) {
+    return _apiClient.getType<MyBookingsModel>(
+      'api/v1/bookings/me?page=$page&limit=20',
       fromJson: MyBookingsModel.fromJson,
     );
   }
 
   Future<BookingCancelModel> cancelBooking(String bookingId) {
     return _apiClient.postType<BookingCancelModel>(
-      '/bookings/$bookingId',
+      'api/v1/bookings/$bookingId',
       fromJson: BookingCancelModel.fromJson,
     );
   }
 
   Future<BookingPaymentConfirmModel> confirmBookingPayment(String bookingId) {
     return _apiClient.postType<BookingPaymentConfirmModel>(
-      '/bookings/$bookingId/confirm-payment',
+      'api/v1/bookings/$bookingId/confirm-payment',
       fromJson: BookingPaymentConfirmModel.fromJson,
     );
   }

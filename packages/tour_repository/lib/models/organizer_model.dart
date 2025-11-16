@@ -7,18 +7,18 @@ part 'organizer_model.g.dart';
 @immutable
 final class OrganizerModel {
   const OrganizerModel({
-    required this.id,
-    required this.fullName,
-    required this.imageUrl,
+    this.id,
+    this.fullName,
+    this.imageUrl,
   });
 
   factory OrganizerModel.fromJson(Map<String, dynamic> json) => _$OrganizerModelFromJson(json);
 
-  final String id;
+  final String? id;
   @JsonKey(name: 'fullName')
-  final String fullName;
+  final String? fullName;
   @JsonKey(name: 'imageUrl')
-  final String imageUrl;
+  final String? imageUrl;
 
   Map<String, dynamic> toJson() => _$OrganizerModelToJson(this);
 }

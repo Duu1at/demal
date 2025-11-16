@@ -9,13 +9,19 @@ environment:
   sdk: ^3.9.0
 
 dependencies:
+# custom packages
   api_client:
   app_ui:
   auth_repository:
+  bookings_repository:
+  tour_repository:
+  profile_repository:
+  upload_repository:
+
+# dependencies
   bloc_concurrency:
   cached_network_image:
   carousel_slider:
-  tour_repository:
   connectivity_plus:
   dio:
   equatable:

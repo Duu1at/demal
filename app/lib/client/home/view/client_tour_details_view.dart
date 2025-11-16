@@ -136,7 +136,7 @@ class ToursSuccessState extends StatelessWidget {
         stretchModes: const [StretchMode.zoomBackground, StretchMode.fadeTitle],
         background: Stack(
           children: [
-            const TourImageCarousel(),
+             TourImageCarousel(tour),
             SafeArea(
               child: Align(
                 alignment: Alignment.topLeft,

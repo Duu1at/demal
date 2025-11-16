@@ -7,9 +7,9 @@ part of 'organizer_model.dart';
 // **************************************************************************
 
 OrganizerModel _$OrganizerModelFromJson(Map<String, dynamic> json) => OrganizerModel(
-  id: json['id'] as String,
-  fullName: json['fullName'] as String,
-  imageUrl: json['imageUrl'] as String,
+  id: json['id'] as String?,
+  fullName: json['fullName'] as String?,
+  imageUrl: json['imageUrl'] as String?,
 );
 
 Map<String, dynamic> _$OrganizerModelToJson(OrganizerModel instance) => <String, dynamic>{

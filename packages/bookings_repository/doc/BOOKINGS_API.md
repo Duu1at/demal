@@ -57,65 +57,6 @@
 }
 ```
 
-### ❌ Ошибки
-
-#### 400 Bad Request - Недостаточно мест
-```json
-{
-  "success": false,
-  "error": "Bad Request",
-  "message": "Not enough available spots",
-  "timestamp": "2024-01-01T00:00:00.000Z",
-  "path": "/api/v1/bookings"
-}
-```
-
-#### 400 Bad Request - Тур не активен
-```json
-{
-  "success": false,
-  "error": "Bad Request",
-  "message": "Tour is not active",
-  "timestamp": "2024-01-01T00:00:00.000Z",
-  "path": "/api/v1/bookings"
-}
-```
-
-#### 400 Bad Request - Ошибка валидации
-```json
-{
-  "success": false,
-  "error": "Bad Request",
-  "message": "seats_count must be a positive number",
-  "timestamp": "2024-01-01T00:00:00.000Z",
-  "path": "/api/v1/bookings"
-}
-```
-
-#### 404 Not Found - Тур не найден
-```json
-{
-  "success": false,
-  "error": "Not Found",
-  "message": "Tour not found",
-  "timestamp": "2024-01-01T00:00:00.000Z",
-  "path": "/api/v1/bookings"
-}
-```
-
-#### 401 Unauthorized - Не авторизован
-```json
-{
-  "success": false,
-  "error": "Unauthorized",
-  "message": "Unauthorized",
-  "timestamp": "2024-01-01T00:00:00.000Z",
-  "path": "/api/v1/bookings"
-}
-```
-
----
-
 ## 2. Получить свои бронирования
 
 **Endpoint:** `GET /api/v1/bookings/my`
