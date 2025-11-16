@@ -27,10 +27,7 @@ final class UserModel {
   @JsonKey(name: 'full_name')
   final String? fullName;
 
-  @JsonKey(fromJson: Role.fromString, toJson: _roleToJson)
-  final Role? role;
-
-  static String? _roleToJson(Role? role) => role?.toJson();
+  final RoleEnum? role;
 
   @JsonKey(name: 'image_url')
   final String? imageUrl;
@@ -42,7 +39,7 @@ final class UserModel {
     String? userId,
     String? phoneNumber,
     String? fullName,
-    Role? role,
+    RoleEnum? role,
     String? imageUrl,
     String? createdAt,
   }) {

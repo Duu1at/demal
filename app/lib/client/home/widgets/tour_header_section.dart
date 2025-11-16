@@ -1,8 +1,11 @@
+import 'package:app/utils/utils.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
+import 'package:tour_repository/tour_repository.dart';
 
 class TourHeaderSection extends StatelessWidget {
-  const TourHeaderSection({super.key});
+  const TourHeaderSection(this.tour, {super.key});
+  final TourModel tour;
 
   @override
   Widget build(BuildContext context) {
@@ -15,14 +18,15 @@ class TourHeaderSection extends StatelessWidget {
           children: [
             Flexible(
               child: Text(
-                'Saint Martin’s Island',
+                tour.title ?? '',
                 style: theme.textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
               ),
             ),
+            const SizedBox(width: AppSpacing.md),
             Text(
-              '2400c',
+              '${tour.price ?? 0} ${AppCurrencyFormatter.cuccancyType(tour.currency ?? '')}',
               style: theme.textTheme.titleLarge?.copyWith(
                 fontWeight: FontWeight.bold,
               ),
@@ -41,7 +45,7 @@ class TourHeaderSection extends StatelessWidget {
               ),
             ),
             const SizedBox(width: AppSpacing.sm),
-            Text('2025-09-20, 08:00', style: theme.textTheme.bodyMedium),
+            Text('${tour.date ?? ''}, ${tour.time ?? ''}', style: theme.textTheme.bodyMedium),
           ],
         ),
         const SizedBox(height: AppSpacing.sm),
@@ -56,10 +60,10 @@ class TourHeaderSection extends StatelessWidget {
               ),
             ),
             const SizedBox(width: AppSpacing.sm),
-            Text('4.5', style: theme.textTheme.bodyMedium),
+            Text(tour.averageRating?.toString() ?? '0.0', style: theme.textTheme.bodyMedium),
             const SizedBox(width: AppSpacing.xs),
             Text(
-              '(150 Reviews)',
+              '(${tour.reviewsCount ?? 0} Reviews)',
               style: theme.textTheme.bodyMedium?.copyWith(
                 color: theme.hintColor,
               ),

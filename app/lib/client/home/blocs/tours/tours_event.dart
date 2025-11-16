@@ -14,10 +14,10 @@ final class ToursInitialFetchEvent extends ToursEvent {
 final class ToursRefreshEvent extends ToursEvent {
   const ToursRefreshEvent({this.params});
 
-  final ToursParams? params;
+  final ToursParam? params;
 
   @override
-  List<Object> get props => [params ?? const ToursParams()];
+  List<Object> get props => [params ?? const ToursParam()];
 }
 
 final class ToursLoadMoreEvent extends ToursEvent {
@@ -27,7 +27,7 @@ final class ToursLoadMoreEvent extends ToursEvent {
 final class ToursFilterChangedEvent extends ToursEvent {
   const ToursFilterChangedEvent(this.params);
 
-  final ToursParams params;
+  final ToursParam params;
 
   @override
   List<Object> get props => [params];

@@ -7,20 +7,72 @@ final class TourRemoteDataSource {
   const TourRemoteDataSource(this.client);
   final ApiClient client;
 
-  Future<ToursModel> getTours(ToursParams params) {
-    final queryParams = params.toJson()..removeWhere((key, value) => value == null);
-
-    return client.getType(
+  Future<ToursModel> getTours(ToursParam params) {
+    return client.getType<ToursModel>(
       '/api/v1/tours',
-      params: GetApiParams(queryParameters: queryParams),
+      params: GetApiParams(queryParameters: params.toJson()),
       fromJson: ToursModel.fromJson,
     );
   }
 
-  Future<TourDetailModel> getToursDetail(String tourId) {
-    return client.getType(
+  Future<TourModel> getTourDetail(String tourId) async {
+    final response = await client.getResponse<Map<String, dynamic>>(
       '/api/v1/tours/$tourId',
-      fromJson: TourDetailModel.fromJson,
     );
+    return TourModel.fromJson(response.data?['tour'] as Map<String, dynamic>);
+  }
+
+  Future<TourReviewModel> createTourReview(CreateTourReviewParam param) async {
+    final response = await client.postResponse<Map<String, dynamic>>(
+      '/api/v1/reviews',
+      data: param.toJson(),
+    );
+    return TourReviewModel.fromJson(response.data?['review'] as Map<String, dynamic>);
+  }
+
+  Future<ToursReviewsModel> getTourReviews(String tourId, int page, int limit) async {
+    return client.getType<ToursReviewsModel>(
+      '/api/v1/tours/$tourId/reviews',
+      params: GetApiParams(
+        queryParameters: {
+          'page': page,
+          'limit': limit,
+        },
+      ),
+      fromJson: ToursReviewsModel.fromJson,
+    );
+  }
+
+  Future<TourModel> createTour(TourCreateParam param) async {
+    final response = await client.postResponse<Map<String, dynamic>>(
+      '/api/v1/tours',
+      data: param.toJson(),
+    );
+    return TourModel.fromJson(response.data?['tour'] as Map<String, dynamic>);
+  }
+
+  Future<ToursModel> getPartnerTours(int page, int limit) async {
+    return client.getType<ToursModel>(
+      '/api/v1/tours',
+      params: GetApiParams(
+        queryParameters: {
+          'page': page,
+          'limit': limit,
+        },
+      ),
+      fromJson: ToursModel.fromJson,
+    );
+  }
+
+  Future<TourModel> updateTour(String tourId, TourUpdateParam param) async {
+    final response = await client.putResponse<Map<String, dynamic>>(
+      '/api/v1/tours/$tourId',
+      data: param.toJson(),
+    );
+    return TourModel.fromJson(response.data?['tour'] as Map<String, dynamic>);
+  }
+
+  Future<void> deleteTour(String tourId) async {
+    await client.delete<void>('/api/v1/tours/$tourId');
   }
 }

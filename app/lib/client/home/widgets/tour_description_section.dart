@@ -1,9 +1,11 @@
 import 'package:app/client/home/widgets/expandable_text.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
+import 'package:tour_repository/tour_repository.dart';
 
 class TourDescriptionSection extends StatelessWidget {
-  const TourDescriptionSection({super.key});
+  const TourDescriptionSection(this.tour, {super.key});
+  final TourModel tour;
 
   @override
   Widget build(BuildContext context) {
@@ -18,11 +20,7 @@ class TourDescriptionSection extends StatelessWidget {
           ),
         ),
         const SizedBox(height: AppSpacing.sm),
-        const ExpandableText(
-          text:
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. '
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-        ),
+        ExpandableText(text: tour.description ?? ''),
       ],
     );
   }

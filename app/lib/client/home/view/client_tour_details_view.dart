@@ -1,4 +1,5 @@
 import 'package:app/app/router/app_router.dart';
+import 'package:app/client/client.dart';
 import 'package:app/client/home/widgets/tour_description_section.dart';
 import 'package:app/client/home/widgets/tour_header_section.dart';
 import 'package:app/client/home/widgets/tour_image_carousel.dart';
@@ -8,51 +9,46 @@ import 'package:app/client/home/widgets/tour_organizer_tile.dart';
 import 'package:app/client/home/widgets/tour_program_section.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tour_repository/tour_repository.dart';
 
-class ClientTourDetailsView extends StatefulWidget {
-  const ClientTourDetailsView({super.key});
+class ClientTourDetailsView extends StatelessWidget {
+  const ClientTourDetailsView(this.tourId, {super.key});
+  final String tourId;
 
   @override
-  State<ClientTourDetailsView> createState() => _ClientTourDetailsViewState();
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => ToursDetailBloc(context.read<TourRepository>())..add(ToursDetailEvent(tourId)),
+      child: ClientTourDetailsViewBody(tourId),
+    );
+  }
 }
 
-class _ClientTourDetailsViewState extends State<ClientTourDetailsView> {
+class ClientTourDetailsViewBody extends StatefulWidget {
+  const ClientTourDetailsViewBody(this.tourId, {super.key});
+  final String tourId;
+
+  @override
+  State<ClientTourDetailsViewBody> createState() => _ClientTourDetailsViewBodyState();
+}
+
+class _ClientTourDetailsViewBodyState extends State<ClientTourDetailsViewBody> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
       backgroundColor: Theme.of(context).colorScheme.surface,
-      body: CustomScrollView(
-        slivers: [
-          _buildAppBar(context),
-          SliverToBoxAdapter(
-            child: Container(
-              decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.surface,
-              ),
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: const Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: AppSpacing.lg),
-                  TourHeaderSection(),
-                  DividerHorisontal(),
-                  TourOrganizerTile(),
-                  DividerHorisontal(),
-                  TourDescriptionSection(),
-                  DividerHorisontal(),
-                  TourIncludedSection(),
-                  DividerHorisontal(),
-                  TourProgramSection(),
-                  DividerHorisontal(),
-                  TourLocationSection(),
-                  SizedBox(height: 120),
-                ],
-              ),
-            ),
-          ),
-        ],
+      body: BlocBuilder<ToursDetailBloc, ToursDetailState>(
+        builder: (context, state) {
+          return switch (state) {
+            ToursDetailInitial() => const ToursLoadingState(),
+            ToursDetailLoading() => const ToursLoadingState(),
+            ToursDetailSuccess(tour: final tour) => ToursSuccessState(tour),
+            ToursDetailError(error: final error) => ToursErrorState(error),
+          };
+        },
       ),
       floatingActionButton: AppButton(
         margin: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
@@ -60,6 +56,69 @@ class _ClientTourDetailsViewState extends State<ClientTourDetailsView> {
         child: const Text('Забронировать тур'),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+    );
+  }
+}
+
+class ToursLoadingState extends StatelessWidget {
+  const ToursLoadingState({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+      child: CircularProgressIndicator(),
+    );
+  }
+}
+
+class ToursErrorState extends StatelessWidget {
+  const ToursErrorState(this.error, {super.key});
+  final Object error;
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text(error.toString()),
+    );
+  }
+}
+
+class ToursSuccessState extends StatelessWidget {
+  const ToursSuccessState(this.tour, {super.key});
+  final TourModel tour;
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomScrollView(
+      slivers: [
+        _buildAppBar(context),
+        SliverToBoxAdapter(
+          child: Container(
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.surface,
+            ),
+            padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: AppSpacing.lg),
+                TourHeaderSection(tour),
+                const DividerHorisontal(),
+                TourOrganizerTile(tour),
+                const DividerHorisontal(),
+                TourDescriptionSection(tour),
+                const DividerHorisontal(),
+                TourIncludedSection(tour),
+                const DividerHorisontal(),
+                TourProgramSection(tour),
+                const DividerHorisontal(),
+                TourLocationSection(tour),
+                const SizedBox(height: 120),
+              ],
+            ),
+          ),
+        ),
+      ],
     );
   }
 

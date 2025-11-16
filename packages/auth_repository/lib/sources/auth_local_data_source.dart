@@ -57,16 +57,16 @@ final class AuthLocalDataSource {
     return storage.readBool(key: AuthStorageKey.onboardingKey) ?? false;
   }
 
-  Future<void> setRole(Role role) async {
+  Future<void> setRole(RoleEnum role) async {
     await storage.writeString(
       key: AuthStorageKey.roleKey,
-      value: role.toJson(),
+      value: role.name,
     );
   }
 
-  Role? getRole() {
+  RoleEnum? getRole() {
     final roleString = storage.readString(key: AuthStorageKey.roleKey);
     if (roleString == null) return null;
-    return Role.fromString(roleString);
+    return RoleEnum.values.firstWhere((element) => element.name == roleString);
   }
 }

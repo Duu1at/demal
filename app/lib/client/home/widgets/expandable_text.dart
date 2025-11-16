@@ -30,16 +30,17 @@ class _ExpandableTextState extends State<ExpandableText> {
           style: theme.textTheme.bodyMedium,
         ),
         const SizedBox(height: AppSpacing.xs),
-        GestureDetector(
-          onTap: () => setState(() => _isExpanded = !_isExpanded),
-          child: Text(
-            _isExpanded ? 'Read less...' : 'Read more...',
-            style: theme.textTheme.bodyMedium?.copyWith(
-              color: theme.colorScheme.primary,
-              fontWeight: FontWeight.w700,
+        if (widget.maxLines > 4)
+          GestureDetector(
+            onTap: () => setState(() => _isExpanded = !_isExpanded),
+            child: Text(
+              _isExpanded ? 'Скрыть' : 'Показать больше',
+              style: theme.textTheme.bodyMedium?.copyWith(
+                color: theme.colorScheme.primary,
+                fontWeight: FontWeight.w700,
+              ),
             ),
           ),
-        ),
       ],
     );
   }

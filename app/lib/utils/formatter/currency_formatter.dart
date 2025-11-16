@@ -1,6 +1,4 @@
-final class AppCurrencyFormatter {
-  const AppCurrencyFormatter._();
-
+abstract final class AppCurrencyFormatter {
   static String cuccancyType(String currancy) {
     return switch (currancy) {
       'KGZ' => 'С',

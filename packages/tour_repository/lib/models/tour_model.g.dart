@@ -34,8 +34,8 @@ TourModel _$TourModelFromJson(Map<String, dynamic> json) => TourModel(
   status: json['status'] as String?,
   averageRating: (json['average_rating'] as num?)?.toDouble(),
   reviewsCount: (json['reviews_count'] as num?)?.toInt(),
-  createdAt: json['created_at'] as String?,
-  updatedAt: json['updated_at'] as String?,
+  createdAt: json['created_at'] == null ? null : DateTime.parse(json['created_at'] as String),
+  updatedAt: json['updated_at'] == null ? null : DateTime.parse(json['updated_at'] as String),
 );
 
 Map<String, dynamic> _$TourModelToJson(TourModel instance) => <String, dynamic>{
@@ -60,6 +60,6 @@ Map<String, dynamic> _$TourModelToJson(TourModel instance) => <String, dynamic>{
   'status': instance.status,
   'average_rating': instance.averageRating,
   'reviews_count': instance.reviewsCount,
-  'created_at': instance.createdAt,
-  'updated_at': instance.updatedAt,
+  'created_at': instance.createdAt?.toIso8601String(),
+  'updated_at': instance.updatedAt?.toIso8601String(),
 };

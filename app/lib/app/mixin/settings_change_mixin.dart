@@ -26,7 +26,7 @@ mixin SettingsChangeMixin<T extends StatefulWidget> on State<T> {
     if (mounted && result == null) {
       return context.read<AppThemeCubit>().state.isDark;
     }
-    
+
     return result;
   }
 }

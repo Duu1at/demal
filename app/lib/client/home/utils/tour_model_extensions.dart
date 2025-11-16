@@ -1,4 +1,3 @@
-
 import 'package:tour_repository/tour_repository.dart';
 
 extension TourModelExtensions on TourModel {

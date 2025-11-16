@@ -1,0 +1,22 @@
+name: upload_repository
+description: Upload Repository.
+version: 1.0.0
+resolution: workspace
+publish_to: none 
+
+environment:
+  sdk: ^3.9.2
+
+dependencies:
+  api_client:
+  json_annotation:
+  meta:
+
+
+dev_dependencies:
+  json_serializable:
+  build_runner: 
+  mocktail: 
+  very_good_analysis:
+  test: 
+  

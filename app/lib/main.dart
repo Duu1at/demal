@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:api_client/api_client.dart';
-import 'package:api_client/interceptors/base_interceptor.dart';
+import 'package:api_client/interceptors/app_interceptor.dart';
 import 'package:app/app/view/app_view.dart';
 import 'package:app/env.dart';
 import 'package:auth_repository/auth_repository.dart';
@@ -38,7 +38,8 @@ void main() async {
       };
 
       final storage = await PreferencesStorage.getInstance();
-      
+      final connectionChecker = ConnectionChecker();
+
       final baseOptions = BaseOptions(
         baseUrl: Env.baseUrl,
         contentType: 'application/json; charset=utf-8',
@@ -49,7 +50,7 @@ void main() async {
       final bearerDio = Dio(baseOptions)
         ..interceptors.addAll(
           [
-            BaseInterceptor(
+            AppInterceptor(
               token: () => storage.readString(key: AuthStorageKey.tokenKey),
               role: () => storage.readString(key: AuthStorageKey.roleKey),
             ),
@@ -63,13 +64,13 @@ void main() async {
           ],
         );
 
-       runApp(
+      runApp(
         MultiRepositoryProvider(
           providers: [
             RepositoryProvider<PreferencesStorage>(create: (context) => storage),
             RepositoryProvider<ApiClient>(
               create: (context) => ApiClient.fromDio(
-                connection: ConnectionChecker(),
+                connection: connectionChecker,
                 dio: bearerDio,
               ),
             ),

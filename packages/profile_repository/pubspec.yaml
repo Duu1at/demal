@@ -1,0 +1,22 @@
+name: profile_repository
+description: A starting point for Dart libraries or applications.
+version: 1.0.0
+resolution: workspace
+
+environment:
+  sdk: ^3.9.2
+
+dependencies:
+  auth_repository:
+  api_client:
+  json_annotation:
+  meta:
+  storage:
+
+dev_dependencies:
+  build_runner:
+  json_serializable:
+  very_good_analysis:
+  mocktail:
+  test:
+

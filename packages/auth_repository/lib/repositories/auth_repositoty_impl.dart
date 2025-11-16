@@ -54,12 +54,12 @@ final class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Role? getRole() {
+  RoleEnum? getRole() {
     return authLocalDataSource.getRole();
   }
 
   @override
-  Future<void> setRole(Role role) async {
+  Future<void> setRole(RoleEnum role) async {
     await authLocalDataSource.setRole(role);
   }
 }

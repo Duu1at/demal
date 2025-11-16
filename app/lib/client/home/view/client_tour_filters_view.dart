@@ -24,7 +24,7 @@ class _ClientTourFiltersViewState extends State<ClientTourFiltersView> {
   DateTime? _dateTo;
   double? _priceMin;
   double? _priceMax;
-  SortBy? _sortBy;
+  TourSortBy? _sortBy;
 
   @override
   void initState() {
@@ -150,28 +150,28 @@ class _ClientTourFiltersViewState extends State<ClientTourFiltersView> {
               const SizedBox(height: AppSpacing.lg),
               Text('Sort by', style: theme.textTheme.labelLarge),
               const SizedBox(height: AppSpacing.xs),
-              DropdownButtonFormField<SortBy>(
+              DropdownButtonFormField<TourSortBy>(
                 initialValue: _sortBy,
                 isExpanded: true,
                 items: const [
                   DropdownMenuItem(
-                    value: SortBy.dateAsc,
+                    value: TourSortBy.dateAsc,
                     child: Text('Date ↑'),
                   ),
                   DropdownMenuItem(
-                    value: SortBy.dateDesc,
+                    value: TourSortBy.dateDesc,
                     child: Text('Date ↓'),
                   ),
                   DropdownMenuItem(
-                    value: SortBy.priceAsc,
+                    value: TourSortBy.priceAsc,
                     child: Text('Price ↑'),
                   ),
                   DropdownMenuItem(
-                    value: SortBy.priceDesc,
+                    value: TourSortBy.priceDesc,
                     child: Text('Price ↓'),
                   ),
                   DropdownMenuItem(
-                    value: SortBy.ratingDesc,
+                    value: TourSortBy.ratingDesc,
                     child: Text('Rating ↓'),
                   ),
                 ],
@@ -191,7 +191,7 @@ class _ClientTourFiltersViewState extends State<ClientTourFiltersView> {
   void _onApply() {
     if (!_validateDateRange()) return;
 
-    final params = ToursParams(
+    final params = ToursParam(
       location: _trimOrNull(_locationController.text),
       tourType: _tourType,
       dateFrom: _formatDate(_dateFrom),
@@ -218,7 +218,7 @@ class _ClientTourFiltersViewState extends State<ClientTourFiltersView> {
       _priceMinController.clear();
       _priceMaxController.clear();
     });
-    context.read<ToursBloc>().add(const ToursFilterChangedEvent(ToursParams()));
+    context.read<ToursBloc>().add(const ToursFilterChangedEvent(ToursParam()));
     Navigator.of(context).pop();
   }
 

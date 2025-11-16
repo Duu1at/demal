@@ -9,12 +9,12 @@ class RoleRadioGroup extends StatelessWidget {
     super.key,
   });
 
-  final Role? groupValue;
-  final ValueChanged<Role?> onChanged;
+  final RoleEnum? groupValue;
+  final ValueChanged<RoleEnum?> onChanged;
 
   @override
   Widget build(BuildContext context) {
-    return RadioGroup<Role?>(
+    return RadioGroup<RoleEnum?>(
       groupValue: groupValue,
       onChanged: onChanged,
       child: const Column(
@@ -49,12 +49,12 @@ class _RoleRedioWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
-    final group = RadioGroup.maybeOf<Role?>(context);
+    final group = RadioGroup.maybeOf<RoleEnum?>(context);
     final role = group?.groupValue;
-    final selected = isClient ? role == Role.client : role == Role.partner;
-    final value = isClient ? Role.client : Role.partner;
+    final selected = isClient ? role == RoleEnum.client : role == RoleEnum.partner;
+    final value = isClient ? RoleEnum.client : RoleEnum.partner;
 
-    return RadioListTile<Role?>(
+    return RadioListTile<RoleEnum?>(
       controlAffinity: ListTileControlAffinity.trailing,
       value: value,
       selected: selected,

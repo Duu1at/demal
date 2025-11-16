@@ -7,7 +7,11 @@ part 'tours_model.g.dart';
 @JsonSerializable()
 @immutable
 final class ToursModel {
-  const ToursModel({this.success, this.tours, this.pagination});
+  const ToursModel({
+    this.success,
+    this.tours,
+    this.pagination,
+  });
 
   factory ToursModel.fromJson(Map<String, dynamic> json) => _$ToursModelFromJson(json);
 

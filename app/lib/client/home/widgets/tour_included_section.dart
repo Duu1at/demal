@@ -1,18 +1,16 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
+import 'package:tour_repository/tour_repository.dart';
 
 class TourIncludedSection extends StatelessWidget {
-  const TourIncludedSection({super.key});
+  const TourIncludedSection(this.tour, {super.key});
+  final TourModel tour;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final included = [
-      'Проживание в кемпинге',
-      'Питание (завтрак, обед, ужин)',
-      'Гид-проводник',
-    ];
-    final notIncluded = ['Авиабилеты', 'Личные расходы'];
+    final included = tour.whatsIncluded ?? [];
+    final notIncluded = tour.whatsNotIncluded ?? [];
 
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,

@@ -4,6 +4,17 @@ import 'package:tour_repository/tour_repository.dart';
 
 @immutable
 abstract interface class TourRepository {
-  Future<ToursModel> getTours(ToursParams params);
-  Future<TourDetailModel> getTourDetail(String tourId);
+  /// Get tours for client
+  Future<ToursModel> getTours(ToursParam params);
+  Future<TourModel> getTourDetail(String tourId);
+
+  /// Get reviews for a tour
+  Future<ToursReviewsModel> getTourReviews(String tourId, int page, int limit);
+  Future<TourReviewModel> createTourReview(CreateTourReviewParam param);
+
+  /// Get tours for partner
+  Future<TourModel> createTour(TourCreateParam param);
+  Future<ToursModel> getPartnerTours(int page, int limit);
+  Future<TourModel> updateTour(String tourId, TourUpdateParam param);
+  Future<void> deleteTour(String tourId);
 }

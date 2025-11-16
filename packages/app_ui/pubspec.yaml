@@ -15,6 +15,7 @@ dependencies:
   go_router:
   shimmer:
   storage:
+  toastification:
 
 
 dev_dependencies:

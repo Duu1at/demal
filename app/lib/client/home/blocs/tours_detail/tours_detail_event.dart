@@ -1,8 +1,9 @@
 part of 'tours_detail_bloc.dart';
 
-sealed class ToursDetailEvent extends Equatable {
-  const ToursDetailEvent();
+final class ToursDetailEvent extends Equatable {
+  const ToursDetailEvent(this.tourId);
+  final String tourId;
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [tourId];
 }

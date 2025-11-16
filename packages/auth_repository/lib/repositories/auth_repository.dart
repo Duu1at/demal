@@ -9,6 +9,6 @@ abstract class AuthRepository {
   Future<void> logOut();
   Future<void> saveOnboardingStatus(bool completed);
   bool getOnboardingStatus();
-  Future<void> setRole(Role role);
-  Role? getRole();
+  Future<void> setRole(RoleEnum role);
+  RoleEnum? getRole();
 }

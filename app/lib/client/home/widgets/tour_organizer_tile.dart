@@ -1,9 +1,11 @@
 import 'package:app/utils/image_storage/image_storage.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
+import 'package:tour_repository/tour_repository.dart';
 
 class TourOrganizerTile extends StatelessWidget {
-  const TourOrganizerTile({super.key});
+  const TourOrganizerTile(this.tour, {super.key});
+  final TourModel tour;
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +13,7 @@ class TourOrganizerTile extends StatelessWidget {
     return Row(
       children: [
         AvatarIcon(
-          imageUrl: 'https://miro.medium.com/v2/resize:fit:2400/1*Mw7pdECfWJ6sZjN9XU7Jew.png',
+          imageUrl: tour.organizer?.imageUrl ?? '',
           cacheManager: ImageStorage.instance.avatarManager,
         ),
         const SizedBox(width: AppSpacing.md),
@@ -20,7 +22,7 @@ class TourOrganizerTile extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'MountainTrip Agency',
+                tour.organizer?.fullName ?? '',
                 style: theme.textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.w600,
                 ),
