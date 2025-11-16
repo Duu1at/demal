@@ -99,12 +99,12 @@ class ToursBloc extends Bloc<ToursEvent, ToursPagingState> {
     emit(state.copyWithParams(isLoading: true, params: params));
 
     try {
-      final result = await _tourRepository.getClientTours(params);
+      final result = await _tourRepository.getTours(params);
       final tours = result.tours ?? [];
       final pagination = result.pagination;
 
       final isLastPage = pagination != null
-          ? pageKey >= pagination.totalPages!
+          ? pageKey >= pagination.totalPages
           : tours.isEmpty || tours.length < tourLimit;
 
       emit(
@@ -114,16 +114,11 @@ class ToursBloc extends Bloc<ToursEvent, ToursPagingState> {
           pages: pageKey == 1 ? [tours] : [...?state.pages, tours],
           keys: pageKey == 1 ? [pageKey] : [...?state.keys, pageKey],
           pagination: pagination,
+          params: state.params?.copyWith(page: pageKey, limit: tourLimit),
         ),
       );
     } on Object catch (e) {
       emit(state.copyWithParams(isLoading: false, error: e));
     }
-  }
-
-  @override
-  Future<void> close() {
-    state.params?.isEmpty = false;
-    return super.close();
   }
 }

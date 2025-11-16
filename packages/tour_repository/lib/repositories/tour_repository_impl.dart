@@ -6,51 +6,46 @@ final class TourRepositoryImpl implements TourRepository {
   const TourRepositoryImpl(this.tourRemoteDataSource);
 
   final TourRemoteDataSource tourRemoteDataSource;
-
+  
   @override
-  Future<TourModel> getClientTourDetail(String tourId) {
-    return tourRemoteDataSource.getToursDetail(tourId);
+  Future<TourModel> createTour(TourCreateParam param) {
+    return tourRemoteDataSource.createTour(param);
   }
-
+  
   @override
-  Future<ToursModel> getClientTours(ToursParam params) {
+  Future<TourReviewModel> createTourReview(CreateTourReviewParam param) {
+    return tourRemoteDataSource.createTourReview(param);
+  }
+  
+  @override
+  Future<void> deleteTour(String tourId) {
+    return tourRemoteDataSource.deleteTour(tourId);
+  }
+  
+  @override
+  Future<ToursModel> getPartnerTours(int page, int limit) {
+    return tourRemoteDataSource.getPartnerTours(page, limit);
+  }
+  
+  @override
+  Future<TourModel> getTourDetail(String tourId) {
+    return tourRemoteDataSource.getTourDetail(tourId);
+  }
+  
+  @override
+  Future<ToursReviewsModel> getTourReviews(String tourId, int page, int limit) {
+    return tourRemoteDataSource.getTourReviews(tourId, page, limit);
+  }
+  
+  @override
+  Future<ToursModel> getTours(ToursParam params) {
     return tourRemoteDataSource.getTours(params);
   }
-
+  
   @override
-  Future<void> createPartnerTour(TourCreateParam tourCreateParam) {
-    throw UnimplementedError();
+  Future<TourModel> updateTour(String tourId, TourUpdateParam param) {
+    return tourRemoteDataSource.updateTour(tourId, param);
   }
 
-  @override
-  Future<void> deletePartnerTour(String tourId) {
-    throw UnimplementedError();
-  }
 
-  @override
-  Future<TourDetailModel> getClientTourTickets(int page, int limit) {
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<void> getPartnerTours(ToursParam params) {
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<void> updatePartnerTour(String tourId, TourCreateParam tourCreateParam) {
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<void> createTourReview(CreateTourReviewParam createTourReviewParam) {
-    // TODO: implement createTourReview
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<void> getTourReviews(String tourId, int page, int limit) {
-    // TODO: implement getTourReviews
-    throw UnimplementedError();
-  }
 }

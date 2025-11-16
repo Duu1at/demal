@@ -12,7 +12,7 @@ final class ToursPagingState extends PagingStateBase<int, TourModel> {
     this.pagination,
   });
 
-  final ToursParams? params;
+  final ToursParam? params;
   final PaginationModel? pagination;
 
   List<TourModel> get allTours => pages?.expand((page) => page).toList() ?? [];
@@ -35,6 +35,8 @@ final class ToursPagingState extends PagingStateBase<int, TourModel> {
     FutureOr<Object?>? error,
     FutureOr<bool>? hasNextPage,
     FutureOr<bool>? isLoading,
+    FutureOr<ToursParam?>? params,
+    FutureOr<PaginationModel?>? pagination,
   }) {
     return ToursPagingState(
       pages: pages != null ? (pages is Future ? this.pages : pages) : this.pages,
@@ -42,8 +44,8 @@ final class ToursPagingState extends PagingStateBase<int, TourModel> {
       error: error != null ? (error is Future ? this.error : error) : this.error,
       hasNextPage: hasNextPage != null ? (hasNextPage is Future ? this.hasNextPage : hasNextPage) : this.hasNextPage,
       isLoading: isLoading != null ? (isLoading is Future ? this.isLoading : isLoading) : this.isLoading,
-      params: params,
-      pagination: pagination,
+      params: params != null ? (params is Future ? this.params : params) : this.params,
+      pagination: pagination != null ? (pagination is Future ? this.pagination : pagination) : this.pagination,
     );
   }
 
@@ -53,8 +55,8 @@ final class ToursPagingState extends PagingStateBase<int, TourModel> {
     FutureOr<Object?>? error,
     FutureOr<bool>? hasNextPage,
     FutureOr<bool>? isLoading,
-    ToursParams? params,
-    PaginationModel? pagination,
+    FutureOr<ToursParam?>? params,
+    FutureOr<PaginationModel?>? pagination,
   }) {
     return ToursPagingState(
       pages: pages != null ? (pages is Future ? this.pages : pages) : this.pages,
@@ -62,8 +64,8 @@ final class ToursPagingState extends PagingStateBase<int, TourModel> {
       error: error != null ? (error is Future ? this.error : error) : this.error,
       hasNextPage: hasNextPage != null ? (hasNextPage is Future ? this.hasNextPage : hasNextPage) : this.hasNextPage,
       isLoading: isLoading != null ? (isLoading is Future ? this.isLoading : isLoading) : this.isLoading,
-      params: params ?? this.params,
-      pagination: pagination ?? this.pagination,
+      params: params != null ? (params is Future ? this.params : params) : this.params,
+      pagination: pagination != null ? (pagination is Future ? this.pagination : pagination) : this.pagination,
     );
   }
 

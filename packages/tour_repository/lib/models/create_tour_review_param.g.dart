@@ -10,8 +10,8 @@ CreateTourReviewParam _$CreateTourReviewParamFromJson(
   Map<String, dynamic> json,
 ) => CreateTourReviewParam(
   tourId: json['tour_id'] as String,
-  text: json['text'] as String,
-  rating: json['rating'] as num? ?? 0,
+  rating: (json['rating'] as num).toDouble(),
+  text: json['text'] as String?,
 );
 
 Map<String, dynamic> _$CreateTourReviewParamToJson(

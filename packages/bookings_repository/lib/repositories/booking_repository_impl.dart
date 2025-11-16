@@ -11,8 +11,8 @@ final class BookingRepositoryImpl implements BookingsRepository {
   }
 
   @override
-  Future<List<MyBookingsModel>> getMyBookings(int page, int limit) {
-    return _bookingRemoteDataSource.getMyBookings(page, limit);
+  Future<List<MyBookingsModel>> getMyTickets(int page, int limit) {
+    return _bookingRemoteDataSource.getMyTickets(page, limit);
   }
 
   @override

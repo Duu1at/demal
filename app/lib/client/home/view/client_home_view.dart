@@ -32,7 +32,7 @@ class ClientHomeViewBody extends StatefulWidget {
 
 class _ClientHomeViewBodyState extends State<ClientHomeViewBody> with ToursScrollControllerMixin {
   final _searchController = TextEditingController();
-  ToursParams _params = const ToursParams();
+  ToursParam _params = const ToursParam();
 
   @override
   void initState() {

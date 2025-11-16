@@ -8,8 +8,8 @@ part 'create_tour_review_param.g.dart';
 class CreateTourReviewParam {
   const CreateTourReviewParam({
     required this.tourId,
-    required this.text,
-    this.rating = 0,
+    required this.rating,
+    this.text,
   });
 
   factory CreateTourReviewParam.fromJson(Map<String, dynamic> json) => _$CreateTourReviewParamFromJson(json);
@@ -17,11 +17,9 @@ class CreateTourReviewParam {
   @JsonKey(name: 'tour_id')
   final String tourId;
 
-  @JsonKey(name: 'rating', defaultValue: 0)
-  final num rating;
+  final double rating;
 
-  @JsonKey(name: 'text')
-  final String text;
+  final String? text;
 
   Map<String, dynamic> toJson() => _$CreateTourReviewParamToJson(this);
 }

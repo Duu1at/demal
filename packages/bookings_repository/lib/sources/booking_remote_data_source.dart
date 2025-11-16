@@ -14,7 +14,7 @@ final class BookingRemoteDataSource {
     );
   }
 
-  Future<List<MyBookingsModel>> getMyBookings(int page, int limit) {
+  Future<List<MyBookingsModel>> getMyTickets(int page, int limit) {
     return _apiClient.getListOfType<MyBookingsModel>(
       '/bookings/me?page=$page&limit=$limit',
       fromJson: MyBookingsModel.fromJson,
