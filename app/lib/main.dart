@@ -58,7 +58,6 @@ void main() async {
               talker: talker,
               settings: const TalkerDioLoggerSettings(
                 printRequestHeaders: true,
-                printResponseHeaders: true,
               ),
             ),
           ],

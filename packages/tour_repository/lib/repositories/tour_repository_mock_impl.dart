@@ -77,7 +77,7 @@ final class TourRepositoryMockImpl implements TourRepository {
   }
 
   @override
-  Future<ToursModel> getTours(ToursParam params) {
+  Future<ToursModel> getTours(ToursParam? params) {
     return Future.delayed(const Duration(seconds: 2), () {
       return const ToursModel(
         tours: [

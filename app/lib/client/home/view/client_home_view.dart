@@ -1,6 +1,5 @@
 import 'package:app/app/router/app_router.dart';
 import 'package:app/client/home/blocs/tours/tours_bloc.dart';
-import 'package:app/client/home/view/tours_scroll_controller.dart';
 import 'package:app/client/home/view/widgets/tours_empty_state.dart';
 import 'package:app/client/home/view/widgets/tours_error_state.dart';
 import 'package:app/client/home/view/widgets/tours_list_content.dart';
@@ -30,24 +29,22 @@ class ClientHomeViewBody extends StatefulWidget {
   State<ClientHomeViewBody> createState() => _ClientHomeViewBodyState();
 }
 
-class _ClientHomeViewBodyState extends State<ClientHomeViewBody> with ToursScrollControllerMixin {
+class _ClientHomeViewBodyState extends State<ClientHomeViewBody> {
   final _searchController = TextEditingController();
   ToursParam _params = const ToursParam();
 
   @override
   void initState() {
     super.initState();
-    initializeScrollController();
     _searchController.addListener(_onSearchChanged);
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<ToursBloc>().add(const ToursInitialFetchEvent());
+      context.read<ToursBloc>().add(const ToursFetchEvent());
     });
   }
 
   @override
   void dispose() {
     _searchController.dispose();
-    disposeScrollController();
     super.dispose();
   }
 
@@ -59,10 +56,6 @@ class _ClientHomeViewBodyState extends State<ClientHomeViewBody> with ToursScrol
     context.read<ToursBloc>().add(ToursFilterChangedEvent(_params));
   }
 
-  Future<void> _onRefresh() async {
-    context.read<ToursBloc>().add(const ToursRefreshEvent());
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,11 +64,10 @@ class _ClientHomeViewBodyState extends State<ClientHomeViewBody> with ToursScrol
         onNotificationTap: () {},
       ),
       body: RefreshIndicator(
-        onRefresh: _onRefresh,
-        child: BlocBuilder<ToursBloc, ToursPagingState>(
+        onRefresh: () async => context.read<ToursBloc>().add(const ToursFetchEvent()),
+        child: BlocBuilder<ToursBloc, ToursState<TourModel>>(
           builder: (context, state) {
             return CustomScrollView(
-              controller: scrollController,
               slivers: [
                 const SliverToBoxAdapter(
                   child: SizedBox(height: AppSpacing.sm),
@@ -85,7 +77,7 @@ class _ClientHomeViewBodyState extends State<ClientHomeViewBody> with ToursScrol
                   child: SizedBox(height: AppSpacing.sm),
                 ),
                 _buildStateContent(state),
-                if (state.isLoading && state.allTours.isNotEmpty && !state.isRefreshing)
+                if (state.isLoading && state.pages?.isNotEmpty == true)
                   const SliverToBoxAdapter(
                     child: Padding(
                       padding: EdgeInsets.all(AppSpacing.md),
@@ -107,16 +99,16 @@ class _ClientHomeViewBodyState extends State<ClientHomeViewBody> with ToursScrol
     );
   }
 
-  Widget _buildStateContent(ToursPagingState state) {
+  Widget _buildStateContent(ToursState<TourModel> state) {
     if ((state.pages == null || state.pages!.isEmpty) && state.isLoading) {
       return const ToursLoadingState();
     }
 
-    if (state.error != null && state.allTours.isEmpty) {
+    if (state.error != null && (state.pages?.isEmpty ?? false)) {
       return const ToursErrorState();
     }
 
-    if (state.allTours.isEmpty && !state.isLoading) {
+    if ((state.pages?.isEmpty ?? false) && !state.isLoading) {
       return ToursEmptyState(hasSearchQuery: _searchController.text.isNotEmpty);
     }
 

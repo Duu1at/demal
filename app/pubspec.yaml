@@ -6,7 +6,10 @@ resolution: workspace
 version: 1.0.0+1
 
 environment:
-  sdk: ^3.9.0
+  sdk: ^3.9.2
+
+flutter:
+  uses-material-design: true
 
 dependencies:
 # custom packages
@@ -17,6 +20,7 @@ dependencies:
   tour_repository:
   profile_repository:
   upload_repository:
+  core:
 
 # dependencies
   bloc_concurrency:
@@ -35,8 +39,6 @@ dependencies:
   go_router:
   image_picker:
   infinite_scroll_pagination:
-  intl:
-  latlong2:
   loader_overlay:
   mask_text_input_formatter:
   permission_handler:
@@ -49,11 +51,12 @@ dependencies:
   talker_flutter:
   talker_dio_logger:
   url_launcher:
-  
+  json_annotation:
+  intl:
+
+
 dev_dependencies:
   very_good_analysis:
-
-flutter:
-  uses-material-design: true
-  generate: true 
+  build_runner:
+  json_serializable:
 

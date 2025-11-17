@@ -3,82 +3,84 @@ import 'package:bookings_repository/bookings_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:app/client/home/blocs/paging/paging_bloc.dart';
-import 'package:app/client/home/blocs/tickets/tickets_paging_bloc.dart';
 
-class ClientTourTicketsView extends StatelessWidget {
+class ClientTourTicketsView extends StatefulWidget {
   const ClientTourTicketsView({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => TicketsPagingBloc(
-        bookingsRepository: context.read<BookingsRepository>(),
-      )..add(PagingFetchNext()),
-      child: const ClientTourTicketsViewBody(),
-    );
-  }
+  State<ClientTourTicketsView> createState() => _ClientTourTicketsViewState();
 }
 
-class ClientTourTicketsViewBody extends StatelessWidget {
-  const ClientTourTicketsViewBody({super.key});
+class _ClientTourTicketsViewState extends State<ClientTourTicketsView> {
+  late final PagingController<int, BookingModel> _pagingController;
+
+  @override
+  void initState() {
+    super.initState();
+    _pagingController = PagingController<int, BookingModel>(
+      getNextPageKey: (state) {
+        if (state.lastPageIsEmpty) return null;
+        return state.nextIntPageKey;
+      },
+      fetchPage: (pageKey) async => (await context.read<BookingsRepository>().getMyTickets(pageKey)).bookings,
+    );
+    _pagingController.addListener(_showError);
+  }
+
+  Future<void> _showError() async {
+    if (_pagingController.value.status == PagingStatus.subsequentPageError) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: const Text(
+            'Something went wrong while fetching a new page.',
+          ),
+          action: SnackBarAction(
+            label: 'Retry',
+            onPressed: () => _pagingController.fetchNextPage(),
+          ),
+        ),
+      );
+    }
+  }
+
+  @override
+  void dispose() {
+    _pagingController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return BlocListener<TicketsPagingBloc, BlocPagingState<BookingModel, void>>(
-      listener: (context, state) {
-        if (state.error != null && state.pages != null && state.pages!.isNotEmpty) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: const Text(
-                'Something went wrong while fetching a new page.',
-              ),
-              action: SnackBarAction(
-                label: 'Retry',
-                onPressed: () => context.read<TicketsPagingBloc>().add(PagingFetchNext()),
-              ),
-            ),
-          );
-        }
-      },
-      child: ScaffoldWithBgImage(
-        bgImageTop: true,
-        appBar: AppBar(
-          elevation: 0,
-          backgroundColor: Colors.transparent,
-          title: Text('Мои билеты', style: theme.textTheme.titleLarge),
-        ),
-        body: RefreshIndicator(
-          onRefresh: () async {
-            context.read<TicketsPagingBloc>().add(PagingRefresh());
-          },
-          child: BlocBuilder<TicketsPagingBloc, BlocPagingState<BookingModel, void>>(
-            builder: (context, state) {
-              return PagedListView<int, BookingModel>.separated(
-                state: state,
-                fetchNextPage: () {
-                  context.read<TicketsPagingBloc>().add(PagingFetchNext());
-                },
-                itemExtent: 48,
-                builderDelegate: PagedChildBuilderDelegate(
-                  animateTransitions: true,
-                  itemBuilder: (context, item, index) => Container(),
-                  firstPageErrorIndicatorBuilder: (context) => const Placeholder(),
-                  newPageErrorIndicatorBuilder: (context) => const Placeholder(),
-                ),
-                separatorBuilder: (context, index) => const Divider(),
-              );
-            },
+    return ScaffoldWithBgImage(
+      bgImageTop: true,
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        title: Text('Мои билеты', style: theme.textTheme.titleLarge),
+      ),
+      body: RefreshIndicator(
+        onRefresh: () async => _pagingController.refresh(),
+        child: PagedListView<int, BookingModel>.separated(
+          state: PagingState<int, BookingModel>(
+            error: null,
+            hasNextPage: _pagingController.value.hasNextPage,
+            isLoading: _pagingController.value.isLoading,
           ),
+          fetchNextPage: _pagingController.fetchNextPage,
+          itemExtent: 48,
+          builderDelegate: PagedChildBuilderDelegate(
+            animateTransitions: true,
+            itemBuilder: (context, item, index) => Container(),
+            firstPageErrorIndicatorBuilder: (context) => const Placeholder(),
+            newPageErrorIndicatorBuilder: (context) => const Placeholder(),
+          ),
+          separatorBuilder: (context, index) => const Divider(),
         ),
       ),
     );
   }
 }
-
-
-
 
 // AppCard(
 //                     child: Row(
@@ -182,7 +184,6 @@ class ClientTourTicketsViewBody extends StatelessWidget {
 //                       ],
 //                     ),
 //                   ),
-
 
 // class ListViewScreen extends StatefulWidget {
 //   const ListViewScreen({super.key});

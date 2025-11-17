@@ -4,3 +4,4 @@ output-localization-file: app_localizations.dart
 nullable-getter: false
 untranslated-messages-file: l10n_errors.txt
 use-deferred-loading: false
+

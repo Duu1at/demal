@@ -1,9 +1,10 @@
 import 'package:api_client/api_client.dart';
 import 'package:app/app/app.dart';
-import 'package:app/l10n/app_localizations.dart';
+import 'package:app/exceptions/handle/app_exception_type_resolver.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:auth_repository/auth_repository.dart';
 import 'package:bookings_repository/bookings_repository.dart';
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -40,6 +41,9 @@ class App extends StatelessWidget {
             BookingRemoteDataSource(context.read<ApiClient>()),
           ),
         ),
+        RepositoryProvider<ErrorHandler>(create: (context) => const BaseErrorHandler()),
+        RepositoryProvider<ErrorHandler>(create: (context) => const ErrorHandleSnackBar()),
+        RepositoryProvider<ErrorHandler>(create: (context) => const ErrorHandleDialog()),
         BlocProvider<AppThemeCubit>(
           create: (context) => AppThemeCubit(context.read<AppRepository>()),
         ),

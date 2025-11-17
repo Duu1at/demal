@@ -6,16 +6,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tour_repository/tour_repository.dart';
 
 class ToursListContent extends StatelessWidget {
   const ToursListContent({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ToursBloc, ToursPagingState>(
+    return BlocBuilder<ToursBloc, ToursState<TourModel>>(
       builder: (context, state) {
-        final tours = state.allTours;
-        final hasMore = state.canLoadMore;
+        final tours = state.pages?.firstOrNull ?? [];
+        final hasMore = state.hasNextPage;
 
         return SliverPadding(
           padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),

@@ -5,7 +5,7 @@ import 'package:tour_repository/tour_repository.dart';
 @immutable
 abstract interface class TourRepository {
   /// Get tours for client
-  Future<ToursModel> getTours(ToursParam params);
+  Future<ToursModel> getTours(ToursParam? params);
   Future<TourModel> getTourDetail(String tourId);
 
   /// Get reviews for a tour

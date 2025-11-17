@@ -3,6 +3,21 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/foundation.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
+abstract interface class PagedResult<T> {
+  List<T> get items;
+
+  PaginationInfo? get pagination;
+
+  bool? get success;
+}
+
+abstract interface class PaginationInfo {
+  int get page;
+  int get limit;
+  int get totalItems;
+  int get totalPages;
+}
+
 sealed class PagingEvent {
   const PagingEvent();
 }
@@ -13,12 +28,6 @@ final class PagingFetchNext extends PagingEvent {
 
 final class PagingRefresh extends PagingEvent {
   const PagingRefresh();
-}
-
-final class PagingChangeSearch extends PagingEvent {
-  const PagingChangeSearch(this.search);
-
-  final String? search;
 }
 
 final class PagingChangeParams<P> extends PagingEvent {
@@ -35,11 +44,9 @@ final class BlocPagingState<T, P> extends PagingStateBase<int, T> {
     super.error,
     super.hasNextPage,
     super.isLoading,
-    this.search,
     this.params,
   });
 
-  final String? search;
   final P? params;
 
   @override
@@ -66,91 +73,33 @@ final class BlocPagingState<T, P> extends PagingStateBase<int, T> {
     error: null,
     hasNextPage: true,
     isLoading: false,
-    params: params,
-  );
-
-  @override
-  bool operator ==(Object other) => other is BlocPagingState<T, P> && super == other && params == other.params;
-
-  @override
-  int get hashCode => Object.hash(
-    super.hashCode,
-    params,
+    params: null,
   );
 }
 
-/// Универсальный BLoC для пагинации
-///
-/// [T] - тип элементов в списке
-/// [P] - тип параметров (может быть `void` если параметры не нужны)
-///
-/// Использование:
-/// ```dart
-/// // Без параметров
-/// class MyPagingBloc extends PagingBloc<MyModel, void> {
-///   MyPagingBloc() : super(
-///     fetchFn: (pageKey, params) async {
-///       final response = await repository.getItems(pageKey);
-///       return response.items;
-///     },
-///   );
-/// }
-///
-/// // С параметрами
-/// class ToursPagingBloc extends PagingBloc<TourModel, ToursParam> {
-///   ToursPagingBloc() : super(
-///     fetchFn: (pageKey, params) async {
-///       final response = await repository.getTours(params?.copyWith(page: pageKey));
-///       return response.tours ?? [];
-///     },
-///   );
-/// }
-/// ```
 class PagingBloc<T, P> extends Bloc<PagingEvent, BlocPagingState<T, P>> {
   PagingBloc({
     required this.fetchFn,
-    this.isLastPageFn,
   }) : super(BlocPagingState<T, P>()) {
     on<PagingFetchNext>(_onFetchNext);
     on<PagingRefresh>(_onRefresh);
-    on<PagingChangeSearch>(_onChangeSearch);
     on<PagingChangeParams<P>>(_onChangeParams);
   }
 
-  /// Функция для загрузки данных
-  ///
-  /// Параметры:
-  /// - [pageKey] - номер страницы (начинается с 1)
-  /// - [params] - параметры для загрузки (может быть null)
-  ///
-  /// Возвращает список элементов для данной страницы
-  final Future<List<T>> Function(int pageKey, P? params) fetchFn;
+  final Future<PagedResult<T>> Function(int pageKey, P? params) fetchFn;
 
-  /// Опциональная функция для определения последней страницы
-  ///
-  /// По умолчанию: страница считается последней, если результат пустой.
-  /// Можно переопределить для более сложной логики (например, проверка totalPages из API).
-  final bool Function(List<T> result, int pageKey)? isLastPageFn;
-
-  /// Обработчик загрузки следующей страницы
   Future<void> _onFetchNext(
     PagingFetchNext event,
     Emitter<BlocPagingState<T, P>> emit,
   ) async {
     final current = state;
-
-    // Проверка: уже загружается или нет следующих страниц
     if (current.isLoading || !current.hasNextPage) return;
-
-    // Определяем номер следующей страницы
     final pageKey = current.lastPageIsEmpty ? null : current.nextIntPageKey;
 
     if (pageKey == null) {
       emit(current.copyWith(hasNextPage: false));
       return;
     }
-
-    // Устанавливаем состояние загрузки
     emit(
       current.copyWith(
         isLoading: true,
@@ -159,19 +108,18 @@ class PagingBloc<T, P> extends Bloc<PagingEvent, BlocPagingState<T, P>> {
     );
 
     try {
-      // Загружаем данные
       final result = await fetchFn(pageKey, current.params);
+      final items = result.items;
+      final pagination = result.pagination;
 
-      // Определяем, последняя ли это страница
-      final isLastPage = isLastPageFn?.call(result, pageKey) ?? result.isEmpty;
+      final isLastPage = _isLastPage(items, pageKey, pagination);
 
-      // Сохраняем результат
       emit(
         state.copyWith(
           isLoading: false,
           error: null,
           hasNextPage: !isLastPage,
-          pages: [...?state.pages, result],
+          pages: [...?state.pages, items],
           keys: [...?state.keys, pageKey],
         ),
       );
@@ -180,7 +128,14 @@ class PagingBloc<T, P> extends Bloc<PagingEvent, BlocPagingState<T, P>> {
     }
   }
 
-  /// Обработчик обновления данных
+  bool _isLastPage(List<T> items, int pageKey, PaginationInfo? pagination) {
+    if (items.isEmpty) return true;
+    if (pagination != null) {
+      return pageKey >= pagination.totalPages;
+    }
+    return false;
+  }
+
   Future<void> _onRefresh(
     PagingRefresh event,
     Emitter<BlocPagingState<T, P>> emit,
@@ -189,19 +144,6 @@ class PagingBloc<T, P> extends Bloc<PagingEvent, BlocPagingState<T, P>> {
     add(const PagingFetchNext());
   }
 
-  /// Обработчик изменения поискового запроса (для обратной совместимости)
-  ///
-  /// Работает только если P == String?, иначе игнорируется
-  Future<void> _onChangeSearch(
-    PagingChangeSearch event,
-    Emitter<BlocPagingState<T, P>> emit,
-  ) async {
-    // Для обратной совместимости: если параметры не используются, просто обновляем
-    emit(state.reset());
-    add(const PagingFetchNext());
-  }
-
-  /// Обработчик изменения параметров
   Future<void> _onChangeParams(
     PagingChangeParams<P> event,
     Emitter<BlocPagingState<T, P>> emit,

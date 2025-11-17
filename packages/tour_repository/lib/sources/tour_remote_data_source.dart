@@ -7,10 +7,10 @@ final class TourRemoteDataSource {
   const TourRemoteDataSource(this.client);
   final ApiClient client;
 
-  Future<ToursModel> getTours(ToursParam params) {
+  Future<ToursModel> getTours(ToursParam? params) {
     return client.getType<ToursModel>(
       '/api/v1/tours',
-      params: GetApiParams(queryParameters: params.toJson()),
+      params: GetApiParams(queryParameters: params?.toJson()),
       fromJson: ToursModel.fromJson,
     );
   }

@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:bloc_concurrency/bloc_concurrency.dart';
-import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
@@ -9,7 +8,7 @@ import 'package:stream_transform/stream_transform.dart';
 import 'package:tour_repository/tour_repository.dart';
 
 part 'tours_event.dart';
-part 'tours_paging_state.dart';
+part 'tours_state.dart';
 
 EventTransformer<E> debounceDroppable<E>() {
   return (events, mapper) {
@@ -31,94 +30,87 @@ EventTransformer<E> throttleDroppable<E>() {
 
 const int tourLimit = 10;
 
-class ToursBloc extends Bloc<ToursEvent, ToursPagingState> {
-  ToursBloc(this._tourRepository) : super(ToursPagingState()) {
-    on<ToursInitialFetchEvent>(_onInitialFetch);
-    on<ToursRefreshEvent>(_onRefresh, transformer: throttleDroppable());
-    on<ToursLoadMoreEvent>(_onLoadMore, transformer: throttleDroppable());
-    on<ToursFilterChangedEvent>(
-      _onFilterChanged,
-      transformer: debounceDroppable(),
-    );
+class ToursBloc extends Bloc<ToursEvent, ToursState<TourModel>> {
+  ToursBloc(this._tourRepository) : super(ToursState()) {
+    on<ToursFetchEvent>(_onFetch);
+    // on<ToursRefreshEvent>(_onRefresh, transformer: throttleDroppable());
+    // on<ToursFilterChangedEvent>(_onFilterChanged, transformer: debounceDroppable());
   }
 
   final TourRepository _tourRepository;
 
-  Future<void> _onInitialFetch(
-    ToursInitialFetchEvent event,
-    Emitter<ToursPagingState> emit,
+  Future<void> _onFetch(
+    ToursFetchEvent event,
+    Emitter<ToursState<TourModel>> emit,
   ) async {
-    if (state.pages != null && state.pages!.isNotEmpty) return;
+    final current = state;
+    if (current.isLoading || !current.hasNextPage) return;
 
-    await _fetchPage(emit, 1, state.params);
-  }
+    final pageKey = current.lastPageIsEmpty ? null : current.nextIntPageKey;
+    if (pageKey == null) {
+      emit(current.copyWith(hasNextPage: false));
+      return;
+    }
 
-  Future<void> _onRefresh(
-    ToursRefreshEvent event,
-    Emitter<ToursPagingState> emit,
-  ) async {
-    if (state.isLoading && !state.isRefreshing) return;
-
-    final params =
-        event.params ?? state.params?.copyWith(limit: tourLimit) ?? const ToursParam(page: 1, limit: tourLimit);
-
-    emit(state.reset().copyWithParams(params: params));
-    await _fetchPage(emit, 1, params);
-  }
-
-  Future<void> _onLoadMore(
-    ToursLoadMoreEvent event,
-    Emitter<ToursPagingState> emit,
-  ) async {
-    if (state.isLoading || !state.canLoadMore) return;
-
-    final nextPageKey = state.nextIntPageKey;
-    await _fetchPage(emit, nextPageKey, state.params);
-  }
-
-  Future<void> _onFilterChanged(
-    ToursFilterChangedEvent event,
-    Emitter<ToursPagingState> emit,
-  ) async {
-    final params = event.params.copyWith(limit: tourLimit);
-
-    emit(state.reset().copyWithParams(params: params));
-    await _fetchPage(emit, 1, params);
-  }
-
-  Future<void> _fetchPage(
-    Emitter<ToursPagingState> emit,
-    int pageKey,
-    ToursParam? baseParams,
-  ) async {
-    final params = (baseParams ?? const ToursParam()).copyWith(
-      page: pageKey,
-      limit: tourLimit,
+    emit(
+      current.copyWith(
+        isLoading: true,
+        error: null,
+      ),
     );
 
-    emit(state.copyWithParams(isLoading: true, params: params));
-
     try {
-      final result = await _tourRepository.getTours(params);
-      final tours = result.tours ?? [];
-      final pagination = result.pagination;
+      final result = await _fetchPage(current.params ?? ToursParam(page: pageKey, limit: tourLimit));
 
-      final isLastPage = pagination != null
-          ? pageKey >= pagination.totalPages
-          : tours.isEmpty || tours.length < tourLimit;
-
+      final isLastPage = result.pagination?.totalPages == pageKey;
       emit(
-        state.copyWithParams(
+        current.copyWith(
           isLoading: false,
+          error: null,
           hasNextPage: !isLastPage,
-          pages: pageKey == 1 ? [tours] : [...?state.pages, tours],
-          keys: pageKey == 1 ? [pageKey] : [...?state.keys, pageKey],
-          pagination: pagination,
-          params: state.params?.copyWith(page: pageKey, limit: tourLimit),
+          pages: [...?current.pages, result.tours ?? []],
+          keys: [...?current.keys, pageKey],
         ),
       );
     } on Object catch (e) {
-      emit(state.copyWithParams(isLoading: false, error: e));
+      emit(state.copyWith(isLoading: false, error: e));
     }
+  }
+
+  // Future<void> _onRefresh(
+  //   ToursRefreshEvent event,
+  //   Emitter<ToursPagingState> emit,
+  // ) async {
+  //   if (state.isLoading && !state.isRefreshing) return;
+
+  //   final params =
+  //       event.params ?? state.params?.copyWith(limit: tourLimit) ?? const ToursParam(page: 1, limit: tourLimit);
+
+  //   emit(state.reset().copyWithParams(params: params));
+  //   await _fetchPage(emit, 1, params);
+  // }
+
+  // Future<void> _onLoadMore(
+  //   ToursLoadMoreEvent event,
+  //   Emitter<ToursPagingState> emit,
+  // ) async {
+  //   if (state.isLoading || !state.canLoadMore) return;
+
+  //   final nextPageKey = state.nextIntPageKey;
+  //   await _fetchPage(emit, nextPageKey, state.params);
+  // }
+
+  // Future<void> _onFilterChanged(
+  //   ToursFilterChangedEvent event,
+  //   Emitter<ToursPagingState> emit,
+  // ) async {
+  //   final params = event.params.copyWith(limit: tourLimit);
+
+  //   emit(state.reset().copyWithParams(params: params));
+  //   await _fetchPage(emit, 1, params);
+  // }
+
+  Future<ToursModel> _fetchPage(ToursParam baseParams) {
+    return _tourRepository.getTours(baseParams);
   }
 }

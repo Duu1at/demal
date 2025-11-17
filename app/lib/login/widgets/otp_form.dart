@@ -1,10 +1,9 @@
 import 'package:app/app/app.dart';
-import 'package:app/core/core.dart';
-import 'package:app/l10n/l10n_extension.dart';
 import 'package:app/login/cubit/otp_cubit.dart';
 import 'package:app/utils/formatter/input_formatter.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:auth_repository/auth_repository.dart';
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pinput/pinput.dart';
@@ -141,12 +140,9 @@ class _OtpFormState extends State<OtpForm> {
                   context.read<AuthCubit>().checkAuthStatus();
                 }
                 if (verifyStatus is RequestFailure<AuthLoginModel>) {
-                  SnackBarErrorHandle.I.handleError(
-                    SnackBarErrorHandleParam(
-                      context: context,
-                      verifyStatus.exception,
-                      type: SnackBarType.error,
-                    ),
+                  context.read<ErrorHandler>().handleError(
+                    verifyStatus.exception,
+                    context,
                   );
                   pinController.clear();
                   focusNode.requestFocus();

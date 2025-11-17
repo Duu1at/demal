@@ -38,7 +38,7 @@ final class TourRepositoryImpl implements TourRepository {
   }
 
   @override
-  Future<ToursModel> getTours(ToursParam params) {
+  Future<ToursModel> getTours(ToursParam? params) {
     return tourRemoteDataSource.getTours(params);
   }
 

@@ -1,6 +1,6 @@
 import 'package:app/client/settings/widgets/bullet_point.dart';
-import 'package:app/l10n/l10n_extension.dart';
 import 'package:app_ui/app_ui.dart';
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 
 class TourBenefits extends StatelessWidget {

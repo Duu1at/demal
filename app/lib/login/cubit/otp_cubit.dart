@@ -1,6 +1,6 @@
 import 'dart:async';
-import 'package:app/core/core.dart';
 import 'package:auth_repository/auth_repository.dart';
+import 'package:core/core.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

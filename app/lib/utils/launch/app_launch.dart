@@ -4,10 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-@immutable
-final class AppLaunch {
-  const AppLaunch._();
-
+abstract final class AppLaunch {
   static Future<void> sendEmail(
     String email, {
     String? snackBarText,
