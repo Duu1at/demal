@@ -1,22 +1,8 @@
 import 'dart:async';
+import 'package:core/core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/foundation.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-
-abstract interface class PagedResult<T> {
-  List<T> get items;
-
-  PaginationInfo? get pagination;
-
-  bool? get success;
-}
-
-abstract interface class PaginationInfo {
-  int get page;
-  int get limit;
-  int get totalItems;
-  int get totalPages;
-}
 
 sealed class PagingEvent {
   const PagingEvent();
@@ -86,7 +72,7 @@ class PagingBloc<T, P> extends Bloc<PagingEvent, BlocPagingState<T, P>> {
     on<PagingChangeParams<P>>(_onChangeParams);
   }
 
-  final Future<PagedResult<T>> Function(int pageKey, P? params) fetchFn;
+  final Future<PaginationModel<T>> Function(int pageKey, P? params) fetchFn;
 
   Future<void> _onFetchNext(
     PagingFetchNext event,
@@ -110,7 +96,7 @@ class PagingBloc<T, P> extends Bloc<PagingEvent, BlocPagingState<T, P>> {
     try {
       final result = await fetchFn(pageKey, current.params);
       final items = result.items;
-      final pagination = result.pagination;
+      final pagination = result.paginationInfo;
 
       final isLastPage = _isLastPage(items, pageKey, pagination);
 

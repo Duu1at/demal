@@ -77,7 +77,7 @@ class _ClientHomeViewBodyState extends State<ClientHomeViewBody> {
                   child: SizedBox(height: AppSpacing.sm),
                 ),
                 _buildStateContent(state),
-                if (state.isLoading && state.pages?.isNotEmpty == true)
+                if (state.isLoading && (state.pages?.isNotEmpty ?? false))
                   const SliverToBoxAdapter(
                     child: Padding(
                       padding: EdgeInsets.all(AppSpacing.md),

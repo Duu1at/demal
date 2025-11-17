@@ -20,14 +20,18 @@ final class PartnerProfileModel {
 
   @JsonKey(name: 'profile_id')
   final String? profileId;
+
   @JsonKey(name: 'company_name')
   final String? companyName;
-  @JsonKey(name: 'description')
+
   final String? description;
+
   @JsonKey(name: 'documents_url')
   final String? documentsUrl;
+
   @JsonKey(name: 'verification_status')
   final PartnerVerifyStatusEnum? verificationStatus;
+
   @JsonKey(name: 'card_number')
   final String? cardNumber;
 

@@ -9,8 +9,7 @@ abstract class ErrorHandler {
     BuildContext context,
   );
 
-  String parseErrorMessage(Object error) =>
-      error is AppException ? error.getUiMessage() : 'Something went wrong';
+  String parseErrorMessage(Object error) => error is AppException ? error.getUiMessage() : 'Something went wrong';
 
   ErrorModel parseErrorModel(Object error) {
     return error is AppException

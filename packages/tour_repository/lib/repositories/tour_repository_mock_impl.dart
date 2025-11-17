@@ -1,3 +1,4 @@
+import 'package:core/core.dart';
 import 'package:meta/meta.dart';
 import 'package:tour_repository/tour_repository.dart';
 
@@ -66,7 +67,7 @@ final class TourRepositoryMockImpl implements TourRepository {
             whatsNotIncluded: ['What is not included'],
           ),
         ],
-        pagination: PaginationModel(
+        pagination: PaginationResponseModel(
           totalItems: 1,
           totalPages: 1,
           page: 1,
@@ -95,7 +96,7 @@ final class TourRepositoryMockImpl implements TourRepository {
             whatsNotIncluded: ['What is not included'],
           ),
         ],
-        pagination: PaginationModel(
+        pagination: PaginationResponseModel(
           totalItems: 1,
           totalPages: 1,
           page: 1,
@@ -163,7 +164,7 @@ final class TourRepositoryMockImpl implements TourRepository {
             createdAt: DateTime.now(),
           ),
         ],
-        pagination: const PaginationModel(
+        pagination: const PaginationResponseModel(
           totalItems: 1,
           totalPages: 1,
           page: 1,

@@ -1,3 +1,4 @@
+import 'package:core/core.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 import 'package:tour_repository/tour_repository.dart';
@@ -6,16 +7,17 @@ part 'tours_reviews_model.g.dart';
 
 @JsonSerializable()
 @immutable
-final class ToursReviewsModel {
+final class ToursReviewsModel extends PaginationModel<TourReviewModel> {
   const ToursReviewsModel({
-    this.success,
     this.reviews,
-    this.pagination,
+    super.success,
+    super.pagination,
   });
   factory ToursReviewsModel.fromJson(Map<String, dynamic> json) => _$ToursReviewsModelFromJson(json);
-  final bool? success;
   final List<TourReviewModel>? reviews;
-  final PaginationModel? pagination;
+
+  @override
+  List<TourReviewModel> get items => reviews ?? [];
 
   Map<String, dynamic> toJson() => _$ToursReviewsModelToJson(this);
 }
