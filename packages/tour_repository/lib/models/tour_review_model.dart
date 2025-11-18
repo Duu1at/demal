@@ -46,10 +46,8 @@ final class ReviewUserModel {
 
   final String? id;
 
-  @JsonKey(name: 'full_name')
   final String? fullName;
 
-  @JsonKey(name: 'image_url')
   final String? imageUrl;
 
   Map<String, dynamic> toJson() => _$ReviewUserModelToJson(this);

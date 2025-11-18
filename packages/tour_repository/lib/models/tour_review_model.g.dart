@@ -26,8 +26,8 @@ Map<String, dynamic> _$TourReviewModelToJson(TourReviewModel instance) => <Strin
 
 ReviewUserModel _$ReviewUserModelFromJson(Map<String, dynamic> json) => ReviewUserModel(
   id: json['id'] as String?,
-  fullName: json['full_name'] as String?,
-  imageUrl: json['image_url'] as String?,
+  fullName: json['fullName'] as String?,
+  imageUrl: json['imageUrl'] as String?,
 );
 
 Map<String, dynamic> _$ReviewUserModelToJson(ReviewUserModel instance) => <String, dynamic>{

@@ -166,26 +166,14 @@ class _ReviewCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              if (user?.imageUrl != null)
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
-                  child: Image.network(
-                    user!.imageUrl!,
-                    width: 40,
-                    height: 40,
-                    fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) => Container(
-                      width: 40,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        color: theme.colorScheme.surfaceContainerHighest,
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: AvatarIcon(
-                        imageUrl: user.imageUrl,
-                        cacheManager: ImageStorage.instance.avatarManager,
-                      ),
-                    ),
+              if (user != null && user.imageUrl != null && user.imageUrl!.isNotEmpty)
+                SizedBox(
+                  width: 40,
+                  height: 40,
+                  child: AvatarIcon(
+                    imageUrl: user.imageUrl,
+                    cacheManager: ImageStorage.instance.avatarManager,
+                    size: 40,
                   ),
                 )
               else
@@ -203,13 +191,14 @@ class _ReviewCard extends StatelessWidget {
                   ),
                 ),
               const SizedBox(width: AppSpacing.sm),
-              // Имя пользователя и рейтинг
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      user?.fullName ?? 'Анонимный пользователь',
+                      (user?.fullName != null && user!.fullName!.isNotEmpty)
+                          ? user.fullName!
+                          : 'Анонимный пользователь',
                       style: theme.textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.w600,
                       ),
