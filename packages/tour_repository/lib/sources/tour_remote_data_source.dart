@@ -53,7 +53,7 @@ final class TourRemoteDataSource {
 
   Future<ToursModel> getPartnerTours(int page, int limit) async {
     return client.getType<ToursModel>(
-      '/api/v1/tours',
+      '/api/v1/tours/my',
       params: GetApiParams(
         queryParameters: {
           'page': page,
