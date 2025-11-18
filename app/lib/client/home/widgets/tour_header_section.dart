@@ -1,3 +1,4 @@
+import 'package:app/client/home/widgets/tour_reviews_bottom_sheet.dart';
 import 'package:app/utils/utils.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
@@ -62,10 +63,29 @@ class TourHeaderSection extends StatelessWidget {
             const SizedBox(width: AppSpacing.sm),
             Text(tour.averageRating?.toString() ?? '0.0', style: theme.textTheme.bodyMedium),
             const SizedBox(width: AppSpacing.xs),
-            Text(
-              '(${tour.reviewsCount ?? 0} Reviews)',
-              style: theme.textTheme.bodyMedium?.copyWith(
-                color: theme.hintColor,
+            GestureDetector(
+              onTap: () {
+                if (tour.tourId != null) {
+                  BottomSheets.showModalSettingsSheet<void>(
+                    context: context,
+                    showDragHandle: true,
+                    backgroundColor: theme.scaffoldBackgroundColor,
+                    padding: EdgeInsets.zero,
+                   
+                    enableDrag: true,
+                    child: TourReviewsBottomSheet(
+                      tourId: tour.tourId!,
+                      tourTitle: tour.title ?? 'Тур',
+                    ),
+                  );
+                }
+              },
+              child: Text(
+                '(${tour.reviewsCount ?? 0} Reviews)',
+                style: theme.textTheme.bodyMedium?.copyWith(
+                  color: theme.hintColor,
+                  decoration: tour.tourId != null ? TextDecoration.underline : null,
+                ),
               ),
             ),
           ],

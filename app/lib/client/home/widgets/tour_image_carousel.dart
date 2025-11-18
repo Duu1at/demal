@@ -25,6 +25,8 @@ class _TourImageCarouselState extends State<TourImageCarousel> {
             height: 400,
             viewportFraction: 1,
             enlargeCenterPage: true,
+            enableInfiniteScroll: false,
+            autoPlay: false,
             onPageChanged: (index, reason) {
               setState(() => _currentIndex = index);
             },
