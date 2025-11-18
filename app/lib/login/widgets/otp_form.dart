@@ -185,10 +185,10 @@ class _OtpFormState extends State<OtpForm> {
   }
 
   @override
-  Future<void> dispose() async {
+  void dispose() {
     pinController.dispose();
     focusNode.dispose();
-    await smsRetriever.dispose();
+    smsRetriever.dispose();
     super.dispose();
   }
 }
