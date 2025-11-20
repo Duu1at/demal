@@ -1,12 +1,6 @@
 import 'dart:async';
 import 'package:app/app/app.dart';
-import 'package:app/client_home/client_home.dart';
-import 'package:app/login/cubit/otp_cubit.dart';
-import 'package:app/login/view/login_view.dart';
-import 'package:app/login/view/otp_view.dart';
-import 'package:app/partner_home/partner_home.dart';
-import 'package:app/settings/settings.dart';
-import 'package:app/welcome/welcome.dart';
+import 'package:app/features/features.dart';
 import 'package:auth_repository/auth_repository.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';

@@ -1,6 +1,6 @@
 import 'package:api_client/api_client.dart';
 import 'package:app/app/app.dart';
-import 'package:app/exceptions/handle/app_exception_type_resolver.dart';
+import 'package:app/core/exceptions/handle/app_exception_type_resolver.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:auth_repository/auth_repository.dart';
 import 'package:bookings_repository/bookings_repository.dart';
