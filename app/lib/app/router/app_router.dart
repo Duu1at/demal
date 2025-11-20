@@ -1,10 +1,11 @@
 import 'dart:async';
 import 'package:app/app/app.dart';
-import 'package:app/client/client.dart';
+import 'package:app/client_home/client_home.dart';
 import 'package:app/login/cubit/otp_cubit.dart';
 import 'package:app/login/view/login_view.dart';
 import 'package:app/login/view/otp_view.dart';
-import 'package:app/partner/partner.dart';
+import 'package:app/partner_home/partner_home.dart';
+import 'package:app/settings/settings.dart';
 import 'package:app/welcome/welcome.dart';
 import 'package:auth_repository/auth_repository.dart';
 import 'package:flutter/foundation.dart';
@@ -48,17 +49,19 @@ final class AppRouter {
 
   /// client
   static const client = 'client';
-  static const clientSettings = 'client-settings';
   static const clientTourDetails = 'client-tour-details';
   static const clientTourTickets = 'client-tour-tickets';
   static const clientTourFilters = 'client-tour-filters';
-  static const clientAboutUs = 'client-about-us';
+
   static const clientBookingDetails = 'client-booking-details';
   static const clientBookingStatus = 'client-booking-status';
 
   /// partner
   static const partner = 'partner';
   static const partnerSettings = 'partner-settings';
+
+  static const settings = 'settings';
+  static const settingsAboutUs = 'settings-about-us';
 
   GoRouter router(AuthCubit authCubit) {
     return GoRouter(
@@ -149,14 +152,27 @@ final class AppRouter {
                 final otpCubit = extra['otpCubit'] as OtpCubit;
                 return BlocProvider.value(
                   value: otpCubit,
-                  child: OtpView(
-                    phoneNumber,
-                  ),
+                  child: OtpView(phoneNumber),
                 );
               },
             ),
           ],
         ),
+
+        GoRoute(
+          path: '/$settings',
+          name: settings,
+          parentNavigatorKey: navigatorKey,
+          builder: (context, state) => const SettingsView(),
+          routes: [
+            GoRoute(
+              path: settingsAboutUs,
+              name: settingsAboutUs,
+              builder: (context, state) => const AboutUsView(),
+            ),
+          ],
+        ),
+
         GoRoute(
           path: '/$client',
           name: client,
@@ -188,11 +204,6 @@ final class AppRouter {
         builder: (context, state) => const ClientTourTicketsView(),
       ),
       GoRoute(
-        path: clientSettings,
-        name: clientSettings,
-        builder: (context, state) => const ClientSettingsView(),
-      ),
-      GoRoute(
         path: clientTourFilters,
         name: clientTourFilters,
         builder: (context, state) {
@@ -202,11 +213,7 @@ final class AppRouter {
           );
         },
       ),
-      GoRoute(
-        path: clientAboutUs,
-        name: clientAboutUs,
-        builder: (context, state) => const ClientAboutView(),
-      ),
+
       GoRoute(
         path: clientBookingDetails,
         name: clientBookingDetails,
@@ -221,12 +228,6 @@ final class AppRouter {
   }
 
   static List<RouteBase> get _partnerRoutes {
-    return [
-      GoRoute(
-        path: partnerSettings,
-        name: partnerSettings,
-        builder: (context, state) => const PartnerSettingsView(),
-      ),
-    ];
+    return [];
   }
 }
