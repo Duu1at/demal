@@ -117,7 +117,7 @@ class _PartnerHomeViewBodyState extends State<PartnerHomeViewBody> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // TODO: Navigate to create tour screen
+        
         },
         child: const Icon(Icons.add),
       ),

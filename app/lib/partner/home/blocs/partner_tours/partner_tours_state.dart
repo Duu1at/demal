@@ -35,4 +35,3 @@ final class PartnerToursState extends PagingStateBase<int, TourModel> {
         isLoading: false,
       );
 }
-

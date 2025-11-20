@@ -76,12 +76,12 @@ class PartnerTourCardWidget extends StatelessWidget {
             ? Image.network(
                 tour.mainImageUrl!,
                 fit: BoxFit.cover,
-                errorBuilder: (_, __, ___) => Container(
+                errorBuilder: (_, _, _) => ColoredBox(
                   color: Theme.of(context).colorScheme.surfaceContainerHighest,
                   child: const Icon(Icons.image_not_supported),
                 ),
               )
-            : Container(
+            : ColoredBox(
                 color: Theme.of(context).colorScheme.surfaceContainerHighest,
                 child: const Icon(Icons.image),
               ),
@@ -94,8 +94,7 @@ class PartnerTourCardWidget extends StatelessWidget {
     DateTime? date;
     try {
       date = DateTime.parse(tour.date!);
-    } catch (_) {
-      // ignore
+    }on Object catch (_) {
     }
 
     return Row(
@@ -122,7 +121,7 @@ class PartnerTourCardWidget extends StatelessWidget {
     final theme = Theme.of(context);
     // Assuming total spots calculation - you may need to adjust based on your model
     final totalSpots = tour.availableSpots ?? 0;
-    final bookedSpots = 0; // This might need to come from the tour model
+    const bookedSpots = 0; // This might need to come from the tour model
 
     return Row(
       children: [
@@ -146,7 +145,6 @@ class PartnerTourCardWidget extends StatelessWidget {
     final theme = Theme.of(context);
     return GestureDetector(
       onTap: () {
-        // TODO: Navigate to edit tour screen
       },
       child: Text(
         'Редактировать',
@@ -158,4 +156,3 @@ class PartnerTourCardWidget extends StatelessWidget {
     );
   }
 }
-

@@ -22,4 +22,3 @@ class PartnerToursErrorState extends StatelessWidget {
     );
   }
 }
-

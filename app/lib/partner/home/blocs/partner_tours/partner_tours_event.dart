@@ -11,4 +11,3 @@ final class PartnerToursFetchEvent extends PartnerToursEvent {
 final class PartnerToursRefreshEvent extends PartnerToursEvent {
   const PartnerToursRefreshEvent();
 }
-
