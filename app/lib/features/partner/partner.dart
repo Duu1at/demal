@@ -5,3 +5,4 @@ export 'home/widgets/partner_tours_list_content.dart';
 export 'home/widgets/partner_tours_loading_state.dart';
 export 'home/widgets/partner_tours_empty_state.dart';
 export 'home/widgets/partner_tours_error_state.dart';
+export 'verification/verification.dart';

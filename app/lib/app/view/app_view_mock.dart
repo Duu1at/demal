@@ -7,15 +7,20 @@ import 'package:bookings_repository/bookings_repository.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
-import 'package:loader_overlay/loader_overlay.dart';
 import 'package:profile_repository/profile_repository.dart';
 import 'package:storage/storage.dart';
 import 'package:tour_repository/tour_repository.dart';
 import 'package:upload_repository/upload_repository.dart';
 
-class App extends StatelessWidget {
-  const App({super.key});
+/// Версия App с мок-данными для тестирования
+class AppMock extends StatelessWidget {
+  const AppMock({
+    super.key,
+    this.mockVerificationStatus,
+  });
+
+  /// Статус верификации для мока
+  final PartnerVerifyStatusEnum? mockVerificationStatus;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +37,6 @@ class App extends StatelessWidget {
             authRemoteDataSource: AuthRemoteDataSource(context.read<ApiClient>()),
           ),
         ),
-
         RepositoryProvider<TourRepository>(
           create: (context) => TourRepositoryImpl(
             TourRemoteDataSource(context.read<ApiClient>()),
@@ -43,16 +47,15 @@ class App extends StatelessWidget {
             BookingRemoteDataSource(context.read<ApiClient>()),
           ),
         ),
+        // Используем мок для ProfileRepository
         RepositoryProvider<ProfileRepository>(
-          create: (context) => ProfileRepositoryImpl(
-          remoteDataSource:   ProfileRemoteDataSource(context.read<ApiClient>()),
-          localDataSource:   ProfileLocalDataSource(context.read<PreferencesStorage>()),
+          create: (context) => ProfileRepositoryMockImpl(
+            mockVerificationStatus: mockVerificationStatus,
           ),
         ),
+        // Используем мок для UploadRepository
         RepositoryProvider<UploadRepository>(
-          create: (context) => UploadRepositoryImpl(
-            UploadRemoteDataSource(context.read<ApiClient>()),
-          ),
+          create: (context) => const UploadRepositoryMockImpl(),
         ),
         RepositoryProvider<ErrorHandler>(create: (context) => const BaseErrorHandler()),
         RepositoryProvider<ErrorHandler>(create: (context) => const ErrorHandleSnackBar()),
@@ -68,39 +71,6 @@ class App extends StatelessWidget {
         ),
       ],
       child: const DemalApp(),
-    );
-  }
-}
-
-class DemalApp extends StatefulWidget {
-  const DemalApp({super.key});
-
-  @override
-  State<DemalApp> createState() => _DemalAppState();
-}
-
-class _DemalAppState extends State<DemalApp> {
-  late final GoRouter _router;
-
-  @override
-  void initState() {
-    super.initState();
-    final authCubit = context.read<AuthCubit>();
-    _router = AppRouter.instance().router(authCubit);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return GlobalLoaderOverlay(
-      child: MaterialApp.router(
-        scaffoldMessengerKey: scaffoldMessengerKey,
-        theme: context.watch<AppThemeCubit>().state.themeData,
-        locale: context.watch<AppLocaleCubit>().state,
-        localizationsDelegates: AppLocalizations.localizationsDelegates,
-        supportedLocales: AppLocalizations.supportedLocales,
-        title: 'Demal',
-        routerConfig: _router,
-      ),
     );
   }
 }
