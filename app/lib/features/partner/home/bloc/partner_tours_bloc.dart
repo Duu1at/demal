@@ -8,12 +8,13 @@ import 'package:tour_repository/tour_repository.dart';
 part 'partner_tours_event.dart';
 part 'partner_tours_state.dart';
 
-const int _tourLimit = 10;
+const int _tourLimit = 20;
 
 class PartnerToursBloc extends Bloc<PartnerToursEvent, PartnerToursState> {
   PartnerToursBloc(this._tourRepository) : super(PartnerToursState()) {
     on<PartnerToursFetchEvent>(_onFetch);
     on<PartnerToursRefreshEvent>(_onRefresh);
+    on<PartnerToursPagingCancel>(_onPagingCancel);
   }
 
   final TourRepository _tourRepository;
@@ -62,5 +63,18 @@ class PartnerToursBloc extends Bloc<PartnerToursEvent, PartnerToursState> {
   ) async {
     emit(state.reset());
     add(const PartnerToursFetchEvent());
+  }
+
+  Future<void> _onPagingCancel(
+    PartnerToursPagingCancel event,
+    Emitter<PartnerToursState> emit,
+  ) async {
+    emit(state.copyWith(isLoading: false));
+  }
+
+  @override
+  Future<void> close() {
+    add(const PartnerToursPagingCancel());
+    return super.close();
   }
 }
