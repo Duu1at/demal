@@ -26,9 +26,7 @@ class AvatarDisplay extends StatelessWidget {
   final Color? backgroundColor;
 
   @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    
+  Widget build(BuildContext context) {    
     Widget content;
     
     if (imageFile != null) {

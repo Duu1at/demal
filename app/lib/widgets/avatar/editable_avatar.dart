@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:app/utils/permission/permission_reqester.dart';
 import 'package:app/widgets/avatar/avatar_display.dart';
-import 'package:app/widgets/avatar/avatar_overlay.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

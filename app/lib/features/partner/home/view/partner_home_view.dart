@@ -4,7 +4,6 @@ import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:profile_repository/profile_repository.dart';
 import 'package:tour_repository/tour_repository.dart';
 
 class PartnerHomeView extends StatefulWidget {
@@ -15,54 +14,8 @@ class PartnerHomeView extends StatefulWidget {
 }
 
 class _PartnerHomeViewState extends State<PartnerHomeView> {
-  bool _isCheckingVerification = true;
-
-  @override
-  void initState() {
-    super.initState();
-    _checkVerificationStatus();
-  }
-
-  Future<void> _checkVerificationStatus() async {
-    try {
-      final profileRepository = context.read<ProfileRepository>();
-      final status = await profileRepository.getPartnerVerifyStatus();
-
-      if (mounted) {
-        // Если статус null или не верифицирован, перенаправляем на страницу верификации
-        final verificationStatus = status.verificationStatus;
-        
-        debugPrint('🔍 Partner verification status: $verificationStatus');
-        
-        if (verificationStatus == null || verificationStatus != PartnerVerifyStatusEnum.verified) {
-          debugPrint('➡️ Redirecting to verification page');
-          context.go('/${AppRouter.partner}/${AppRouter.partnerVerification}');
-          return;
-        }
-        
-        debugPrint('✅ Partner verified, showing home');
-        setState(() {
-          _isCheckingVerification = false;
-        });
-      }
-    } catch (e) {
-      debugPrint('❌ Error checking verification status: $e');
-      debugPrint('➡️ Redirecting to verification page (profile not found)');
-      // Если ошибка при проверке (профиль не создан), перенаправляем на верификацию
-      if (mounted) {
-        context.go('/${AppRouter.partner}/${AppRouter.partnerVerification}');
-      }
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    if (_isCheckingVerification) {
-      return const Scaffold(
-        body: Center(child: CircularProgressIndicator()),
-      );
-    }
-
     return BlocProvider(
       create: (context) => PartnerToursBloc(context.read<TourRepository>()),
       child: const PartnerHomeViewBody(),

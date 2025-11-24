@@ -6,8 +6,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:profile_repository/profile_repository.dart';
-import 'package:upload_repository/upload_repository.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 final clientNavigatorKey = GlobalKey<NavigatorState>();
@@ -55,7 +53,6 @@ final class AppRouter {
   /// partner
   static const partner = 'partner';
   static const partnerSettings = 'partner-settings';
-  static const partnerVerification = 'partner-verification';
 
   static const settings = 'settings';
   static const settingsAboutUs = 'settings-about-us';
@@ -225,22 +222,6 @@ final class AppRouter {
   }
 
   static List<RouteBase> get _partnerRoutes {
-    return [
-      GoRoute(
-        path: partnerVerification,
-        name: partnerVerification,
-        builder: (context, state) {
-          final profileRepository = context.read<ProfileRepository>();
-          final uploadRepository = context.read<UploadRepository>();
-          return BlocProvider(
-            create: (context) => PartnerVerificationBloc(
-              profileRepository: profileRepository,
-              uploadRepository: uploadRepository,
-            ),
-            child: const PartnerVerificationView(),
-          );
-        },
-      ),
-    ];
+    return [];
   }
 }

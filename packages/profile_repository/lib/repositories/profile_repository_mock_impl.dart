@@ -70,16 +70,13 @@ final class ProfileRepositoryMockImpl implements ProfileRepository {
   @override
   Future<PartnerVerifyStatusModel> getPartnerVerifyStatus() async {
     await Future<void>.delayed(delay);
-
-    // Если статус не указан явно, возвращаем null (профиль еще не создан)
-    // Это позволит перенаправить партнера на страницу верификации
     if (mockVerificationStatus == null) {
       throw Exception('Partner profile not found');
     }
 
     return PartnerVerifyStatusModel(
       success: true,
-      verificationStatus: mockVerificationStatus!,
+      verificationStatus: mockVerificationStatus,
       adminComments: mockVerificationStatus == PartnerVerifyStatusEnum.rejected
           ? 'Документы не соответствуют требованиям. Пожалуйста, загрузите более качественные фото.'
           : mockVerificationStatus == PartnerVerifyStatusEnum.verified
@@ -93,7 +90,6 @@ final class ProfileRepositoryMockImpl implements ProfileRepository {
   @override
   Future<PartnerProfileModel> updatePartnerProfile(PartnerProfileParam param) async {
     await Future<void>.delayed(delay);
-
     return PartnerProfileModel(
       profileId: 'test-profile-id',
       companyName: param.companyName,
