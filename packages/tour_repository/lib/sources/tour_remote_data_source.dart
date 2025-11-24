@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:api_client/api_client.dart';
 import 'package:meta/meta.dart';
 import 'package:tour_repository/tour_repository.dart';
@@ -52,6 +54,7 @@ final class TourRemoteDataSource {
   }
 
   Future<ToursModel> getPartnerTours(int page, int limit) async {
+    log('>>>------------------------------------------------- TourRepositoryMockImpl: $page');
     return client.getType<ToursModel>(
       '/api/v1/tours/my',
       params: GetApiParams(

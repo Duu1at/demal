@@ -17,8 +17,11 @@ class _PartnerToursPaginationState extends State<PartnerToursPagination> {
 
   @override
   void initState() {
-    _bloc = context.read<PartnerToursBloc>();
     super.initState();
+    _bloc = context.read<PartnerToursBloc>();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _nextPage();
+    });
   }
 
   void _nextPage() {
@@ -40,14 +43,13 @@ class _PartnerToursPaginationState extends State<PartnerToursPagination> {
           }
           return const PartnerToursEmptyState();
         }
-
         return PagedSliverList<int, TourModel>(
           key: const Key('partner_tours_pagination'),
           state: state,
           fetchNextPage: _nextPage,
           builderDelegate: PagedChildBuilderDelegate(
             itemBuilder: (context, item, index) {
-              return PartnerTourCardWidget(
+              return PartnerTourCard(
                 tour: item,
                 cacheManager: ImageStorage.instance.tourManager,
               );

@@ -19,6 +19,7 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return MultiBlocProvider(
       providers: [
         RepositoryProvider<AppRepository>(
@@ -33,10 +34,13 @@ class App extends StatelessWidget {
           ),
         ),
 
+        // RepositoryProvider<TourRepository>(
+        //   create: (context) => TourRepositoryImpl(
+        //     TourRemoteDataSource(context.read<ApiClient>()),
+        //   ),
+        // ),
         RepositoryProvider<TourRepository>(
-          create: (context) => TourRepositoryImpl(
-            TourRemoteDataSource(context.read<ApiClient>()),
-          ),
+          create: (context) => const TourRepositoryMockImpl(),
         ),
         RepositoryProvider<BookingsRepository>(
           create: (context) => BookingRepositoryImpl(
@@ -45,8 +49,8 @@ class App extends StatelessWidget {
         ),
         RepositoryProvider<ProfileRepository>(
           create: (context) => ProfileRepositoryImpl(
-          remoteDataSource:   ProfileRemoteDataSource(context.read<ApiClient>()),
-          localDataSource:   ProfileLocalDataSource(context.read<PreferencesStorage>()),
+            remoteDataSource: ProfileRemoteDataSource(context.read<ApiClient>()),
+            localDataSource: ProfileLocalDataSource(context.read<PreferencesStorage>()),
           ),
         ),
         RepositoryProvider<UploadRepository>(
@@ -57,6 +61,7 @@ class App extends StatelessWidget {
         RepositoryProvider<ErrorHandler>(create: (context) => const BaseErrorHandler()),
         RepositoryProvider<ErrorHandler>(create: (context) => const ErrorHandleSnackBar()),
         RepositoryProvider<ErrorHandler>(create: (context) => const ErrorHandleDialog()),
+        
         BlocProvider<AppThemeCubit>(
           create: (context) => AppThemeCubit(context.read<AppRepository>()),
         ),
@@ -87,7 +92,9 @@ class _DemalAppState extends State<DemalApp> {
     super.initState();
     final authCubit = context.read<AuthCubit>();
     _router = AppRouter.instance().router(authCubit);
+    debugPrint('>>> ${context.read<TourRepository>()}');
   }
+        
 
   @override
   Widget build(BuildContext context) {

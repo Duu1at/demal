@@ -1,11 +1,12 @@
+import 'package:app/features/partner/home/widgets/partner_tour_card_image.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:intl/intl.dart';
 import 'package:tour_repository/tour_repository.dart';
 
-class PartnerTourCardWidget extends StatelessWidget {
-  const PartnerTourCardWidget({
+class PartnerTourCard extends StatelessWidget {
+  const PartnerTourCard({
     required this.tour,
     this.cacheManager,
     super.key,
@@ -33,7 +34,7 @@ class PartnerTourCardWidget extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildImage(context),
+          PartnerTourCardImage(tour: tour, cacheManager: cacheManager),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(AppSpacing.md),
@@ -59,32 +60,6 @@ class PartnerTourCardWidget extends StatelessWidget {
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget _buildImage(BuildContext context) {
-    return ClipRRect(
-      borderRadius: const BorderRadius.only(
-        topLeft: Radius.circular(12),
-        bottomLeft: Radius.circular(12),
-      ),
-      child: SizedBox(
-        width: 100,
-        height: 120,
-        child: tour.mainImageUrl != null
-            ? Image.network(
-                tour.mainImageUrl!,
-                fit: BoxFit.cover,
-                errorBuilder: (_, _, _) => ColoredBox(
-                  color: Theme.of(context).colorScheme.surfaceContainerHighest,
-                  child: const Icon(Icons.image_not_supported),
-                ),
-              )
-            : ColoredBox(
-                color: Theme.of(context).colorScheme.surfaceContainerHighest,
-                child: const Icon(Icons.image),
-              ),
       ),
     );
   }

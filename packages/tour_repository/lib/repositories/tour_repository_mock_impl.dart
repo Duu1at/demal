@@ -1,5 +1,6 @@
+import 'package:flutter/foundation.dart';
+
 import 'package:core/core.dart';
-import 'package:meta/meta.dart';
 import 'package:tour_repository/tour_repository.dart';
 
 @immutable
@@ -49,32 +50,83 @@ final class TourRepositoryMockImpl implements TourRepository {
   }
 
   @override
-  Future<ToursModel> getPartnerTours(int page, int limit) {
-    return Future.delayed(const Duration(seconds: 2), () {
-      return const ToursModel(
-        tours: [
-          TourModel(
-            tourId: '1',
-            title: 'Tour 1',
-            mainImageUrl: 'https://example.com/image.jpg',
-            location: 'Location 1',
-            date: '2021-01-01',
-            time: '10:00',
-            price: 100,
-            currency: 'USD',
-            availableSpots: 10,
-            whatsIncluded: ['What is included'],
-            whatsNotIncluded: ['What is not included'],
-          ),
-        ],
-        pagination: PaginationResponseModel(
-          totalItems: 1,
-          totalPages: 1,
-          page: 1,
-          limit: 20,
+  Future<ToursModel> getPartnerTours(int page, int limit) async {
+    await Future<void>.delayed(const Duration(seconds: 8));
+    return const ToursModel(
+      tours: [
+        TourModel(
+          tourId: '1',
+          title: 'Tour 1',
+          mainImageUrl: 'https://example.com/image.jpg',
+          location: 'Location 1',
+          date: '2021-01-01',
+          time: '10:00',
+          price: 100,
+          currency: 'USD',
+          availableSpots: 10,
+          whatsIncluded: ['What is included'],
+          whatsNotIncluded: ['What is not included'],
         ),
-      );
-    });
+        TourModel(
+          tourId: '2',
+          title: 'Tour 2',
+          mainImageUrl: 'https://example.com/image.jpg',
+          location: 'Location 2',
+          date: '2021-01-02',
+          time: '10:00',
+          price: 100,
+          currency: 'USD',
+          availableSpots: 10,
+          whatsIncluded: ['What is included'],
+          whatsNotIncluded: ['What is not included'],
+        ),
+        TourModel(
+          tourId: '3',
+          title: 'Tour 3',
+          mainImageUrl: 'https://example.com/image.jpg',
+          location: 'Location 3',
+          date: '2021-01-03',
+          time: '10:00',
+          price: 100,
+          currency: 'USD',
+          availableSpots: 10,
+          whatsIncluded: ['What is included'],
+          whatsNotIncluded: ['What is not included'],
+        ),
+        TourModel(
+          tourId: '4',
+          title: 'Tour 4',
+          mainImageUrl: 'https://example.com/image.jpg',
+          location: 'Location 4',
+          date: '2021-01-04',
+          time: '10:00',
+          price: 100,
+          currency: 'USD',
+          availableSpots: 10,
+          whatsIncluded: ['What is included'],
+          whatsNotIncluded: ['What is not included'],
+        ),
+        TourModel(
+          tourId: '5',
+          title: 'Tour 5',
+          mainImageUrl: 'https://example.com/image.jpg',
+          location: 'Location 5',
+          date: '2021-01-05',
+          time: '10:00',
+          price: 100,
+          currency: 'USD',
+          availableSpots: 10,
+          whatsIncluded: ['What is included'],
+          whatsNotIncluded: ['What is not included'],
+        ),
+      ],
+      pagination: PaginationResponseModel(
+        totalItems: 5,
+        totalPages: 1,
+        page: 1,
+        limit: 20,
+      ),
+    );
   }
 
   @override
