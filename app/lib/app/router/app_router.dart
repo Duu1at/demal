@@ -52,7 +52,6 @@ final class AppRouter {
 
   /// partner
   static const partner = 'partner';
-  static const partnerSettings = 'partner-settings';
 
   static const settings = 'settings';
   static const settingsAboutUs = 'settings-about-us';
@@ -76,6 +75,9 @@ final class AppRouter {
 
           case AuthStatus.authenticated:
             final role = authState.user?.role;
+            final isGlobalRoute = path.startsWith('/$settings');
+
+            if (isGlobalRoute) return null;
 
             if (role == RoleEnum.CLIENT) {
               if (path.startsWith('/$client')) return null;

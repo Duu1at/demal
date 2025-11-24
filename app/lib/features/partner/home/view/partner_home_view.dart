@@ -29,7 +29,12 @@ class _PartnerHomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: HomeAppBar(
-        onMenuTap: () => context.pushNamed(AppRouter.partnerSettings),
+         onMenuTap: () {
+    final rootContext = navigatorKey.currentContext;
+    if (rootContext == null) return;
+
+    GoRouter.of(rootContext).pushNamed(AppRouter.settings);
+  },
         onNotificationTap: () {},
       ),
       body: CustomScrollView(

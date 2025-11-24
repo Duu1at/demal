@@ -51,7 +51,7 @@ final class TourRepositoryMockImpl implements TourRepository {
 
   @override
   Future<ToursModel> getPartnerTours(int page, int limit) async {
-    await Future<void>.delayed(const Duration(seconds: 8));
+    await Future<void>.delayed(const Duration(milliseconds: 300));
     return const ToursModel(
       tours: [
         TourModel(

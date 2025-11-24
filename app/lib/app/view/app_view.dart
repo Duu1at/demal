@@ -1,6 +1,6 @@
 import 'package:api_client/api_client.dart';
 import 'package:app/app/app.dart';
-import 'package:app/core/exceptions/handle/app_exception_type_resolver.dart';
+import 'package:app/core/exceptions/exception.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:auth_repository/auth_repository.dart';
 import 'package:bookings_repository/bookings_repository.dart';
@@ -34,14 +34,12 @@ class App extends StatelessWidget {
           ),
         ),
 
-        // RepositoryProvider<TourRepository>(
-        //   create: (context) => TourRepositoryImpl(
-        //     TourRemoteDataSource(context.read<ApiClient>()),
-        //   ),
-        // ),
         RepositoryProvider<TourRepository>(
-          create: (context) => const TourRepositoryMockImpl(),
+          create: (context) => TourRepositoryImpl(
+            TourRemoteDataSource(context.read<ApiClient>()),
+          ),
         ),
+      
         RepositoryProvider<BookingsRepository>(
           create: (context) => BookingRepositoryImpl(
             BookingRemoteDataSource(context.read<ApiClient>()),
@@ -92,7 +90,6 @@ class _DemalAppState extends State<DemalApp> {
     super.initState();
     final authCubit = context.read<AuthCubit>();
     _router = AppRouter.instance().router(authCubit);
-    debugPrint('>>> ${context.read<TourRepository>()}');
   }
         
 
