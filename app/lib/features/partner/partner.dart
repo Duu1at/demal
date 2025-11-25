@@ -6,3 +6,8 @@ export 'home/widgets/partner_tours_loading_state.dart';
 export 'home/widgets/partner_tours_empty_state.dart';
 export 'home/widgets/partner_tours_error_state.dart';
 export 'home/widgets/partner_home_filter_tabs.dart';
+export 'verification/view/partner_verification_view.dart';
+export 'verification/cubit/partner_verification_cubit.dart';
+export 'verification/widgets/partner_verification_text_field.dart';
+export 'verification/widgets/partner_verification_documents.dart';
+export 'verification/widgets/partner_verification_agreement.dart';

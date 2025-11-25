@@ -28,7 +28,7 @@ class _ShimmerTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(12),
+      borderRadius: BorderRadius.circular(AppSpacing.md),
       child: const ShimmerContainer(
         height: 120,
         width: double.infinity,

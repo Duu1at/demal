@@ -22,6 +22,8 @@ class AppTextField extends StatelessWidget {
     this.readOnly = false,
     this.keyboardType,
     this.enabled = true,
+    this.contentPadding,
+    this.maxLines = 1,
   });
 
   final String? hintText;
@@ -41,6 +43,8 @@ class AppTextField extends StatelessWidget {
   final bool readOnly;
   final TextInputType? keyboardType;
   final bool enabled;
+  final EdgeInsets? contentPadding;
+  final int maxLines;
 
   @override
   Widget build(BuildContext context) {
@@ -52,13 +56,14 @@ class AppTextField extends StatelessWidget {
         style: style,
         focusNode: focusNode,
         controller: controller,
+        maxLines: maxLines,
         validator: validator,
         onChanged: onChanged,
         inputFormatters: inputFormatters,
         readOnly: readOnly,
         keyboardType: keyboardType,
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.zero,
+          contentPadding: contentPadding ?? EdgeInsets.zero,
           border: OutlineInputBorder(
             borderRadius: const BorderRadius.all(Radius.circular(16)),
             borderSide: BorderSide(

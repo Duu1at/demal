@@ -1,0 +1,127 @@
+import 'package:app/features/features.dart';
+import 'package:app/utils/utils.dart';
+import 'package:app/widgets/widgets.dart';
+import 'package:app_ui/app_ui.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:profile_repository/profile_repository.dart';
+import 'package:upload_repository/upload_repository.dart';
+
+class PartnerVerificationView extends StatelessWidget {
+  const PartnerVerificationView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => PartnerVerificationCubit(
+        profileRepository: context.read<ProfileRepository>(),
+        uploadRepository: context.read<UploadRepository>(),
+        imagePickerService: ImagePickerService(ImagePicker()),
+      )..loadProfile(),
+      child: const _PartnerVerificationViewBody(),
+    );
+  }
+}
+
+class _PartnerVerificationViewBody extends StatefulWidget {
+  const _PartnerVerificationViewBody();
+
+  @override
+  State<_PartnerVerificationViewBody> createState() => _PartnerVerificationViewBodyState();
+}
+
+class _PartnerVerificationViewBodyState extends State<_PartnerVerificationViewBody> {
+  late final PartnerVerificationCubit _cubit;
+  late final TextEditingController _companyNameCtlr;
+  late final TextEditingController _descriptionCtlr;
+  late final TextEditingController _cardNumberCtlr;
+
+  @override
+  void initState() {
+    super.initState();
+    _cubit = context.read<PartnerVerificationCubit>();
+    _companyNameCtlr = TextEditingController();
+    _descriptionCtlr = TextEditingController();
+    _cardNumberCtlr = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _companyNameCtlr.dispose();
+    _descriptionCtlr.dispose();
+    _cardNumberCtlr.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Верификация')),
+      body: SafeArea(
+        bottom: true,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+          child: CustomScrollView(
+            slivers: [
+              SliverToBoxAdapter(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    EditableAvatar(
+                      avatarUrl: _cubit.state.avatarUrl,
+                      onUpdate: (image) => _cubit.updateAvatarUrl(image.path),
+                      size: 80,
+                    ),
+                    const SizedBox(height: AppSpacing.md),
+                    PartnerVerificationTextField(
+                      controller: _companyNameCtlr,
+                      hintText: 'Название компании',
+                      maxLines: 3,
+                      inputFormatters: [LengthLimitingTextInputFormatter(50)],
+                      keyboardType: TextInputType.text,
+                      onChanged: _cubit.updateCompanyName,
+                    ),
+                    const SizedBox(height: AppSpacing.md),
+                    PartnerVerificationTextField(
+                      controller: _descriptionCtlr,
+                      hintText: 'Описание ',
+                      maxLines: 5,
+                      inputFormatters: [LengthLimitingTextInputFormatter(255)],
+                      onChanged: _cubit.updateDescription,
+                      keyboardType: TextInputType.text,
+                    ),
+                    const SizedBox(height: AppSpacing.md),
+                    PartnerVerificationTextField(
+                      controller: _cardNumberCtlr,
+                      hintText: 'Номер карты',
+                      keyboardType: TextInputType.number,
+                      inputFormatters: [InputFormatters.cardNumberFormatter],
+                      onChanged: _cubit.updateCardNumber,
+                    ),
+                    const SizedBox(height: AppSpacing.md),
+                    PartnerVerificationDocuments(state: _cubit.state, cubit: _cubit),
+                    const SizedBox(height: AppSpacing.md),
+                    PartnerVerificationAgreement(
+                      isChecked: _cubit.state.isTermsAccepted,
+                      onChanged: _cubit.toggleTermsAccepted,
+                    ),
+                    const SizedBox(height: AppSpacing.xxxxxxlg),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: AppButton(
+        margin: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+        isLoading: _cubit.state.isSubmitting,
+        onPressed: _cubit.submitVerification,
+        child: const Text('Отправить на проверку'),
+      ),
+    );
+  }
+}

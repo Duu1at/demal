@@ -34,8 +34,8 @@ class AppThemeColorExtension extends ThemeExtension<AppThemeColorExtension> {
         blurRadius: AppColors.blueShadow.blur!,
         spreadRadius: AppColors.blueShadow.spread!,
       ),
-      shimmerBase: AppColors.lightShimmer.colors.last,
-      shimmerHighlight: AppColors.lightShimmer.colors.first,
+      shimmerBase: AppColors.darkShimmer.colors.last,
+      shimmerHighlight: AppColors.darkShimmer.colors.first,
       textSecondary: AppColors.gray.shade30,
     );
   }

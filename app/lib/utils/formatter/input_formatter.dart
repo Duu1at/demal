@@ -19,4 +19,9 @@ abstract final class InputFormatters {
         )
         .text;
   }
+
+  static final cardNumberFormatter = MaskTextInputFormatter(
+    mask: '#### #### #### ####',
+    filter: {'#': RegExp('[0-9]')},
+  );
 }

@@ -52,6 +52,7 @@ final class AppRouter {
 
   /// partner
   static const partner = 'partner';
+  static const partnerVerification = 'partner-verification';
 
   static const settings = 'settings';
   static const settingsAboutUs = 'settings-about-us';
@@ -175,6 +176,12 @@ final class AppRouter {
           parentNavigatorKey: navigatorKey,
           builder: (context, state) => const ClientHomeView(),
           routes: _clientRoutes,
+        ),
+        GoRoute(
+          path: '/$partnerVerification',
+          name: partnerVerification,
+          parentNavigatorKey: navigatorKey,
+          builder: (context, state) => const PartnerVerificationView(),
         ),
         GoRoute(
           path: '/$partner',

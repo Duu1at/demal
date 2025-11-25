@@ -20,6 +20,7 @@ class _PartnerHomeViewState extends State<PartnerHomeView> {
       create: (context) => PartnerToursBloc(context.read<TourRepository>()),
       child: const _PartnerHomeView(),
     );
+  
   }
 }
 
@@ -29,12 +30,11 @@ class _PartnerHomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: HomeAppBar(
-         onMenuTap: () {
-    final rootContext = navigatorKey.currentContext;
-    if (rootContext == null) return;
-
-    GoRouter.of(rootContext).pushNamed(AppRouter.settings);
-  },
+        onMenuTap: () {
+          final rootContext = navigatorKey.currentContext;
+          if (rootContext == null) return;
+          GoRouter.of(rootContext).pushNamed(AppRouter.settings);
+        },
         onNotificationTap: () {},
       ),
       body: CustomScrollView(
@@ -52,7 +52,14 @@ class _PartnerHomeView extends StatelessWidget {
       ),
 
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute<void>(
+              builder: (context) => const PartnerVerificationView(),
+            ),
+          );
+        },
         child: const Icon(Icons.add),
       ),
     );
