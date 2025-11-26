@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tour_repository/tour_repository.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 final clientNavigatorKey = GlobalKey<NavigatorState>();
@@ -53,6 +54,8 @@ final class AppRouter {
   /// partner
   static const partner = 'partner';
   static const partnerVerification = 'partner-verification';
+  static const partnerCreateTour = 'partner-create-tour';
+  static const partnerEditTour = 'partner-edit-tour';
 
   static const settings = 'settings';
   static const settingsAboutUs = 'settings-about-us';
@@ -231,6 +234,20 @@ final class AppRouter {
   }
 
   static List<RouteBase> get _partnerRoutes {
-    return [];
+    return [
+      GoRoute(
+        path: partnerCreateTour,
+        name: partnerCreateTour,
+        builder: (context, state) => const CreateTourView(),
+      ),
+      GoRoute(
+        path: partnerEditTour,
+        name: partnerEditTour,
+        builder: (context, state) {
+          final tour = state.extra! as TourModel;
+          return CreateTourView(tour: tour);
+        },
+      ),
+    ];
   }
 }

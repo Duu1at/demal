@@ -1,7 +1,11 @@
+import 'package:app/app/router/app_router.dart';
+import 'package:app/features/partner/home/bloc/partner_tours_bloc.dart';
 import 'package:app/features/partner/home/widgets/partner_tour_card_image.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:tour_repository/tour_repository.dart';
 
@@ -115,7 +119,15 @@ class PartnerTourCard extends StatelessWidget {
   Widget _buildEditButton(BuildContext context) {
     final theme = Theme.of(context);
     return GestureDetector(
-      onTap: () {},
+      onTap: () async {
+        final result = await context.pushNamed(
+          AppRouter.partnerEditTour,
+          extra: tour,
+        );
+        if (result == true && context.mounted) {
+          context.read<PartnerToursBloc>().add(const PartnerToursRefreshEvent());
+        }
+      },
       child: Text(
         'Редактировать',
         style: theme.textTheme.bodyMedium?.copyWith(

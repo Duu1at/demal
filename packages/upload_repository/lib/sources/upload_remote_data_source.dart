@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:api_client/clients/api_client.dart';
+import 'package:api_client/api_client.dart';
 import 'package:meta/meta.dart';
 import 'package:upload_repository/upload_repository.dart';
 
@@ -9,18 +9,40 @@ final class UploadRemoteDataSource {
 
   final ApiClient apiClient;
 
-  Future<UploadSingleModel> uploadSingleFile(UploadEnumParam type, File file) {
+  Future<UploadSingleModel> uploadSingleFile(UploadEnumParam type, File file) async {
+    final multipartFile = await MultipartFile.fromFile(
+      file.path,
+      filename: file.path.split('/').last,
+    );
+
+    final formData = FormData.fromMap({
+      'file': multipartFile,
+    });
+
     return apiClient.postType<UploadSingleModel>(
       '/api/v1/upload/single?type=${type.name}',
-      data: {'file': file},
+      data: formData,
       fromJson: UploadSingleModel.fromJson,
     );
   }
 
-  Future<UploadMultipleModel> uploadMultipleFiles(UploadEnumParam type, List<File> files) {
+  Future<UploadMultipleModel> uploadMultipleFiles(UploadEnumParam type, List<File> files) async {
+    final multipartFiles = await Future.wait(
+      files.map((file) async {
+        return MultipartFile.fromFile(
+          file.path,
+          filename: file.path.split('/').last,
+        );
+      }),
+    );
+
+    final formData = FormData.fromMap({
+      'files': multipartFiles,
+    });
+
     return apiClient.postType<UploadMultipleModel>(
       '/api/v1/upload/multiple?type=${type.name}',
-      data: {'files': files},
+      data: formData,
       fromJson: UploadMultipleModel.fromJson,
     );
   }
@@ -29,9 +51,25 @@ final class UploadRemoteDataSource {
     UploadEnumParam type,
     Map<String, File> files,
   ) async {
+    final multipartFiles = await Future.wait(
+      files.entries.map((entry) async {
+        return MapEntry(
+          entry.key,
+          await MultipartFile.fromFile(
+            entry.value.path,
+            filename: entry.value.path.split('/').last,
+          ),
+        );
+      }),
+    );
+
+    final formData = FormData.fromMap(
+      Map.fromEntries(multipartFiles),
+    );
+
     final json = await apiClient.post<Map<String, dynamic>>(
       '/api/v1/upload/with-keys?type=${type.name}',
-      data: files,
+      data: formData,
     );
 
     final data = json['data'];

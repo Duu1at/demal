@@ -11,3 +11,4 @@ export 'verification/cubit/partner_verification_cubit.dart';
 export 'verification/widgets/partner_verification_text_field.dart';
 export 'verification/widgets/partner_verification_documents.dart';
 export 'verification/widgets/partner_verification_agreement.dart';
+export 'create_tour/create_tour.dart';

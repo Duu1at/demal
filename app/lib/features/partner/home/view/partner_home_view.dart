@@ -20,7 +20,6 @@ class _PartnerHomeViewState extends State<PartnerHomeView> {
       create: (context) => PartnerToursBloc(context.read<TourRepository>()),
       child: const _PartnerHomeView(),
     );
-  
   }
 }
 
@@ -52,13 +51,12 @@ class _PartnerHomeView extends StatelessWidget {
       ),
 
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute<void>(
-              builder: (context) => const PartnerVerificationView(),
-            ),
-          );
+        onPressed: () async {
+          final result = await GoRouter.of(context).pushNamed(AppRouter.partnerCreateTour);
+          if (result == true && context.mounted) {
+            // Обновить список туров после создания
+            context.read<PartnerToursBloc>().add(const PartnerToursRefreshEvent());
+          }
         },
         child: const Icon(Icons.add),
       ),

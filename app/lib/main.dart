@@ -42,7 +42,6 @@ void main() async {
 
       final baseOptions = BaseOptions(
         baseUrl: Env.baseUrl,
-        contentType: 'application/json; charset=utf-8',
         connectTimeout: const Duration(seconds: 120),
         receiveTimeout: const Duration(seconds: 120),
       );
