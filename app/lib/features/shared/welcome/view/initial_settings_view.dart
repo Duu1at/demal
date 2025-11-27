@@ -26,6 +26,7 @@ class _InitialSettingsViewState extends State<InitialSettingsView> with Settings
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+
     final isDark = context.read<AppThemeCubit>().state.isDark;
     _themeName = isDark ? _lightTheme : _darkTheme;
   }

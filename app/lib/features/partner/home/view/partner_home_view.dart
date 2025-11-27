@@ -43,8 +43,9 @@ class _PartnerHomeView extends StatelessWidget {
             selectedFilter: TourFilter.active,
             onFilterChanged: (filter) {},
           ),
+          const SliverToBoxAdapter(child: SizedBox(height: AppSpacing.sm)),
           const SliverPadding(
-            padding: EdgeInsets.symmetric(vertical: AppSpacing.sm),
+            padding: EdgeInsets.symmetric(horizontal: AppSpacing.lg),
             sliver: PartnerToursPagination(),
           ),
         ],
@@ -54,7 +55,6 @@ class _PartnerHomeView extends StatelessWidget {
         onPressed: () async {
           final result = await GoRouter.of(context).pushNamed(AppRouter.partnerCreateTour);
           if (result == true && context.mounted) {
-            // Обновить список туров после создания
             context.read<PartnerToursBloc>().add(const PartnerToursRefreshEvent());
           }
         },

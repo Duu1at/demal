@@ -88,8 +88,10 @@ class _DemalAppState extends State<DemalApp> {
   @override
   void initState() {
     super.initState();
+
     final authCubit = context.read<AuthCubit>();
     _router = AppRouter.instance().router(authCubit);
+    
   }
         
 

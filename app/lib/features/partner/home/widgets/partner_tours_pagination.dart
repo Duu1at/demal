@@ -36,7 +36,12 @@ class _PartnerToursPaginationState extends State<PartnerToursPagination> {
         final hasLoadedAnything = state.pages?.isNotEmpty ?? false;
         if (!hasLoadedAnything) {
           if (state.isLoading) {
-            return const PartnerToursLoadingState();
+            return SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (context, index) => const PartnerTourCardShimmer(),
+                childCount: 5,
+              ),
+            );
           }
           if (state.error != null) {
             return PartnerToursErrorState(onRetry: _nextPage);
