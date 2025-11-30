@@ -49,7 +49,6 @@ class _PartnerToursPaginationState extends State<PartnerToursPagination> {
           return const PartnerToursEmptyState();
         }
         return PagedSliverList<int, TourModel>(
-          key: const Key('partner_tours_pagination'),
           state: state,
           fetchNextPage: _nextPage,
           builderDelegate: PagedChildBuilderDelegate(

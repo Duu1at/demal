@@ -8,21 +8,78 @@ class PartnerToursErrorState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final isLight = theme.brightness == Brightness.light;
+
     return SliverFillRemaining(
       child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Не удалось загрузить туры',
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
-            const SizedBox(height: AppSpacing.md),
-            ElevatedButton(
-              onPressed: onRetry,
-              child: const Text('Попробовать снова'),
-            ),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xlg),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width: 120,
+                height: 120,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: isLight
+                        ? [
+                            AppColors.red.shade10 ?? AppColors.red,
+                            AppColors.red.withValues(alpha: 0.3),
+                          ]
+                        : [
+                            AppColors.red.withValues(alpha: 0.15),
+                            AppColors.red.withValues(alpha: 0.25),
+                          ],
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: colorScheme.error.withValues(alpha: 0.2),
+                      blurRadius: 20,
+                      offset: const Offset(0, 8),
+                      spreadRadius: 2,
+                    ),
+                  ],
+                ),
+                child: Icon(
+                  Icons.error_outline_rounded,
+                  size: 56,
+                  color: colorScheme.error.withValues(alpha: 0.9),
+                ),
+              ),
+              const SizedBox(height: AppSpacing.xlg),
+              Text(
+                'Не удалось загрузить туры',
+                style: theme.textTheme.titleLarge?.copyWith(
+                  fontWeight: FontWeight.w600,
+                  color: colorScheme.onSurface,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: AppSpacing.md),
+              Text(
+                'Проверьте подключение к интернету и попробуйте снова',
+                style: theme.textTheme.bodyMedium?.copyWith(
+                  color: colorScheme.onSurface.withValues(alpha: 0.6),
+                  height: 1.5,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              if (onRetry != null) ...[
+                const SizedBox(height: AppSpacing.xxlg),
+                AppButton(
+                  onPressed: onRetry,
+                  leading: const Icon(Icons.refresh_rounded, size: 20),
+                  child: const Text('Попробовать снова'),
+                ),
+              ],
+            ],
+          ),
         ),
       ),
     );

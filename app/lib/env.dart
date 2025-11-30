@@ -1,6 +1,5 @@
 abstract final class Env {
   static String get baseUrl {
-    const envUrl = String.fromEnvironment('DEFINEEXAMPLE_BASE_URL');
     // if (envUrl.isNotEmpty) {
     //   return envUrl;
     // }
