@@ -19,12 +19,14 @@ class Step1BasicInfo extends StatelessWidget {
               const SizedBox(height: AppSpacing.md),
               AppTextField(
                 contentPadding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm, vertical: AppSpacing.sm),
-                hintText: 'Введите название тура',
+                label: const Text('Название тура'),
+                hintText: 'Например: Тур по озеру Иссык-Куль',
                 controller: TextEditingController(text: state.title)
                   ..selection = TextSelection.collapsed(offset: state.title.length),
                 onChanged: (value) => context.read<CreateTourCubit>().updateTitle(value),
                 validator: (value) => value?.isEmpty ?? true ? 'Обязательное поле' : null,
-                maxLines: 3,
+                maxLines: 4,
+                maxLength: 255,
               ),
               const SizedBox(height: AppSpacing.md),
               AppTextField(
@@ -35,6 +37,8 @@ class Step1BasicInfo extends StatelessWidget {
                   ..selection = TextSelection.collapsed(offset: state.tourType.length),
                 onChanged: (value) => context.read<CreateTourCubit>().updateTourType(value),
                 validator: (value) => value?.isEmpty ?? true ? 'Обязательное поле' : null,
+                maxLength: 55,
+                maxLines: 3,
               ),
               const SizedBox(height: AppSpacing.md),
               AppTextField(

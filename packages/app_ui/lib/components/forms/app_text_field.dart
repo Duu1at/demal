@@ -24,6 +24,7 @@ class AppTextField extends StatelessWidget {
     this.enabled = true,
     this.contentPadding,
     this.maxLines = 1,
+    this.maxLength,
   });
 
   final String? hintText;
@@ -45,7 +46,7 @@ class AppTextField extends StatelessWidget {
   final bool enabled;
   final EdgeInsets? contentPadding;
   final int maxLines;
-
+  final int? maxLength;
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -57,6 +58,7 @@ class AppTextField extends StatelessWidget {
         focusNode: focusNode,
         controller: controller,
         maxLines: maxLines,
+        maxLength: maxLength,
         validator: validator,
         onChanged: onChanged,
         inputFormatters: inputFormatters,
@@ -103,6 +105,7 @@ class AppTextField extends StatelessWidget {
           hintStyle: hintStyle,
           label: label,
           labelStyle: labelStyle,
+          floatingLabelAlignment: FloatingLabelAlignment.start,
           prefix: prefix,
           prefixIcon: prefixIcon,
           suffix: suffix,
