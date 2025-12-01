@@ -56,8 +56,8 @@ class App extends StatelessWidget {
           ),
         ),
         RepositoryProvider<ErrorHandler>(create: (context) => const BaseErrorHandler()),
-        RepositoryProvider<ErrorHandler>(create: (context) => const ErrorHandleSnackBar()),
-        RepositoryProvider<ErrorHandler>(create: (context) => const ErrorHandleDialog()),
+        RepositoryProvider<ErrorHandleSnackBar>(create: (context) => const ErrorHandleSnackBar()),
+        RepositoryProvider<ErrorHandleDialog>(create: (context) => const ErrorHandleDialog()),
 
         BlocProvider<AppThemeCubit>(
           create: (context) => AppThemeCubit(context.read<AppRepository>()),

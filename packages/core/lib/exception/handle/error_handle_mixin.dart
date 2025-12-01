@@ -9,14 +9,15 @@ abstract class ErrorHandler {
     BuildContext context,
   );
 
-  String parseErrorMessage(Object error) => error is AppException ? error.getUiMessage() : 'Something went wrong';
+  String parseErrorMessage(Object error) =>
+      error is AppException ? error.getUiMessage() : 'Пожалуйста, попробуйте позже или свяжитесь с поддержкой';
 
   ErrorModel parseErrorModel(Object error) {
     return error is AppException
         ? error.getModel()
         : const ErrorModel(
-            title: 'Something went wrong',
-            message: 'Technical error contact support',
+            title: 'Что-то пошло не так',
+            message: 'Пожалуйста, попробуйте позже или свяжитесь с поддержкой',
           );
   }
 }

@@ -56,6 +56,7 @@ final class AppRouter {
   static const partnerVerification = 'partner-verification';
   static const partnerCreateTour = 'partner-create-tour';
   static const partnerEditTour = 'partner-edit-tour';
+  static const partnerToursBookings = 'partner-tours-bookings';
 
   static const settings = 'settings';
   static const settingsAboutUs = 'settings-about-us';
@@ -246,6 +247,14 @@ final class AppRouter {
         builder: (context, state) {
           final tour = state.extra! as TourModel;
           return CreateTourView(tour: tour);
+        },
+      ),
+      GoRoute(
+        path: partnerToursBookings,
+        name: partnerToursBookings,
+        builder: (context, state) {
+          final tour = state.extra! as TourModel;
+          return ToursBookingsView(tour);
         },
       ),
     ];

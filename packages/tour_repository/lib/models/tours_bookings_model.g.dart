@@ -22,8 +22,8 @@ TourBookingModel _$TourBookingModelFromJson(Map<String, dynamic> json) => TourBo
   bookingId: json['booking_id'] as String?,
   user: json['user'] == null ? null : TourBookingUserModel.fromJson(json['user'] as Map<String, dynamic>),
   seatsCount: (json['seats_count'] as num?)?.toInt(),
-  totalAmount: (json['total_amount'] as num?)?.toInt(),
-  status: json['status'] as String?,
+  totalAmount: json['total_amount'] as String?,
+  status: $enumDecodeNullable(_$BookingStatusEnumEnumMap, json['status']),
   name: json['name'] as String?,
   email: json['email'] as String?,
   createdAt: json['created_at'] == null ? null : DateTime.parse(json['created_at'] as String),
@@ -34,10 +34,18 @@ Map<String, dynamic> _$TourBookingModelToJson(TourBookingModel instance) => <Str
   'user': instance.user,
   'seats_count': instance.seatsCount,
   'total_amount': instance.totalAmount,
-  'status': instance.status,
+  'status': _$BookingStatusEnumEnumMap[instance.status],
   'name': instance.name,
   'email': instance.email,
   'created_at': instance.createdAt?.toIso8601String(),
+};
+
+const _$BookingStatusEnumEnumMap = {
+  BookingStatusEnum.pending: 'PENDING',
+  BookingStatusEnum.completed: 'COMPLETED',
+  BookingStatusEnum.cancelled: 'CANCELLED',
+  BookingStatusEnum.confirmed: 'CONFIRMED',
+  BookingStatusEnum.paid: 'PAID',
 };
 
 TourBookingUserModel _$TourBookingUserModelFromJson(

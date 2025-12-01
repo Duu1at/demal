@@ -43,9 +43,9 @@ final class TourBookingModel {
   final int? seatsCount;
 
   @JsonKey(name: 'total_amount')
-  final int? totalAmount;
+  final String? totalAmount;
 
-  final String? status;
+  final BookingStatusEnum? status;
 
   final String? name;
 
@@ -71,4 +71,18 @@ final class TourBookingUserModel {
   final String? fullName;
   final String? phoneNumber;
   Map<String, dynamic> toJson() => _$TourBookingUserModelToJson(this);
+}
+
+@JsonEnum()
+enum BookingStatusEnum {
+  @JsonValue('PENDING')
+  pending,
+  @JsonValue('COMPLETED')
+  completed,
+  @JsonValue('CANCELLED')
+  cancelled,
+  @JsonValue('CONFIRMED')
+  confirmed,
+  @JsonValue('PAID')
+  paid,
 }

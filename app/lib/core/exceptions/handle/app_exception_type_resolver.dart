@@ -9,8 +9,8 @@ class BaseErrorHandler extends ErrorHandler {
   void handleError(Object error, BuildContext context) {
     final handleType = getHandleType(error);
     return switch (handleType) {
-      ExceptionHandleType.dialog => context.read<ErrorHandler>().handleError(error, context),
-      ExceptionHandleType.snackbar => context.read<ErrorHandler>().handleError(error, context),
+      ExceptionHandleType.dialog => context.read<ErrorHandleDialog>().handleError(error, context),
+      ExceptionHandleType.snackbar => context.read<ErrorHandleSnackBar>().handleError(error, context),
     };
   }
 
@@ -47,7 +47,7 @@ class ErrorHandleDialog extends ErrorHandler {
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: const Text('OK'),
+              child: Text(MaterialLocalizations.of(context).okButtonLabel),
             ),
           ],
         );
