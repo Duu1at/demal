@@ -15,6 +15,13 @@ final class TourRemoteDataSource {
     );
   }
 
+  Future<ToursBookingsModel> getBookingsTours(String tourId) async {
+    return client.getType<ToursBookingsModel>(
+      '/api/v1/tours/$tourId/bookings',
+      fromJson: ToursBookingsModel.fromJson,
+    );
+  }
+
   Future<TourModel> getTourDetail(String tourId) async {
     final response = await client.getResponse<Map<String, dynamic>>(
       '/api/v1/tours/$tourId',

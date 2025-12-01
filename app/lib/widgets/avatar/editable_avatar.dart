@@ -74,7 +74,7 @@ class _EditableAvatarState extends State<EditableAvatar> with SingleTickerProvid
   @override
   Widget build(BuildContext context) {
     final sizeEdit = widget.size / 6;
-    
+
     final Widget result = Stack(
       children: [
         AvatarDisplay(

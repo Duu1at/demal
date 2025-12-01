@@ -225,4 +225,28 @@ final class TourRepositoryMockImpl implements TourRepository {
       );
     });
   }
+
+  @override
+  Future<ToursBookingsModel> getBookingsTours(String tourId) {
+    return Future.delayed(const Duration(seconds: 2), () {
+      return ToursBookingsModel(
+        bookings: [
+          TourBookingModel(
+            bookingId: '1',
+            user: const TourBookingUserModel(
+              id: '1',
+              fullName: 'User 1',
+              phoneNumber: '+996555123456',
+            ),
+            seatsCount: 1,
+            totalAmount: 100,
+            status: 'PAID',
+            name: 'User 1',
+            email: 'user1@example.com',
+            createdAt: DateTime.now(),
+          ),
+        ],
+      );
+    });
+  }
 }

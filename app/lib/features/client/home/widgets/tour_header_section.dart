@@ -71,7 +71,7 @@ class TourHeaderSection extends StatelessWidget {
                     showDragHandle: true,
                     backgroundColor: theme.scaffoldBackgroundColor,
                     padding: EdgeInsets.zero,
-                   
+
                     enableDrag: true,
                     child: TourReviewsBottomSheet(
                       tourId: tour.tourId!,

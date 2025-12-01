@@ -1,4 +1,3 @@
-import 'package:auth_repository/auth_repository.dart' hide UserModel;
 import 'package:meta/meta.dart';
 import 'package:profile_repository/profile_repository.dart';
 
@@ -21,7 +20,7 @@ final class ProfileRepositoryMockImpl implements ProfileRepository {
       userId: 'test-user-id',
       phoneNumber: '+996702313611',
       fullName: 'Test User',
-      role: RoleEnum.PARTNER,
+      role: 'PARTNER',
       imageUrl: null,
       createdAt: '2024-01-01T00:00:00.000Z',
       partnerProfile: null,
@@ -39,7 +38,7 @@ final class ProfileRepositoryMockImpl implements ProfileRepository {
       userId: 'test-user-id',
       phoneNumber: '+996702313611',
       fullName: param.fullName ?? 'Test User',
-      role: RoleEnum.PARTNER,
+      role: 'PARTNER',
       imageUrl: param.imageUrl,
       createdAt: '2024-01-01T00:00:00.000Z',
       partnerProfile: null,
@@ -56,7 +55,7 @@ final class ProfileRepositoryMockImpl implements ProfileRepository {
       userId: 'test-user-id',
       phoneNumber: '+996702313611',
       fullName: 'Test User',
-      role: RoleEnum.PARTNER,
+      role: 'PARTNER',
       imageUrl: null,
       createdAt: '2024-01-01T00:00:00.000Z',
       partnerProfile: null,

@@ -46,4 +46,9 @@ final class TourRepositoryImpl implements TourRepository {
   Future<TourModel> updateTour(String tourId, TourUpdateParam param) {
     return tourRemoteDataSource.updateTour(tourId, param);
   }
+
+  @override
+  Future<ToursBookingsModel> getBookingsTours(String tourId) {
+    return tourRemoteDataSource.getBookingsTours(tourId);
+  }
 }

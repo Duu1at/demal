@@ -7,7 +7,6 @@ environment:
   sdk: ^3.9.2
 
 dependencies:
-  auth_repository:
   api_client:
   json_annotation:
   meta:

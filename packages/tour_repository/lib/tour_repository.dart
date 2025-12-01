@@ -2,6 +2,7 @@ export 'models/create_tour_review_param.dart';
 export 'models/tour_review_model.dart';
 export 'models/tour_update_param.dart';
 export 'models/tours_reviews_model.dart';
+export 'models/tours_bookings_model.dart';
 export 'exceptions/tour_exception.dart';
 export 'models/models.dart';
 export 'repositories/tour_repository.dart';

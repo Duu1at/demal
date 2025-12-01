@@ -87,7 +87,7 @@ class _AvatarOverlayState extends State<AvatarOverlay> {
       animation: widget.animationController,
       builder: (context, child) {
         if (beginRect == null) return const SizedBox.shrink();
-        
+
         rectTween = RectTween(
           begin: beginRect,
           end: Rect.fromCenter(

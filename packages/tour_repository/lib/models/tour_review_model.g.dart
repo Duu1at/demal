@@ -32,6 +32,6 @@ ReviewUserModel _$ReviewUserModelFromJson(Map<String, dynamic> json) => ReviewUs
 
 Map<String, dynamic> _$ReviewUserModelToJson(ReviewUserModel instance) => <String, dynamic>{
   'id': instance.id,
-  'full_name': instance.fullName,
-  'image_url': instance.imageUrl,
+  'fullName': instance.fullName,
+  'imageUrl': instance.imageUrl,
 };

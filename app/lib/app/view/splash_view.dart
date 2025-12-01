@@ -12,6 +12,7 @@ class _SplashViewState extends State<SplashView> {
   void initState() {
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return const Scaffold(body: Center(child: CircularProgressIndicator()));

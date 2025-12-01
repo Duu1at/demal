@@ -19,7 +19,6 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return MultiBlocProvider(
       providers: [
         RepositoryProvider<AppRepository>(
@@ -39,7 +38,7 @@ class App extends StatelessWidget {
             TourRemoteDataSource(context.read<ApiClient>()),
           ),
         ),
-      
+
         RepositoryProvider<BookingsRepository>(
           create: (context) => BookingRepositoryImpl(
             BookingRemoteDataSource(context.read<ApiClient>()),
@@ -59,7 +58,7 @@ class App extends StatelessWidget {
         RepositoryProvider<ErrorHandler>(create: (context) => const BaseErrorHandler()),
         RepositoryProvider<ErrorHandler>(create: (context) => const ErrorHandleSnackBar()),
         RepositoryProvider<ErrorHandler>(create: (context) => const ErrorHandleDialog()),
-        
+
         BlocProvider<AppThemeCubit>(
           create: (context) => AppThemeCubit(context.read<AppRepository>()),
         ),
@@ -91,9 +90,7 @@ class _DemalAppState extends State<DemalApp> {
 
     final authCubit = context.read<AuthCubit>();
     _router = AppRouter.instance().router(authCubit);
-    
   }
-        
 
   @override
   Widget build(BuildContext context) {

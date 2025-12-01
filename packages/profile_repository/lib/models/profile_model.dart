@@ -1,4 +1,3 @@
-import 'package:auth_repository/auth_repository.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 import 'package:profile_repository/profile_repository.dart';
@@ -41,7 +40,7 @@ final class UserModel {
   final String? phoneNumber;
   @JsonKey(name: 'full_name')
   final String? fullName;
-  final RoleEnum? role;
+  final String? role;
   @JsonKey(name: 'image_url')
   final String? imageUrl;
   @JsonKey(name: 'created_at')
