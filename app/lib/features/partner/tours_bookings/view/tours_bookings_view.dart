@@ -1,3 +1,4 @@
+import 'package:app/core/exceptions/exception.dart';
 import 'package:app/features/features.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +36,7 @@ class ToursBookingsViewBody extends StatelessWidget {
           return switch (state) {
             ToursBookingsInitial() || ToursBookingsLoading() => const Center(child: CircularProgressIndicator()),
             ToursBookingsSuccess(bookings: final bookings) => ToursBookingsListContent(bookings),
-            ToursBookingsError(error: final error) => Center(child: Text(error.toString())),
+            ToursBookingsError(error: final error) => ErrorBodyWidget(error),
           };
         },
       ),

@@ -4,13 +4,11 @@ import 'package:flutter/material.dart';
 class InfoRow extends StatelessWidget {
   const InfoRow({
     required this.icon,
-    required this.label,
     required this.value,
     super.key,
   });
 
   final IconData icon;
-  final String label;
   final String value;
 
   @override
@@ -26,22 +24,12 @@ class InfoRow extends StatelessWidget {
           color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
         ),
         const SizedBox(width: AppSpacing.sm),
-        Expanded(
-          child: RichText(
-            text: TextSpan(
-              text: '$label: ',
-              style: textTheme.bodyMedium?.copyWith(
-                color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
-              ),
-              children: [
-                TextSpan(
-                  text: value,
-                  style: textTheme.bodyMedium?.copyWith(
-                    fontWeight: FontWeight.w500,
-                    color: theme.colorScheme.onSurface,
-                  ),
-                ),
-              ],
+        Flexible(
+          child: Text(
+            value,
+            style: textTheme.bodyMedium?.copyWith(
+              fontWeight: FontWeight.w500,
+              color: theme.colorScheme.onSurface,
             ),
           ),
         ),

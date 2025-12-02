@@ -34,7 +34,9 @@ class _PartnerHomeView extends StatelessWidget {
           if (rootContext == null) return;
           GoRouter.of(rootContext).pushNamed(AppRouter.settings);
         },
-        onNotificationTap: () {},
+        onNotificationTap: () {
+          GoRouter.of(context).pushNamed(AppRouter.partnerVerification);
+        },
       ),
       body: CustomScrollView(
         slivers: [

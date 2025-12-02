@@ -1,4 +1,3 @@
-
 import 'package:app/features/features.dart';
 import 'package:app/utils/formatter/formatter.dart';
 import 'package:app_ui/app_ui.dart';
@@ -111,14 +110,13 @@ class BookingCard extends StatelessWidget {
           if (booking!.email != null && booking!.email!.isNotEmpty)
             InfoRow(
               icon: Icons.email_outlined,
-              label: 'Email',
+
               value: booking!.email!,
             ),
           if (booking!.user?.phoneNumber != null && booking!.user!.phoneNumber!.isNotEmpty) ...[
             if (booking!.email != null && booking!.email!.isNotEmpty) const SizedBox(height: AppSpacing.sm),
             InfoRow(
               icon: Icons.phone_outlined,
-              label: 'Телефон',
               value: booking!.user!.phoneNumber!,
             ),
           ],

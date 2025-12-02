@@ -74,32 +74,52 @@ class _PartnerVerificationViewBodyState extends State<_PartnerVerificationViewBo
                       onUpdate: (image) => _cubit.updateAvatarUrl(image.path),
                       size: 80,
                     ),
-                    const SizedBox(height: AppSpacing.md),
-                    PartnerVerificationTextField(
+                    const SizedBox(height: AppSpacing.xxlg),
+                    AppTextField(
+                      label: const Text('Название компании'),
                       controller: _companyNameCtlr,
-                      hintText: 'Название компании',
                       maxLines: 3,
-                      inputFormatters: [LengthLimitingTextInputFormatter(50)],
                       keyboardType: TextInputType.text,
+                      inputFormatters: [LengthLimitingTextInputFormatter(50)],
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: AppSpacing.sm,
+                        vertical: AppSpacing.sm,
+                      ),
+                      maxLength: 50,
+                      hintText: 'Например, ООО "Турклуб"',
                       onChanged: _cubit.updateCompanyName,
                     ),
+
                     const SizedBox(height: AppSpacing.md),
-                    PartnerVerificationTextField(
+                    AppTextField(
+                      label: const Text('Описание'),
                       controller: _descriptionCtlr,
-                      hintText: 'Описание ',
                       maxLines: 5,
-                      inputFormatters: [LengthLimitingTextInputFormatter(255)],
-                      onChanged: _cubit.updateDescription,
                       keyboardType: TextInputType.text,
+                      inputFormatters: [LengthLimitingTextInputFormatter(255)],
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: AppSpacing.sm,
+                        vertical: AppSpacing.sm,
+                      ),
+                      hintText: 'Например, Мы предлагаем туры в горы, в лес, в пустыню и т.д.',
+                      onChanged: _cubit.updateDescription,
+                      maxLength: 255,
                     ),
+
                     const SizedBox(height: AppSpacing.md),
-                    PartnerVerificationTextField(
+                    AppTextField(
+                      label: const Text('Номер карты'),
                       controller: _cardNumberCtlr,
-                      hintText: 'Номер карты',
                       keyboardType: TextInputType.number,
                       inputFormatters: [InputFormatters.cardNumberFormatter],
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: AppSpacing.sm,
+                        vertical: AppSpacing.sm,
+                      ),
+                      hintText: 'XXXX XXXX XXXX XXXX',
                       onChanged: _cubit.updateCardNumber,
                     ),
+
                     const SizedBox(height: AppSpacing.md),
                     PartnerVerificationDocuments(state: _cubit.state, cubit: _cubit),
                     const SizedBox(height: AppSpacing.md),

@@ -1,3 +1,4 @@
+import 'package:app_ui/app_ui.dart';
 import 'package:app_ui/colors/app_input_color_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -102,10 +103,11 @@ class AppTextField extends StatelessWidget {
           filled: true,
           enabled: enabled,
           hintText: hintText,
-          hintStyle: hintStyle,
+          hintStyle: hintStyle ?? Theme.of(context).textTheme.bodyLarge?.copyWith(color: context.appColors.disabled),
           label: label,
           labelStyle: labelStyle,
           floatingLabelAlignment: FloatingLabelAlignment.start,
+          alignLabelWithHint: true,
           prefix: prefix,
           prefixIcon: prefixIcon,
           suffix: suffix,
