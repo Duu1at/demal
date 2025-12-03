@@ -1,6 +1,9 @@
 import 'dart:async';
+
 import 'package:app/app/app.dart';
+import 'package:app/app/router/app_router_redirect.dart';
 import 'package:app/features/features.dart';
+import 'package:app_ui/app_ui.dart';
 import 'package:auth_repository/auth_repository.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -8,10 +11,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tour_repository/tour_repository.dart';
 
-final navigatorKey = GlobalKey<NavigatorState>();
-final clientNavigatorKey = GlobalKey<NavigatorState>();
-final partnerNavigatorKey = GlobalKey<NavigatorState>();
-final scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
+export 'app_routes.dart';
+export 'route_args.dart';
 
 class GoRouterRefreshStream extends ChangeNotifier {
   GoRouterRefreshStream(Stream<dynamic> stream) {
@@ -29,37 +30,12 @@ class GoRouterRefreshStream extends ChangeNotifier {
 
 @immutable
 final class AppRouter {
-  const AppRouter._();
+
   factory AppRouter.instance() => const AppRouter._();
+  const AppRouter._();
 
-  /// onboarding
-  static const initialSettings = 'initial-settings';
-  static const onboardingOne = 'onboarding-one';
-  static const onboardingTwo = 'onboarding-two';
-  static const onboardingThree = 'onboarding-three';
-
-  ///login
-  static const login = 'login';
-  static const otp = 'otp';
-
-  /// client
-  static const client = 'client';
-  static const clientTourDetails = 'client-tour-details';
-  static const clientTourTickets = 'client-tour-tickets';
-  static const clientTourFilters = 'client-tour-filters';
-
-  static const clientBookingDetails = 'client-booking-details';
-  static const clientBookingStatus = 'client-booking-status';
-
-  /// partner
-  static const partner = 'partner';
-  static const partnerVerification = 'partner-verification';
-  static const partnerCreateTour = 'partner-create-tour';
-  static const partnerEditTour = 'partner-edit-tour';
-  static const partnerToursBookings = 'partner-tours-bookings';
-
-  static const settings = 'settings';
-  static const settingsAboutUs = 'settings-about-us';
+  static final navigatorKey = GlobalKey<NavigatorState>();
+  static final scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
 
   GoRouter router(AuthCubit authCubit) {
     return GoRouter(
@@ -67,196 +43,181 @@ final class AppRouter {
       navigatorKey: navigatorKey,
       debugLogDiagnostics: kDebugMode,
       refreshListenable: GoRouterRefreshStream(authCubit.stream),
-      redirect: (context, state) {
-        final authState = authCubit.state;
-        final path = state.uri.path;
+      redirect: AppRouterRedirect(authCubit).handleRedirect,
+      routes: _buildRoutes(),
+      errorBuilder: (context, state) => const ErrorView(),
+    );
+  }
 
-        final onboardingComplete = authState.hasCompletedOnboarding;
+  List<RouteBase> _buildRoutes() {
+    return [
+      _splashRoute(),
+      _onboardingRoutes(),
+      _authRoutes(),
+      _settingsRoutes(),
+      _clientRoutes(),
+      _partnerVerificationRoute(),
+      _partnerRoutes(),
+    ];
+  }
 
-        switch (authState.status) {
-          case AuthStatus.initial:
-          case AuthStatus.failure:
-            return '/';
+  GoRoute _splashRoute() {
+    return GoRoute(
+      path: '/',
+      builder: (context, state) => const SplashView(),
+    );
+  }
 
-          case AuthStatus.authenticated:
-            final role = authState.user?.role;
-            final isGlobalRoute = path.startsWith('/$settings');
-
-            if (isGlobalRoute) return null;
-
-            if (role == RoleEnum.CLIENT) {
-              if (path.startsWith('/$client')) return null;
-              return '/$client';
-            }
-            if (role == RoleEnum.PARTNER) {
-              if (path.startsWith('/$partner')) return null;
-              return '/$partner';
-            }
-            return '/$initialSettings';
-
-          case AuthStatus.unauthenticated:
-            final isGoingToOnboarding = path.startsWith('/$initialSettings');
-            final isGoingToLogin = path.startsWith('/$login');
-
-            if (!onboardingComplete) {
-              if (isGoingToOnboarding) return null;
-              return '/$initialSettings';
-            } else {
-              if (isGoingToLogin) return null;
-
-              return '/$login';
-            }
-        }
-      },
+  GoRoute _onboardingRoutes() {
+    return GoRoute(
+      path: AppRoutes.initialSettings,
+      builder: (context, state) => const InitialSettingsView(),
       routes: [
-        GoRoute(path: '/', builder: (context, state) => const SplashView()),
-
         GoRoute(
-          path: '/$initialSettings',
-          builder: (context, state) => const InitialSettingsView(),
-          routes: [
-            GoRoute(
-              path: onboardingOne,
-              name: onboardingOne,
-              builder: (context, state) => const OnboardingOneView(),
-            ),
-            GoRoute(
-              path: onboardingTwo,
-              name: onboardingTwo,
-              builder: (context, state) => const OnboardingTwoView(),
-            ),
-            GoRoute(
-              path: onboardingThree,
-              name: onboardingThree,
-              builder: (context, state) => const OnboardingThreeView(),
-            ),
-          ],
-        ),
-
-        GoRoute(
-          path: '/$login',
-          name: login,
-          builder: (context, state) {
-            final authRepository = context.read<AuthRepository>();
-            return BlocProvider(
-              create: (_) => OtpCubit(authRepository),
-              child: const LoginView(),
-            );
-          },
-          routes: [
-            GoRoute(
-              path: otp,
-              name: otp,
-              builder: (context, state) {
-                final extra = state.extra! as Map<String, dynamic>;
-                final phoneNumber = extra['phoneNumber'] as String;
-                final otpCubit = extra['otpCubit'] as OtpCubit;
-                return BlocProvider.value(
-                  value: otpCubit,
-                  child: OtpView(phoneNumber),
-                );
-              },
-            ),
-          ],
-        ),
-
-        GoRoute(
-          path: '/$settings',
-          name: settings,
-          parentNavigatorKey: navigatorKey,
-          builder: (context, state) => const SettingsView(),
-          routes: [
-            GoRoute(
-              path: settingsAboutUs,
-              name: settingsAboutUs,
-              builder: (context, state) => const AboutUsView(),
-            ),
-          ],
-        ),
-
-        GoRoute(
-          path: '/$client',
-          name: client,
-          parentNavigatorKey: navigatorKey,
-          builder: (context, state) => const ClientHomeView(),
-          routes: _clientRoutes,
+          path: AppRoutes.onboardingOne,
+          name: AppRoutes.onboardingOne,
+          builder: (context, state) => const OnboardingOneView(),
         ),
         GoRoute(
-          path: '/$partnerVerification',
-          name: partnerVerification,
-          parentNavigatorKey: navigatorKey,
-          builder: (context, state) => const PartnerVerificationView(),
+          path: AppRoutes.onboardingTwo,
+          name: AppRoutes.onboardingTwo,
+          builder: (context, state) => const OnboardingTwoView(),
         ),
         GoRoute(
-          path: '/$partner',
-          name: partner,
-          parentNavigatorKey: navigatorKey,
-          builder: (context, state) => const PartnerHomeView(),
-          routes: _partnerRoutes,
+          path: AppRoutes.onboardingThree,
+          name: AppRoutes.onboardingThree,
+          builder: (context, state) => const OnboardingThreeView(),
         ),
       ],
     );
   }
 
-  static List<RouteBase> get _clientRoutes {
-    return [
-      GoRoute(
-        path: clientTourDetails,
-        name: clientTourDetails,
-        builder: (context, state) => ClientTourDetailsView(state.extra! as String),
+  GoRoute _authRoutes() {
+    return GoRoute(
+      path: AppRoutes.login,
+      name: AppRoutes.login,
+      builder: (context, state) => BlocProvider(
+        create: (_) => OtpCubit(context.read<AuthRepository>()),
+        child: const LoginView(),
       ),
-      GoRoute(
-        path: clientTourTickets,
-        name: clientTourTickets,
-        builder: (context, state) => const ClientTourTicketsView(),
-      ),
-      GoRoute(
-        path: clientTourFilters,
-        name: clientTourFilters,
-        builder: (context, state) {
-          return BlocProvider.value(
-            value: state.extra! as ToursBloc,
-            child: const ClientTourFiltersView(),
-          );
-        },
-      ),
+      routes: [
+        GoRoute(
+          path: AppRoutes.otp,
+          name: AppRoutes.otp,
+          builder: (context, state) {
+            final extra = state.extra as OtpArgs?;
 
-      GoRoute(
-        path: clientBookingDetails,
-        name: clientBookingDetails,
-        builder: (context, state) => const ClientBookingDetailsView(),
-      ),
-      GoRoute(
-        path: clientBookingStatus,
-        name: clientBookingStatus,
-        builder: (context, state) => const ClientBookingStatusView(),
-      ),
-    ];
+            if (extra == null) return const ErrorView();
+
+            return BlocProvider.value(
+              value: extra.otpCubit,
+              child: OtpView(extra.phoneNumber),
+            );
+          },
+        ),
+      ],
+    );
   }
 
-  static List<RouteBase> get _partnerRoutes {
-    return [
-      GoRoute(
-        path: partnerCreateTour,
-        name: partnerCreateTour,
-        builder: (context, state) => const CreateTourView(),
-      ),
-      GoRoute(
-        path: partnerEditTour,
-        name: partnerEditTour,
-        builder: (context, state) {
-          final tour = state.extra! as TourModel;
-          return CreateTourView(tour: tour);
-        },
-      ),
-      GoRoute(
-        path: partnerToursBookings,
-        name: partnerToursBookings,
-        builder: (context, state) {
-          final tour = state.extra! as TourModel;
-          return ToursBookingsView(tour);
-        },
-      ),
-    ];
+  GoRoute _settingsRoutes() {
+    return GoRoute(
+      path: AppRoutes.settings,
+      name: AppRoutes.settings,
+      parentNavigatorKey: navigatorKey,
+      builder: (context, state) => const SettingsView(),
+      routes: [
+        GoRoute(
+          path: AppRoutes.settingsAboutUs,
+          name: AppRoutes.settingsAboutUs,
+          builder: (context, state) => const AboutUsView(),
+        ),
+      ],
+    );
+  }
+
+  GoRoute _clientRoutes() {
+    return GoRoute(
+      path: AppRoutes.client,
+      name: AppRoutes.client,
+      parentNavigatorKey: navigatorKey,
+      builder: (context, state) => const ClientHomeView(),
+      routes: [
+        GoRoute(
+          path: AppRoutes.clientTourDetails,
+          name: AppRoutes.clientTourDetails,
+          builder: (context, state) {
+            final tourId = state.pathParameters['tourId'];
+            if (tourId == null) return const ErrorView();
+            return ClientTourDetailsView(tourId);
+          },
+        ),
+        GoRoute(
+          path: AppRoutes.clientTourTickets,
+          name: AppRoutes.clientTourTickets,
+          builder: (context, state) => const ClientTourTicketsView(),
+        ),
+        GoRoute(
+          path: AppRoutes.clientTourFilters,
+          name: AppRoutes.clientTourFilters,
+          builder: (context, state) => BlocProvider(
+            create: (context) => ToursBloc(context.read<TourRepository>()),
+            child: const ClientTourFiltersView(),
+          ),
+        ),
+        GoRoute(
+          path: AppRoutes.clientBookingDetails,
+          name: AppRoutes.clientBookingDetails,
+          builder: (context, state) => const ClientBookingDetailsView(),
+        ),
+        GoRoute(
+          path: AppRoutes.clientBookingStatus,
+          name: AppRoutes.clientBookingStatus,
+          builder: (context, state) => const ClientBookingStatusView(),
+        ),
+      ],
+    );
+  }
+
+  GoRoute _partnerVerificationRoute() {
+    return GoRoute(
+      path: AppRoutes.partnerVerification,
+      name: AppRoutes.partnerVerification,
+      parentNavigatorKey: navigatorKey,
+      builder: (context, state) => const PartnerVerificationView(),
+    );
+  }
+
+  GoRoute _partnerRoutes() {
+    return GoRoute(
+      path: AppRoutes.partner,
+      name: AppRoutes.partner,
+      parentNavigatorKey: navigatorKey,
+      builder: (context, state) => const PartnerHomeView(),
+      routes: [
+        GoRoute(
+          path: AppRoutes.partnerCreateTour,
+          name: AppRoutes.partnerCreateTour,
+          builder: (context, state) => const CreateTourView(),
+        ),
+        GoRoute(
+          path: AppRoutes.partnerEditTour,
+          name: AppRoutes.partnerEditTour,
+          builder: (context, state) {
+            final tourId = state.pathParameters['tourId'];
+            if (tourId == null) return const ErrorView();
+            return const CreateTourView(tour: TourModel());
+          },
+        ),
+        GoRoute(
+          path: AppRoutes.partnerToursBookings,
+          name: AppRoutes.partnerToursBookings,
+          builder: (context, state) {
+            final tourId = state.pathParameters['tourId'];
+            if (tourId == null) return const ErrorView();
+            return ToursBookingsView(TourModel(tourId: tourId));
+          },
+        ),
+      ],
+    );
   }
 }

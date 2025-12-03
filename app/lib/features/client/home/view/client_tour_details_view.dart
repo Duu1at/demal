@@ -15,7 +15,7 @@ import 'package:tour_repository/tour_repository.dart';
 
 class ClientTourDetailsView extends StatelessWidget {
   const ClientTourDetailsView(this.tourId, {super.key});
-  final String tourId;
+  final String? tourId;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class ClientTourDetailsView extends StatelessWidget {
 
 class ClientTourDetailsViewBody extends StatefulWidget {
   const ClientTourDetailsViewBody(this.tourId, {super.key});
-  final String tourId;
+  final String? tourId;
 
   @override
   State<ClientTourDetailsViewBody> createState() => _ClientTourDetailsViewBodyState();
@@ -52,7 +52,7 @@ class _ClientTourDetailsViewBodyState extends State<ClientTourDetailsViewBody> {
       ),
       floatingActionButton: AppButton(
         margin: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
-        onPressed: () => context.pushNamed(AppRouter.clientBookingDetails),
+        onPressed: () => context.pushNamed(AppRoutes.clientBookingDetails),
         child: const Text('Забронировать тур'),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,

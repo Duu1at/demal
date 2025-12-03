@@ -10,6 +10,7 @@ export 'components/cards/cards.dart';
 export 'components/divider/divider.dart';
 export 'components/forms/forms.dart';
 export 'components/scaffold/scaffold.dart';
+export 'components/scaffold/error_view.dart';
 export 'components/shimmer/shimmer_container.dart';
 export 'generated/assets.gen.dart';
 export 'repo/repo.dart';

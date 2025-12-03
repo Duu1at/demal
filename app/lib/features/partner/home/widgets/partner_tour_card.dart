@@ -21,9 +21,7 @@ class PartnerTourCard extends StatelessWidget {
     final theme = Theme.of(context);
 
     return GestureDetector(
-      onTap: () {
-        context.goNamed(AppRouter.partnerToursBookings, extra: tour);
-      },
+      onTap: () => context.pushNamed(AppRoutes.partnerToursBookings, pathParameters: {'tourId': tour.tourId ?? ''}),
       child: Container(
         margin: const EdgeInsets.only(bottom: AppSpacing.md),
         decoration: BoxDecoration(

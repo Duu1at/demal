@@ -25,7 +25,7 @@ class OnboardingOneView extends StatelessWidget {
         subtitle: context.l10n.onboardingSubTitle1,
         fillPointIndex: 0,
         textBtn: context.l10n.next,
-        onPressed: () => context.goNamed(AppRouter.onboardingTwo),
+        onPressed: () => context.goNamed(AppRoutes.onboardingTwo),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );

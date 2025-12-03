@@ -18,7 +18,7 @@ class ToursDetailBloc extends Bloc<ToursDetailEvent, ToursDetailState> {
   ) async {
     try {
       emit(const ToursDetailLoading());
-      final result = await _tourRepository.getTourDetail(event.tourId);
+      final result = await _tourRepository.getTourDetail(event.tourId ?? '');
       emit(ToursDetailSuccess(result));
     } on Object catch (e) {
       emit(ToursDetailError(e));

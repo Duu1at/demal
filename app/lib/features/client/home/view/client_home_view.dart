@@ -60,7 +60,7 @@ class _ClientHomeViewBodyState extends State<ClientHomeViewBody> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: HomeAppBar(
-        onMenuTap: () => context.pushNamed(AppRouter.settings),
+        onMenuTap: () => context.pushNamed(AppRoutes.settings),
         onNotificationTap: () {},
       ),
       body: RefreshIndicator(
@@ -93,7 +93,7 @@ class _ClientHomeViewBodyState extends State<ClientHomeViewBody> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => context.pushNamed(AppRouter.clientTourTickets),
+        onPressed: () => context.pushNamed(AppRoutes.clientTourTickets),
         child: const Icon(Icons.add),
       ),
     );

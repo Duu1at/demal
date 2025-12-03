@@ -25,7 +25,7 @@ class OnboardingTwoView extends StatelessWidget {
         subtitle: context.l10n.onboardingSubTitle2,
         fillPointIndex: 1,
         textBtn: context.l10n.next,
-        onPressed: () => context.goNamed(AppRouter.onboardingThree),
+        onPressed: () => context.goNamed(AppRoutes.onboardingThree),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );

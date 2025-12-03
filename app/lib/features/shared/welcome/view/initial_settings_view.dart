@@ -88,7 +88,7 @@ class _InitialSettingsViewState extends State<InitialSettingsView> with Settings
             margin: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
             onPressed: (role != null)
                 ? () {
-                    context.goNamed(AppRouter.onboardingOne);
+                    context.goNamed(AppRoutes.onboardingOne);
                   }
                 : null,
             child: const Text('Начать'),

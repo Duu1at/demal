@@ -30,12 +30,12 @@ class _PartnerHomeView extends StatelessWidget {
     return Scaffold(
       appBar: HomeAppBar(
         onMenuTap: () {
-          final rootContext = navigatorKey.currentContext;
+          final rootContext = AppRouter.navigatorKey.currentContext;
           if (rootContext == null) return;
-          GoRouter.of(rootContext).pushNamed(AppRouter.settings);
+          GoRouter.of(rootContext).pushNamed(AppRoutes.settings);
         },
         onNotificationTap: () {
-          GoRouter.of(context).pushNamed(AppRouter.partnerVerification);
+          GoRouter.of(context).pushNamed(AppRoutes.partnerVerification);
         },
       ),
       body: CustomScrollView(
@@ -55,7 +55,7 @@ class _PartnerHomeView extends StatelessWidget {
 
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          final result = await GoRouter.of(context).pushNamed(AppRouter.partnerCreateTour);
+          final result = await GoRouter.of(context).pushNamed(AppRoutes.partnerCreateTour);
           if (result == true && context.mounted) {
             context.read<PartnerToursBloc>().add(const PartnerToursRefreshEvent());
           }

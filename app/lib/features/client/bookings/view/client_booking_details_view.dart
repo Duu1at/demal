@@ -69,7 +69,7 @@ class _ClientBookingDetailsViewState extends State<ClientBookingDetailsView> {
       ),
       floatingActionButton: AppButton(
         margin: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
-        onPressed: () => context.pushNamed(AppRouter.clientBookingStatus),
+        onPressed: () => context.pushNamed(AppRoutes.clientBookingStatus),
         child: const Text('Оплатить 121312 с'),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,

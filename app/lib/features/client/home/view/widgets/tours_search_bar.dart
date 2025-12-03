@@ -21,7 +21,7 @@ class ToursSearchBar extends StatelessWidget {
         hintText: 'Search any tours...',
         controller: controller,
         onFilterTap: () => context.pushNamed(
-          AppRouter.clientTourFilters,
+          AppRoutes.clientTourFilters,
           extra: context.read<ToursBloc>(),
         ),
       ),

@@ -36,16 +36,19 @@ class TourCardWidget extends StatelessWidget {
       cacheManager: cacheManager,
       onTap:
           onTap ??
-          () async {
+          () {
             if (tour.tourId != null) {
-              await context.pushNamed(AppRouter.clientTourDetails);
+              context.pushNamed(
+                AppRoutes.clientTourDetails,
+                pathParameters: {'tourId': tour.tourId ?? ''},
+              );
             }
           },
       onBookTap:
           onBookTap ??
-          () async {
+          () {
             if (tour.tourId != null) {
-              await context.pushNamed(AppRouter.clientTourTickets);
+              context.pushNamed(AppRoutes.clientTourTickets);
             }
           },
     );

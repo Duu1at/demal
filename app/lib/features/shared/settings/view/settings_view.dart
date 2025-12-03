@@ -51,7 +51,7 @@ class _SettingsViewState extends State<SettingsView> with SettingsChangeMixin<Se
                   color: theme.colorScheme.primary,
                 ),
                 title: context.l10n.myTickets,
-                onTap: () => context.pushNamed(AppRouter.clientTourTickets),
+                onTap: () => context.pushNamed(AppRoutes.clientTourTickets),
               ),
               const SizedBox(height: AppSpacing.lg),
               CardDrawerTitle(
@@ -76,7 +76,7 @@ class _SettingsViewState extends State<SettingsView> with SettingsChangeMixin<Se
                   color: theme.colorScheme.primary,
                 ),
                 title: context.l10n.aboutUs,
-                onTap: () => context.pushNamed(AppRouter.settingsAboutUs),
+                onTap: () => context.pushNamed(AppRoutes.settingsAboutUs),
               ),
               const SizedBox(height: AppSpacing.lg),
               CardDrawerTitle(

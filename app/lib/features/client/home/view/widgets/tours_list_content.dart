@@ -30,7 +30,10 @@ class ToursListContent extends StatelessWidget {
                 tour: tour,
                 cacheManager: DefaultCacheManager(),
                 onTap: () {
-                  context.pushNamed(AppRouter.clientTourDetails, extra: tour.tourId ?? '');
+                  context.pushNamed(
+                    AppRoutes.clientTourDetails,
+                    pathParameters: {'tourId': tour.tourId ?? ''},
+                  );
                 },
               );
             },

@@ -68,7 +68,7 @@ class _LoginViewState extends State<LoginView> {
                   switch (sendStatus) {
                     case RequestSuccess():
                       context.goNamed(
-                        AppRouter.otp,
+                        AppRoutes.otp,
                         extra: <String, dynamic>{
                           'phoneNumber': InputFormatters.phoneFormatter.getUnmaskedText(),
                           'otpCubit': context.read<OtpCubit>(),

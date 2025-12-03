@@ -74,8 +74,8 @@ class PartnerTourCardEditButton extends StatelessWidget {
 
   Future<void> _handleEdit(BuildContext context) async {
     final result = await context.pushNamed(
-      AppRouter.partnerEditTour,
-      extra: tour,
+      AppRoutes.partnerEditTour,
+      pathParameters: {'tourId': tour.tourId ?? ''},
     );
     if (result == true && context.mounted) {
       context.read<PartnerToursBloc>().add(const PartnerToursRefreshEvent());
