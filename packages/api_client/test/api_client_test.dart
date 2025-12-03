@@ -1,5 +1,5 @@
 import 'package:api_client/api_client.dart';
-import 'package:test/test.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 import 'helpers/mocks.dart';
 import 'helpers/test_model.dart';
