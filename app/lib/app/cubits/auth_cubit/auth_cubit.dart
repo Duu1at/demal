@@ -2,13 +2,15 @@ import 'dart:async';
 import 'package:auth_repository/auth_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:profile_repository/profile_repository.dart' as profile_repo;
 
 part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
-  AuthCubit(this._repository) : super(const AuthState.initial());
+  AuthCubit(this._repository, this._profileRepository) : super(const AuthState.initial());
 
   final AuthRepository _repository;
+  final profile_repo.ProfileRepository _profileRepository;
 
   Future<void> checkAuthStatus() async {
     try {
@@ -71,5 +73,36 @@ class AuthCubit extends Cubit<AuthState> {
         status: AuthStatus.unauthenticated,
       ),
     );
+  }
+
+  /// Refresh user profile data from server and update auth state
+  Future<void> refreshProfile() async {
+    try {
+      if (state.status != AuthStatus.authenticated) return;
+
+      final profile = await _profileRepository.getProfile();
+
+      // Convert profile UserModel to auth UserModel
+      final updatedUser = state.user?.copyWith(
+        userId: profile.user.userId,
+        phoneNumber: profile.user.phoneNumber,
+        fullName: profile.user.fullName,
+        role: profile.user.role != null
+            ? RoleEnum.values.firstWhere(
+                (e) => e.name == profile.user.role,
+                orElse: () => RoleEnum.UNKNOWN,
+              )
+            : null,
+        imageUrl: profile.user.imageUrl,
+        createdAt: profile.user.createdAt,
+        partnerProfile: profile.user.partnerProfile,
+      );
+
+      if (updatedUser != null) {
+        emit(state.copyWith(user: updatedUser));
+      }
+    } on Object catch (_) {
+      // Silently fail - keep existing state
+    }
   }
 }

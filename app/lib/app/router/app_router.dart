@@ -183,6 +183,18 @@ final class AppRouter {
       name: AppRoutes.partnerVerification,
       parentNavigatorKey: navigatorKey,
       builder: (context, state) => const PartnerVerificationView(),
+      routes: [
+        GoRoute(
+          path: 'status',
+          name: AppRoutes.partnerVerificationStatus,
+          builder: (context, state) => const PartnerVerificationStatusView(),
+        ),
+        GoRoute(
+          path: 'rejected',
+          name: AppRoutes.partnerVerificationRejected,
+          builder: (context, state) => const PartnerVerificationRejectedView(),
+        ),
+      ],
     );
   }
 

@@ -31,8 +31,11 @@ final class ProfileRepositoryImpl implements ProfileRepository {
   }
 
   @override
-  Future<PartnerProfileModel> updatePartnerProfile(PartnerProfileParam param) {
-    return remoteDataSource.updatePartnerProfile(param);
+  Future<PartnerProfileModel> updatePartnerProfile(PartnerProfileParam param) async {
+    final partnerProfile = await remoteDataSource.updatePartnerProfile(param);
+    // Refresh profile to get updated verification status
+    await getProfile();
+    return partnerProfile;
   }
 
   @override

@@ -21,6 +21,8 @@ export 'tours_bookings/widgets/info_row.dart';
 export 'tours_bookings/widgets/stat_card.dart';
 export 'tours_bookings/widgets/tours_bookings_list_content.dart';
 export 'verification/cubit/partner_verification_cubit.dart';
+export 'verification/view/partner_verification_rejected_view.dart';
+export 'verification/view/partner_verification_status_view.dart';
 export 'verification/view/partner_verification_view.dart';
 export 'verification/widgets/partner_verification_agreement.dart';
 export 'verification/widgets/partner_verification_documents.dart';

@@ -155,23 +155,33 @@ class PartnerVerificationCubit extends Cubit<PartnerVerificationState> {
 
   bool _validateForm() {
     if (state.companyName.trim().isEmpty) {
-      emit(state.copyWith(error: Exception('Название компании обязательно')));
+      emit(
+        state.copyWith(error: Exception('Название компании обязательно')),
+      );
       return false;
     }
     if (state.description.trim().isEmpty) {
-      emit(state.copyWith(error: Exception('Описание обязательно')));
+      emit(
+        state.copyWith(error: Exception('Описание обязательно')),
+      );
       return false;
     }
     if (state.cardNumber.replaceAll(' ', '').length < 16) {
-      emit(state.copyWith(error: Exception('Номер карты должен содержать 16 цифр')));
+      emit(
+        state.copyWith(error: Exception('Номер карты должен содержать 16 цифр')),
+      );
       return false;
     }
     if (state.documentUrls.isEmpty) {
-      emit(state.copyWith(error: Exception('Необходимо приложить документы')));
+      emit(
+        state.copyWith(error: Exception('Необходимо приложить документы')),
+      );
       return false;
     }
     if (!state.isTermsAccepted) {
-      emit(state.copyWith(error: Exception('Необходимо согласиться с условиями')));
+      emit(
+        state.copyWith(error: Exception('Необходимо согласиться с условиями')),
+      );
       return false;
     }
     return true;

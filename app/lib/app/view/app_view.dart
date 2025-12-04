@@ -66,7 +66,10 @@ class App extends StatelessWidget {
           create: (context) => AppLocaleCubit(context.read<AppRepository>()),
         ),
         BlocProvider<AuthCubit>(
-          create: (context) => AuthCubit(context.read<AuthRepository>())..checkAuthStatus(),
+          create: (context) => AuthCubit(
+            context.read<AuthRepository>(),
+            context.read<ProfileRepository>(),
+          )..checkAuthStatus(),
         ),
       ],
       child: const DemalApp(),

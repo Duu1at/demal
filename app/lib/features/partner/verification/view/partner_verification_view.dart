@@ -1,10 +1,13 @@
+import 'package:app/app/app.dart';
 import 'package:app/features/features.dart';
 import 'package:app/utils/utils.dart';
 import 'package:app/widgets/widgets.dart';
 import 'package:app_ui/app_ui.dart';
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:profile_repository/profile_repository.dart';
 import 'package:upload_repository/upload_repository.dart';
@@ -57,90 +60,105 @@ class _PartnerVerificationViewBodyState extends State<_PartnerVerificationViewBo
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Верификация')),
-      body: SafeArea(
-        bottom: true,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
-          child: CustomScrollView(
-            slivers: [
-              SliverToBoxAdapter(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    EditableAvatar(
-                      avatarUrl: _cubit.state.avatarUrl,
-                      onUpdate: (image) => _cubit.updateAvatarUrl(image.path),
-                      size: 80,
-                    ),
-                    const SizedBox(height: AppSpacing.xxlg),
-                    AppTextField(
-                      label: const Text('Название компании'),
-                      controller: _companyNameCtlr,
-                      maxLines: 3,
-                      keyboardType: TextInputType.text,
-                      inputFormatters: [LengthLimitingTextInputFormatter(50)],
-                      contentPadding: const EdgeInsets.symmetric(
-                        horizontal: AppSpacing.sm,
-                        vertical: AppSpacing.sm,
-                      ),
-                      maxLength: 50,
-                      hintText: 'Например, ООО "Турклуб"',
-                      onChanged: _cubit.updateCompanyName,
-                    ),
+    return BlocListener<PartnerVerificationCubit, PartnerVerificationState>(
+      listener: (context, state) {
+        if (state.isSuccess) {
+          context.read<AuthCubit>().refreshProfile().then((_) {
+            if (!context.mounted) return;
+            context.go(AppRoutes.partnerVerificationStatus);
+          });
+        }
 
-                    const SizedBox(height: AppSpacing.md),
-                    AppTextField(
-                      label: const Text('Описание'),
-                      controller: _descriptionCtlr,
-                      maxLines: 5,
-                      keyboardType: TextInputType.text,
-                      inputFormatters: [LengthLimitingTextInputFormatter(255)],
-                      contentPadding: const EdgeInsets.symmetric(
-                        horizontal: AppSpacing.sm,
-                        vertical: AppSpacing.sm,
+        if (state.error != null) {
+          final e = context.read<ErrorHandler>().parseErrorMessage(state.error ?? '');
+          AppSnackbar.showError(context: context, title: e);
+        }
+      },
+      child: Scaffold(
+        appBar: AppBar(title: const Text('Верификация')),
+        body: SafeArea(
+          bottom: true,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+            child: CustomScrollView(
+              slivers: [
+                SliverToBoxAdapter(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      EditableAvatar(
+                        avatarUrl: _cubit.state.avatarUrl,
+                        onUpdate: (image) => _cubit.updateAvatarUrl(image.path),
+                        size: 80,
                       ),
-                      hintText: 'Например, Мы предлагаем туры в горы, в лес, в пустыню и т.д.',
-                      onChanged: _cubit.updateDescription,
-                      maxLength: 255,
-                    ),
-
-                    const SizedBox(height: AppSpacing.md),
-                    AppTextField(
-                      label: const Text('Номер карты'),
-                      controller: _cardNumberCtlr,
-                      keyboardType: TextInputType.number,
-                      inputFormatters: [InputFormatters.cardNumberFormatter],
-                      contentPadding: const EdgeInsets.symmetric(
-                        horizontal: AppSpacing.sm,
-                        vertical: AppSpacing.sm,
+                      const SizedBox(height: AppSpacing.xxlg),
+                      AppTextField(
+                        label: const Text('Название компании'),
+                        controller: _companyNameCtlr,
+                        maxLines: 3,
+                        keyboardType: TextInputType.text,
+                        inputFormatters: [LengthLimitingTextInputFormatter(50)],
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: AppSpacing.sm,
+                          vertical: AppSpacing.sm,
+                        ),
+                        maxLength: 50,
+                        hintText: 'Например, ООО "Турклуб"',
+                        onChanged: _cubit.updateCompanyName,
                       ),
-                      hintText: 'XXXX XXXX XXXX XXXX',
-                      onChanged: _cubit.updateCardNumber,
-                    ),
 
-                    const SizedBox(height: AppSpacing.md),
-                    PartnerVerificationDocuments(state: _cubit.state, cubit: _cubit),
-                    const SizedBox(height: AppSpacing.md),
-                    PartnerVerificationAgreement(
-                      isChecked: _cubit.state.isTermsAccepted,
-                      onChanged: _cubit.toggleTermsAccepted,
-                    ),
-                    const SizedBox(height: AppSpacing.xxxxxxlg),
-                  ],
+                      const SizedBox(height: AppSpacing.md),
+                      AppTextField(
+                        label: const Text('Описание'),
+                        controller: _descriptionCtlr,
+                        maxLines: 5,
+                        keyboardType: TextInputType.text,
+                        inputFormatters: [LengthLimitingTextInputFormatter(255)],
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: AppSpacing.sm,
+                          vertical: AppSpacing.sm,
+                        ),
+                        hintText: 'Например, Мы предлагаем туры в горы, в лес, в пустыню и т.д.',
+                        onChanged: _cubit.updateDescription,
+                        maxLength: 255,
+                      ),
+
+                      const SizedBox(height: AppSpacing.md),
+                      AppTextField(
+                        label: const Text('Номер карты'),
+                        controller: _cardNumberCtlr,
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [InputFormatters.cardNumberFormatter],
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: AppSpacing.sm,
+                          vertical: AppSpacing.sm,
+                        ),
+                        hintText: 'XXXX XXXX XXXX XXXX',
+                        onChanged: _cubit.updateCardNumber,
+                      ),
+
+                      const SizedBox(height: AppSpacing.md),
+                      PartnerVerificationDocuments(state: _cubit.state, cubit: _cubit),
+                      const SizedBox(height: AppSpacing.md),
+                      PartnerVerificationAgreement(
+                        isChecked: _cubit.state.isTermsAccepted,
+                        onChanged: _cubit.toggleTermsAccepted,
+                      ),
+                      const SizedBox(height: AppSpacing.xxxxxxlg),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: AppButton(
-        margin: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
-        isLoading: _cubit.state.isSubmitting,
-        onPressed: _cubit.submitVerification,
-        child: const Text('Отправить на проверку'),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: AppButton(
+          margin: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+          isLoading: _cubit.state.isSubmitting,
+          onPressed: _cubit.submitVerification,
+          child: const Text('Отправить на проверку'),
+        ),
       ),
     );
   }
