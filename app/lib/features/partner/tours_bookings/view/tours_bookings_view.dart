@@ -6,14 +6,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tour_repository/tour_repository.dart';
 
 class ToursBookingsView extends StatelessWidget {
-  const ToursBookingsView(this.tour, {super.key});
+  const ToursBookingsView(this.tourId, this.tour, {super.key});
 
-  final TourModel tour;
+  final String tourId;
+  final TourModel? tour;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ToursBookingsCubit(context.read<TourRepository>())..fetchToursBookings(tour.tourId ?? ''),
+      create: (context) => ToursBookingsCubit(context.read<TourRepository>())..fetchToursBookings(tourId),
       child: ToursBookingsViewBody(tour),
     );
   }
@@ -21,14 +22,14 @@ class ToursBookingsView extends StatelessWidget {
 
 class ToursBookingsViewBody extends StatelessWidget {
   const ToursBookingsViewBody(this.tour, {super.key});
-  final TourModel tour;
+  final TourModel? tour;
 
   @override
   Widget build(BuildContext context) {
     return ScaffoldWithBgImage(
       backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
-        title: Text(tour.title ?? ''),
+        title: Text(tour?.title ?? 'Tours Bookings'),
         centerTitle: true,
       ),
       body: BlocBuilder<ToursBookingsCubit, ToursBookingsState>(

@@ -4,7 +4,6 @@ import 'package:app/app/app.dart';
 import 'package:app/app/router/app_router_redirect.dart';
 import 'package:app/features/features.dart';
 import 'package:app_ui/app_ui.dart';
-import 'package:auth_repository/auth_repository.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,7 +29,6 @@ class GoRouterRefreshStream extends ChangeNotifier {
 
 @immutable
 final class AppRouter {
-
   factory AppRouter.instance() => const AppRouter._();
   const AppRouter._();
 
@@ -96,10 +94,7 @@ final class AppRouter {
     return GoRoute(
       path: AppRoutes.login,
       name: AppRoutes.login,
-      builder: (context, state) => BlocProvider(
-        create: (_) => OtpCubit(context.read<AuthRepository>()),
-        child: const LoginView(),
-      ),
+      builder: (context, state) => const LoginView(),
       routes: [
         GoRoute(
           path: AppRoutes.otp,
@@ -159,10 +154,14 @@ final class AppRouter {
         GoRoute(
           path: AppRoutes.clientTourFilters,
           name: AppRoutes.clientTourFilters,
-          builder: (context, state) => BlocProvider(
-            create: (context) => ToursBloc(context.read<TourRepository>()),
-            child: const ClientTourFiltersView(),
-          ),
+          builder: (context, state) {
+            final extra = state.extra as ToursBloc?;
+            if (extra == null) return const ErrorView();
+            return BlocProvider.value(
+              value: extra,
+              child: const ClientTourFiltersView(),
+            );
+          },
         ),
         GoRoute(
           path: AppRoutes.clientBookingDetails,
@@ -203,9 +202,9 @@ final class AppRouter {
           path: AppRoutes.partnerEditTour,
           name: AppRoutes.partnerEditTour,
           builder: (context, state) {
-            final tourId = state.pathParameters['tourId'];
-            if (tourId == null) return const ErrorView();
-            return const CreateTourView(tour: TourModel());
+            final tour = state.extra as TourModel?;
+            if (tour == null) return const ErrorView();
+            return CreateTourView(tour: tour);
           },
         ),
         GoRoute(
@@ -213,8 +212,9 @@ final class AppRouter {
           name: AppRoutes.partnerToursBookings,
           builder: (context, state) {
             final tourId = state.pathParameters['tourId'];
+            final tour = state.extra as TourModel?;
             if (tourId == null) return const ErrorView();
-            return ToursBookingsView(TourModel(tourId: tourId));
+            return ToursBookingsView(tourId, tour);
           },
         ),
       ],

@@ -69,13 +69,9 @@ class _ClientHomeViewBodyState extends State<ClientHomeViewBody> {
           builder: (context, state) {
             return CustomScrollView(
               slivers: [
-                const SliverToBoxAdapter(
-                  child: SizedBox(height: AppSpacing.sm),
-                ),
+                const SliverToBoxAdapter(child: SizedBox(height: AppSpacing.sm)),
                 ToursSearchBar(controller: _searchController),
-                const SliverToBoxAdapter(
-                  child: SizedBox(height: AppSpacing.sm),
-                ),
+                const SliverToBoxAdapter(child: SizedBox(height: AppSpacing.sm)),
                 _buildStateContent(state),
                 if (state.isLoading && (state.pages?.isNotEmpty ?? false))
                   const SliverToBoxAdapter(
@@ -84,9 +80,7 @@ class _ClientHomeViewBodyState extends State<ClientHomeViewBody> {
                       child: Center(child: CircularProgressIndicator()),
                     ),
                   ),
-                const SliverToBoxAdapter(
-                  child: SizedBox(height: AppSpacing.xl),
-                ),
+                const SliverToBoxAdapter(child: SizedBox(height: AppSpacing.xl)),
               ],
             );
           },

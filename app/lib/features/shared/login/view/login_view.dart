@@ -2,19 +2,32 @@ import 'package:app/app/router/app_router.dart';
 import 'package:app/features/shared/login/cubit/otp_cubit.dart';
 import 'package:app/utils/utils.dart';
 import 'package:app_ui/app_ui.dart';
+import 'package:auth_repository/auth_repository.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-class LoginView extends StatefulWidget {
+class LoginView extends StatelessWidget {
   const LoginView({super.key});
 
   @override
-  State<LoginView> createState() => _LoginViewState();
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (_) => OtpCubit(context.read<AuthRepository>()),
+      child: const _LoginView(),
+    );
+  }
 }
 
-class _LoginViewState extends State<LoginView> {
+class _LoginView extends StatefulWidget {
+  const _LoginView();
+
+  @override
+  State<_LoginView> createState() => __LoginViewState();
+}
+
+class __LoginViewState extends State<_LoginView> {
   late final TextEditingController _phoneController;
   final _formKey = GlobalKey<FormState>();
 
@@ -69,10 +82,10 @@ class _LoginViewState extends State<LoginView> {
                     case RequestSuccess():
                       context.goNamed(
                         AppRoutes.otp,
-                        extra: <String, dynamic>{
-                          'phoneNumber': InputFormatters.phoneFormatter.getUnmaskedText(),
-                          'otpCubit': context.read<OtpCubit>(),
-                        },
+                        extra: OtpArgs(
+                          phoneNumber: InputFormatters.phoneFormatter.getUnmaskedText(),
+                          otpCubit: context.read<OtpCubit>(),
+                        ),
                       );
                     case RequestFailure():
                       context.read<ErrorHandler>().handleError(

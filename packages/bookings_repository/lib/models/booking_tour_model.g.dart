@@ -13,7 +13,7 @@ BookingTourModel _$BookingTourModelFromJson(Map<String, dynamic> json) => Bookin
   location: json['location'] as String?,
   date: json['date'] == null ? null : DateTime.parse(json['date'] as String),
   time: json['time'] as String?,
-  price: (json['price'] as num?)?.toInt(),
+  price: json['price'] as String?,
 );
 
 Map<String, dynamic> _$BookingTourModelToJson(BookingTourModel instance) => <String, dynamic>{
