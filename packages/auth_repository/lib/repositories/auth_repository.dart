@@ -4,7 +4,7 @@ abstract class AuthRepository {
   String? getToken();
   AuthLoginModel? getUserData();
   Future<String> sendOtp(String phoneNumber);
-  Future<AuthLoginModel> verifyOtp(String phoneNumber, String otpCode);
+  Future<AuthLoginModel> verifyOtp(String phoneNumber, String otpCode, String role);
   Future<void> deleteAccount();
   Future<void> logOut();
   Future<void> saveOnboardingStatus(bool completed);

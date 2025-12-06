@@ -7,6 +7,7 @@ import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:storage/storage.dart';
 
 class LoginView extends StatelessWidget {
   const LoginView({super.key});
@@ -14,7 +15,10 @@ class LoginView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => OtpCubit(context.read<AuthRepository>()),
+      create: (_) => OtpCubit(
+        context.read<AuthRepository>(),
+        context.read<PreferencesStorage>(),
+      ),
       child: const _LoginView(),
     );
   }
