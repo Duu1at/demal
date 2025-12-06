@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:app/utils/image_picker_service/image_picker_service.dart';
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:profile_repository/profile_repository.dart';
@@ -18,30 +19,6 @@ class PartnerVerificationCubit extends Cubit<PartnerVerificationState> {
   final ProfileRepository profileRepository;
   final UploadRepository uploadRepository;
   final ImagePickerService imagePickerService;
-
-  Future<void> loadProfile() async {
-    try {
-      emit(state.copyWith(isLoading: true));
-      final profile = await profileRepository.getProfile();
-      final partnerProfile = profile.user.partnerProfile;
-
-      if (partnerProfile != null) {
-        emit(
-          state.copyWith(
-            companyName: partnerProfile.companyName ?? '',
-            description: partnerProfile.description ?? '',
-            cardNumber: partnerProfile.cardNumber ?? '',
-            avatarUrl: profile.user.imageUrl,
-            isLoading: false,
-          ),
-        );
-      } else {
-        emit(state.copyWith(isLoading: false));
-      }
-    } on Object catch (e) {
-      emit(state.copyWith(isLoading: false, error: e));
-    }
-  }
 
   void updateCompanyName(String value) {
     emit(state.copyWith(companyName: value));
@@ -155,32 +132,24 @@ class PartnerVerificationCubit extends Cubit<PartnerVerificationState> {
 
   bool _validateForm() {
     if (state.companyName.trim().isEmpty) {
-      emit(
-        state.copyWith(error: Exception('Название компании обязательно')),
-      );
+      emit(state.copyWith(error: const ValidationException('Название компании обязательно')));
       return false;
     }
     if (state.description.trim().isEmpty) {
-      emit(
-        state.copyWith(error: Exception('Описание обязательно')),
-      );
+      emit(state.copyWith(error: const ValidationException('Описание обязательно')));
       return false;
     }
     if (state.cardNumber.replaceAll(' ', '').length < 16) {
-      emit(
-        state.copyWith(error: Exception('Номер карты должен содержать 16 цифр')),
-      );
+      emit(state.copyWith(error: const ValidationException('Номер карты должен содержать 16 цифр')));
       return false;
     }
     if (state.documentUrls.isEmpty) {
-      emit(
-        state.copyWith(error: Exception('Необходимо приложить документы')),
-      );
+      emit(state.copyWith(error: const ValidationException('Необходимо приложить документы')));
       return false;
     }
     if (!state.isTermsAccepted) {
       emit(
-        state.copyWith(error: Exception('Необходимо согласиться с условиями')),
+        state.copyWith(error: const ValidationException('Необходимо согласиться с условиями')),
       );
       return false;
     }
