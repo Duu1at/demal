@@ -106,8 +106,8 @@ class PartnerVerificationCubit extends Cubit<PartnerVerificationState> {
     }
   }
 
-  Future<void> submitVerification() async {
-    if (!_validateForm()) return;
+  Future<void> submitVerification(AppLocalizations l10n) async {
+    if (!_validateForm(l10n)) return;
 
     try {
       emit(state.copyWith(isSubmitting: true, error: null));
@@ -130,27 +130,25 @@ class PartnerVerificationCubit extends Cubit<PartnerVerificationState> {
     }
   }
 
-  bool _validateForm() {
+  bool _validateForm(AppLocalizations l10n) {
     if (state.companyName.trim().isEmpty) {
-      emit(state.copyWith(error: const ValidationException('Название компании обязательно')));
+      emit(state.copyWith(error: ValidationException(l10n.companyNameRequired)));
       return false;
     }
     if (state.description.trim().isEmpty) {
-      emit(state.copyWith(error: const ValidationException('Описание обязательно')));
+      emit(state.copyWith(error: ValidationException(l10n.descriptionRequired)));
       return false;
     }
     if (state.cardNumber.replaceAll(' ', '').length < 16) {
-      emit(state.copyWith(error: const ValidationException('Номер карты должен содержать 16 цифр')));
+      emit(state.copyWith(error: ValidationException(l10n.cardNumberRequired)));
       return false;
     }
     if (state.documentUrls.isEmpty) {
-      emit(state.copyWith(error: const ValidationException('Необходимо приложить документы')));
+      emit(state.copyWith(error: ValidationException(l10n.documentsRequired)));
       return false;
     }
     if (!state.isTermsAccepted) {
-      emit(
-        state.copyWith(error: const ValidationException('Необходимо согласиться с условиями')),
-      );
+      emit(state.copyWith(error: ValidationException(l10n.termsRequired)));
       return false;
     }
     return true;

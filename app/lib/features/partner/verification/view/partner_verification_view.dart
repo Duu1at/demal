@@ -76,7 +76,7 @@ class _PartnerVerificationViewBodyState extends State<_PartnerVerificationViewBo
       },
       builder: (context, state) {
         return Scaffold(
-          appBar: AppBar(title: const Text('Верификация')),
+          appBar: AppBar(title: Text(context.l10n.partnerVerificationTitle)),
           body: SafeArea(
             bottom: true,
             child: Padding(
@@ -94,7 +94,7 @@ class _PartnerVerificationViewBodyState extends State<_PartnerVerificationViewBo
                         ),
                         const SizedBox(height: AppSpacing.xxlg),
                         AppTextField(
-                          label: const Text('Название компании'),
+                          label: Text(context.l10n.companyNameLabel),
                           controller: _companyNameCtlr,
                           maxLines: 3,
                           keyboardType: TextInputType.text,
@@ -104,12 +104,12 @@ class _PartnerVerificationViewBodyState extends State<_PartnerVerificationViewBo
                             vertical: AppSpacing.sm,
                           ),
                           maxLength: 50,
-                          hintText: 'Например, ООО "Турклуб"',
+                          hintText: context.l10n.companyNameHint,
                           onChanged: _cubit.updateCompanyName,
                         ),
                         const SizedBox(height: AppSpacing.md),
                         AppTextField(
-                          label: const Text('Описание'),
+                          label: Text(context.l10n.descriptionLabel),
                           controller: _descriptionCtlr,
                           maxLines: 5,
                           keyboardType: TextInputType.text,
@@ -118,13 +118,13 @@ class _PartnerVerificationViewBodyState extends State<_PartnerVerificationViewBo
                             horizontal: AppSpacing.sm,
                             vertical: AppSpacing.sm,
                           ),
-                          hintText: 'Например, Мы предлагаем туры в горы, в лес, в пустыню и т.д.',
+                          hintText: context.l10n.descriptionHint,
                           onChanged: _cubit.updateDescription,
                           maxLength: 255,
                         ),
                         const SizedBox(height: AppSpacing.md),
                         AppTextField(
-                          label: const Text('Номер карты'),
+                          label: Text(context.l10n.cardNumberLabel),
                           controller: _cardNumberCtlr,
                           keyboardType: TextInputType.number,
                           inputFormatters: [InputFormatters.cardNumberFormatter],
@@ -132,7 +132,7 @@ class _PartnerVerificationViewBodyState extends State<_PartnerVerificationViewBo
                             horizontal: AppSpacing.sm,
                             vertical: AppSpacing.sm,
                           ),
-                          hintText: 'XXXX XXXX XXXX XXXX',
+                          hintText: context.l10n.cardNumberHint,
                           onChanged: _cubit.updateCardNumber,
                         ),
                         const SizedBox(height: AppSpacing.md),
@@ -154,8 +154,8 @@ class _PartnerVerificationViewBodyState extends State<_PartnerVerificationViewBo
           floatingActionButton: AppButton(
             margin: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
             isLoading: state.isSubmitting,
-            onPressed: _cubit.submitVerification,
-            child: const Text('Отправить на проверку'),
+            onPressed: () => _cubit.submitVerification(context.l10n),
+            child: Text(context.l10n.submitForVerification),
           ),
         );
       },

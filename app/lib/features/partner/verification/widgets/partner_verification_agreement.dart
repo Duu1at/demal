@@ -1,4 +1,5 @@
 import 'package:app_ui/app_ui.dart';
+import 'package:core/core.dart'; // Import core for l10n
 import 'package:flutter/material.dart';
 
 class PartnerVerificationAgreement extends StatelessWidget {
@@ -21,8 +22,8 @@ class PartnerVerificationAgreement extends StatelessWidget {
       contentPadding: EdgeInsets.zero,
       value: isChecked,
       onChanged: (_) => onChanged.call(),
-      subtitle: const Text(
-        'Я согласен с условием использования и обработки персональных данных',
+      subtitle: Text(
+        context.l10n.termsAgreement,
       ),
     );
   }

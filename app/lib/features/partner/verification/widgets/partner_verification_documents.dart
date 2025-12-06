@@ -1,5 +1,6 @@
 import 'package:app/features/features.dart';
 import 'package:app_ui/app_ui.dart';
+import 'package:core/core.dart'; // Import core for l10n
 import 'package:flutter/material.dart';
 
 class PartnerVerificationDocuments extends StatelessWidget {
@@ -20,13 +21,13 @@ class PartnerVerificationDocuments extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            'Прикрепите документы или фотографии документов',
+            context.l10n.attachDocumentsTitle,
             style: textTheme.titleMedium,
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: AppSpacing.sm),
           Text(
-            'Пожалуйста, приложите реальное фото документа',
+            context.l10n.realPhotoHint,
             style: textTheme.bodyMedium,
             textAlign: TextAlign.center,
           ),
@@ -37,7 +38,7 @@ class PartnerVerificationDocuments extends StatelessWidget {
               runSpacing: AppSpacing.sm,
               children: state.documentUrls.map((url) {
                 return Chip(
-                  label: const Text('Документ'),
+                  label: Text(context.l10n.documentChip),
                   onDeleted: () {},
                 );
               }).toList(),
@@ -45,13 +46,13 @@ class PartnerVerificationDocuments extends StatelessWidget {
           ],
           const SizedBox(height: AppSpacing.xlg),
           _PartnerVerificationActionButton(
-            label: 'Выбрать файлы',
+            label: context.l10n.chooseFilesButton,
             isLoading: state.isUploadingDocuments,
             onPressed: () => cubit.pickDocuments(context),
           ),
           const SizedBox(height: AppSpacing.sm),
           _PartnerVerificationActionButton(
-            label: 'Сделать фото',
+            label: context.l10n.takePhotoButton,
             variant: AppButtonVariant.outline,
             isLoading: state.isUploadingDocuments,
             onPressed: () => cubit.takePhoto(context),

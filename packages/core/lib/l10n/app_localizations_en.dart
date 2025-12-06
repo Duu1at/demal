@@ -105,4 +105,61 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get version => 'Version: ';
+
+  @override
+  String get partnerVerificationTitle => 'Verification';
+
+  @override
+  String get companyNameLabel => 'Company Name';
+
+  @override
+  String get companyNameHint => 'Example: LLC \"TourClub\"';
+
+  @override
+  String get descriptionLabel => 'Description';
+
+  @override
+  String get descriptionHint => 'Example: We offer tours to mountains, forests, deserts, etc.';
+
+  @override
+  String get cardNumberLabel => 'Card Number';
+
+  @override
+  String get cardNumberHint => 'XXXX XXXX XXXX XXXX';
+
+  @override
+  String get attachDocumentsTitle => 'Attach documents or photos of documents';
+
+  @override
+  String get realPhotoHint => 'Please attach a real photo of the document';
+
+  @override
+  String get documentChip => 'Document';
+
+  @override
+  String get chooseFilesButton => 'Choose files';
+
+  @override
+  String get takePhotoButton => 'Take a photo';
+
+  @override
+  String get termsAgreement => 'I agree with the terms of use and personal data processing';
+
+  @override
+  String get submitForVerification => 'Submit for verification';
+
+  @override
+  String get companyNameRequired => 'Company name is required';
+
+  @override
+  String get descriptionRequired => 'Description is required';
+
+  @override
+  String get cardNumberRequired => 'Card number must contain 16 digits';
+
+  @override
+  String get documentsRequired => 'Documents are required';
+
+  @override
+  String get termsRequired => 'You must agree to the terms';
 }
