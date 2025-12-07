@@ -106,4 +106,61 @@ class AppLocalizationsKy extends AppLocalizations {
 
   @override
   String get version => 'Версия: ';
+
+  @override
+  String get partnerVerificationTitle => 'Текшерүү';
+
+  @override
+  String get companyNameLabel => 'Компаниянын аталышы';
+
+  @override
+  String get companyNameHint => 'Мисалы, \"Турклуб\" ЖЧКсы';
+
+  @override
+  String get descriptionLabel => 'Сүрөттөмө';
+
+  @override
+  String get descriptionHint => 'Мисалы, биз тоолорго, токойлорго, чөлдөргө турларды сунуштайбыз ж.б.';
+
+  @override
+  String get cardNumberLabel => 'Картанын номери';
+
+  @override
+  String get cardNumberHint => 'XXXX XXXX XXXX XXXX';
+
+  @override
+  String get attachDocumentsTitle => 'Документтерди же документтердин сүрөттөрүн тиркеңиз';
+
+  @override
+  String get realPhotoHint => 'Сураныч, документтин чыныгы сүрөтүн тиркеңиз';
+
+  @override
+  String get documentChip => 'Документ';
+
+  @override
+  String get chooseFilesButton => 'Файлдарды тандоо';
+
+  @override
+  String get takePhotoButton => 'Сүрөткө тартуу';
+
+  @override
+  String get termsAgreement => 'Мен колдонуу шарттарына жана жеке маалыматтарды иштетүүгө макулмун';
+
+  @override
+  String get submitForVerification => 'Текшерүүгө жөнөтүү';
+
+  @override
+  String get companyNameRequired => 'Компаниянын аталышы милдеттүү';
+
+  @override
+  String get descriptionRequired => 'Сүрөттөмө милдеттүү';
+
+  @override
+  String get cardNumberRequired => 'Картанын номери 16 сандан турушу керек';
+
+  @override
+  String get documentsRequired => 'Документтерди тиркөө зарыл';
+
+  @override
+  String get termsRequired => 'Шарттарга макул болуу зарыл';
 }

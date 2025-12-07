@@ -17,10 +17,13 @@ final class AuthRemoteDataSource {
     return result.data?['message'] as String;
   }
 
-  Future<AuthLoginModel> verifyOtp(String phoneNumber, String otpCode) {
+  Future<AuthLoginModel> verifyOtp(String phoneNumber, String otpCode, String role) {
     return client.postType(
       '/api/v1/auth/verify-otp',
       data: {'phone_number': '+996$phoneNumber', 'otp_code': otpCode},
+      params: PostApiParams(
+        options: Options(headers: {'x-app-role': role}),
+      ),
       fromJson: AuthLoginModel.fromJson,
     );
   }

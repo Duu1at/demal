@@ -62,7 +62,6 @@ key.properties
 **/ios/profile
 **/ios/xcuserdata
 
-
 # --- Прочее ---
 
 # Отчеты о покрытии тестами
@@ -71,3 +70,6 @@ coverage/
 # Сгенерированные файлы локализации
 lib/l10n/gen/
 .l10n_errors.txt
+
+# FVM Version Cache
+.fvm/

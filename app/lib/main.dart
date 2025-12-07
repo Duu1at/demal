@@ -42,7 +42,6 @@ void main() async {
 
       final baseOptions = BaseOptions(
         baseUrl: Env.baseUrl,
-        contentType: 'application/json; charset=utf-8',
         connectTimeout: const Duration(seconds: 120),
         receiveTimeout: const Duration(seconds: 120),
       );
@@ -52,7 +51,7 @@ void main() async {
           [
             AppInterceptor(
               token: () => storage.readString(key: AuthStorageKey.tokenKey),
-              role: () => storage.readString(key: AuthStorageKey.roleKey),
+              
             ),
             TalkerDioLogger(
               talker: talker,

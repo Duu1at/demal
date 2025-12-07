@@ -1,6 +1,6 @@
 import 'package:api_client/api_client.dart';
 import 'package:app/app/app.dart';
-import 'package:app/exceptions/handle/app_exception_type_resolver.dart';
+import 'package:app/core/exceptions/exception.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:auth_repository/auth_repository.dart';
 import 'package:bookings_repository/bookings_repository.dart';
@@ -9,8 +9,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loader_overlay/loader_overlay.dart';
+import 'package:profile_repository/profile_repository.dart';
 import 'package:storage/storage.dart';
 import 'package:tour_repository/tour_repository.dart';
+import 'package:upload_repository/upload_repository.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -36,14 +38,25 @@ class App extends StatelessWidget {
             TourRemoteDataSource(context.read<ApiClient>()),
           ),
         ),
+
         RepositoryProvider<BookingsRepository>(
           create: (context) => BookingRepositoryImpl(
             BookingRemoteDataSource(context.read<ApiClient>()),
           ),
         ),
+        RepositoryProvider<ProfileRepository>(
+          create: (context) => ProfileRepositoryImpl(
+            remoteDataSource: ProfileRemoteDataSource(context.read<ApiClient>()),
+            localDataSource: ProfileLocalDataSource(context.read<PreferencesStorage>()),
+          ),
+        ),
+        RepositoryProvider<UploadRepository>(
+          create: (context) => const UploadRepositoryMockImpl(),
+        ),
         RepositoryProvider<ErrorHandler>(create: (context) => const BaseErrorHandler()),
-        RepositoryProvider<ErrorHandler>(create: (context) => const ErrorHandleSnackBar()),
-        RepositoryProvider<ErrorHandler>(create: (context) => const ErrorHandleDialog()),
+        RepositoryProvider<ErrorHandleSnackBar>(create: (context) => const ErrorHandleSnackBar()),
+        RepositoryProvider<ErrorHandleDialog>(create: (context) => const ErrorHandleDialog()),
+
         BlocProvider<AppThemeCubit>(
           create: (context) => AppThemeCubit(context.read<AppRepository>()),
         ),
@@ -51,7 +64,10 @@ class App extends StatelessWidget {
           create: (context) => AppLocaleCubit(context.read<AppRepository>()),
         ),
         BlocProvider<AuthCubit>(
-          create: (context) => AuthCubit(context.read<AuthRepository>())..checkAuthStatus(),
+          create: (context) => AuthCubit(
+            context.read<AuthRepository>(),
+            context.read<ProfileRepository>(),
+          )..checkAuthStatus(),
         ),
       ],
       child: const DemalApp(),
@@ -72,6 +88,7 @@ class _DemalAppState extends State<DemalApp> {
   @override
   void initState() {
     super.initState();
+
     final authCubit = context.read<AuthCubit>();
     _router = AppRouter.instance().router(authCubit);
   }
@@ -80,7 +97,7 @@ class _DemalAppState extends State<DemalApp> {
   Widget build(BuildContext context) {
     return GlobalLoaderOverlay(
       child: MaterialApp.router(
-        scaffoldMessengerKey: scaffoldMessengerKey,
+        scaffoldMessengerKey: AppRouter.scaffoldMessengerKey,
         theme: context.watch<AppThemeCubit>().state.themeData,
         locale: context.watch<AppLocaleCubit>().state,
         localizationsDelegates: AppLocalizations.localizationsDelegates,

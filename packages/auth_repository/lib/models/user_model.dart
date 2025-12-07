@@ -1,6 +1,7 @@
 import 'package:auth_repository/enums/role_enum.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
+import 'package:profile_repository/profile_repository.dart' as profile_repo;
 
 part 'user_model.g.dart';
 
@@ -14,6 +15,7 @@ final class UserModel {
     this.createdAt,
     this.userId,
     this.phoneNumber,
+    this.partnerProfile,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) => _$UserModelFromJson(json);
@@ -35,6 +37,9 @@ final class UserModel {
   @JsonKey(name: 'created_at')
   final String? createdAt;
 
+  @JsonKey(name: 'partner_profile')
+  final profile_repo.PartnerProfileModel? partnerProfile;
+
   UserModel copyWith({
     String? userId,
     String? phoneNumber,
@@ -42,6 +47,7 @@ final class UserModel {
     RoleEnum? role,
     String? imageUrl,
     String? createdAt,
+    profile_repo.PartnerProfileModel? partnerProfile,
   }) {
     return UserModel(
       userId: userId ?? this.userId,
@@ -49,7 +55,8 @@ final class UserModel {
       fullName: fullName ?? this.fullName,
       role: role ?? this.role,
       imageUrl: imageUrl ?? this.imageUrl,
-      createdAt: createdAt ?? createdAt,
+      createdAt: createdAt ?? this.createdAt,
+      partnerProfile: partnerProfile ?? this.partnerProfile,
     );
   }
 

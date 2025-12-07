@@ -37,8 +37,8 @@ final class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<AuthLoginModel> verifyOtp(String phoneNumber, String otpCode) async {
-    final result = await authRemoteDataSource.verifyOtp(phoneNumber, otpCode);
+  Future<AuthLoginModel> verifyOtp(String phoneNumber, String otpCode, String role) async {
+    final result = await authRemoteDataSource.verifyOtp(phoneNumber, otpCode, role);
     await authLocalDataSource.saveUserData(result);
     return result;
   }

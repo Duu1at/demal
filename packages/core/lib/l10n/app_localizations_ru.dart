@@ -106,4 +106,61 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get version => 'Версия: ';
+
+  @override
+  String get partnerVerificationTitle => 'Верификация';
+
+  @override
+  String get companyNameLabel => 'Название компании';
+
+  @override
+  String get companyNameHint => 'Например, ООО \"Турклуб\"';
+
+  @override
+  String get descriptionLabel => 'Описание';
+
+  @override
+  String get descriptionHint => 'Например, Мы предлагаем туры в горы, в лес, в пустыню и т.д.';
+
+  @override
+  String get cardNumberLabel => 'Номер карты';
+
+  @override
+  String get cardNumberHint => 'XXXX XXXX XXXX XXXX';
+
+  @override
+  String get attachDocumentsTitle => 'Прикрепите документы или фотографии документов';
+
+  @override
+  String get realPhotoHint => 'Пожалуйста, приложите реальное фото документа';
+
+  @override
+  String get documentChip => 'Документ';
+
+  @override
+  String get chooseFilesButton => 'Выбрать файлы';
+
+  @override
+  String get takePhotoButton => 'Сделать фото';
+
+  @override
+  String get termsAgreement => 'Я согласен с условием использования и обработки персональных данных';
+
+  @override
+  String get submitForVerification => 'Отправить на проверку';
+
+  @override
+  String get companyNameRequired => 'Название компании обязательно';
+
+  @override
+  String get descriptionRequired => 'Описание обязательно';
+
+  @override
+  String get cardNumberRequired => 'Номер карты должен содержать 16 цифр';
+
+  @override
+  String get documentsRequired => 'Необходимо приложить документы';
+
+  @override
+  String get termsRequired => 'Необходимо согласиться с условиями';
 }

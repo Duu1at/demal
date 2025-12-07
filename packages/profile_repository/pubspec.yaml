@@ -4,10 +4,9 @@ version: 1.0.0
 resolution: workspace
 
 environment:
-  sdk: ^3.9.2
+  sdk: ^3.10.1
 
 dependencies:
-  auth_repository:
   api_client:
   json_annotation:
   meta:
@@ -18,5 +17,5 @@ dev_dependencies:
   json_serializable:
   very_good_analysis:
   mocktail:
-  test:
-
+  flutter_test:
+    sdk: flutter 

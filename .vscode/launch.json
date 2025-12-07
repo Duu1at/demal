@@ -3,9 +3,7 @@
   "configurations": [
     {
       "name": "DEV",
-      "type": "dart",
       "request": "launch",
-      "flutterMode": "debug",
       "cwd": "app",
       "program": "lib/main.dart",
       "args": [

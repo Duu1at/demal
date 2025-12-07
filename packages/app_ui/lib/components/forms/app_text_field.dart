@@ -1,4 +1,4 @@
-import 'package:app_ui/colors/app_input_color_extension.dart';
+import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -22,6 +22,9 @@ class AppTextField extends StatelessWidget {
     this.readOnly = false,
     this.keyboardType,
     this.enabled = true,
+    this.contentPadding,
+    this.maxLines = 1,
+    this.maxLength,
   });
 
   final String? hintText;
@@ -41,7 +44,9 @@ class AppTextField extends StatelessWidget {
   final bool readOnly;
   final TextInputType? keyboardType;
   final bool enabled;
-
+  final EdgeInsets? contentPadding;
+  final int maxLines;
+  final int? maxLength;
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -52,13 +57,15 @@ class AppTextField extends StatelessWidget {
         style: style,
         focusNode: focusNode,
         controller: controller,
+        maxLines: maxLines,
+        maxLength: maxLength,
         validator: validator,
         onChanged: onChanged,
         inputFormatters: inputFormatters,
         readOnly: readOnly,
         keyboardType: keyboardType,
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.zero,
+          contentPadding: contentPadding ?? EdgeInsets.zero,
           border: OutlineInputBorder(
             borderRadius: const BorderRadius.all(Radius.circular(16)),
             borderSide: BorderSide(
@@ -95,9 +102,11 @@ class AppTextField extends StatelessWidget {
           filled: true,
           enabled: enabled,
           hintText: hintText,
-          hintStyle: hintStyle,
+          hintStyle: hintStyle ?? Theme.of(context).textTheme.bodyLarge?.copyWith(color: context.appColors.disabled),
           label: label,
           labelStyle: labelStyle,
+          floatingLabelAlignment: FloatingLabelAlignment.start,
+          alignLabelWithHint: true,
           prefix: prefix,
           prefixIcon: prefixIcon,
           suffix: suffix,

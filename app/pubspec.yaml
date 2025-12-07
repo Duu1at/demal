@@ -6,7 +6,7 @@ resolution: workspace
 version: 1.0.0+1
 
 environment:
-  sdk: ^3.9.2
+  sdk: ^3.10.1
 
 flutter:
   uses-material-design: true
@@ -56,7 +56,16 @@ dependencies:
 
 
 dev_dependencies:
+  flutter_test:
+    sdk: flutter
   very_good_analysis:
   build_runner:
   json_serializable:
+  mocktail:
+  flutter_launcher_icons:
 
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "../packages/app_ui/assets/images/logo.png"
+  min_sdk_android: 21

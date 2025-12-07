@@ -25,5 +25,5 @@ final class BookingTourModel {
   final String? location;
   final DateTime? date;
   final String? time;
-  final int? price;
+  final String? price;
 }

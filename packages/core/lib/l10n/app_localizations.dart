@@ -278,6 +278,120 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Version: '**
   String get version;
+
+  /// No description provided for @partnerVerificationTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Verification'**
+  String get partnerVerificationTitle;
+
+  /// No description provided for @companyNameLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Company Name'**
+  String get companyNameLabel;
+
+  /// No description provided for @companyNameHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Example: LLC \"TourClub\"'**
+  String get companyNameHint;
+
+  /// No description provided for @descriptionLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get descriptionLabel;
+
+  /// No description provided for @descriptionHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Example: We offer tours to mountains, forests, deserts, etc.'**
+  String get descriptionHint;
+
+  /// No description provided for @cardNumberLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Card Number'**
+  String get cardNumberLabel;
+
+  /// No description provided for @cardNumberHint.
+  ///
+  /// In en, this message translates to:
+  /// **'XXXX XXXX XXXX XXXX'**
+  String get cardNumberHint;
+
+  /// No description provided for @attachDocumentsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Attach documents or photos of documents'**
+  String get attachDocumentsTitle;
+
+  /// No description provided for @realPhotoHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Please attach a real photo of the document'**
+  String get realPhotoHint;
+
+  /// No description provided for @documentChip.
+  ///
+  /// In en, this message translates to:
+  /// **'Document'**
+  String get documentChip;
+
+  /// No description provided for @chooseFilesButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose files'**
+  String get chooseFilesButton;
+
+  /// No description provided for @takePhotoButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Take a photo'**
+  String get takePhotoButton;
+
+  /// No description provided for @termsAgreement.
+  ///
+  /// In en, this message translates to:
+  /// **'I agree with the terms of use and personal data processing'**
+  String get termsAgreement;
+
+  /// No description provided for @submitForVerification.
+  ///
+  /// In en, this message translates to:
+  /// **'Submit for verification'**
+  String get submitForVerification;
+
+  /// No description provided for @companyNameRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Company name is required'**
+  String get companyNameRequired;
+
+  /// No description provided for @descriptionRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Description is required'**
+  String get descriptionRequired;
+
+  /// No description provided for @cardNumberRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Card number must contain 16 digits'**
+  String get cardNumberRequired;
+
+  /// No description provided for @documentsRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Documents are required'**
+  String get documentsRequired;
+
+  /// No description provided for @termsRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'You must agree to the terms'**
+  String get termsRequired;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

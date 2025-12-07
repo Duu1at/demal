@@ -10,11 +10,7 @@ final class AuthLocalDataSource {
   final PreferencesStorage storage;
 
   Future<void> deleteAccount() async {
-    await Future.wait([
-      storage.delete(key: AuthStorageKey.tokenKey),
-      storage.delete(key: AuthStorageKey.userDataKey),
-      storage.delete(key: AuthStorageKey.roleKey),
-    ]);
+    await logOut();
   }
 
   String? getToken() {
@@ -22,7 +18,11 @@ final class AuthLocalDataSource {
   }
 
   Future<void> logOut() async {
-    await storage.delete(key: AuthStorageKey.tokenKey);
+    await Future.wait([
+      storage.delete(key: AuthStorageKey.tokenKey),
+      storage.delete(key: AuthStorageKey.userDataKey),
+      storage.delete(key: AuthStorageKey.roleKey),
+    ]);
   }
 
   AuthLoginModel? getUserData() {
@@ -67,6 +67,10 @@ final class AuthLocalDataSource {
   RoleEnum? getRole() {
     final roleString = storage.readString(key: AuthStorageKey.roleKey);
     if (roleString == null) return null;
-    return RoleEnum.values.firstWhere((element) => element.name == roleString);
+    try {
+      return RoleEnum.values.byName(roleString);
+    } on Object catch (_) {
+      return null;
+    }
   }
 }
