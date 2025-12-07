@@ -3,6 +3,7 @@ import 'package:app/app/router/app_routes.dart';
 import 'package:auth_repository/auth_repository.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
+import 'package:profile_repository/profile_repository.dart';
 
 class AppRouterRedirect {
   const AppRouterRedirect(this._authCubit);
@@ -53,35 +54,26 @@ class AppRouterRedirect {
     final user = _authCubit.state.user;
     final verificationStatus = user?.partnerProfile?.verificationStatus;
 
-    // Allow access to verification-related routes
     if (path.startsWith(AppRoutes.partnerVerification) ||
         path.startsWith(AppRoutes.partnerVerificationStatus) ||
         path.startsWith(AppRoutes.partnerVerificationRejected)) {
       return null;
     }
 
-    // Check verification status and redirect accordingly
     if (verificationStatus == null) {
-      // No partner profile yet - redirect to verification form
       return AppRoutes.partnerVerification;
     }
 
-    switch (verificationStatus.name) {
-      case 'PENDING':
-        // Verification submitted, waiting for approval
+    switch (verificationStatus) {
+      case PartnerVerifyStatusEnum.pending:
         return AppRoutes.partnerVerificationStatus;
 
-      case 'REJECTED':
-        // Verification rejected - show rejection screen
+      case PartnerVerifyStatusEnum.rejected:
         return AppRoutes.partnerVerificationRejected;
 
-      case 'VERIFIED':
-        // Verified - allow access to partner routes
+      case PartnerVerifyStatusEnum.verified:
         if (path.startsWith(AppRoutes.partner)) return null;
         return AppRoutes.partner;
-
-      default:
-        return AppRoutes.partnerVerification;
     }
   }
 

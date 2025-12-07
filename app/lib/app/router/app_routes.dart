@@ -20,8 +20,8 @@ abstract class AppRoutes {
   // Partner
   static const partner = '/partner';
   static const partnerVerification = '/partner-verification';
-  static const partnerVerificationStatus = '/partner-verification-status';
-  static const partnerVerificationRejected = '/partner-verification-rejected';
+  static const partnerVerificationStatus = '/partner-verification/status';
+  static const partnerVerificationRejected = '/partner-verification/rejected';
   static const partnerCreateTour = 'create-tour';
   static const partnerEditTour = 'edit/:tourId';
   static const partnerToursBookings = 'bookings/:tourId';
