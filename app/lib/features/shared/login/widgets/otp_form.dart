@@ -137,10 +137,7 @@ class _OtpFormState extends State<OtpForm> {
               listener: (context, state) {
                 final verifyStatus = state.verifyStatus;
                 if (verifyStatus is RequestSuccess<AuthLoginModel>) {
-                  context.read<AuthCubit>().checkAuthStatus().then((_) {
-                    if (!context.mounted) return;
-                    context.read<AuthCubit>().refreshProfile();
-                  });
+                  context.read<AuthCubit>().checkAuthStatus();
                 }
                 if (verifyStatus is RequestFailure<AuthLoginModel>) {
                   context.read<ErrorHandler>().handleError(

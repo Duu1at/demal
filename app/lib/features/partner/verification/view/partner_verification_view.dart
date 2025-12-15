@@ -1,4 +1,3 @@
-import 'package:app/app/app.dart';
 import 'package:app/features/features.dart';
 import 'package:app/utils/utils.dart';
 import 'package:app/widgets/widgets.dart';
@@ -7,7 +6,6 @@ import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:profile_repository/profile_repository.dart';
 import 'package:upload_repository/upload_repository.dart';
@@ -62,13 +60,6 @@ class _PartnerVerificationViewBodyState extends State<_PartnerVerificationViewBo
   Widget build(BuildContext context) {
     return BlocConsumer<PartnerVerificationCubit, PartnerVerificationState>(
       listener: (context, state) {
-        if (state.isSuccess) {
-          context.read<AuthCubit>().refreshProfile().then((_) {
-            if (!context.mounted) return;
-            context.go(AppRoutes.partnerVerificationStatus);
-          });
-        }
-
         if (state.error != null) {
           final e = context.read<ErrorHandler>().parseErrorMessage(state.error ?? '');
           AppSnackbar.showError(context: context, title: e);

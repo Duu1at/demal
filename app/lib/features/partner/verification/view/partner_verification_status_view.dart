@@ -42,7 +42,9 @@ class PartnerVerificationStatusView extends StatelessWidget {
                     ),
                     const SizedBox(height: AppSpacing.md),
                     AppButton(
-                      onPressed: () => context.read<AuthCubit>().refreshProfile(),
+                      onPressed: () {
+
+                      },
                       child: const Text('Повторить'),
                     ),
                   ],
@@ -99,8 +101,8 @@ class PartnerVerificationStatusView extends StatelessWidget {
                   ],
                   const SizedBox(height: AppSpacing.xxlg),
                   AppButton(
-                    onPressed: () async {
-                      await context.read<AuthCubit>().refreshProfile();
+                    onPressed: ()  {
+                     
                     },
                     child: const Text('Обновить статус'),
                   ),

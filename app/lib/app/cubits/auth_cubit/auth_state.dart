@@ -13,12 +13,10 @@ final class AuthState extends Equatable {
   const AuthState.initial() : this(status: AuthStatus.initial);
 
   const AuthState.authenticated(
-    UserModel user,
     String token, {
     bool hasCompletedOnboarding = true,
   }) : this(
          status: AuthStatus.authenticated,
-         user: user,
          token: token,
          hasCompletedOnboarding: hasCompletedOnboarding,
        );
