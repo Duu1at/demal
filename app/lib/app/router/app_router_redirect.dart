@@ -1,9 +1,8 @@
 import 'package:app/app/cubits/auth_cubit/auth_cubit.dart';
 import 'package:app/app/router/app_routes.dart';
-import 'package:auth_repository/auth_repository.dart';
+import 'package:core/core.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
-import 'package:profile_repository/profile_repository.dart';
 
 class AppRouterRedirect {
   const AppRouterRedirect(this._authCubit);

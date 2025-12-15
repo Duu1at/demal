@@ -1,3 +1,4 @@
+import 'package:core/core.dart';
 import 'package:meta/meta.dart';
 import 'package:profile_repository/profile_repository.dart';
 
@@ -20,14 +21,14 @@ final class ProfileRepositoryMockImpl implements ProfileRepository {
       userId: 'test-user-id',
       phoneNumber: '+996702313611',
       fullName: 'Test User',
-      role: 'PARTNER',
+      role: RoleEnum.PARTNER,
       imageUrl: null,
       createdAt: '2024-01-01T00:00:00.000Z',
       partnerProfile: null,
     );
     return const ProfileModel(
       success: true,
-      user: user,
+      user: user
     );
   }
 
@@ -38,7 +39,7 @@ final class ProfileRepositoryMockImpl implements ProfileRepository {
       userId: 'test-user-id',
       phoneNumber: '+996702313611',
       fullName: param.fullName ?? 'Test User',
-      role: 'PARTNER',
+      role: RoleEnum.PARTNER,
       imageUrl: param.imageUrl,
       createdAt: '2024-01-01T00:00:00.000Z',
       partnerProfile: null,
@@ -55,7 +56,7 @@ final class ProfileRepositoryMockImpl implements ProfileRepository {
       userId: 'test-user-id',
       phoneNumber: '+996702313611',
       fullName: 'Test User',
-      role: 'PARTNER',
+      role: RoleEnum.PARTNER,
       imageUrl: null,
       createdAt: '2024-01-01T00:00:00.000Z',
       partnerProfile: null,

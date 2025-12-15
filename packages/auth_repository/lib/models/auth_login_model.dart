@@ -1,4 +1,4 @@
-import 'package:auth_repository/auth_repository.dart';
+import 'package:core/core.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 

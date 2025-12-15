@@ -1,4 +1,5 @@
 import 'package:api_client/api_client.dart';
+import 'package:core/core.dart';
 import 'package:meta/meta.dart';
 import 'package:profile_repository/profile_repository.dart';
 

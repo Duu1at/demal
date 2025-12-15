@@ -1,6 +1,6 @@
+import 'package:core/core.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
-import 'package:profile_repository/profile_repository.dart';
 
 part 'partner_profile_model.g.dart';
 

@@ -1,4 +1,3 @@
-export 'enums/role_enum.dart';
 export 'exceptions/auth_exception.dart';
 export 'keys/auth_storage_key.dart';
 export 'models/models.dart';

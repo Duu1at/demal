@@ -1,7 +1,6 @@
-import 'package:auth_repository/enums/role_enum.dart';
+import 'package:core/core.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
-import 'package:profile_repository/profile_repository.dart';
 
 part 'user_model.g.dart';
 

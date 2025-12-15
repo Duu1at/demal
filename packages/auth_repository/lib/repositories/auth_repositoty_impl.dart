@@ -1,4 +1,5 @@
 import 'package:auth_repository/auth_repository.dart';
+import 'package:core/core.dart';
 import 'package:meta/meta.dart';
 
 @immutable
@@ -17,11 +18,6 @@ final class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  AuthLoginModel? getUserData() {
-    return authLocalDataSource.getUserData();
-  }
-
-  @override
   Future<void> deleteAccount() async {
     await authLocalDataSource.deleteAccount();
   }
@@ -37,10 +33,8 @@ final class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<AuthLoginModel> verifyOtp(String phoneNumber, String otpCode, String role) async {
-    final result = await authRemoteDataSource.verifyOtp(phoneNumber, otpCode, role);
-    await authLocalDataSource.saveUserData(result);
-    return result;
+  Future<AuthLoginModel> verifyOtp(String phoneNumber, String otpCode, String role) {
+    return authRemoteDataSource.verifyOtp(phoneNumber, otpCode, role);
   }
 
   @override

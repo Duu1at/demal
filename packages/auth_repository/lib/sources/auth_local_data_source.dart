@@ -1,6 +1,6 @@
-import 'dart:convert';
 
 import 'package:auth_repository/auth_repository.dart';
+import 'package:core/core.dart';
 import 'package:meta/meta.dart';
 import 'package:storage/storage.dart';
 
@@ -20,29 +20,7 @@ final class AuthLocalDataSource {
   Future<void> logOut() async {
     await Future.wait([
       storage.delete(key: AuthStorageKey.tokenKey),
-      storage.delete(key: AuthStorageKey.userDataKey),
       storage.delete(key: AuthStorageKey.roleKey),
-    ]);
-  }
-
-  AuthLoginModel? getUserData() {
-    final jsonString = storage.readString(key: AuthStorageKey.userDataKey);
-    if (jsonString == null) return null;
-
-    final json = jsonDecode(jsonString) as Map<String, dynamic>;
-    return AuthLoginModel.fromJson(json);
-  }
-
-  Future<void> saveUserData(AuthLoginModel data) async {
-    await Future.wait([
-      storage.writeString(
-        key: AuthStorageKey.tokenKey,
-        value: data.authToken,
-      ),
-      storage.writeString(
-        key: AuthStorageKey.userDataKey,
-        value: jsonEncode(data.toJson()),
-      ),
     ]);
   }
 

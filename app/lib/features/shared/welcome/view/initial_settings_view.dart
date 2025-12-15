@@ -4,7 +4,6 @@ import 'package:app/app/mixin/settings_change_mixin.dart';
 import 'package:app/app/router/app_router.dart';
 import 'package:app/features/shared/welcome/widgets/role_radio_group.dart';
 import 'package:app_ui/app_ui.dart';
-import 'package:auth_repository/auth_repository.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

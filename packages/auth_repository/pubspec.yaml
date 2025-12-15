@@ -2,22 +2,22 @@ name: auth_repository
 description: "Demal APP Auth Repository."
 resolution: workspace
 version: 0.0.1
-publish_to: none  
+publish_to: none
 
 environment:
   sdk: ^3.10.1
 
 dependencies:
-  api_client:
-    path: ../api_client
   flutter:
     sdk: flutter
+
+  api_client:
+  profile_repository:
+  storage:
+  core:
+
   json_annotation:
   meta:
-  profile_repository:
-    path: ../profile_repository
-  storage:
-    path: ../storage
 dev_dependencies:
   build_runner:
   json_serializable:

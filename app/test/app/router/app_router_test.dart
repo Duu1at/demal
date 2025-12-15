@@ -1,7 +1,6 @@
 import 'package:app/app/cubits/auth_cubit/auth_cubit.dart';
 import 'package:app/app/router/app_router_redirect.dart';
 import 'package:app/app/router/app_routes.dart';
-import 'package:auth_repository/auth_repository.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
@@ -47,8 +46,7 @@ void main() {
 
     group('authenticated', () {
       test('returns null when navigating to settings (global route)', () {
-        const user = UserModel(role: RoleEnum.CLIENT);
-        when(() => authCubit.state).thenReturn(const AuthState.authenticated(user, 'token'));
+        when(() => authCubit.state).thenReturn(const AuthState.authenticated( 'token'));
         when(() => state.uri).thenReturn(Uri.parse(AppRoutes.settings));
 
         final result = appRouterRedirect.handleRedirect(context, state);
@@ -57,8 +55,7 @@ void main() {
       });
 
       test('redirects to client home when role is CLIENT and not on client route', () {
-        const user = UserModel(role: RoleEnum.CLIENT);
-        when(() => authCubit.state).thenReturn(const AuthState.authenticated(user, 'token'));
+        when(() => authCubit.state).thenReturn(const AuthState.authenticated( 'token'));
         when(() => state.uri).thenReturn(Uri.parse('/some/other/path'));
 
         final result = appRouterRedirect.handleRedirect(context, state);
@@ -67,8 +64,7 @@ void main() {
       });
 
       test('returns null when role is CLIENT and on client route', () {
-        const user = UserModel(role: RoleEnum.CLIENT);
-        when(() => authCubit.state).thenReturn(const AuthState.authenticated(user, 'token'));
+        when(() => authCubit.state).thenReturn(const AuthState.authenticated('token'));
         when(() => state.uri).thenReturn(Uri.parse(AppRoutes.clientTourDetailsPath('123')));
 
         final result = appRouterRedirect.handleRedirect(context, state);
@@ -77,8 +73,7 @@ void main() {
       });
 
       test('redirects to partner home when role is PARTNER and not on partner route', () {
-        const user = UserModel(role: RoleEnum.PARTNER);
-        when(() => authCubit.state).thenReturn(const AuthState.authenticated(user, 'token'));
+        when(() => authCubit.state).thenReturn(const AuthState.authenticated( 'token'));
         when(() => state.uri).thenReturn(Uri.parse('/some/other/path'));
 
         final result = appRouterRedirect.handleRedirect(context, state);
@@ -87,8 +82,7 @@ void main() {
       });
 
       test('returns null when role is PARTNER and on partner route', () {
-        const user = UserModel(role: RoleEnum.PARTNER);
-        when(() => authCubit.state).thenReturn(const AuthState.authenticated(user, 'token'));
+        when(() => authCubit.state).thenReturn(const AuthState.authenticated( 'token'));
         when(() => state.uri).thenReturn(Uri.parse('${AppRoutes.partner}/${AppRoutes.partnerCreateTour}'));
 
         final result = appRouterRedirect.handleRedirect(context, state);

@@ -1,4 +1,5 @@
 import 'package:auth_repository/auth_repository.dart';
+import 'package:core/core.dart';
 import 'package:meta/meta.dart';
 
 @immutable
@@ -24,25 +25,6 @@ final class AuthRepositoryeMockImpl implements AuthRepository {
   Future<String> sendOtp(String phoneNumber) async {
     await Future.delayed(const Duration(seconds: 1), () {});
     return 'Succes';
-  }
-
-  @override
-  AuthLoginModel? getUserData() {
-    const user = UserModel(
-      role: RoleEnum.CLIENT,
-      fullName: 'Duulat',
-      createdAt: '',
-      userId: 'testId',
-      phoneNumber: '+996 702 31 36 11',
-    );
-    const data = AuthLoginModel(
-      success: true,
-      authToken: 'auth_token',
-      isNewUser: false,
-      user: user,
-    );
-
-    return data;
   }
 
   @override

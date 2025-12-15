@@ -1,3 +1,4 @@
+import 'package:core/core.dart';
 import 'package:meta/meta.dart';
 import 'package:profile_repository/profile_repository.dart';
 
@@ -33,7 +34,6 @@ final class ProfileRepositoryImpl implements ProfileRepository {
   @override
   Future<PartnerProfileModel> updatePartnerProfile(PartnerProfileParam param) async {
     final partnerProfile = await remoteDataSource.updatePartnerProfile(param);
-    // Refresh profile to get updated verification status
     await getProfile();
     return partnerProfile;
   }
