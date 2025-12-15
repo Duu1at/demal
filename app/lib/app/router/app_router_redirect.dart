@@ -17,14 +17,37 @@ class AppRouterRedirect {
 
     switch (authState.status) {
       case AuthStatus.initial:
+        if (path == '/') return null;
+        return '/';
+
       case AuthStatus.failure:
+        if (path == '/') return null;
         return '/';
 
       case AuthStatus.authenticated:
+        if (path == '/') {
+          return _getInitialRouteForUser(authState.user?.role);
+        }
         return _handleAuthenticatedRedirect(path, authState.user?.role);
 
       case AuthStatus.unauthenticated:
+        if (path == '/') {
+          return onboardingComplete ? AppRoutes.login : AppRoutes.initialSettings;
+        }
         return _handleUnauthenticatedRedirect(path, onboardingComplete);
+    }
+  }
+
+  String _getInitialRouteForUser(RoleEnum? role) {
+    switch (role) {
+      case RoleEnum.CLIENT:
+        return AppRoutes.client;
+      case RoleEnum.PARTNER:
+        return AppRoutes.partnerVerification;
+      case RoleEnum.ADMIN:
+      case RoleEnum.UNKNOWN:
+      case null:
+        return AppRoutes.initialSettings;
     }
   }
 
@@ -54,9 +77,7 @@ class AppRouterRedirect {
     final user = _authCubit.state.user;
     final verificationStatus = user?.partnerProfile?.verificationStatus;
 
-    if (path.startsWith(AppRoutes.partnerVerification) ||
-        path.startsWith(AppRoutes.partnerVerificationStatus) ||
-        path.startsWith(AppRoutes.partnerVerificationRejected)) {
+    if (path.startsWith(AppRoutes.partnerVerification)) {
       return null;
     }
 
@@ -65,6 +86,9 @@ class AppRouterRedirect {
     }
 
     switch (verificationStatus) {
+      case PartnerVerifyStatusEnum.notStarted:
+        return AppRoutes.partnerVerification;
+
       case PartnerVerifyStatusEnum.pending:
         return AppRoutes.partnerVerificationStatus;
 
@@ -72,6 +96,12 @@ class AppRouterRedirect {
         return AppRoutes.partnerVerificationRejected;
 
       case PartnerVerifyStatusEnum.verified:
+        if (path == AppRoutes.partnerVerification ||
+            path == AppRoutes.partnerVerificationStatus ||
+            path == AppRoutes.partnerVerificationRejected) {
+          return AppRoutes.partner;
+        }
+
         if (path.startsWith(AppRoutes.partner)) return null;
         return AppRoutes.partner;
     }

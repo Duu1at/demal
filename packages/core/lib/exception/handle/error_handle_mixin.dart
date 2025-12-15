@@ -1,3 +1,4 @@
+import 'package:api_client/api_client.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 
@@ -9,15 +10,25 @@ abstract class ErrorHandler {
     BuildContext context,
   );
 
-  String parseErrorMessage(Object error) =>
-      error is AppException ? error.getUiMessage() : 'Пожалуйста, попробуйте позже или свяжитесь с поддержкой';
+  String parseErrorMessage(Object error) {
+    if (error is AppException) return error.getUiMessage();
+    if (error is DioException) {
+      return error.errorMessage ?? 'Пожалуйста, попробуйте позже или свяжитесь с поддержкой';
+    }
+    return 'Пожалуйста, попробуйте позже или свяжитесь с поддержкой';
+  }
 
   ErrorModel parseErrorModel(Object error) {
-    return error is AppException
-        ? error.getModel()
-        : const ErrorModel(
-            title: 'Что-то пошло не так',
-            message: 'Пожалуйста, попробуйте позже или свяжитесь с поддержкой',
-          );
+    if (error is AppException) return error.getModel();
+    if (error is DioException) {
+      return ErrorModel(
+        title: 'Ошибка',
+        message: error.errorMessage ?? 'Пожалуйста, попробуйте позже или свяжитесь с поддержкой',
+      );
+    }
+    return const ErrorModel(
+      title: 'Что-то пошло не так',
+      message: 'Пожалуйста, попробуйте позже или свяжитесь с поддержкой',
+    );
   }
 }

@@ -1,7 +1,7 @@
 import 'package:auth_repository/enums/role_enum.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
-import 'package:profile_repository/profile_repository.dart' as profile_repo;
+import 'package:profile_repository/profile_repository.dart';
 
 part 'user_model.g.dart';
 
@@ -38,7 +38,7 @@ final class UserModel {
   final String? createdAt;
 
   @JsonKey(name: 'partner_profile')
-  final profile_repo.PartnerProfileModel? partnerProfile;
+  final PartnerProfileModel? partnerProfile;
 
   UserModel copyWith({
     String? userId,
@@ -47,7 +47,7 @@ final class UserModel {
     RoleEnum? role,
     String? imageUrl,
     String? createdAt,
-    profile_repo.PartnerProfileModel? partnerProfile,
+    PartnerProfileModel? partnerProfile,
   }) {
     return UserModel(
       userId: userId ?? this.userId,

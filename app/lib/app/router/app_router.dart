@@ -15,14 +15,16 @@ export 'route_args.dart';
 
 class GoRouterRefreshStream extends ChangeNotifier {
   GoRouterRefreshStream(Stream<dynamic> stream) {
-    _subscription = stream.listen((_) => notifyListeners());
+    _subscription = stream.asBroadcastStream().listen(
+      (_) => notifyListeners(),
+    );
   }
 
   late final StreamSubscription<dynamic> _subscription;
 
   @override
-  Future<void> dispose() async {
-    await _subscription.cancel();
+  void dispose() {
+    _subscription.cancel();
     super.dispose();
   }
 }

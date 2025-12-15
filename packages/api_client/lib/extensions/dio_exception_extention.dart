@@ -23,8 +23,10 @@ extension DioExceptionX on DioException {
     final data = response?.data;
     if (data is String) {
       return data;
-    } else if (data is Map<String, dynamic> && data.containsKey('error')) {
-      return data['error'] as String;
+    } else if (data is Map<String, dynamic>) {
+      if (data.containsKey('message')) {
+        return data['message'] as String;
+      }
     }
     return null;
   }

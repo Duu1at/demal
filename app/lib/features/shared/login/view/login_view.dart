@@ -55,8 +55,9 @@ class __LoginViewState extends State<_LoginView> {
             mainAxisSize: MainAxisSize.min,
             children: [
               CircleAvatar(
-                radius: 40,
-                backgroundColor: Theme.of(context).colorScheme.primary,
+                radius: 50,
+                backgroundColor: Colors.transparent,
+                child: Assets.images.logo.image(),
               ),
 
               Text(

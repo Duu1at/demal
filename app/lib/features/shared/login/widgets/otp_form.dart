@@ -120,8 +120,8 @@ class _OtpFormState extends State<OtpForm> {
                   ],
                 ),
                 hapticFeedbackType: HapticFeedbackType.lightImpact,
-                onCompleted: (pin) async {
-                  await context.read<OtpCubit>().verifyOtpCode(
+                onCompleted: (pin) {
+                  context.read<OtpCubit>().verifyOtpCode(
                     phoneNumber: widget.phoneNumer,
                     pin: pin,
                   );
@@ -137,7 +137,10 @@ class _OtpFormState extends State<OtpForm> {
               listener: (context, state) {
                 final verifyStatus = state.verifyStatus;
                 if (verifyStatus is RequestSuccess<AuthLoginModel>) {
-                  context.read<AuthCubit>().checkAuthStatus();
+                  context.read<AuthCubit>().checkAuthStatus().then((_) {
+                    if (!context.mounted) return;
+                    context.read<AuthCubit>().refreshProfile();
+                  });
                 }
                 if (verifyStatus is RequestFailure<AuthLoginModel>) {
                   context.read<ErrorHandler>().handleError(
@@ -150,11 +153,12 @@ class _OtpFormState extends State<OtpForm> {
               },
               child: AppButton(
                 child: const Text('Проверить'),
-                onPressed: () async {
+                onPressed: () {
                   focusNode.unfocus();
                   if (formKey.currentState!.validate()) {
                     final pin = pinController.text.trim();
-                    await context.read<OtpCubit>().verifyOtpCode(
+                    if (pin.length != 4) return;
+                    context.read<OtpCubit>().verifyOtpCode(
                       phoneNumber: widget.phoneNumer,
                       pin: pin,
                     );

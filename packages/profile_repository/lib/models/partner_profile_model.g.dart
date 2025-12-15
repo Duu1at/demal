@@ -30,6 +30,7 @@ Map<String, dynamic> _$PartnerProfileModelToJson(
 };
 
 const _$PartnerVerifyStatusEnumEnumMap = {
+  PartnerVerifyStatusEnum.notStarted: 'NOT_STARTED',
   PartnerVerifyStatusEnum.pending: 'PENDING',
   PartnerVerifyStatusEnum.verified: 'VERIFIED',
   PartnerVerifyStatusEnum.rejected: 'REJECTED',
