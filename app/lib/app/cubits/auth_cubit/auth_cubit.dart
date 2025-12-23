@@ -3,13 +3,20 @@ import 'package:auth_repository/auth_repository.dart';
 import 'package:core/core.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:profile_repository/profile_repository.dart';
 
 part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
-  AuthCubit(this._repository) : super(const AuthState.initial());
+  AuthCubit({
+    required AuthRepository authRepository,
+    required ProfileRepository profileRepository,
+  }) : _repository = authRepository,
+       _profileRepository = profileRepository,
+       super(const AuthState.initial());
 
   final AuthRepository _repository;
+  final ProfileRepository _profileRepository;
 
   Future<void> checkAuthStatus() async {
     try {
@@ -17,9 +24,7 @@ class AuthCubit extends Cubit<AuthState> {
       final onboardingStatus = _repository.getOnboardingStatus();
 
       if (token == null) {
-        emit(
-          AuthState.unauthenticated(hasCompletedOnboarding: onboardingStatus),
-        );
+        emit(AuthState.unauthenticated(hasCompletedOnboarding: onboardingStatus));
         return;
       }
 
@@ -49,6 +54,7 @@ class AuthCubit extends Cubit<AuthState> {
   Future<void> deleteAccount() async {
     await Future.wait([
       _repository.deleteAccount(),
+      _profileRepository.deleteProfileData(),
       _repository.saveOnboardingStatus(false),
     ]);
     emit(const AuthState.unauthenticated(hasCompletedOnboarding: false));

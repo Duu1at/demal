@@ -4,7 +4,10 @@ import 'package:core/core.dart';
 abstract class AuthRepository {
   String? getToken();
   Future<String> sendOtp(String phoneNumber);
-  Future<AuthLoginModel> verifyOtp(String phoneNumber, String otpCode, String role);
+  Future<AuthLoginModel> verifyOtp(
+    String phoneNumber,
+    String otpCode,
+  );
   Future<void> deleteAccount();
   Future<void> logOut();
   Future<void> saveOnboardingStatus(bool completed);

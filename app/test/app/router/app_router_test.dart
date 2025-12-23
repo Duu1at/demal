@@ -46,7 +46,7 @@ void main() {
 
     group('authenticated', () {
       test('returns null when navigating to settings (global route)', () {
-        when(() => authCubit.state).thenReturn(const AuthState.authenticated( 'token'));
+        when(() => authCubit.state).thenReturn(const AuthState.authenticated('token'));
         when(() => state.uri).thenReturn(Uri.parse(AppRoutes.settings));
 
         final result = appRouterRedirect.handleRedirect(context, state);
@@ -55,7 +55,7 @@ void main() {
       });
 
       test('redirects to client home when role is CLIENT and not on client route', () {
-        when(() => authCubit.state).thenReturn(const AuthState.authenticated( 'token'));
+        when(() => authCubit.state).thenReturn(const AuthState.authenticated('token'));
         when(() => state.uri).thenReturn(Uri.parse('/some/other/path'));
 
         final result = appRouterRedirect.handleRedirect(context, state);
@@ -73,7 +73,7 @@ void main() {
       });
 
       test('redirects to partner home when role is PARTNER and not on partner route', () {
-        when(() => authCubit.state).thenReturn(const AuthState.authenticated( 'token'));
+        when(() => authCubit.state).thenReturn(const AuthState.authenticated('token'));
         when(() => state.uri).thenReturn(Uri.parse('/some/other/path'));
 
         final result = appRouterRedirect.handleRedirect(context, state);
@@ -82,7 +82,7 @@ void main() {
       });
 
       test('returns null when role is PARTNER and on partner route', () {
-        when(() => authCubit.state).thenReturn(const AuthState.authenticated( 'token'));
+        when(() => authCubit.state).thenReturn(const AuthState.authenticated('token'));
         when(() => state.uri).thenReturn(Uri.parse('${AppRoutes.partner}/${AppRoutes.partnerCreateTour}'));
 
         final result = appRouterRedirect.handleRedirect(context, state);

@@ -42,4 +42,9 @@ final class ProfileRepositoryImpl implements ProfileRepository {
   ProfileModel getProfileFromLocal() {
     return localDataSource.getProfileData();
   }
+
+  @override
+  Future<void> deleteProfileData() async {
+    await localDataSource.deleteProfileData();
+  }
 }

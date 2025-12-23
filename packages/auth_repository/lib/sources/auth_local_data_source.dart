@@ -1,16 +1,19 @@
-
 import 'package:auth_repository/auth_repository.dart';
 import 'package:core/core.dart';
 import 'package:meta/meta.dart';
 import 'package:storage/storage.dart';
 
 @immutable
-final class AuthLocalDataSource {
+class AuthLocalDataSource {
   const AuthLocalDataSource(this.storage);
   final PreferencesStorage storage;
 
   Future<void> deleteAccount() async {
-    await logOut();
+    await Future.wait([
+      storage.delete(key: AuthStorageKey.tokenKey),
+      storage.delete(key: AuthStorageKey.onboardingKey),
+      storage.delete(key: AuthStorageKey.roleKey),
+    ]);
   }
 
   String? getToken() {
@@ -18,16 +21,20 @@ final class AuthLocalDataSource {
   }
 
   Future<void> logOut() async {
-    await Future.wait([
-      storage.delete(key: AuthStorageKey.tokenKey),
-      storage.delete(key: AuthStorageKey.roleKey),
-    ]);
+    await storage.delete(key: AuthStorageKey.tokenKey);
   }
 
   Future<void> saveOnboardingStatus(bool completed) async {
     await storage.writeBool(
       key: AuthStorageKey.onboardingKey,
       value: completed,
+    );
+  }
+
+  Future<void> saveToken(String token) async {
+    await storage.writeString(
+      key: AuthStorageKey.tokenKey,
+      value: token,
     );
   }
 

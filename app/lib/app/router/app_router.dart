@@ -103,7 +103,6 @@ final class AppRouter {
           name: AppRoutes.otp,
           builder: (context, state) {
             final extra = state.extra as OtpArgs?;
-
             if (extra == null) return const ErrorView();
 
             return BlocProvider.value(

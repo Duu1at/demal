@@ -3,7 +3,7 @@ import 'package:auth_repository/auth_repository.dart';
 import 'package:meta/meta.dart';
 
 @immutable
-final class AuthRemoteDataSource {
+class AuthRemoteDataSource {
   const AuthRemoteDataSource(this.client);
 
   final ApiClient client;
@@ -17,13 +17,10 @@ final class AuthRemoteDataSource {
     return result.data?['message'] as String;
   }
 
-  Future<AuthLoginModel> verifyOtp(String phoneNumber, String otpCode, String role) {
+  Future<AuthLoginModel> verifyOtp(String phoneNumber, String otpCode) {
     return client.postType(
       '/api/v1/auth/verify-otp',
       data: {'phone_number': '+996$phoneNumber', 'otp_code': otpCode},
-      params: PostApiParams(
-        options: Options(headers: {'x-app-role': role}),
-      ),
       fromJson: AuthLoginModel.fromJson,
     );
   }

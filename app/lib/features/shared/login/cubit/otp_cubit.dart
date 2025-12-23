@@ -30,13 +30,8 @@ class OtpCubit extends Cubit<OtpState> {
     required String pin,
   }) async {
     emit(state.copyWith(verifyStatus: RequestLoading()));
-    final role = storage.readString(key: AuthStorageKey.roleKey);
     try {
-      if (role == null) {
-        emit(state.copyWith(verifyStatus: const RequestFailure('Role not found')));
-        return;
-      }
-      final res = await repository.verifyOtp(phoneNumber, pin, role);
+      final res = await repository.verifyOtp(phoneNumber, pin);
       emit(state.copyWith(verifyStatus: RequestSuccess(res)));
     } on Object catch (e) {
       emit(state.copyWith(verifyStatus: RequestFailure(e)));

@@ -32,13 +32,11 @@ class App extends StatelessWidget {
             authRemoteDataSource: AuthRemoteDataSource(context.read<ApiClient>()),
           ),
         ),
-
         RepositoryProvider<TourRepository>(
           create: (context) => TourRepositoryImpl(
             TourRemoteDataSource(context.read<ApiClient>()),
           ),
         ),
-
         RepositoryProvider<BookingsRepository>(
           create: (context) => BookingRepositoryImpl(
             BookingRemoteDataSource(context.read<ApiClient>()),
@@ -56,7 +54,6 @@ class App extends StatelessWidget {
         RepositoryProvider<ErrorHandler>(create: (context) => const BaseErrorHandler()),
         RepositoryProvider<ErrorHandleSnackBar>(create: (context) => const ErrorHandleSnackBar()),
         RepositoryProvider<ErrorHandleDialog>(create: (context) => const ErrorHandleDialog()),
-
         BlocProvider<AppThemeCubit>(
           create: (context) => AppThemeCubit(context.read<AppRepository>()),
         ),
@@ -65,7 +62,8 @@ class App extends StatelessWidget {
         ),
         BlocProvider<AuthCubit>(
           create: (context) => AuthCubit(
-            context.read<AuthRepository>(),
+            profileRepository: context.read<ProfileRepository>(),
+            authRepository: context.read<AuthRepository>(),
           )..checkAuthStatus(),
         ),
       ],
@@ -87,7 +85,6 @@ class _DemalAppState extends State<DemalApp> {
   @override
   void initState() {
     super.initState();
-
     final authCubit = context.read<AuthCubit>();
     _router = AppRouter.instance().router(authCubit);
   }

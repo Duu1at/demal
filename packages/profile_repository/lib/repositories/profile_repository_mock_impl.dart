@@ -26,10 +26,7 @@ final class ProfileRepositoryMockImpl implements ProfileRepository {
       createdAt: '2024-01-01T00:00:00.000Z',
       partnerProfile: null,
     );
-    return const ProfileModel(
-      success: true,
-      user: user
-    );
+    return const ProfileModel(success: true, user: user);
   }
 
   @override
@@ -98,5 +95,10 @@ final class ProfileRepositoryMockImpl implements ProfileRepository {
       cardNumber: param.cardNumber,
       verificationStatus: PartnerVerifyStatusEnum.pending,
     );
+  }
+
+  @override
+  Future<void> deleteProfileData() async {
+    await Future<void>.delayed(delay);
   }
 }

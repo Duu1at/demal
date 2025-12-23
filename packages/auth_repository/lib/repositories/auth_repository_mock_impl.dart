@@ -28,7 +28,7 @@ final class AuthRepositoryeMockImpl implements AuthRepository {
   }
 
   @override
-  Future<AuthLoginModel> verifyOtp(String phoneNumber, String otpCode, String role) async {
+  Future<AuthLoginModel> verifyOtp(String phoneNumber, String otpCode) async {
     await Future.delayed(const Duration(seconds: 1), () {});
     const user = UserModel(
       role: RoleEnum.CLIENT,

@@ -18,7 +18,11 @@ final class ProfileLocalDataSource {
   }
 
   ProfileModel getProfileData() {
-    final json = storage.readString(key: profileKey) ?? '{}';
-    return ProfileModel.fromJson(jsonDecode(json) as Map<String, dynamic>);
+    final json = storage.readString(key: profileKey);
+    return ProfileModel.fromJson(jsonDecode(json ?? '{}') as Map<String, dynamic>);
+  }
+
+  Future<void> deleteProfileData() async {
+    await storage.delete(key: profileKey);
   }
 }

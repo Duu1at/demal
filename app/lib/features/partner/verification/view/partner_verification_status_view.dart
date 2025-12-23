@@ -42,9 +42,7 @@ class PartnerVerificationStatusView extends StatelessWidget {
                     ),
                     const SizedBox(height: AppSpacing.md),
                     AppButton(
-                      onPressed: () {
-
-                      },
+                      onPressed: () {},
                       child: const Text('Повторить'),
                     ),
                   ],
@@ -101,9 +99,7 @@ class PartnerVerificationStatusView extends StatelessWidget {
                   ],
                   const SizedBox(height: AppSpacing.xxlg),
                   AppButton(
-                    onPressed: ()  {
-                     
-                    },
+                    onPressed: () {},
                     child: const Text('Обновить статус'),
                   ),
                   const SizedBox(height: AppSpacing.md),
