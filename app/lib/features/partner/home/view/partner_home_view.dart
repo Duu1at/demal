@@ -30,7 +30,7 @@ class _PartnerHomeView extends StatelessWidget {
     return Scaffold(
       appBar: HomeAppBar(
         onMenuTap: () {
-          final rootContext = AppRouter.navigatorKey.currentContext;
+          final rootContext = AppRoutes.navigatorKey.currentContext;
           if (rootContext == null) return;
           GoRouter.of(rootContext).pushNamed(AppRoutes.settings);
         },

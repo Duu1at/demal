@@ -1,6 +1,6 @@
 name: app
 description: Demal APP UI package.
-publish_to: 'none' 
+publish_to: "none"
 resolution: workspace
 
 version: 1.0.0+1
@@ -12,7 +12,7 @@ flutter:
   uses-material-design: true
 
 dependencies:
-# custom packages
+  # custom packages
   api_client:
   app_ui:
   auth_repository:
@@ -22,7 +22,7 @@ dependencies:
   upload_repository:
   core:
 
-# dependencies
+  # dependencies
   bloc_concurrency:
   cached_network_image:
   carousel_slider:
@@ -54,7 +54,6 @@ dependencies:
   json_annotation:
   intl:
 
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -63,9 +62,17 @@ dev_dependencies:
   json_serializable:
   mocktail:
   flutter_launcher_icons:
+  flutter_native_splash:
 
 flutter_launcher_icons:
   android: "launcher_icon"
   ios: true
   image_path: "../packages/app_ui/assets/images/logo.png"
   min_sdk_android: 21
+
+flutter_native_splash:
+  color: "#ffffff"
+  image: "../packages/app_ui/assets/images/logo.png"
+  android_12:
+    image: "../packages/app_ui/assets/images/logo.png"
+    color: "#ffffff"

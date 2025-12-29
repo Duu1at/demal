@@ -5,7 +5,6 @@ import 'package:app/app/router/app_router_redirect.dart';
 import 'package:app/features/features.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tour_repository/tour_repository.dart';
@@ -34,18 +33,15 @@ final class AppRouter {
   factory AppRouter.instance() => const AppRouter._();
   const AppRouter._();
 
-  static final navigatorKey = GlobalKey<NavigatorState>();
-  static final scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
-
   GoRouter router(AuthCubit authCubit) {
     return GoRouter(
       initialLocation: '/',
-      navigatorKey: navigatorKey,
+      navigatorKey: AppRoutes.navigatorKey,
       debugLogDiagnostics: kDebugMode,
       refreshListenable: GoRouterRefreshStream(authCubit.stream),
       redirect: AppRouterRedirect(authCubit).handleRedirect,
       routes: _buildRoutes(),
-      errorBuilder: (context, state) => const ErrorView(),
+      errorBuilder: (_, _) => const ErrorView(),
     );
   }
 
@@ -119,7 +115,7 @@ final class AppRouter {
     return GoRoute(
       path: AppRoutes.settings,
       name: AppRoutes.settings,
-      parentNavigatorKey: navigatorKey,
+      parentNavigatorKey: AppRoutes.navigatorKey,
       builder: (context, state) => const SettingsView(),
       routes: [
         GoRoute(
@@ -135,7 +131,7 @@ final class AppRouter {
     return GoRoute(
       path: AppRoutes.client,
       name: AppRoutes.client,
-      parentNavigatorKey: navigatorKey,
+      parentNavigatorKey: AppRoutes.navigatorKey,
       builder: (context, state) => const ClientHomeView(),
       routes: [
         GoRoute(
@@ -182,7 +178,7 @@ final class AppRouter {
     return GoRoute(
       path: AppRoutes.partnerVerification,
       name: AppRoutes.partnerVerification,
-      parentNavigatorKey: navigatorKey,
+      parentNavigatorKey: AppRoutes.navigatorKey,
       builder: (context, state) => const PartnerVerificationView(),
       routes: [
         GoRoute(
@@ -203,7 +199,7 @@ final class AppRouter {
     return GoRoute(
       path: AppRoutes.partner,
       name: AppRoutes.partner,
-      parentNavigatorKey: navigatorKey,
+      parentNavigatorKey: AppRoutes.navigatorKey,
       builder: (context, state) => const PartnerHomeView(),
       routes: [
         GoRoute(

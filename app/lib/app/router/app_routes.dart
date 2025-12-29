@@ -1,4 +1,8 @@
+import 'package:flutter/material.dart';
+
 abstract class AppRoutes {
+  static final navigatorKey = GlobalKey<NavigatorState>();
+  static final scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
   // Onboarding
   static const initialSettings = '/initial-settings';
   static const onboardingOne = 'onboarding-one';
