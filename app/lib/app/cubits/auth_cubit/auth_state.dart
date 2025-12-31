@@ -11,11 +11,20 @@ final class AuthState extends Equatable {
 
   const AuthState.initial() : this(status: AuthStatus.initial);
 
-  const AuthState.authenticated(UserModel user) : this(status: AuthStatus.authenticated, user: user);
+  const AuthState.authenticated(UserModel user, String token)
+    : this(
+        status: AuthStatus.authenticated,
+        user: user,
+        token: token,
+      );
 
   const AuthState.unauthenticated() : this(status: AuthStatus.unauthenticated);
 
-  const AuthState.failure(Object message) : this(status: AuthStatus.failure, errorMessage: message);
+  const AuthState.failure(Object message)
+    : this(
+        status: AuthStatus.failure,
+        errorMessage: message,
+      );
 
   final AuthStatus status;
   final UserModel? user;

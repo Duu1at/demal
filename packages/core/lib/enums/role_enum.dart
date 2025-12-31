@@ -6,4 +6,6 @@ enum RoleEnum {
   PARTNER,
   @JsonValue('CLIENT')
   CLIENT,
+  @JsonValue('')
+  GUEST,
 }

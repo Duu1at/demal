@@ -153,7 +153,7 @@ class Step1BasicInfo extends StatelessWidget {
                   const SizedBox(width: AppSpacing.md),
                   Expanded(
                     child: DropdownButtonFormField<String>(
-                      value: state.currency,
+                      initialValue: state.currency,
                       decoration: InputDecoration(
                         contentPadding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm, vertical: AppSpacing.sm),
                         labelText: 'Валюта',
