@@ -20,61 +20,32 @@ class AuthCubit extends Cubit<AuthState> {
 
   Future<void> checkAuthStatus() async {
     try {
-      final token = _repository.getToken();
-      final onboardingStatus = _repository.getOnboardingStatus();
-
-      if (token == null) {
-        emit(AuthState.unauthenticated(hasCompletedOnboarding: onboardingStatus));
+      final user = _profileRepository.getProfileFromLocal();
+      if (user == null) {
+        emit(const AuthState.unauthenticated());
         return;
       }
-
-      emit(
-        AuthState.authenticated(
-          token,
-          hasCompletedOnboarding: onboardingStatus,
-        ),
-      );
+      emit(AuthState.authenticated(user));
     } on Object catch (e) {
       emit(AuthState.failure(e));
     }
   }
 
-  Future<void> changeRole(RoleEnum role) async {
-    await _repository.setRole(role);
-
-    emit(state.copyWith(role: role));
-  }
 
   Future<void> logout() async {
-    final onboardingStatus = state.hasCompletedOnboarding;
     await _repository.logOut();
-    emit(AuthState.unauthenticated(hasCompletedOnboarding: onboardingStatus));
+    emit(const AuthState.unauthenticated());
   }
 
   Future<void> deleteAccount() async {
     await Future.wait([
       _repository.deleteAccount(),
       _profileRepository.deleteProfileData(),
-      _repository.saveOnboardingStatus(false),
     ]);
-    emit(const AuthState.unauthenticated(hasCompletedOnboarding: false));
+    emit(const AuthState.unauthenticated());
   }
 
   Future<void> login(UserModel user, String token) async {
-    if (!state.hasCompletedOnboarding) {
-      await _repository.saveOnboardingStatus(true);
-    }
-
-    emit(AuthState.authenticated(token));
-  }
-
-  Future<void> completeOnboarding() async {
-    await _repository.saveOnboardingStatus(true);
-    emit(
-      state.copyWith(
-        hasCompletedOnboarding: true,
-        status: AuthStatus.unauthenticated,
-      ),
-    );
+    emit(AuthState.authenticated(user));
   }
 }

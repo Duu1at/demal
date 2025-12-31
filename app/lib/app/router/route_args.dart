@@ -2,10 +2,10 @@ import 'package:app/features/features.dart';
 
 class OtpArgs {
   const OtpArgs({
-    required this.phoneNumber,
+    required this.email,
     required this.otpCubit,
   });
 
-  final String phoneNumber;
+  final String email;
   final OtpCubit otpCubit;
 }

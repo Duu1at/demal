@@ -14,10 +14,10 @@ class OtpCubit extends Cubit<OtpState> {
   final PreferencesStorage storage;
   Timer? _timer;
 
-  Future<void> sendOtp(String phoneNumber) async {
+  Future<void> sendOtp(String email) async {
     emit(state.copyWith(sendStatus: RequestLoading()));
     try {
-      await repository.sendOtp(phoneNumber);
+      await repository.sendOtp(email);
       emit(state.copyWith(sendStatus: const RequestSuccess(null)));
       startTimer();
     } on Object catch (e) {
@@ -26,12 +26,12 @@ class OtpCubit extends Cubit<OtpState> {
   }
 
   Future<void> verifyOtpCode({
-    required String phoneNumber,
+    required String email,
     required String pin,
   }) async {
     emit(state.copyWith(verifyStatus: RequestLoading()));
     try {
-      final res = await repository.verifyOtp(phoneNumber, pin);
+      final res = await repository.verifyOtp(email, pin);
       emit(state.copyWith(verifyStatus: RequestSuccess(res)));
     } on Object catch (e) {
       emit(state.copyWith(verifyStatus: RequestFailure(e)));

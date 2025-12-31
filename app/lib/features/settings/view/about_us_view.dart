@@ -1,4 +1,4 @@
-import 'package:app/features/shared/settings/widgets/tour_benefits.dart';
+import 'package:app/features/settings/widgets/tour_benefits.dart';
 import 'package:app/utils/utils.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:core/core.dart';

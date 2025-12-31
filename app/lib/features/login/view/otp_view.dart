@@ -1,10 +1,10 @@
-import 'package:app/features/shared/login/widgets/otp_form.dart';
+import 'package:app/features/login/widgets/otp_form.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 
 class OtpView extends StatelessWidget {
-  const OtpView(this.phoneNumer, {super.key});
-  final String phoneNumer;
+  const OtpView(this.email, {super.key});
+  final String email;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class OtpView extends StatelessWidget {
               children: [Assets.images.otpImage.image()],
             ),
             const SizedBox(height: AppSpacing.spaceUnit * 3.5),
-            OtpForm(phoneNumer),
+            OtpForm(email),
           ],
         ),
       ),

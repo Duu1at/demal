@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:app/app/app.dart';
-import 'package:app/app/router/app_router_redirect.dart';
 import 'package:app/features/features.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/foundation.dart';
@@ -10,6 +9,7 @@ import 'package:go_router/go_router.dart';
 import 'package:tour_repository/tour_repository.dart';
 
 export 'app_routes.dart';
+export 'app_router_redirect.dart';
 export 'route_args.dart';
 
 class GoRouterRefreshStream extends ChangeNotifier {
@@ -47,8 +47,6 @@ final class AppRouter {
 
   List<RouteBase> _buildRoutes() {
     return [
-      _splashRoute(),
-      _onboardingRoutes(),
       _authRoutes(),
       _settingsRoutes(),
       _clientRoutes(),
@@ -57,40 +55,10 @@ final class AppRouter {
     ];
   }
 
-  GoRoute _splashRoute() {
-    return GoRoute(
-      path: '/',
-      builder: (context, state) => const SplashView(),
-    );
-  }
-
-  GoRoute _onboardingRoutes() {
-    return GoRoute(
-      path: AppRoutes.initialSettings,
-      builder: (context, state) => const InitialSettingsView(),
-      routes: [
-        GoRoute(
-          path: AppRoutes.onboardingOne,
-          name: AppRoutes.onboardingOne,
-          builder: (context, state) => const OnboardingOneView(),
-        ),
-        GoRoute(
-          path: AppRoutes.onboardingTwo,
-          name: AppRoutes.onboardingTwo,
-          builder: (context, state) => const OnboardingTwoView(),
-        ),
-        GoRoute(
-          path: AppRoutes.onboardingThree,
-          name: AppRoutes.onboardingThree,
-          builder: (context, state) => const OnboardingThreeView(),
-        ),
-      ],
-    );
-  }
 
   GoRoute _authRoutes() {
     return GoRoute(
-      path: AppRoutes.login,
+      path: '/',
       name: AppRoutes.login,
       builder: (context, state) => const LoginView(),
       routes: [
@@ -100,10 +68,9 @@ final class AppRouter {
           builder: (context, state) {
             final extra = state.extra as OtpArgs?;
             if (extra == null) return const ErrorView();
-
             return BlocProvider.value(
               value: extra.otpCubit,
-              child: OtpView(extra.phoneNumber),
+              child: OtpView(extra.email),
             );
           },
         ),
@@ -130,7 +97,6 @@ final class AppRouter {
   GoRoute _clientRoutes() {
     return GoRoute(
       path: AppRoutes.client,
-      name: AppRoutes.client,
       parentNavigatorKey: AppRoutes.navigatorKey,
       builder: (context, state) => const ClientHomeView(),
       routes: [

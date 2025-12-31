@@ -15,7 +15,7 @@ final class ProfileRepositoryMockImpl implements ProfileRepository {
   final Duration delay;
 
   @override
-  Future<ProfileModel> getProfile() async {
+  Future<UserModel> getProfile() async {
     await Future<void>.delayed(delay);
     const user = UserModel(
       userId: 'test-user-id',
@@ -26,11 +26,11 @@ final class ProfileRepositoryMockImpl implements ProfileRepository {
       createdAt: '2024-01-01T00:00:00.000Z',
       partnerProfile: null,
     );
-    return const ProfileModel(success: true, user: user);
+    return user;
   }
 
   @override
-  Future<ProfileModel> updateProfile(ProfileUpdateParam param) async {
+  Future<UserModel> updateProfile(ProfileUpdateParam param) async {
     await Future<void>.delayed(delay);
     final user = UserModel(
       userId: 'test-user-id',
@@ -41,14 +41,11 @@ final class ProfileRepositoryMockImpl implements ProfileRepository {
       createdAt: '2024-01-01T00:00:00.000Z',
       partnerProfile: null,
     );
-    return ProfileModel(
-      success: true,
-      user: user,
-    );
+    return user;
   }
 
   @override
-  ProfileModel getProfileFromLocal() {
+  UserModel getProfileFromLocal() {
     const user = UserModel(
       userId: 'test-user-id',
       phoneNumber: '+996702313611',
@@ -58,10 +55,7 @@ final class ProfileRepositoryMockImpl implements ProfileRepository {
       createdAt: '2024-01-01T00:00:00.000Z',
       partnerProfile: null,
     );
-    return const ProfileModel(
-      success: true,
-      user: user,
-    );
+    return user;
   }
 
   @override

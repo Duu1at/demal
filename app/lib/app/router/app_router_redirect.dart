@@ -5,15 +5,35 @@ import 'package:go_router/go_router.dart';
 
 class AppRouterRedirect {
   const AppRouterRedirect(this._authCubit);
-
-  // ignore: unused_field
   final AuthCubit _authCubit;
 
   String? handleRedirect(BuildContext context, GoRouterState state) {
-    // Bypass auth, go straight to home page (client view)
+    final status = _authCubit.state.status;
+    final isUnauthenticated = status == AuthStatus.unauthenticated;
     final path = state.uri.path;
-    if (path == '/') {
-      return AppRoutes.client;
+
+    final isPublicRoute =
+        path == '/' ||
+        path.startsWith('/client/tour_details/') ||
+        path.startsWith('/onboarding') ||
+        path == '/settings' ||
+        path == '/settings/about_us';
+
+    final isAuthRoute = path.startsWith('/login') || path == '/otp';
+
+    if (isUnauthenticated) {
+      if (isAuthRoute || isPublicRoute) {
+        return null;
+      }
+      return AppRoutes.login;
+    }
+
+    if (!isUnauthenticated && isAuthRoute) {
+      return '/';
+    }
+
+    if (!isUnauthenticated && path.startsWith('/onboarding')) {
+      return '/';
     }
 
     return null;

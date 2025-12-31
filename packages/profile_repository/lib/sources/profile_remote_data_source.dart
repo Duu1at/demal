@@ -9,19 +9,19 @@ final class ProfileRemoteDataSource {
 
   final ApiClient apiClient;
 
-  Future<ProfileModel> getProfile() {
-    return apiClient.getType<ProfileModel>(
+  Future<UserModel> getProfile() async {
+    final response = await apiClient.getResponse<Map<String, dynamic>>(
       '/api/v1/users/me',
-      fromJson: ProfileModel.fromJson,
     );
+    return UserModel.fromJson(response.data?['user'] as Map<String, dynamic>);
   }
 
-  Future<ProfileModel> updateProfile(ProfileUpdateParam param) {
-    return apiClient.patchType<ProfileModel>(
+  Future<UserModel> updateProfile(ProfileUpdateParam param) async {
+    final response = await apiClient.patchResponse<Map<String, dynamic>>(
       '/api/v1/users/profile',
       data: param.toJson(),
-      fromJson: ProfileModel.fromJson,
     );
+    return UserModel.fromJson(response.data?['user'] as Map<String, dynamic>);
   }
 
   Future<PartnerVerifyStatusModel> getPartnerVerifyStatus() {

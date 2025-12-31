@@ -1,11 +1,10 @@
-import 'package:auth_repository/auth_repository.dart';
 import 'package:core/core.dart';
 
 abstract class AuthRepository {
   String? getToken();
-  Future<String> sendOtp(String phoneNumber);
-  Future<AuthLoginModel> verifyOtp(
-    String phoneNumber,
+  Future<String> sendOtp(String email);
+  Future<String> verifyOtp(
+    String email,
     String otpCode,
   );
   Future<void> deleteAccount();

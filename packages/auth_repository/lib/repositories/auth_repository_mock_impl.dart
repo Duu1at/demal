@@ -22,29 +22,19 @@ final class AuthRepositoryeMockImpl implements AuthRepository {
   }
 
   @override
-  Future<String> sendOtp(String phoneNumber) async {
+  Future<String> sendOtp(String email) async {
     await Future.delayed(const Duration(seconds: 1), () {});
     return 'Succes';
   }
 
   @override
-  Future<AuthLoginModel> verifyOtp(String phoneNumber, String otpCode) async {
+  Future<String> verifyOtp(
+    String email,
+    String otpCode,
+  ) async {
     await Future.delayed(const Duration(seconds: 1), () {});
-    const user = UserModel(
-      role: RoleEnum.CLIENT,
-      fullName: 'Duulat',
-      createdAt: '',
-      userId: 'testId',
-      phoneNumber: '+996 702 31 36 11',
-      partnerProfile: null,
-    );
-    const authModel = AuthLoginModel(
-      success: true,
-      authToken: 'test',
-      isNewUser: false,
-      user: user,
-    );
-    return authModel;
+
+    return 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3NzRjYjlkYS05YzI0LTQ0NWItYmY5My1iODVmZTZhN2ZlNmQiLCJlbWFpbCI6ImRib2xzdW5iZWt1dWx1QGdtYWlsLmNvbSIsInJvbGUiOiJDTElFTlQiLCJpYXQiOjE3NjcxMjE1NzMsImV4cCI6MTc2NzcyNjM3M30.GfDCfs92aEjCuWiAqgx6sa35lrXQpp7jXnowisyd0Uc';
   }
 
   @override

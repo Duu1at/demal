@@ -1,4 +1,4 @@
-import 'package:app/features/shared/settings/widgets/bullet_point.dart';
+import 'package:app/features/settings/widgets/bullet_point.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';

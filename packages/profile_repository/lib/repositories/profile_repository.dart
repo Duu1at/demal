@@ -2,9 +2,9 @@ import 'package:core/core.dart';
 import 'package:profile_repository/profile_repository.dart';
 
 abstract class ProfileRepository {
-  Future<ProfileModel> getProfile();
-  Future<ProfileModel> updateProfile(ProfileUpdateParam param);
-  ProfileModel getProfileFromLocal();
+  Future<UserModel> getProfile();
+  Future<UserModel> updateProfile(ProfileUpdateParam param);
+  UserModel? getProfileFromLocal();
 
   Future<PartnerVerifyStatusModel> getPartnerVerifyStatus();
   Future<void> deleteProfileData();

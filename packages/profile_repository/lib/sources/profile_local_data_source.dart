@@ -1,7 +1,6 @@
 import 'dart:convert';
-
+import 'package:core/core.dart';
 import 'package:meta/meta.dart';
-import 'package:profile_repository/profile_repository.dart';
 import 'package:storage/storage.dart';
 
 @immutable
@@ -12,14 +11,15 @@ final class ProfileLocalDataSource {
 
   static const String profileKey = 'profile';
 
-  Future<void> setProfileData(ProfileModel data) async {
+  Future<void> setProfileData(UserModel data) async {
     final json = jsonEncode(data.toJson());
     await storage.writeString(key: profileKey, value: json);
   }
 
-  ProfileModel getProfileData() {
+  UserModel? getProfileData() {
     final json = storage.readString(key: profileKey);
-    return ProfileModel.fromJson(jsonDecode(json ?? '{}') as Map<String, dynamic>);
+    if (json == null) return null;
+    return UserModel.fromJson(jsonDecode(json) as Map<String, dynamic>);
   }
 
   Future<void> deleteProfileData() async {

@@ -1,11 +1,16 @@
 import 'package:app/utils/extensions/string_extension.dart';
 
 abstract final class InputValidators {
-  static String? phoneValidatorWithout996(String? val) {
+  static String? emailValidator(
+    String? val, {
+    bool canBeGmail = true,
+  }) {
     if (val.isNullOrEmpty) return 'Поле обязательно для заполнения';
+    if (val!.isEmail) {
+      if (!canBeGmail && val.endsWith('@gmail.com')) return 'Поле обязательно для заполнения';
+      return null;
+    }
 
-    final digitsOnly = val!.replaceAll(RegExp(r'\D'), '');
-
-    return digitsOnly.length != 9 ? 'Введите корректный номер телефона' : null;
+    return 'Поле обязательно для заполнения';
   }
 }

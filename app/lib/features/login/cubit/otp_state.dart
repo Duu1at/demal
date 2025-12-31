@@ -4,16 +4,16 @@ class OtpState extends Equatable {
   const OtpState({
     this.sendStatus = const RequestInitial(),
     this.verifyStatus = const RequestInitial(),
-    this.remainingSeconds = 4,
+    this.remainingSeconds = 120,
   });
 
   final RequestStatus<void> sendStatus;
-  final RequestStatus<AuthLoginModel> verifyStatus;
+  final RequestStatus<String> verifyStatus;
   final num remainingSeconds;
 
   OtpState copyWith({
     RequestStatus<void>? sendStatus,
-    RequestStatus<AuthLoginModel>? verifyStatus,
+    RequestStatus<String>? verifyStatus,
     num? remainingSeconds,
   }) {
     return OtpState(

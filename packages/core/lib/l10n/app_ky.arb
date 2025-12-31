@@ -14,7 +14,7 @@
   "@onboardingSubTitle3": {},
   "next": "Кийинкиси",
   "@next": {},
-  "otpMessage": "{phone} номерине 4 сандык OTP коду жиберилди",
+  "otpMessage": "{phone} номерине 6 сандык OTP коду жиберилди",
   "@otpMessage": {
     "placeholders": {
       "phone": {}

@@ -6,26 +6,14 @@ final class AuthState extends Equatable {
     this.user,
     this.token,
     this.errorMessage,
-    this.hasCompletedOnboarding = false,
     this.role,
   });
 
   const AuthState.initial() : this(status: AuthStatus.initial);
 
-  const AuthState.authenticated(
-    String token, {
-    bool hasCompletedOnboarding = true,
-  }) : this(
-         status: AuthStatus.authenticated,
-         token: token,
-         hasCompletedOnboarding: hasCompletedOnboarding,
-       );
+  const AuthState.authenticated(UserModel user) : this(status: AuthStatus.authenticated, user: user);
 
-  const AuthState.unauthenticated({bool hasCompletedOnboarding = true})
-    : this(
-        status: AuthStatus.unauthenticated,
-        hasCompletedOnboarding: hasCompletedOnboarding,
-      );
+  const AuthState.unauthenticated() : this(status: AuthStatus.unauthenticated);
 
   const AuthState.failure(Object message) : this(status: AuthStatus.failure, errorMessage: message);
 
@@ -33,7 +21,6 @@ final class AuthState extends Equatable {
   final UserModel? user;
   final String? token;
   final Object? errorMessage;
-  final bool hasCompletedOnboarding;
   final RoleEnum? role;
 
   AuthState copyWith({
@@ -41,7 +28,6 @@ final class AuthState extends Equatable {
     UserModel? user,
     String? token,
     Object? errorMessage,
-    bool? hasCompletedOnboarding,
     RoleEnum? role,
   }) {
     return AuthState(
@@ -49,7 +35,6 @@ final class AuthState extends Equatable {
       user: user ?? this.user,
       token: token ?? this.token,
       errorMessage: errorMessage ?? this.errorMessage,
-      hasCompletedOnboarding: hasCompletedOnboarding ?? this.hasCompletedOnboarding,
       role: role ?? this.role,
     );
   }
@@ -60,7 +45,6 @@ final class AuthState extends Equatable {
     user,
     token,
     errorMessage,
-    hasCompletedOnboarding,
     role,
   ];
 }

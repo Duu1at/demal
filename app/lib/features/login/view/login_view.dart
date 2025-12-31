@@ -1,8 +1,6 @@
-import 'package:app/app/cubits/auth_cubit/auth_cubit.dart';
 import 'package:app/app/router/app_router.dart';
-import 'package:app/features/shared/login/cubit/otp_cubit.dart';
-import 'package:app/features/shared/welcome/widgets/role_radio_group.dart';
-import 'package:app/utils/utils.dart';
+import 'package:app/features/login/cubit/otp_cubit.dart';
+import 'package:app/features/login/widgets/email_field.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:auth_repository/auth_repository.dart';
 import 'package:core/core.dart';
@@ -34,14 +32,14 @@ class _LoginView extends StatefulWidget {
 }
 
 class __LoginViewState extends State<_LoginView> {
-  late final TextEditingController _phoneController;
+  late final TextEditingController _emailController;
   final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
     super.initState();
-    _phoneController = TextEditingController();
-    _phoneController.addListener(() => setState(() {}));
+    _emailController = TextEditingController();
+    _emailController.addListener(() => setState(() {}));
   }
 
   @override
@@ -53,47 +51,23 @@ class __LoginViewState extends State<_LoginView> {
         formKey: _formKey,
         listViewChildren: [
           CircleAvatar(
-            radius: 50,
-            backgroundColor: Colors.transparent,
+            radius: 40,
+            backgroundColor: Colors.white,
             child: Assets.images.logo.image(),
           ),
+          const SizedBox(height: AppSpacing.md),
           Text(
             'Добро пожаловать!',
             style: Theme.of(context).textTheme.headlineMedium,
             textAlign: TextAlign.center,
           ),
-          const DividerHorisontal(),
-          Text(
-            'Выберите вашу роль',
-            style: Theme.of(context).primaryTextTheme.bodyMedium,
-            textAlign: TextAlign.center,
-          ),
-          BlocBuilder<AuthCubit, AuthState>(
-            buildWhen: (previous, current) => previous.role != current.role,
-            builder: (context, state) {
-              final role = state.role;
-              return RoleRadioGroup(
-                groupValue: role,
-                onChanged: (newRole) {
-                  context.read<AuthCubit>().changeRole(newRole ?? RoleEnum.CLIENT);
-                },
-              );
-            },
-          ),
-          const DividerHorisontal(),
-          Text(
-            'Мы отправим вам SMS с кодом подтверждения на номер +996 ${_phoneController.text.isNotEmpty ? _phoneController.text : '(___) ___ ___'}',
-            style: Theme.of(context).primaryTextTheme.bodyMedium,
-          ),
           const SizedBox(height: AppSpacing.lg),
-          PhoneField(
-            controller: _phoneController,
-            inputFormatters: [InputFormatters.phoneFormatter],
-            validator: InputValidators.phoneValidatorWithout996,
+          EmailField(
+            controller: _emailController,
+            hintText: 'example@gmail.com',
+            label: 'Email',
           ),
-          const SizedBox(height: AppSpacing.lg),
-        ],
-        columnChildren: [
+          const SizedBox(height: AppSpacing.xlg),
           BlocConsumer<OtpCubit, OtpState>(
             listenWhen: (previous, current) => previous.sendStatus != current.sendStatus,
             listener: (context, state) {
@@ -103,15 +77,12 @@ class __LoginViewState extends State<_LoginView> {
                   context.goNamed(
                     AppRoutes.otp,
                     extra: OtpArgs(
-                      phoneNumber: InputFormatters.phoneFormatter.getUnmaskedText(),
+                      email: _emailController.text,
                       otpCubit: context.read<OtpCubit>(),
                     ),
                   );
                 case RequestFailure():
-                  context.read<ErrorHandler>().handleError(
-                    sendStatus.exception,
-                    context,
-                  );
+                  context.read<ErrorHandler>().handleError(sendStatus.exception, context);
                 default:
                   break;
               }
@@ -121,14 +92,56 @@ class __LoginViewState extends State<_LoginView> {
               return AppButton(
                 isLoading: state.sendStatus is RequestLoading,
                 onPressed: () {
-                  if (_formKey.currentState?.validate() ?? false) {
-                    final phoneNumber = InputFormatters.phoneFormatter.getUnmaskedText();
-                    context.read<OtpCubit>().sendOtp(phoneNumber);
+                  if (_formKey.currentState!.validate()) {
+                    context.read<OtpCubit>().sendOtp(_emailController.text);
                   }
                 },
-                child: const Text('Подтверждать'),
+                child: const Text('Войти'),
               );
             },
+          ),
+        ],
+        columnChildren: [
+          AppButton(
+            variant: AppButtonVariant.outline,
+            onPressed: () {},
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Assets.icons.google.svg(
+                  width: 24,
+                  height: 24,
+                ),
+                const SizedBox(width: AppSpacing.lg),
+                Text(
+                  'Войти через Google',
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: AppSpacing.md),
+          AppButton(
+            variant: AppButtonVariant.outline,
+            onPressed: () {},
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Assets.icons.apple.svg(
+                  colorFilter: ColorFilter.mode(
+                    Theme.of(context).colorScheme.onSurface,
+                    BlendMode.srcIn,
+                  ),
+                  width: 24,
+                  height: 24,
+                ),
+                const SizedBox(width: AppSpacing.lg),
+                Text(
+                  'Войти через Apple',
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
+              ],
+            ),
           ),
         ],
       ),
@@ -137,7 +150,9 @@ class __LoginViewState extends State<_LoginView> {
 
   @override
   void dispose() {
-    _phoneController.dispose();
+    _emailController.dispose();
+    _formKey.currentState?.dispose();
+    _emailController.removeListener(() => setState(() {}));
     super.dispose();
   }
 }

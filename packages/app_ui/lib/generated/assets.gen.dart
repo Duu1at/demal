@@ -17,6 +17,9 @@ import 'package:vector_graphics/vector_graphics.dart' as _vg;
 class $AssetsIconsGen {
   const $AssetsIconsGen();
 
+  /// File path: assets/icons/apple.svg
+  SvgGenImage get apple => const SvgGenImage('assets/icons/apple.svg');
+
   /// File path: assets/icons/arrow-left.svg
   SvgGenImage get arrowLeft => const SvgGenImage('assets/icons/arrow-left.svg');
 
@@ -53,6 +56,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/file_search.svg
   SvgGenImage get fileSearch => const SvgGenImage('assets/icons/file_search.svg');
 
+  /// File path: assets/icons/google.svg
+  SvgGenImage get google => const SvgGenImage('assets/icons/google.svg');
+
   /// File path: assets/icons/history.svg
   SvgGenImage get history => const SvgGenImage('assets/icons/history.svg');
 
@@ -88,6 +94,7 @@ class $AssetsIconsGen {
 
   /// List of all assets
   List<SvgGenImage> get values => [
+    apple,
     arrowLeft,
     arrowRight,
     backArrow,
@@ -100,6 +107,7 @@ class $AssetsIconsGen {
     edit,
     email,
     fileSearch,
+    google,
     history,
     infoCircle,
     phone,
