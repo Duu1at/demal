@@ -12,16 +12,13 @@ abstract class AppRoutes {
   static const login = '/login';
 
   @RouteMetadata.guestOnly
-  static const otp = '/otp';
+  static const otp = '/login/otp';
 
   @RouteMetadata.public
   static const settings = '/settings';
 
   @RouteMetadata.public
   static const settingsAboutUs = '/settings/about-us';
-
-  @RouteMetadata.clientOnly
-  static const client = '/client';
 
   @RouteMetadata.public
   static const clientTourDetails = '/client/tour/:tourId';
@@ -32,7 +29,7 @@ abstract class AppRoutes {
   @RouteMetadata.clientOnly
   static const clientBookingDetails = '/client/booking-details';
 
-  @RouteMetadata.clientOnly
+  @RouteMetadata.public
   static const clientTourFilters = '/client/filters';
 
   @RouteMetadata.clientOnly
@@ -64,18 +61,18 @@ abstract class AppRoutes {
 
   static final Map<String, RouteMetadata> metadata = {
     root: RouteMetadata.public,
+    clientTourTickets: RouteMetadata.clientOnly,
+    clientBookingDetails: RouteMetadata.clientOnly,
+    clientTourFilters: RouteMetadata.public,
+    clientTourDetails: RouteMetadata.public,
+    clientBookingStatus: RouteMetadata.clientOnly,
     login: RouteMetadata.guestOnly,
     otp: RouteMetadata.guestOnly,
     settings: RouteMetadata.public,
     settingsAboutUs: RouteMetadata.public,
-    client: RouteMetadata.clientOnly,
-    clientTourTickets: RouteMetadata.clientOnly,
-    clientBookingDetails: RouteMetadata.clientOnly,
+    accessDenied: RouteMetadata.public,
     partner: RouteMetadata.partnerOnly,
     partnerCreateTour: RouteMetadata.partnerOnly,
-    accessDenied: RouteMetadata.public,
-    clientTourFilters: RouteMetadata.clientOnly,
-    clientBookingStatus: RouteMetadata.clientOnly,
     partnerToursBookings: RouteMetadata.partnerOnly,
     partnerVerification: RouteMetadata.partnerOnly,
     partnerVerificationStatus: RouteMetadata.partnerOnly,

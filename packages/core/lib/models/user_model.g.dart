@@ -12,7 +12,7 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
   imageUrl: json['image_url'] as String?,
   createdAt: json['created_at'] as String?,
   userId: json['user_id'] as String?,
-  phoneNumber: json['phone_number'] as String?,
+  email: json['email'] as String?,
   partnerProfile: json['partner_profile'] == null
       ? null
       : PartnerProfileModel.fromJson(
@@ -22,15 +22,16 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
 
 Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
   'user_id': instance.userId,
-  'phone_number': instance.phoneNumber,
   'full_name': instance.fullName,
   'role': _$RoleEnumEnumMap[instance.role],
   'image_url': instance.imageUrl,
   'created_at': instance.createdAt,
   'partner_profile': instance.partnerProfile,
+  'email': instance.email,
 };
 
 const _$RoleEnumEnumMap = {
   RoleEnum.PARTNER: 'PARTNER',
   RoleEnum.CLIENT: 'CLIENT',
+  RoleEnum.GUEST: '',
 };

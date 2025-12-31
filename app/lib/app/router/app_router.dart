@@ -36,12 +36,17 @@ final class AppRouter {
       debugLogDiagnostics: kDebugMode,
       refreshListenable: GoRouterRefreshStream(authCubit.stream),
       redirect: AppRouterRedirect(authCubit).handleRedirect,
-      errorBuilder: (_, _) => const ErrorView(),
+      errorBuilder: (context, state) {
+        debugPrint('Router Error: ${state.error}');
+        return const ErrorView();
+      },
       routes: [
         GoRoute(
           path: '/',
-          parentNavigatorKey: AppRoutes.navigatorKey,
-          builder: (context, state) => const ClientHomeView(),
+          builder: (context, state) {
+            debugPrint('Router: Building ClientHomeView');
+            return const ClientHomeView();
+          },
           routes: [
             GoRoute(
               path: AppRoutes.clientTourDetails,
@@ -87,7 +92,7 @@ final class AppRouter {
           builder: (context, state) => const LoginView(),
           routes: [
             GoRoute(
-              path: AppRoutes.otp,
+              path: 'otp',
               name: AppRoutes.otp,
               builder: (context, state) {
                 final extra = state.extra as OtpArgs?;

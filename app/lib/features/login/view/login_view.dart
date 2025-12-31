@@ -74,7 +74,7 @@ class __LoginViewState extends State<_LoginView> {
               final sendStatus = state.sendStatus;
               switch (sendStatus) {
                 case RequestSuccess():
-                  context.goNamed(
+                  context.pushNamed(
                     AppRoutes.otp,
                     extra: OtpArgs(
                       email: _emailController.text,

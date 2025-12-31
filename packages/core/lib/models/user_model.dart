@@ -13,7 +13,7 @@ final class UserModel {
     this.imageUrl,
     this.createdAt,
     this.userId,
-    this.phoneNumber,
+    this.email,
     this.partnerProfile,
   });
 
@@ -22,8 +22,6 @@ final class UserModel {
   @JsonKey(name: 'user_id')
   final String? userId;
 
-  @JsonKey(name: 'phone_number')
-  final String? phoneNumber;
 
   @JsonKey(name: 'full_name')
   final String? fullName;
@@ -39,6 +37,8 @@ final class UserModel {
   @JsonKey(name: 'partner_profile')
   final PartnerProfileModel? partnerProfile;
 
+  final String? email;
+
   UserModel copyWith({
     String? userId,
     String? phoneNumber,
@@ -46,16 +46,18 @@ final class UserModel {
     RoleEnum? role,
     String? imageUrl,
     String? createdAt,
+
     PartnerProfileModel? partnerProfile,
+    String? email,
   }) {
     return UserModel(
       userId: userId ?? this.userId,
-      phoneNumber: phoneNumber ?? this.phoneNumber,
       fullName: fullName ?? this.fullName,
       role: role ?? this.role,
       imageUrl: imageUrl ?? this.imageUrl,
       createdAt: createdAt ?? this.createdAt,
       partnerProfile: partnerProfile ?? this.partnerProfile,
+      email: email ?? this.email,
     );
   }
 

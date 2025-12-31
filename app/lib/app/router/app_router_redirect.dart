@@ -16,6 +16,10 @@ class AppRouterRedirect {
 
     final guard = routeMetadata.getGuard();
 
-    return guard.redirectTo(userRole ?? RoleEnum.GUEST);
+    final redirect = guard.redirectTo(userRole ?? RoleEnum.GUEST);
+
+    debugPrint('Router: Path: $path, Role: $userRole, Redirect: $redirect');
+
+    return redirect;
   }
 }

@@ -26,7 +26,7 @@ class OtpVerifyButton extends StatelessWidget {
       listener: (context, state) {
         final verifyStatus = state.verifyStatus;
         if (verifyStatus is RequestSuccess<String>) {
-          context.read<AuthCubit>().init();
+          context.read<AuthCubit>().logIn();
         }
         if (verifyStatus is RequestFailure<String>) {
           context.read<ErrorHandler>().handleError(

@@ -19,7 +19,6 @@ final class ProfileRepositoryMockImpl implements ProfileRepository {
     await Future<void>.delayed(delay);
     const user = UserModel(
       userId: 'test-user-id',
-      phoneNumber: '+996702313611',
       fullName: 'Test User',
       role: RoleEnum.PARTNER,
       imageUrl: null,
@@ -34,7 +33,6 @@ final class ProfileRepositoryMockImpl implements ProfileRepository {
     await Future<void>.delayed(delay);
     final user = UserModel(
       userId: 'test-user-id',
-      phoneNumber: '+996702313611',
       fullName: param.fullName ?? 'Test User',
       role: RoleEnum.PARTNER,
       imageUrl: param.imageUrl,
@@ -48,7 +46,6 @@ final class ProfileRepositoryMockImpl implements ProfileRepository {
   UserModel getProfileFromLocal() {
     const user = UserModel(
       userId: 'test-user-id',
-      phoneNumber: '+996702313611',
       fullName: 'Test User',
       role: RoleEnum.PARTNER,
       imageUrl: null,

@@ -64,7 +64,7 @@ class App extends StatelessWidget {
           create: (context) => AuthCubit(
             profileRepository: context.read<ProfileRepository>(),
             authRepository: context.read<AuthRepository>(),
-          )..init(),
+          ),
         ),
       ],
       child: const DemalApp(),

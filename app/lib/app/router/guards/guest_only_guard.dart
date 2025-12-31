@@ -14,7 +14,7 @@ class GuestOnlyGuard extends RouteGuard {
     if (!canActivate(userRole)) {
       switch (userRole) {
         case RoleEnum.CLIENT:
-          return '/client';
+          return '/';
         case RoleEnum.PARTNER:
           return '/partner';
         case RoleEnum.GUEST:
