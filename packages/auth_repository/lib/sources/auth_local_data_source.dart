@@ -1,5 +1,4 @@
 import 'package:auth_repository/auth_repository.dart';
-import 'package:core/core.dart';
 import 'package:meta/meta.dart';
 import 'package:storage/storage.dart';
 
@@ -9,11 +8,7 @@ class AuthLocalDataSource {
   final PreferencesStorage storage;
 
   Future<void> deleteAccount() async {
-    await Future.wait([
-      storage.delete(key: AuthStorageKey.tokenKey),
-      storage.delete(key: AuthStorageKey.onboardingKey),
-      storage.delete(key: AuthStorageKey.roleKey),
-    ]);
+    await storage.delete(key: AuthStorageKey.tokenKey);
   }
 
   String? getToken() {
@@ -24,38 +19,10 @@ class AuthLocalDataSource {
     await storage.delete(key: AuthStorageKey.tokenKey);
   }
 
-  Future<void> saveOnboardingStatus(bool completed) async {
-    await storage.writeBool(
-      key: AuthStorageKey.onboardingKey,
-      value: completed,
-    );
-  }
-
   Future<void> saveToken(String token) async {
     await storage.writeString(
       key: AuthStorageKey.tokenKey,
       value: token,
     );
-  }
-
-  bool getOnboardingStatus() {
-    return storage.readBool(key: AuthStorageKey.onboardingKey) ?? false;
-  }
-
-  Future<void> setRole(RoleEnum role) async {
-    await storage.writeString(
-      key: AuthStorageKey.roleKey,
-      value: role.name,
-    );
-  }
-
-  RoleEnum? getRole() {
-    final roleString = storage.readString(key: AuthStorageKey.roleKey);
-    if (roleString == null) return null;
-    try {
-      return RoleEnum.values.byName(roleString);
-    } on Object catch (_) {
-      return null;
-    }
   }
 }

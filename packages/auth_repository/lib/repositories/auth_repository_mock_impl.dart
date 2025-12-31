@@ -1,5 +1,4 @@
 import 'package:auth_repository/auth_repository.dart';
-import 'package:core/core.dart';
 import 'package:meta/meta.dart';
 
 @immutable
@@ -36,22 +35,4 @@ final class AuthRepositoryeMockImpl implements AuthRepository {
 
     return 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3NzRjYjlkYS05YzI0LTQ0NWItYmY5My1iODVmZTZhN2ZlNmQiLCJlbWFpbCI6ImRib2xzdW5iZWt1dWx1QGdtYWlsLmNvbSIsInJvbGUiOiJDTElFTlQiLCJpYXQiOjE3NjcxMjE1NzMsImV4cCI6MTc2NzcyNjM3M30.GfDCfs92aEjCuWiAqgx6sa35lrXQpp7jXnowisyd0Uc';
   }
-
-  @override
-  bool getOnboardingStatus() {
-    return true;
-  }
-
-  @override
-  Future<void> saveOnboardingStatus(bool completed) async {
-    await Future.delayed(const Duration(seconds: 1), () {});
-  }
-
-  @override
-  RoleEnum? getRole() {
-    return RoleEnum.CLIENT;
-  }
-
-  @override
-  Future<void> setRole(RoleEnum role) async {}
 }

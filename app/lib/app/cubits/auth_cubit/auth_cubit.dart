@@ -20,6 +20,11 @@ class AuthCubit extends Cubit<AuthState> {
 
   Future<void> checkAuthStatus() async {
     try {
+      final token = _repository.getToken();
+      if (token == null) {
+        emit(const AuthState.unauthenticated());
+        return;
+      }
       final user = _profileRepository.getProfileFromLocal();
       if (user == null) {
         emit(const AuthState.unauthenticated());
@@ -30,7 +35,6 @@ class AuthCubit extends Cubit<AuthState> {
       emit(AuthState.failure(e));
     }
   }
-
 
   Future<void> logout() async {
     await _repository.logOut();
