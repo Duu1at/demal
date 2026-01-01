@@ -1,4 +1,4 @@
-import 'package:app/app/router/app_router.dart';
+import 'package:app/app/app.dart';
 import 'package:app/features/client/home/blocs/blocs.dart';
 import 'package:app/features/client/home/widgets/tour_description_section.dart';
 import 'package:app/features/client/home/widgets/tour_header_section.dart';
@@ -52,7 +52,7 @@ class _ClientTourDetailsViewBodyState extends State<ClientTourDetailsViewBody> {
       ),
       floatingActionButton: AppButton(
         margin: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
-        onPressed: () => context.pushNamed(AppRoutes.clientBookingDetails),
+        onPressed: () => context.pushNamed(AppRouteNames.clientBookingDetails),
         child: const Text('Забронировать тур'),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,

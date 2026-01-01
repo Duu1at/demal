@@ -1,4 +1,4 @@
-import 'package:app/app/router/app_router.dart';
+import 'package:app/app/app.dart';
 import 'package:app/utils/tour_card/tour_model_extensions.dart';
 import 'package:app/features/client/home/widgets/tour_card/tour_card.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +39,7 @@ class TourCardWidget extends StatelessWidget {
           () {
             if (tour.tourId != null) {
               context.pushNamed(
-                AppRoutes.clientTourDetails,
+                AppRouteNames.clientTourDetails,
                 pathParameters: {'tourId': tour.tourId ?? ''},
               );
             }
@@ -48,7 +48,7 @@ class TourCardWidget extends StatelessWidget {
           onBookTap ??
           () {
             if (tour.tourId != null) {
-              context.pushNamed(AppRoutes.clientTourTickets);
+              context.pushNamed(AppRouteNames.clientTourTickets);
             }
           },
     );

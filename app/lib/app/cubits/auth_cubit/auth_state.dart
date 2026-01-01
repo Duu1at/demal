@@ -6,7 +6,6 @@ final class AuthState extends Equatable {
     this.user,
     this.token,
     this.errorMessage,
-    this.role,
   });
 
   const AuthState.initial() : this(status: AuthStatus.initial);
@@ -30,21 +29,18 @@ final class AuthState extends Equatable {
   final UserModel? user;
   final String? token;
   final Object? errorMessage;
-  final RoleEnum? role;
 
   AuthState copyWith({
     AuthStatus? status,
     UserModel? user,
     String? token,
     Object? errorMessage,
-    RoleEnum? role,
   }) {
     return AuthState(
       status: status ?? this.status,
       user: user ?? this.user,
       token: token ?? this.token,
       errorMessage: errorMessage ?? this.errorMessage,
-      role: role ?? this.role,
     );
   }
 
@@ -54,8 +50,7 @@ final class AuthState extends Equatable {
     user,
     token,
     errorMessage,
-    role,
   ];
 }
 
-enum AuthStatus { initial, authenticated, unauthenticated, failure }
+enum AuthStatus { initial, loading, authenticated, unauthenticated, failure }

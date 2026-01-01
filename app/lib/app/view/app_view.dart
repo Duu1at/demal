@@ -93,7 +93,7 @@ class _DemalAppState extends State<DemalApp> {
   Widget build(BuildContext context) {
     return GlobalLoaderOverlay(
       child: MaterialApp.router(
-        scaffoldMessengerKey: AppRoutes.scaffoldMessengerKey,
+        scaffoldMessengerKey: AppRouteNames.scaffoldMessengerKey,
         theme: context.watch<AppThemeCubit>().state.themeData,
         locale: context.watch<AppLocaleCubit>().state,
         localizationsDelegates: AppLocalizations.localizationsDelegates,

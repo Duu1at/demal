@@ -1,4 +1,4 @@
-import 'package:app/app/router/app_router.dart';
+import 'package:app/app/app.dart';
 import 'package:app/features/client/home/blocs/tours/tours_bloc.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +21,7 @@ class ToursSearchBar extends StatelessWidget {
         hintText: 'Search any tours...',
         controller: controller,
         onFilterTap: () => context.pushNamed(
-          AppRoutes.clientTourFilters,
+          AppRouteNames.clientTourFilters,
           extra: context.read<ToursBloc>(),
         ),
       ),

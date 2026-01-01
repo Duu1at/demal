@@ -114,7 +114,7 @@ class PartnerVerificationRejectedView extends StatelessWidget {
                   const SizedBox(height: AppSpacing.xxlg),
                   AppButton(
                     onPressed: () {
-                      context.go(AppRoutes.partnerVerification);
+                      context.goNamed(AppRouteNames.partnerVerification);
                     },
                     child: const Text('Подать заявку повторно'),
                   ),

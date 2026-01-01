@@ -1,6 +1,4 @@
-import 'package:app/app/cubits/auth_cubit/auth_cubit.dart';
-import 'package:app/app/mixin/settings_change_mixin.dart';
-import 'package:app/app/router/app_router.dart';
+import 'package:app/app/app.dart';
 import 'package:app/utils/utils.dart';
 import 'package:app/widgets/avatar/editable_avatar.dart';
 import 'package:core/core.dart';
@@ -51,7 +49,7 @@ class _SettingsViewState extends State<SettingsView> with SettingsChangeMixin<Se
                   color: theme.colorScheme.primary,
                 ),
                 title: context.l10n.myTickets,
-                onTap: () => context.pushNamed(AppRoutes.clientTourTickets),
+                onTap: () => context.pushNamed(AppRouteNames.clientTourTickets),
               ),
               const SizedBox(height: AppSpacing.lg),
               CardDrawerTitle(
@@ -76,7 +74,7 @@ class _SettingsViewState extends State<SettingsView> with SettingsChangeMixin<Se
                   color: theme.colorScheme.primary,
                 ),
                 title: context.l10n.aboutUs,
-                onTap: () => context.pushNamed(AppRoutes.settingsAboutUs),
+                onTap: () => context.pushNamed(AppRouteNames.settingsAboutUs),
               ),
               const SizedBox(height: AppSpacing.lg),
               CardDrawerTitle(

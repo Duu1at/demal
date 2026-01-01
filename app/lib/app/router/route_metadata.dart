@@ -1,8 +1,4 @@
-import 'package:app/app/router/guards/route_guard.dart';
-import 'package:app/app/router/guards/no_guard.dart';
-import 'package:app/app/router/guards/auth_guard.dart';
-import 'package:app/app/router/guards/guest_only_guard.dart';
-import 'package:app/app/router/guards/role_guard.dart';
+import 'package:app/app/app.dart';
 import 'package:core/core.dart';
 
 class RouteMetadata {
@@ -29,7 +25,7 @@ class RouteMetadata {
     allowedRoles: [RoleEnum.CLIENT],
     requiresAuth: true,
   );
-  
+
   static const partnerOnly = RouteMetadata(
     guard: PartnerOnlyGuard(),
     allowedRoles: [RoleEnum.PARTNER],

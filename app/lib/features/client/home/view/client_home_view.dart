@@ -1,4 +1,4 @@
-import 'package:app/app/router/app_router.dart';
+import 'package:app/app/app.dart';
 import 'package:app/features/client/home/blocs/tours/tours_bloc.dart';
 import 'package:app/features/client/home/view/widgets/tours_empty_state.dart';
 import 'package:app/features/client/home/view/widgets/tours_error_state.dart';
@@ -60,7 +60,7 @@ class _ClientHomeViewBodyState extends State<ClientHomeViewBody> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: HomeAppBar(
-        onMenuTap: () => context.pushNamed(AppRoutes.settings),
+        onMenuTap: () => context.pushNamed(AppRouteNames.settings),
         onNotificationTap: () {},
       ),
       body: RefreshIndicator(
@@ -87,7 +87,7 @@ class _ClientHomeViewBodyState extends State<ClientHomeViewBody> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => context.pushNamed(AppRoutes.clientTourTickets),
+        onPressed: () => context.pushNamed(AppRouteNames.clientTourTickets),
         child: const Icon(Icons.add),
       ),
     );

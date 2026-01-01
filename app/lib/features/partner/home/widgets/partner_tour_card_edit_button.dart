@@ -1,4 +1,4 @@
-import 'package:app/app/router/app_router.dart';
+import 'package:app/app/app.dart';
 import 'package:app/features/features.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
@@ -74,7 +74,7 @@ class PartnerTourCardEditButton extends StatelessWidget {
 
   Future<void> _handleEdit(BuildContext context) async {
     final result = await context.pushNamed(
-      AppRoutes.partnerEditTour,
+      AppRouteNames.partnerEditTour,
       pathParameters: {'tourId': tour.tourId ?? ''},
     );
     if (result == true && context.mounted) {
