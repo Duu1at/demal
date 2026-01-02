@@ -51,7 +51,6 @@ void main() async {
           [
             AppInterceptor(
               token: () => storage.readString(key: AuthStorageKey.tokenKey),
-              role: () => storage.readString(key: AuthStorageKey.roleKey),
             ),
             TalkerDioLogger(
               talker: talker,

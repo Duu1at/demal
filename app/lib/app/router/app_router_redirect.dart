@@ -1,5 +1,4 @@
 import 'package:app/app/app.dart';
-import 'package:core/core.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 
@@ -15,7 +14,7 @@ class AppRouterRedirect {
       return null;
     }
 
-    final role = authState.user?.role ?? RoleEnum.GUEST;
+    final role = authState.user.role;
 
     final metadata = AppRouteMetadataResolver.resolve(state);
     final guard = metadata.getGuard();

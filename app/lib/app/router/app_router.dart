@@ -39,51 +39,6 @@ final class AppRouter {
       },
       routes: [
         GoRoute(
-          path: '/',
-          builder: (context, state) {
-            debugPrint('Router: Building ClientHomeView');
-            return const ClientHomeView();
-          },
-          routes: [
-            GoRoute(
-              path: '/${AppRouteNames.clientTourDetails}',
-              name: AppRouteNames.clientTourDetails,
-              builder: (context, state) {
-                final tourId = state.pathParameters['tourId'];
-                if (tourId == null) return const ErrorView();
-                return ClientTourDetailsView(tourId);
-              },
-            ),
-            GoRoute(
-              path: '/${AppRouteNames.clientTourTickets}',
-              name: AppRouteNames.clientTourTickets,
-              builder: (context, state) => const ClientTourTicketsView(),
-            ),
-            GoRoute(
-              path: '/${AppRouteNames.clientTourFilters}',
-              name: AppRouteNames.clientTourFilters,
-              builder: (context, state) {
-                final extra = state.extra as ToursBloc?;
-                if (extra == null) return const ErrorView();
-                return BlocProvider.value(
-                  value: extra,
-                  child: const ClientTourFiltersView(),
-                );
-              },
-            ),
-            GoRoute(
-              path: '/${AppRouteNames.clientBookingDetails}',
-              name: AppRouteNames.clientBookingDetails,
-              builder: (context, state) => const ClientBookingDetailsView(),
-            ),
-            GoRoute(
-              path: '/${AppRouteNames.clientBookingStatus}',
-              name: AppRouteNames.clientBookingStatus,
-              builder: (context, state) => const ClientBookingStatusView(),
-            ),
-          ],
-        ),
-        GoRoute(
           path: '/${AppRouteNames.login}',
           name: AppRouteNames.login,
           builder: (context, state) => const LoginView(),
@@ -173,6 +128,51 @@ final class AppRouter {
           name: AppRouteNames.accessDenied,
           parentNavigatorKey: AppRouteNames.navigatorKey,
           builder: (context, state) => const AccessDeniedView(),
+        ),
+        GoRoute(
+          path: '/',
+          builder: (context, state) {
+            debugPrint('Router: Building ClientHomeView');
+            return const ClientHomeView();
+          },
+          routes: [
+            GoRoute(
+              path: AppRouteNames.clientTourDetails,
+              name: AppRouteNames.clientTourDetails,
+              builder: (context, state) {
+                final tourId = state.pathParameters['tourId'];
+                if (tourId == null) return const ErrorView();
+                return ClientTourDetailsView(tourId);
+              },
+            ),
+            GoRoute(
+              path: AppRouteNames.clientTourTickets,
+              name: AppRouteNames.clientTourTickets,
+              builder: (context, state) => const ClientTourTicketsView(),
+            ),
+            GoRoute(
+              path: AppRouteNames.clientTourFilters,
+              name: AppRouteNames.clientTourFilters,
+              builder: (context, state) {
+                final extra = state.extra as ToursBloc?;
+                if (extra == null) return const ErrorView();
+                return BlocProvider.value(
+                  value: extra,
+                  child: const ClientTourFiltersView(),
+                );
+              },
+            ),
+            GoRoute(
+              path: AppRouteNames.clientBookingDetails,
+              name: AppRouteNames.clientBookingDetails,
+              builder: (context, state) => const ClientBookingDetailsView(),
+            ),
+            GoRoute(
+              path: AppRouteNames.clientBookingStatus,
+              name: AppRouteNames.clientBookingStatus,
+              builder: (context, state) => const ClientBookingStatusView(),
+            ),
+          ],
         ),
       ],
     );

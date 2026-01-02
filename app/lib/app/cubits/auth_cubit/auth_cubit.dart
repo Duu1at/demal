@@ -11,24 +11,23 @@ class AuthCubit extends Cubit<AuthState> {
   AuthCubit({
     required AuthRepository authRepository,
     required ProfileRepository profileRepository,
-  }) : _repository = authRepository,
+  }) : _authRepository = authRepository,
        _profileRepository = profileRepository,
        super(const AuthState.initial());
 
-  final AuthRepository _repository;
+  final AuthRepository _authRepository;
   final ProfileRepository _profileRepository;
 
   Future<void> logIn() async {
     emit(state.copyWith(status: AuthStatus.loading));
     try {
-      var user = _profileRepository.getProfileFromLocal();
-      user ??= await _profileRepository.getProfile();
-
-      final token = _repository.getToken();
+      final token = _authRepository.getToken();
       if (token == null) {
         emit(const AuthState.unauthenticated());
         return;
       }
+      var user = _profileRepository.getProfileFromLocal();
+      user ??= await _profileRepository.getProfile();
 
       emit(AuthState.authenticated(user, token));
     } on Object catch (_) {
@@ -37,13 +36,13 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   Future<void> logout() async {
-    await _repository.logOut();
+    await _authRepository.logOut();
     emit(const AuthState.unauthenticated());
   }
 
   Future<void> deleteAccount() async {
     await Future.wait([
-      _repository.deleteAccount(),
+      _authRepository.deleteAccount(),
       _profileRepository.deleteProfileData(),
     ]);
     emit(const AuthState.unauthenticated());

@@ -36,7 +36,7 @@ void main() {
     });
 
     test('returns null when auth status is loading', () {
-      when(() => authCubit.state).thenReturn(const AuthState(status: AuthStatus.loading));
+      when(() => authCubit.state).thenReturn(const AuthState(status: AuthStatus.loading, user: UserModel.empty()));
       when(() => state.uri).thenReturn(Uri.parse('/some/path'));
       when(() => state.name).thenReturn('someRoute');
 

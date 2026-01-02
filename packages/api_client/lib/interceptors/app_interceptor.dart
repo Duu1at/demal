@@ -1,13 +1,9 @@
 import 'package:api_client/api_client.dart';
 
 class AppInterceptor extends Interceptor {
-  const AppInterceptor({
-    this.token,
-    this.role,
-  });
+  const AppInterceptor({this.token});
 
   final ResolveValue? token;
-  final ResolveValue? role;
 
   @override
   void onRequest(
@@ -15,7 +11,6 @@ class AppInterceptor extends Interceptor {
     RequestInterceptorHandler handler,
   ) {
     final tokenValue = token?.call();
-    final roleValue = role?.call();
 
     if (options.data is FormData) {
       options.headers.remove('Content-Type');
@@ -28,7 +23,6 @@ class AppInterceptor extends Interceptor {
 
     options.headers.addAll({
       if (tokenValue != null && tokenValue.isNotEmpty) 'Authorization': 'Bearer $tokenValue',
-      if (roleValue != null && roleValue.isNotEmpty) 'x-app-role': roleValue,
     });
     return handler.next(options);
   }

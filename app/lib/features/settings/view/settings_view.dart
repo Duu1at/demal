@@ -86,13 +86,21 @@ class _SettingsViewState extends State<SettingsView> with SettingsChangeMixin<Se
               CardDrawerTitle(
                 icon: const Icon(Icons.logout, color: Colors.red),
                 title: context.l10n.logOut,
-                onTap: () => context.read<AuthCubit>().logout(),
+                onTap: () => context.read<AuthCubit>().logout().then((value) {
+                  if (context.mounted) {
+                    context.goNamed(AppRouteNames.login);
+                  }
+                }),
               ),
               const SizedBox(height: AppSpacing.lg),
               CardDrawerTitle(
                 icon: const Icon(Icons.delete_forever, color: Colors.red),
                 title: context.l10n.deleteAccount,
-                onTap: () => context.read<AuthCubit>().deleteAccount(),
+                onTap: () => context.read<AuthCubit>().deleteAccount().then((value) {
+                  if (context.mounted) {
+                    context.goNamed(AppRouteNames.login);
+                  }
+                }),
               ),
               const Spacer(),
               Text(
