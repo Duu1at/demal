@@ -1,4 +1,4 @@
-import 'package:app/app/router/app_router.dart';
+import 'package:app/app/app.dart';
 import 'package:app/features/login/cubit/otp_cubit.dart';
 import 'package:app/features/login/widgets/email_field.dart';
 import 'package:app_ui/app_ui.dart';
@@ -75,7 +75,7 @@ class __LoginViewState extends State<_LoginView> {
               switch (sendStatus) {
                 case RequestSuccess():
                   context.pushNamed(
-                    AppRoutes.otp,
+                    AppRouteNames.otp,
                     extra: OtpArgs(
                       email: _emailController.text,
                       otpCubit: context.read<OtpCubit>(),

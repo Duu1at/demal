@@ -8,7 +8,7 @@ class AuthLocalDataSource {
   final PreferencesStorage storage;
 
   Future<void> deleteAccount() async {
-    await storage.delete(key: AuthStorageKey.tokenKey);
+    await storage.clear();
   }
 
   String? getToken() {

@@ -1,6 +1,4 @@
-import 'package:app/app/cubits/auth_cubit/auth_cubit.dart';
-import 'package:app/app/mixin/settings_change_mixin.dart';
-import 'package:app/app/router/app_router.dart';
+import 'package:app/app/app.dart';
 import 'package:app/utils/utils.dart';
 import 'package:app/widgets/avatar/editable_avatar.dart';
 import 'package:core/core.dart';
@@ -17,7 +15,13 @@ class SettingsView extends StatefulWidget {
 }
 
 class _SettingsViewState extends State<SettingsView> with SettingsChangeMixin<SettingsView> {
-  String? pathUrl;
+  late AuthState _authState;
+  @override
+  void initState() {
+    super.initState();
+    _authState = context.read<AuthCubit>().state;
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -32,27 +36,29 @@ class _SettingsViewState extends State<SettingsView> with SettingsChangeMixin<Se
             children: [
               const SizedBox(height: AppSpacing.sm),
               EditableAvatar(
-                avatarUrl: pathUrl,
+                avatarUrl: _authState.user.imageUrl,
                 size: 80,
                 expand: true,
-                onUpdate: (bytesImge) {},
+                onUpdate: (byte) {},
               ),
               const SizedBox(height: AppSpacing.md),
               Text(
-                'Bolsunbek uulu Duulat'.toUpperCase(),
+                _authState.user.fullName ?? '',
                 style: theme.textTheme.bodyLarge?.copyWith(
                   fontWeight: FontWeight.w600,
                 ),
               ),
-              const SizedBox(height: AppSpacing.lg),
-              CardDrawerTitle(
-                icon: Icon(
-                  Icons.confirmation_number_outlined,
-                  color: theme.colorScheme.primary,
+              if (_authState.status == AuthStatus.authenticated) ...[
+                const SizedBox(height: AppSpacing.lg),
+                CardDrawerTitle(
+                  icon: Icon(
+                    Icons.confirmation_number_outlined,
+                    color: theme.colorScheme.primary,
+                  ),
+                  title: context.l10n.myTickets,
+                  onTap: () => context.pushNamed(AppRouteNames.clientTourTickets),
                 ),
-                title: context.l10n.myTickets,
-                onTap: () => context.pushNamed(AppRoutes.clientTourTickets),
-              ),
+              ],
               const SizedBox(height: AppSpacing.lg),
               CardDrawerTitle(
                 icon: Icon(
@@ -76,7 +82,7 @@ class _SettingsViewState extends State<SettingsView> with SettingsChangeMixin<Se
                   color: theme.colorScheme.primary,
                 ),
                 title: context.l10n.aboutUs,
-                onTap: () => context.pushNamed(AppRoutes.settingsAboutUs),
+                onTap: () => context.pushNamed(AppRouteNames.settingsAboutUs),
               ),
               const SizedBox(height: AppSpacing.lg),
               CardDrawerTitle(
@@ -84,18 +90,29 @@ class _SettingsViewState extends State<SettingsView> with SettingsChangeMixin<Se
                 title: context.l10n.shareApp,
                 onTap: () => AppLaunch.launchURL(''),
               ),
-              const SizedBox(height: AppSpacing.lg),
-              CardDrawerTitle(
-                icon: const Icon(Icons.logout, color: Colors.red),
-                title: context.l10n.logOut,
-                onTap: () => context.read<AuthCubit>().logout(),
-              ),
-              const SizedBox(height: AppSpacing.lg),
-              CardDrawerTitle(
-                icon: const Icon(Icons.delete_forever, color: Colors.red),
-                title: context.l10n.deleteAccount,
-                onTap: () => context.read<AuthCubit>().deleteAccount(),
-              ),
+              if (_authState.status == AuthStatus.authenticated) ...[
+                const SizedBox(height: AppSpacing.lg),
+                CardDrawerTitle(
+                  icon: const Icon(Icons.logout, color: Colors.red),
+                  title: context.l10n.logOut,
+                  onTap: () => context.read<AuthCubit>().logout().then((value) {
+                    if (context.mounted) {
+                      context.goNamed(AppRouteNames.login);
+                    }
+                  }),
+                ),
+                const SizedBox(height: AppSpacing.lg),
+                CardDrawerTitle(
+                  icon: const Icon(Icons.delete_forever, color: Colors.red),
+                  title: context.l10n.deleteAccount,
+                  onTap: () => context.read<AuthCubit>().deleteAccount().then((value) {
+                    if (context.mounted) {
+                      context.goNamed(AppRouteNames.login);
+                    }
+                  }),
+                ),
+              ],
+
               const Spacer(),
               Text(
                 '${context.l10n.version}1.0.0',

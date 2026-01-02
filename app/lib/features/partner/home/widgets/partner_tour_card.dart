@@ -22,7 +22,7 @@ class PartnerTourCard extends StatelessWidget {
 
     return GestureDetector(
       onTap: () => context.pushNamed(
-        AppRoutes.partnerToursBookings,
+        AppRouteNames.partnerToursBookings,
         pathParameters: {'tourId': tour.tourId ?? ''},
         extra: tour,
       ),

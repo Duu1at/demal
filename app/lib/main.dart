@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:api_client/api_client.dart';
 import 'package:api_client/interceptors/app_interceptor.dart';
 import 'package:app/app/view/app_view.dart';
@@ -51,7 +50,6 @@ void main() async {
           [
             AppInterceptor(
               token: () => storage.readString(key: AuthStorageKey.tokenKey),
-              role: () => storage.readString(key: AuthStorageKey.roleKey),
             ),
             TalkerDioLogger(
               talker: talker,

@@ -1,7 +1,7 @@
-import 'package:app/app/router/app_router.dart';
-import 'package:app/features/client/home/widgets/booking_header_card.dart';
-import 'package:app/features/client/home/widgets/contact_form.dart';
-import 'package:app/features/client/home/widgets/guests_selecter.dart';
+import 'package:app/app/app.dart';
+import 'package:app/features/client/bookings/widgets/booking_header_card.dart';
+import 'package:app/features/client/bookings/widgets/contact_form.dart';
+import 'package:app/features/client/bookings/widgets/guests_selecter.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -69,7 +69,7 @@ class _ClientBookingDetailsViewState extends State<ClientBookingDetailsView> {
       ),
       floatingActionButton: AppButton(
         margin: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
-        onPressed: () => context.pushNamed(AppRoutes.clientBookingStatus),
+        onPressed: () => context.pushNamed(AppRouteNames.clientBookingStatus),
         child: const Text('Оплатить 121312 с'),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,

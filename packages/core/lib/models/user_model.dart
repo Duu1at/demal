@@ -9,7 +9,7 @@ part 'user_model.g.dart';
 final class UserModel {
   const UserModel({
     this.fullName,
-    this.role,
+    this.role = RoleEnum.GUEST,
     this.imageUrl,
     this.createdAt,
     this.userId,
@@ -17,16 +17,24 @@ final class UserModel {
     this.partnerProfile,
   });
 
+  const UserModel.empty()
+    : role = RoleEnum.GUEST,
+      userId = '',
+      fullName = '',
+      imageUrl = '',
+      createdAt = '',
+      partnerProfile = null,
+      email = '';
+
   factory UserModel.fromJson(Map<String, dynamic> json) => _$UserModelFromJson(json);
 
   @JsonKey(name: 'user_id')
   final String? userId;
 
-
   @JsonKey(name: 'full_name')
   final String? fullName;
 
-  final RoleEnum? role;
+  final RoleEnum role;
 
   @JsonKey(name: 'image_url')
   final String? imageUrl;
@@ -41,12 +49,10 @@ final class UserModel {
 
   UserModel copyWith({
     String? userId,
-    String? phoneNumber,
     String? fullName,
     RoleEnum? role,
     String? imageUrl,
     String? createdAt,
-
     PartnerProfileModel? partnerProfile,
     String? email,
   }) {
@@ -60,8 +66,6 @@ final class UserModel {
       email: email ?? this.email,
     );
   }
-
-  bool get hasRole => role != null;
 
   Map<String, dynamic> toJson() => _$UserModelToJson(this);
 }
