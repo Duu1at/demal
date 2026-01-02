@@ -64,7 +64,7 @@ class App extends StatelessWidget {
           create: (context) => AuthCubit(
             profileRepository: context.read<ProfileRepository>(),
             authRepository: context.read<AuthRepository>(),
-          )..logIn(),
+          ),
         ),
       ],
       child: const DemalApp(),
@@ -85,8 +85,7 @@ class _DemalAppState extends State<DemalApp> {
   @override
   void initState() {
     super.initState();
-    final authCubit = context.read<AuthCubit>();
-    _router = AppRouter.instance().router(authCubit);
+    _router = AppRouter.instance().router();
   }
 
   @override

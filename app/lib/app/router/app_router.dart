@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:app/app/app.dart';
 import 'package:app/features/features.dart';
 import 'package:app_ui/app_ui.dart';
@@ -7,37 +6,61 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tour_repository/tour_repository.dart';
 
-class GoRouterRefreshStream extends ChangeNotifier {
-  GoRouterRefreshStream(Stream<dynamic> stream) {
-    _subscription = stream.asBroadcastStream().listen(
-      (_) => notifyListeners(),
-    );
-  }
-  late final StreamSubscription<dynamic> _subscription;
-  @override
-  void dispose() {
-    _subscription.cancel();
-    super.dispose();
-  }
-}
-
 @immutable
 final class AppRouter {
   factory AppRouter.instance() => const AppRouter._();
   const AppRouter._();
 
-  GoRouter router(AuthCubit authCubit) {
+  GoRouter router() {
     return GoRouter(
       initialLocation: '/',
       navigatorKey: AppRouteNames.navigatorKey,
       debugLogDiagnostics: kDebugMode,
-      refreshListenable: GoRouterRefreshStream(authCubit.stream),
-      redirect: AppRouterRedirect(authCubit).handleRedirect,
-      errorBuilder: (context, state) {
-        debugPrint('Router Error: ${state.error}');
-        return const ErrorView();
-      },
+      errorBuilder: (_, _) => const ErrorView(),
       routes: [
+        GoRoute(
+          path: AppRouteNames.clientHome,
+          name: AppRouteNames.clientHome,
+          builder: (_, _) => const ClientHomeView(),
+          routes: [
+            GoRoute(
+              path: '${AppRouteNames.clientTourDetails}/:tourId',
+              name: AppRouteNames.clientTourDetails,
+              builder: (context, state) {
+                final tourId = state.pathParameters['tourId'];
+                if (tourId == null) return const ErrorView();
+                return ClientTourDetailsView(tourId);
+              },
+            ),
+            GoRoute(
+              path: AppRouteNames.clientTourTickets,
+              name: AppRouteNames.clientTourTickets,
+              builder: (_, _) => const ClientTourTicketsView(),
+            ),
+            GoRoute(
+              path: AppRouteNames.clientTourFilters,
+              name: AppRouteNames.clientTourFilters,
+              builder: (context, state) {
+                final extra = state.extra as ToursBloc?;
+                if (extra == null) return const ErrorView();
+                return BlocProvider.value(
+                  value: extra,
+                  child: const ClientTourFiltersView(),
+                );
+              },
+            ),
+            GoRoute(
+              path: AppRouteNames.clientBookingDetails,
+              name: AppRouteNames.clientBookingDetails,
+              builder: (context, state) => const ClientBookingDetailsView(),
+            ),
+            GoRoute(
+              path: AppRouteNames.clientBookingStatus,
+              name: AppRouteNames.clientBookingStatus,
+              builder: (context, state) => const ClientBookingStatusView(),
+            ),
+          ],
+        ),
         GoRoute(
           path: '/${AppRouteNames.login}',
           name: AppRouteNames.login,
@@ -128,51 +151,6 @@ final class AppRouter {
           name: AppRouteNames.accessDenied,
           parentNavigatorKey: AppRouteNames.navigatorKey,
           builder: (context, state) => const AccessDeniedView(),
-        ),
-        GoRoute(
-          path: '/',
-          builder: (context, state) {
-            debugPrint('Router: Building ClientHomeView');
-            return const ClientHomeView();
-          },
-          routes: [
-            GoRoute(
-              path: AppRouteNames.clientTourDetails,
-              name: AppRouteNames.clientTourDetails,
-              builder: (context, state) {
-                final tourId = state.pathParameters['tourId'];
-                if (tourId == null) return const ErrorView();
-                return ClientTourDetailsView(tourId);
-              },
-            ),
-            GoRoute(
-              path: AppRouteNames.clientTourTickets,
-              name: AppRouteNames.clientTourTickets,
-              builder: (context, state) => const ClientTourTicketsView(),
-            ),
-            GoRoute(
-              path: AppRouteNames.clientTourFilters,
-              name: AppRouteNames.clientTourFilters,
-              builder: (context, state) {
-                final extra = state.extra as ToursBloc?;
-                if (extra == null) return const ErrorView();
-                return BlocProvider.value(
-                  value: extra,
-                  child: const ClientTourFiltersView(),
-                );
-              },
-            ),
-            GoRoute(
-              path: AppRouteNames.clientBookingDetails,
-              name: AppRouteNames.clientBookingDetails,
-              builder: (context, state) => const ClientBookingDetailsView(),
-            ),
-            GoRoute(
-              path: AppRouteNames.clientBookingStatus,
-              name: AppRouteNames.clientBookingStatus,
-              builder: (context, state) => const ClientBookingStatusView(),
-            ),
-          ],
         ),
       ],
     );

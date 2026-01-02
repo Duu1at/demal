@@ -1,4 +1,5 @@
 import 'package:app/app/app.dart';
+import 'package:app/app/router/nav_helper.dart';
 import 'package:app/features/client/home/blocs/tours/tours_bloc.dart';
 import 'package:app/features/client/home/view/widgets/tours_empty_state.dart';
 import 'package:app/features/client/home/view/widgets/tours_error_state.dart';
@@ -31,21 +32,41 @@ class ClientHomeViewBody extends StatefulWidget {
 
 class _ClientHomeViewBodyState extends State<ClientHomeViewBody> {
   final _searchController = TextEditingController();
+  final _scrollController = ScrollController();
   ToursParam _params = const ToursParam();
 
   @override
   void initState() {
     super.initState();
     _searchController.addListener(_onSearchChanged);
+    _scrollController.addListener(_onScroll);
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<ToursBloc>().add(const ToursFetchEvent());
+      context.read<ToursBloc>().add(const ToursFetchNext(1));
     });
   }
 
   @override
   void dispose() {
     _searchController.dispose();
+    _scrollController.dispose();
     super.dispose();
+  }
+
+  void _onScroll() {
+    if (_isBottom) {
+      final state = context.read<ToursBloc>().state;
+      if (state.hasNextPage && !state.isLoading) {
+        final nextPage = (state.keys?.length ?? 0) + 1;
+        context.read<ToursBloc>().add(ToursFetchNext(nextPage));
+      }
+    }
+  }
+
+  bool get _isBottom {
+    if (!_scrollController.hasClients) return false;
+    final maxScroll = _scrollController.position.maxScrollExtent;
+    final currentScroll = _scrollController.offset;
+    return currentScroll >= (maxScroll * 0.9);
   }
 
   void _onSearchChanged() {
@@ -53,7 +74,7 @@ class _ClientHomeViewBodyState extends State<ClientHomeViewBody> {
     _params = _params.copyWith(
       search: searchQuery.isEmpty ? null : searchQuery,
     );
-    context.read<ToursBloc>().add(ToursFilterChangedEvent(_params));
+    context.read<ToursBloc>().add(ToursFilterChanged(_params));
   }
 
   @override
@@ -64,10 +85,11 @@ class _ClientHomeViewBodyState extends State<ClientHomeViewBody> {
         onNotificationTap: () {},
       ),
       body: RefreshIndicator(
-        onRefresh: () async => context.read<ToursBloc>().add(const ToursFetchEvent()),
-        child: BlocBuilder<ToursBloc, ToursState<TourModel>>(
+        onRefresh: () async => context.read<ToursBloc>().add(const ToursRefresh()),
+        child: BlocBuilder<ToursBloc, ToursState>(
           builder: (context, state) {
             return CustomScrollView(
+              controller: _scrollController,
               slivers: [
                 const SliverToBoxAdapter(child: SizedBox(height: AppSpacing.sm)),
                 ToursSearchBar(controller: _searchController),
@@ -87,22 +109,24 @@ class _ClientHomeViewBodyState extends State<ClientHomeViewBody> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => context.pushNamed(AppRouteNames.clientTourTickets),
+        onPressed: () => context.goNamedIfAuthenticated(AppRouteNames.clientTourTickets),
         child: const Icon(Icons.add),
       ),
     );
   }
 
-  Widget _buildStateContent(ToursState<TourModel> state) {
-    if ((state.pages == null || state.pages!.isEmpty) && state.isLoading) {
+  Widget _buildStateContent(ToursState state) {
+    final isEmpty = state.pages == null || state.pages!.isEmpty || state.pages!.every((page) => page.isEmpty);
+
+    if (isEmpty && state.isLoading) {
       return const ToursLoadingState();
     }
 
-    if (state.error != null && (state.pages?.isEmpty ?? false)) {
+    if (state.error != null && isEmpty) {
       return const ToursErrorState();
     }
 
-    if ((state.pages?.isEmpty ?? false) && !state.isLoading) {
+    if (isEmpty && !state.isLoading) {
       return ToursEmptyState(hasSearchQuery: _searchController.text.isNotEmpty);
     }
 

@@ -1,18 +1,30 @@
 part of 'tours_bloc.dart';
 
-sealed class ToursEvent {
+sealed class ToursEvent extends Equatable {
   const ToursEvent();
+  @override
+  List<Object?> get props => [];
 }
 
-final class ToursFetchEvent extends ToursEvent {
-  const ToursFetchEvent();
+@immutable
+final class ToursFetchNext extends ToursEvent {
+  const ToursFetchNext(this.pageNumber);
+  final int pageNumber;
+
+  @override
+  List<Object?> get props => [pageNumber];
 }
 
-final class ToursRefreshEvent extends ToursEvent {
-  const ToursRefreshEvent();
+@immutable
+final class ToursRefresh extends ToursEvent {
+  const ToursRefresh();
 }
 
-final class ToursFilterChangedEvent extends ToursEvent {
-  const ToursFilterChangedEvent(this.params);
+@immutable
+final class ToursFilterChanged extends ToursEvent {
+  const ToursFilterChanged(this.params);
   final ToursParam params;
+
+  @override
+  List<Object?> get props => [params];
 }

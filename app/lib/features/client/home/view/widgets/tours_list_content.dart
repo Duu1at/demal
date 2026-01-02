@@ -6,25 +6,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tour_repository/tour_repository.dart';
 
 class ToursListContent extends StatelessWidget {
   const ToursListContent({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ToursBloc, ToursState<TourModel>>(
+    return BlocBuilder<ToursBloc, ToursState>(
       builder: (context, state) {
-        final tours = state.pages?.firstOrNull ?? [];
-        final hasMore = state.hasNextPage;
+        final tours = state.pages?.expand((page) => page).toList() ?? [];
 
         return SliverPadding(
           padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
           sliver: SliverList.separated(
             itemBuilder: (context, index) {
-              if (index >= tours.length) {
-                return const BottomLoader();
-              }
               final tour = tours[index];
               return TourCardWidget(
                 tour: tour,
@@ -38,25 +33,10 @@ class ToursListContent extends StatelessWidget {
               );
             },
             separatorBuilder: (_, _) => const SizedBox(height: AppSpacing.md),
-            itemCount: hasMore ? tours.length + 1 : tours.length,
+            itemCount: tours.length,
           ),
         );
       },
-    );
-  }
-}
-
-class BottomLoader extends StatelessWidget {
-  const BottomLoader({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(
-      child: SizedBox(
-        height: 24,
-        width: 24,
-        child: CircularProgressIndicator(strokeWidth: 1.5),
-      ),
     );
   }
 }

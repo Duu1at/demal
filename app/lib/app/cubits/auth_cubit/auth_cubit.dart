@@ -18,7 +18,7 @@ class AuthCubit extends Cubit<AuthState> {
   final AuthRepository _authRepository;
   final ProfileRepository _profileRepository;
 
-  Future<void> logIn() async {
+  Future<void> checkUser() async {
     emit(state.copyWith(status: AuthStatus.loading));
     try {
       final token = _authRepository.getToken();
@@ -28,7 +28,6 @@ class AuthCubit extends Cubit<AuthState> {
       }
       var user = _profileRepository.getProfileFromLocal();
       user ??= await _profileRepository.getProfile();
-
       emit(AuthState.authenticated(user, token));
     } on Object catch (_) {
       emit(const AuthState.unauthenticated());

@@ -201,7 +201,7 @@ class _ClientTourFiltersViewState extends State<ClientTourFiltersView> {
       sortBy: _sortBy,
     );
 
-    context.read<ToursBloc>().add(ToursFilterChangedEvent(params));
+    context.read<ToursBloc>().add(ToursFilterChanged(params));
     Navigator.of(context).pop();
   }
 
@@ -218,7 +218,7 @@ class _ClientTourFiltersViewState extends State<ClientTourFiltersView> {
       _priceMinController.clear();
       _priceMaxController.clear();
     });
-    context.read<ToursBloc>().add(const ToursFilterChangedEvent(ToursParam()));
+    context.read<ToursBloc>().add(const ToursFilterChanged(ToursParam()));
     Navigator.of(context).pop();
   }
 

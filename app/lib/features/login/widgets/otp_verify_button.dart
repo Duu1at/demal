@@ -1,9 +1,10 @@
 import 'package:app/app/app.dart';
-import 'package:app/features/login/cubit/otp_cubit.dart';
+import 'package:app/features/features.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class OtpVerifyButton extends StatelessWidget {
   const OtpVerifyButton({
@@ -26,7 +27,11 @@ class OtpVerifyButton extends StatelessWidget {
       listener: (context, state) {
         final verifyStatus = state.verifyStatus;
         if (verifyStatus is RequestSuccess<String>) {
-          context.read<AuthCubit>().logIn();
+          context.read<AuthCubit>().checkUser().then((value) {
+            if (context.mounted) {
+              context.pushNamed(AppRouteNames.clientHome);
+            }
+          });
         }
         if (verifyStatus is RequestFailure<String>) {
           context.read<ErrorHandler>().handleError(

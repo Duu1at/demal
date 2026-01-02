@@ -4,7 +4,7 @@ abstract class AppRouteNames {
   static final navigatorKey = GlobalKey<NavigatorState>();
   static final scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
 
-  static const root = 'root';
+  static const clientHome = '/';
 
   static const login = 'login';
   static const otp = 'otp';
