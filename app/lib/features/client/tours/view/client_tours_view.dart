@@ -1,36 +1,31 @@
 import 'package:app/app/app.dart';
 import 'package:app/app/router/nav_helper.dart';
-import 'package:app/features/client/home/blocs/tours/tours_bloc.dart';
-import 'package:app/features/client/home/view/widgets/tours_empty_state.dart';
-import 'package:app/features/client/home/view/widgets/tours_error_state.dart';
-import 'package:app/features/client/home/view/widgets/tours_list_content.dart';
-import 'package:app/features/client/home/view/widgets/tours_loading_state.dart';
-import 'package:app/features/client/home/view/widgets/tours_search_bar.dart';
+import 'package:app/features/features.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tour_repository/tour_repository.dart';
 
-class ClientHomeView extends StatelessWidget {
-  const ClientHomeView({super.key});
+class ClientToursView extends StatelessWidget {
+  const ClientToursView({super.key});
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => ToursBloc(context.read<TourRepository>()),
-      child: const ClientHomeViewBody(),
+      child: const ClientToursViewBody(),
     );
   }
 }
 
-class ClientHomeViewBody extends StatefulWidget {
-  const ClientHomeViewBody({super.key});
+class ClientToursViewBody extends StatefulWidget {
+  const ClientToursViewBody({super.key});
 
   @override
-  State<ClientHomeViewBody> createState() => _ClientHomeViewBodyState();
+  State<ClientToursViewBody> createState() => _ClientToursViewBodyState();
 }
 
-class _ClientHomeViewBodyState extends State<ClientHomeViewBody> {
+class _ClientToursViewBodyState extends State<ClientToursViewBody> {
   final _searchController = TextEditingController();
   final _scrollController = ScrollController();
   ToursParam _params = const ToursParam();

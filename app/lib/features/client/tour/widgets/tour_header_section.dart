@@ -1,4 +1,4 @@
-import 'package:app/features/client/home/widgets/tour_reviews_bottom_sheet.dart';
+import 'package:app/features/client/tour/widgets/tour_reviews_bottom_sheet.dart';
 import 'package:app/utils/utils.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';

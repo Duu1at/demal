@@ -1,4 +1,4 @@
-import 'package:app/features/client/home/widgets/tour_card/tour_card_constants.dart';
+import 'package:app/features/client/tours/widgets/tour_card_constants.dart';
 import 'package:app/utils/tour_card/tour_card_utils.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';

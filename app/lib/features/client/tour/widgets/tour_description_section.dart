@@ -1,4 +1,4 @@
-import 'package:app/features/client/home/widgets/expandable_text.dart';
+import 'package:app/features/client/client.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:tour_repository/tour_repository.dart';

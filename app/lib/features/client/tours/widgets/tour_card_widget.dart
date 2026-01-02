@@ -1,6 +1,7 @@
 import 'package:app/app/app.dart';
+import 'package:app/app/router/nav_helper.dart';
 import 'package:app/utils/tour_card/tour_model_extensions.dart';
-import 'package:app/features/client/home/widgets/tour_card/tour_card.dart';
+import 'package:app/features/client/tours/widgets/tour_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:go_router/go_router.dart';
@@ -10,15 +11,11 @@ class TourCardWidget extends StatelessWidget {
   const TourCardWidget({
     required this.tour,
     this.cacheManager,
-    this.onTap,
-    this.onBookTap,
     super.key,
   });
 
   final TourModel tour;
   final CacheManager? cacheManager;
-  final VoidCallback? onTap;
-  final VoidCallback? onBookTap;
 
   @override
   Widget build(BuildContext context) {
@@ -34,23 +31,19 @@ class TourCardWidget extends StatelessWidget {
       country: tour.country,
       price: tour.price?.toDouble(),
       cacheManager: cacheManager,
-      onTap:
-          onTap ??
-          () {
-            if (tour.tourId != null) {
-              context.pushNamed(
-                AppRouteNames.clientTourDetails,
-                pathParameters: {'tourId': tour.tourId ?? ''},
-              );
-            }
-          },
-      onBookTap:
-          onBookTap ??
-          () {
-            if (tour.tourId != null) {
-              context.pushNamed(AppRouteNames.clientTourTickets);
-            }
-          },
+      onTap: () {
+        if (tour.tourId != null) {
+          context.pushNamed(
+            AppRouteNames.clientTourDetails,
+            pathParameters: {'tourId': tour.tourId ?? ''},
+          );
+        }
+      },
+      onBookTap: () {
+        if (tour.tourId != null) {
+          context.goNamedIfAuthenticated(AppRouteNames.clientTourTickets);
+        }
+      },
     );
   }
 }

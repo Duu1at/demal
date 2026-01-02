@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:app/features/client/home/blocs/tours/tours_bloc.dart';
+import 'package:app/features/client/tours/bloc/tours_bloc.dart';
 import 'package:tour_repository/tour_repository.dart';
 import 'package:core/core.dart';
 

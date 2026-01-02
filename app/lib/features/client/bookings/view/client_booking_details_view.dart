@@ -1,7 +1,7 @@
 import 'package:app/app/app.dart';
-import 'package:app/features/client/home/widgets/booking_header_card.dart';
-import 'package:app/features/client/home/widgets/contact_form.dart';
-import 'package:app/features/client/home/widgets/guests_selecter.dart';
+import 'package:app/features/client/bookings/widgets/booking_header_card.dart';
+import 'package:app/features/client/bookings/widgets/contact_form.dart';
+import 'package:app/features/client/bookings/widgets/guests_selecter.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

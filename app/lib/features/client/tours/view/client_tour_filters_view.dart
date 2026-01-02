@@ -1,4 +1,4 @@
-import 'package:app/features/client/home/blocs/tours/tours_bloc.dart';
+import 'package:app/features/client/tours/bloc/tours_bloc.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

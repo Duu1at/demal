@@ -21,7 +21,7 @@ final class AppRouter {
         GoRoute(
           path: AppRouteNames.clientHome,
           name: AppRouteNames.clientHome,
-          builder: (_, _) => const ClientHomeView(),
+          builder: (_, _) => const ClientToursView(),
           routes: [
             GoRoute(
               path: '${AppRouteNames.clientTourDetails}/:tourId',
@@ -35,7 +35,7 @@ final class AppRouter {
             GoRoute(
               path: AppRouteNames.clientTourTickets,
               name: AppRouteNames.clientTourTickets,
-              builder: (_, _) => const ClientTourTicketsView(),
+              builder: (_, _) => const ClientMyTicketsView(),
             ),
             GoRoute(
               path: AppRouteNames.clientTourFilters,
