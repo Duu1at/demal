@@ -1,6 +1,5 @@
 import 'package:app/app/app.dart';
 import 'package:app/utils/utils.dart';
-import 'package:app/widgets/avatar/editable_avatar.dart';
 import 'package:core/core.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +26,7 @@ class _SettingsViewState extends State<SettingsView> with SettingsChangeMixin<Se
     final theme = Theme.of(context);
     return ScaffoldWithBgImage(
       appBar: AppBar(
-        title: Text(context.l10n.profile, style: theme.textTheme.titleLarge),
+        title: Text('Настройки', style: theme.textTheme.titleLarge),
       ),
       body: SafeArea(
         child: Padding(
@@ -35,19 +34,33 @@ class _SettingsViewState extends State<SettingsView> with SettingsChangeMixin<Se
           child: Column(
             children: [
               const SizedBox(height: AppSpacing.sm),
-              EditableAvatar(
-                avatarUrl: _authState.user.imageUrl,
-                size: 80,
-                expand: true,
-                onUpdate: (byte) {},
-              ),
-              const SizedBox(height: AppSpacing.md),
-              Text(
-                _authState.user.fullName ?? '',
-                style: theme.textTheme.bodyLarge?.copyWith(
-                  fontWeight: FontWeight.w600,
+              ListTile(
+                contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
                 ),
+                tileColor: context.appColors.bgCard,
+                leading: AvatarIcon(
+                  size: 60,
+                  imageUrl: _authState.user.imageUrl,
+                  cacheManager: ImageStorage.instance.avatarManager,
+                ),
+                title: Text(
+                  _authState.user.fullName ?? 'Duulat Bolsunbek uulu',
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                subtitle: Text(
+                  'Фото профиля, имя, описание',
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    color: context.appColors.disabled,
+                  ),
+                ),
+                trailing: const Icon(Icons.arrow_forward_ios_rounded),
+                onTap: () => context.pushNamed(AppRouteNames.settingsEditProfile),
               ),
+
               if (_authState.status == AuthStatus.authenticated) ...[
                 const SizedBox(height: AppSpacing.lg),
                 CardDrawerTitle(

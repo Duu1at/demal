@@ -92,6 +92,11 @@ final class AppRouter {
               name: AppRouteNames.settingsAboutUs,
               builder: (context, state) => const AboutUsView(),
             ),
+            GoRoute(
+              path: AppRouteNames.settingsEditProfile,
+              name: AppRouteNames.settingsEditProfile,
+              builder: (context, state) => const EditProfileView(),
+            ),
           ],
         ),
 
