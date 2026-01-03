@@ -47,6 +47,9 @@ final class UserModel {
 
   final String? email;
 
+  bool get isPartner => role == RoleEnum.PARTNER;
+  bool get isClient => role == RoleEnum.CLIENT;
+
   UserModel copyWith({
     String? userId,
     String? fullName,

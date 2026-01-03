@@ -1,20 +1,39 @@
 import 'package:app/app/app.dart';
+import 'package:app/features/features.dart';
 import 'package:app/utils/utils.dart';
 import 'package:core/core.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:profile_repository/profile_repository.dart';
 
-class SettingsView extends StatefulWidget {
+class SettingsView extends StatelessWidget {
   const SettingsView({super.key});
 
   @override
-  State<SettingsView> createState() => _SettingsViewState();
+  Widget build(BuildContext context) {
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => UpgrateRoleCubit(context.read<ProfileRepository>()),
+        ),
+      ],
+      child: const SettingsViewBody(),
+    );
+  }
 }
 
-class _SettingsViewState extends State<SettingsView> with SettingsChangeMixin<SettingsView> {
+class SettingsViewBody extends StatefulWidget {
+  const SettingsViewBody({super.key});
+
+  @override
+  State<SettingsViewBody> createState() => _SettingsViewBodyState();
+}
+
+class _SettingsViewBodyState extends State<SettingsViewBody> with SettingsChangeMixin<SettingsViewBody> {
   late AuthState _authState;
+
   @override
   void initState() {
     super.initState();
@@ -61,15 +80,15 @@ class _SettingsViewState extends State<SettingsView> with SettingsChangeMixin<Se
                 onTap: () => context.pushNamed(AppRouteNames.settingsEditProfile),
               ),
 
-              if (_authState.status == AuthStatus.authenticated) ...[
+              if (_authState.status == AuthStatus.authenticated && _authState.user.isClient) ...[
                 const SizedBox(height: AppSpacing.lg),
                 CardDrawerTitle(
                   icon: Icon(
-                    Icons.confirmation_number_outlined,
+                    Icons.business_center_outlined,
                     color: theme.colorScheme.primary,
                   ),
-                  title: context.l10n.myTickets,
-                  onTap: () => context.pushNamed(AppRouteNames.clientTourTickets),
+                  title: 'Стать организатором',
+                  onTap: () => UpgradeRoleBottomSheet.show(context),
                 ),
               ],
               const SizedBox(height: AppSpacing.lg),
@@ -108,21 +127,13 @@ class _SettingsViewState extends State<SettingsView> with SettingsChangeMixin<Se
                 CardDrawerTitle(
                   icon: const Icon(Icons.logout, color: Colors.red),
                   title: context.l10n.logOut,
-                  onTap: () => context.read<AuthCubit>().logout().then((value) {
-                    if (context.mounted) {
-                      context.goNamed(AppRouteNames.login);
-                    }
-                  }),
+                  onTap: () => LogoutBottomSheet.show(context),
                 ),
                 const SizedBox(height: AppSpacing.lg),
                 CardDrawerTitle(
                   icon: const Icon(Icons.delete_forever, color: Colors.red),
                   title: context.l10n.deleteAccount,
-                  onTap: () => context.read<AuthCubit>().deleteAccount().then((value) {
-                    if (context.mounted) {
-                      context.goNamed(AppRouteNames.login);
-                    }
-                  }),
+                  onTap: () => DeleteAccountBottomSheet.show(context),
                 ),
               ],
 

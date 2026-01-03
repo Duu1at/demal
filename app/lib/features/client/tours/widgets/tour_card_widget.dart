@@ -31,19 +31,11 @@ class TourCardWidget extends StatelessWidget {
       country: tour.country,
       price: tour.price?.toDouble(),
       cacheManager: cacheManager,
-      onTap: () {
-        if (tour.tourId != null) {
-          context.pushNamed(
+      onTap: () => context.pushNamed(
             AppRouteNames.clientTourDetails,
             pathParameters: {'tourId': tour.tourId ?? ''},
-          );
-        }
-      },
-      onBookTap: () {
-        if (tour.tourId != null) {
-          context.goNamedIfAuthenticated(AppRouteNames.clientTourTickets);
-        }
-      },
+          ),
+      onBookTap: () => context.goNamedIfAuthenticated(AppRouteNames.clientBookingDetails),
     );
   }
 }

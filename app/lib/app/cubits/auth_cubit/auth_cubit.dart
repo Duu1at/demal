@@ -46,4 +46,10 @@ class AuthCubit extends Cubit<AuthState> {
     ]);
     emit(const AuthState.unauthenticated());
   }
+
+  void updateUser(UserModel user) {
+    if (state.status == AuthStatus.authenticated) {
+      emit(state.copyWith(user: user));
+    }
+  }
 }

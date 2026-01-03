@@ -47,4 +47,9 @@ final class ProfileRepositoryImpl implements ProfileRepository {
   Future<void> deleteProfileData() async {
     await localDataSource.deleteProfileData();
   }
+
+  @override
+  Future<UserModel> upgradeToPartner() {
+    return remoteDataSource.upgradeToPartner();
+  }
 }

@@ -9,19 +9,27 @@ final class ProfileRemoteDataSource {
 
   final ApiClient apiClient;
 
-  Future<UserModel> getProfile() async {
-    final response = await apiClient.getResponse<Map<String, dynamic>>(
-      '/api/v1/users/me',
-    );
-    return UserModel.fromJson(response.data?['user'] as Map<String, dynamic>);
+  Future<UserModel> getProfile() {
+    return apiClient
+        .getResponse<Map<String, dynamic>>('/api/v1/users/me')
+        .then(
+          (res) => UserModel.fromJson(
+            res.data?['user'] as Map<String, dynamic>,
+          ),
+        );
   }
 
-  Future<UserModel> updateProfile(ProfileUpdateParam param) async {
-    final response = await apiClient.patchResponse<Map<String, dynamic>>(
-      '/api/v1/users/profile',
-      data: param.toJson(),
-    );
-    return UserModel.fromJson(response.data?['user'] as Map<String, dynamic>);
+  Future<UserModel> updateProfile(ProfileUpdateParam param) {
+    return apiClient
+        .patchResponse<Map<String, dynamic>>(
+          '/api/v1/users/profile',
+          data: param.toJson(),
+        )
+        .then(
+          (res) => UserModel.fromJson(
+            res.data?['user'] as Map<String, dynamic>,
+          ),
+        );
   }
 
   Future<PartnerVerifyStatusModel> getPartnerVerifyStatus() {
@@ -31,11 +39,26 @@ final class ProfileRemoteDataSource {
     );
   }
 
-  Future<PartnerProfileModel> updatePartnerProfile(PartnerProfileParam param) async {
-    final response = await apiClient.postResponse<Map<String, dynamic>>(
-      '/api/v1/partners/profile',
-      data: param.toJson(),
-    );
-    return PartnerProfileModel.fromJson(response.data?['profile'] as Map<String, dynamic>);
+  Future<PartnerProfileModel> updatePartnerProfile(PartnerProfileParam param) {
+    return apiClient
+        .postResponse<Map<String, dynamic>>(
+          '/api/v1/partners/profile',
+          data: param.toJson(),
+        )
+        .then(
+          (res) => PartnerProfileModel.fromJson(
+            res.data?['profile'] as Map<String, dynamic>,
+          ),
+        );
+  }
+
+  Future<UserModel> upgradeToPartner() {
+    return apiClient
+        .patchResponse<Map<String, dynamic>>('/api/v1/users/upgrade-role')
+        .then(
+          (res) => UserModel.fromJson(
+            res.data?['user'] as Map<String, dynamic>,
+          ),
+        );
   }
 }
