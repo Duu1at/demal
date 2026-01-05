@@ -137,7 +137,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get documentChip => 'Document';
 
   @override
-  String get chooseFilesButton => 'Choose files';
+  String get chooseFilesButton => 'Choose file';
 
   @override
   String get takePhotoButton => 'Take a photo';

@@ -1,57 +1,62 @@
 part of 'partner_verification_cubit.dart';
 
 @immutable
-final class PartnerVerificationState {
+final class PartnerVerificationState extends Equatable {
   const PartnerVerificationState({
     this.companyName = '',
     this.description = '',
     this.cardNumber = '',
-    this.avatarUrl,
-    this.documentUrls = const [],
+    this.documentUrl,
     this.isTermsAccepted = false,
-    this.isLoading = false,
-    this.isSubmitting = false,
-    this.isUploadingDocuments = false,
-    this.isSuccess = false,
-    this.error,
+    this.requestStatus = const RequestInitial(),
+    this.isUploadingDocument = false,
   });
+
   final String companyName;
   final String description;
   final String cardNumber;
-  final String? avatarUrl;
-  final List<String> documentUrls;
+  final String? documentUrl;
   final bool isTermsAccepted;
-  final bool isLoading;
-  final bool isSubmitting;
-  final bool isUploadingDocuments;
-  final bool isSuccess;
-  final Object? error;
+  final RequestStatus<void> requestStatus;
+  final bool isUploadingDocument;
+
+  bool get isValid {
+    return companyName.isNotEmpty &&
+        description.isNotEmpty &&
+        cardNumber.length >= 16 &&
+        documentUrl != null &&
+        isTermsAccepted;
+  }
 
   PartnerVerificationState copyWith({
     String? companyName,
     String? description,
     String? cardNumber,
-    String? avatarUrl,
-    List<String>? documentUrls,
+    String? documentUrl,
     bool? isTermsAccepted,
-    bool? isLoading,
-    bool? isSubmitting,
-    bool? isUploadingDocuments,
-    bool? isSuccess,
-    Object? error,
+    RequestStatus<void>? requestStatus,
+    bool? isUploadingDocument,
+    bool removeDocumentUrl = false,
   }) {
     return PartnerVerificationState(
       companyName: companyName ?? this.companyName,
       description: description ?? this.description,
       cardNumber: cardNumber ?? this.cardNumber,
-      avatarUrl: avatarUrl ?? this.avatarUrl,
-      documentUrls: documentUrls ?? this.documentUrls,
+      documentUrl: removeDocumentUrl ? null : (documentUrl ?? this.documentUrl),
       isTermsAccepted: isTermsAccepted ?? this.isTermsAccepted,
-      isLoading: isLoading ?? this.isLoading,
-      isSubmitting: isSubmitting ?? this.isSubmitting,
-      isUploadingDocuments: isUploadingDocuments ?? this.isUploadingDocuments,
-      isSuccess: isSuccess ?? this.isSuccess,
-      error: error,
+      requestStatus: requestStatus ?? this.requestStatus,
+      isUploadingDocument: isUploadingDocument ?? this.isUploadingDocument,
     );
   }
+
+  @override
+  List<Object?> get props => [
+    companyName,
+    description,
+    cardNumber,
+    documentUrl,
+    isTermsAccepted,
+    requestStatus,
+    isUploadingDocument,
+  ];
 }

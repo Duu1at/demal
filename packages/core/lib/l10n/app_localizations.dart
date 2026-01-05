@@ -342,7 +342,7 @@ abstract class AppLocalizations {
   /// No description provided for @chooseFilesButton.
   ///
   /// In en, this message translates to:
-  /// **'Choose files'**
+  /// **'Choose file'**
   String get chooseFilesButton;
 
   /// No description provided for @takePhotoButton.

@@ -138,7 +138,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get documentChip => 'Документ';
 
   @override
-  String get chooseFilesButton => 'Выбрать файлы';
+  String get chooseFilesButton => 'Выбрать файл';
 
   @override
   String get takePhotoButton => 'Сделать фото';

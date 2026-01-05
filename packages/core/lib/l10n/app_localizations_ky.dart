@@ -138,7 +138,7 @@ class AppLocalizationsKy extends AppLocalizations {
   String get documentChip => 'Документ';
 
   @override
-  String get chooseFilesButton => 'Файлдарды тандоо';
+  String get chooseFilesButton => 'Файл тандоо';
 
   @override
   String get takePhotoButton => 'Сүрөткө тартуу';

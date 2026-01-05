@@ -49,7 +49,9 @@ class App extends StatelessWidget {
           ),
         ),
         RepositoryProvider<UploadRepository>(
-          create: (context) => const UploadRepositoryMockImpl(),
+          create: (context) => UploadRepositoryImpl(
+            UploadRemoteDataSource(context.read<ApiClient>()),
+          ),
         ),
         RepositoryProvider<ErrorHandler>(create: (context) => const BaseErrorHandler()),
         RepositoryProvider<ErrorHandleSnackBar>(create: (context) => const ErrorHandleSnackBar()),

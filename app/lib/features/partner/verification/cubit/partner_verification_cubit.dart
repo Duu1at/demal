@@ -1,7 +1,8 @@
 import 'dart:io';
 
-import 'package:app/utils/image_picker_service/image_picker_service.dart';
 import 'package:core/core.dart';
+import 'package:equatable/equatable.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:profile_repository/profile_repository.dart';
@@ -13,12 +14,10 @@ class PartnerVerificationCubit extends Cubit<PartnerVerificationState> {
   PartnerVerificationCubit({
     required this.profileRepository,
     required this.uploadRepository,
-    required this.imagePickerService,
   }) : super(const PartnerVerificationState());
 
   final ProfileRepository profileRepository;
   final UploadRepository uploadRepository;
-  final ImagePickerService imagePickerService;
 
   void updateCompanyName(String value) {
     emit(state.copyWith(companyName: value));
@@ -32,125 +31,69 @@ class PartnerVerificationCubit extends Cubit<PartnerVerificationState> {
     emit(state.copyWith(cardNumber: value));
   }
 
-  void updateAvatarUrl(String? url) {
-    emit(state.copyWith(avatarUrl: url));
-  }
-
   void toggleTermsAccepted() {
     emit(state.copyWith(isTermsAccepted: !state.isTermsAccepted));
   }
 
-  Future<void> pickDocuments(BuildContext context) async {
+  Future<void> pickAndUploadDocument(BuildContext context) async {
     try {
-      emit(state.copyWith(isUploadingDocuments: true));
-      final files = await imagePickerService.pickMultipleImages(
-        context: context,
-        limit: 5,
+      emit(state.copyWith(isUploadingDocument: true));
+      final result = await FilePicker.platform.pickFiles(
+        type: FileType.custom,
+        allowedExtensions: ['jpg', 'jpeg', 'png', 'pdf', 'doc', 'docx'],
       );
 
-      if (files.isEmpty) {
-        emit(state.copyWith(isUploadingDocuments: false));
+      if (result == null || result.files.isEmpty || result.files.single.path == null) {
+        emit(state.copyWith(isUploadingDocument: false));
         return;
       }
 
-      final fileList = files.map((file) => File(file.path)).toList();
-      final result = await uploadRepository.uploadMultipleFiles(
-        UploadEnumParam.document,
-        fileList,
-      );
-
-      final documentUrls = result.data.map((e) => e.url).whereType<String>().toList();
-      emit(
-        state.copyWith(
-          documentUrls: [...state.documentUrls, ...documentUrls],
-          isUploadingDocuments: false,
-        ),
-      );
-    } on Object catch (e) {
-      emit(state.copyWith(isUploadingDocuments: false, error: e));
-    }
-  }
-
-  Future<void> takePhoto(BuildContext context) async {
-    try {
-      emit(state.copyWith(isUploadingDocuments: true));
-      final files = await imagePickerService.pickMultipleImages(
-        context: context,
-        limit: 1,
-      );
-
-      if (files.isEmpty) {
-        emit(state.copyWith(isUploadingDocuments: false));
-        return;
-      }
-
-      final file = File(files.first.path);
-      final result = await uploadRepository.uploadSingleFile(
+      final file = File(result.files.single.path!);
+      final uploadResult = await uploadRepository.uploadSingleFile(
         UploadEnumParam.document,
         file,
       );
 
-      final url = result.data.url;
+      final url = uploadResult.data.url;
+      debugPrint(url);
       if (url != null && url.isNotEmpty) {
         emit(
           state.copyWith(
-            documentUrls: [...state.documentUrls, url],
-            isUploadingDocuments: false,
+            documentUrl: url,
+            isUploadingDocument: false,
           ),
         );
       } else {
-        emit(state.copyWith(isUploadingDocuments: false));
+        emit(state.copyWith(isUploadingDocument: false));
       }
-    } on Object catch (e) {
-      emit(state.copyWith(isUploadingDocuments: false, error: e));
+    } on Object catch (_) {
+      emit(state.copyWith(isUploadingDocument: false));
     }
   }
 
-  Future<void> submitVerification(AppLocalizations l10n) async {
-    if (!_validateForm(l10n)) return;
+  void removeDocument() {
+    emit(state.copyWith(removeDocumentUrl: true));
+  }
+
+  Future<void> submitVerification() async {
+    if (!state.isValid) return;
 
     try {
-      emit(state.copyWith(isSubmitting: true, error: null));
-
-      final documentsUrl = state.documentUrls.join(',');
+      emit(state.copyWith(requestStatus: RequestLoading()));
 
       await profileRepository.updatePartnerProfile(
         PartnerProfileParam(
           companyName: state.companyName.trim(),
           description: state.description.trim(),
           cardNumber: state.cardNumber.replaceAll(' ', ''),
-          documentsUrl: documentsUrl,
+          documentsUrl: state.documentUrl ?? '',
         ),
       );
       await profileRepository.getProfile();
 
-      emit(state.copyWith(isSubmitting: false, isSuccess: true));
+      emit(state.copyWith(requestStatus: const RequestSuccess(null)));
     } on Object catch (e) {
-      emit(state.copyWith(isSubmitting: false, error: e));
+      emit(state.copyWith(requestStatus: RequestFailure(e)));
     }
-  }
-
-  bool _validateForm(AppLocalizations l10n) {
-    if (state.companyName.trim().isEmpty) {
-      emit(state.copyWith(error: ValidationException(l10n.companyNameRequired)));
-      return false;
-    }
-    if (state.description.trim().isEmpty) {
-      emit(state.copyWith(error: ValidationException(l10n.descriptionRequired)));
-      return false;
-    }
-    if (state.cardNumber.replaceAll(' ', '').length < 16) {
-      emit(state.copyWith(error: ValidationException(l10n.cardNumberRequired)));
-      return false;
-    }
-    if (state.documentUrls.isEmpty) {
-      emit(state.copyWith(error: ValidationException(l10n.documentsRequired)));
-      return false;
-    }
-    if (!state.isTermsAccepted) {
-      emit(state.copyWith(error: ValidationException(l10n.termsRequired)));
-      return false;
-    }
-    return true;
   }
 }
