@@ -99,7 +99,7 @@ final class AppRouter {
             ),
           ],
         ),
-
+        
         GoRoute(
           path: '/${AppRouteNames.partnerVerification}',
           name: AppRouteNames.partnerVerification,

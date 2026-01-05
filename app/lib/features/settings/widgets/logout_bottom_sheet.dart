@@ -11,7 +11,10 @@ class LogoutBottomSheet extends StatelessWidget {
     return BottomSheets.showModalSettingsSheet(
       context: context,
       showDragHandle: true,
-      child: const LogoutBottomSheet(),
+      child: BlocProvider.value(
+        value: context.read<AuthCubit>(),
+        child: const LogoutBottomSheet(),
+      ),
     );
   }
 

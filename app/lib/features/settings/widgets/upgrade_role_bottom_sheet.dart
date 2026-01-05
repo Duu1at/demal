@@ -1,8 +1,10 @@
+import 'package:app/app/app.dart';
 import 'package:app/features/features.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class UpgradeRoleBottomSheet extends StatelessWidget {
   const UpgradeRoleBottomSheet({super.key});
@@ -13,8 +15,15 @@ class UpgradeRoleBottomSheet extends StatelessWidget {
       showDragHandle: true,
       isDismissible: false,
       enableDrag: false,
-      child: BlocProvider.value(
-        value: context.read<UpgrateRoleCubit>(),
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider.value(
+            value: context.read<UpgrateRoleCubit>(),
+          ),
+          BlocProvider.value(
+            value: context.read<AuthCubit>(),
+          ),
+        ],
         child: const UpgradeRoleBottomSheet(),
       ),
     );
@@ -26,7 +35,14 @@ class UpgradeRoleBottomSheet extends StatelessWidget {
 
     return BlocConsumer<UpgrateRoleCubit, RequestStatus<UserModel>>(
       listener: (context, state) {
-        if (state is RequestSuccess<UserModel>) {}
+        if (state is RequestSuccess<UserModel>) {
+          final authCubit = context.read<AuthCubit>();
+          Navigator.of(context).pop();
+          authCubit.updateProfile();
+          if (context.mounted) {
+            context.goNamed(AppRouteNames.partnerVerification);
+          }
+        }
         if (state is RequestFailure) {
           Navigator.of(context).pop();
           context.read<ErrorHandler>().handleError(state, context);

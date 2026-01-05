@@ -11,7 +11,10 @@ class DeleteAccountBottomSheet extends StatelessWidget {
     return BottomSheets.showModalSettingsSheet(
       context: context,
       showDragHandle: true,
-      child: const DeleteAccountBottomSheet(),
+      child: BlocProvider.value(
+        value: context.read<AuthCubit>(),
+        child: const DeleteAccountBottomSheet(),
+      ),
     );
   }
 
