@@ -59,7 +59,7 @@ class _EditProfileViewState extends State<EditProfileView> with SettingsChangeMi
           AppTextField(
             contentPadding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm, vertical: AppSpacing.sm),
             controller: _fullNameCtl,
-            label: const Text('Имя'),
+            label: Text(_authState.user.role == RoleEnum.PARTNER ? 'Название компании' : 'Имя'),
           ),
           const SizedBox(height: AppSpacing.lg),
           AppTextField(
@@ -67,16 +67,16 @@ class _EditProfileViewState extends State<EditProfileView> with SettingsChangeMi
             controller: _emailCtl,
             label: const Text('Email'),
           ),
-          if (_authState.user.partnerProfile != null) ...[
-          const SizedBox(height: AppSpacing.lg),
-          AppTextField(
-            contentPadding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm, vertical: AppSpacing.sm),
-            controller: _titleCtl,
-            label: const Text('Описание '),
-            maxLength: 100,
-            maxLines: 3,
-          ),
-        ],
+          if (_authState.user.role == RoleEnum.PARTNER) ...[
+            const SizedBox(height: AppSpacing.lg),
+            AppTextField(
+              contentPadding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm, vertical: AppSpacing.sm),
+              controller: _titleCtl,
+              label: const Text('Описание '),
+              maxLength: 100,
+              maxLines: 3,
+            ),
+          ],
         ],
         columnChildren: [
           AppButton(

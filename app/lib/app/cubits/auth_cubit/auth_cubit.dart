@@ -48,7 +48,8 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   Future<void> updateProfile() async {
-    await _profileRepository.deleteProfileData();
-    await checkUser();
+    await _profileRepository.deleteProfileData().then((_) {
+      checkUser();
+    });
   }
 }

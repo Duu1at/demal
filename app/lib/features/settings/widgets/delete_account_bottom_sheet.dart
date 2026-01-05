@@ -68,11 +68,11 @@ class DeleteAccountBottomSheet extends StatelessWidget {
                 child: AppButton(
                   variant: AppButtonVariant.destructive,
                   onPressed: () {
+                    final authCubit = context.read<AuthCubit>();
+                    final router = GoRouter.of(context);
                     Navigator.pop(context);
-                    context.read<AuthCubit>().deleteAccount().then((value) {
-                      if (context.mounted) {
-                        context.goNamed(AppRouteNames.login);
-                      }
+                    authCubit.deleteAccount().then((_) {
+                      router.goNamed(AppRouteNames.login);
                     });
                   },
                   child: const Text('Удалить'),

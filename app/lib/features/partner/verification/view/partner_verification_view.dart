@@ -1,6 +1,5 @@
 import 'package:app/features/features.dart';
 import 'package:app/utils/utils.dart';
-import 'package:app/widgets/widgets.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
@@ -34,14 +33,17 @@ class _PartnerVerificationViewBody extends StatefulWidget {
 }
 
 class _PartnerVerificationViewBodyState extends State<_PartnerVerificationViewBody> {
+  late final GlobalKey<FormState> _formKey;
   late final PartnerVerificationCubit _cubit;
   late final TextEditingController _companyNameCtlr;
   late final TextEditingController _descriptionCtlr;
   late final TextEditingController _cardNumberCtlr;
+  bool _isTermsAccepted = false;
 
   @override
   void initState() {
     super.initState();
+    _formKey = GlobalKey<FormState>();
     _cubit = context.read<PartnerVerificationCubit>();
     _companyNameCtlr = TextEditingController();
     _descriptionCtlr = TextEditingController();
@@ -68,85 +70,78 @@ class _PartnerVerificationViewBodyState extends State<_PartnerVerificationViewBo
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(title: Text(context.l10n.partnerVerificationTitle)),
-          body: SafeArea(
-            bottom: true,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
-              child: CustomScrollView(
-                slivers: [
-                  SliverToBoxAdapter(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        EditableAvatar(
-                          avatarUrl: state.avatarUrl,
-                          onUpdate: (image) => _cubit.updateAvatarUrl(image.path),
-                          size: 80,
-                        ),
-                        const SizedBox(height: AppSpacing.xxlg),
-                        AppTextField(
-                          label: Text(context.l10n.companyNameLabel),
-                          controller: _companyNameCtlr,
-                          maxLines: 3,
-                          keyboardType: TextInputType.text,
-                          inputFormatters: [LengthLimitingTextInputFormatter(50)],
-                          contentPadding: const EdgeInsets.symmetric(
-                            horizontal: AppSpacing.sm,
-                            vertical: AppSpacing.sm,
-                          ),
-                          maxLength: 50,
-                          hintText: context.l10n.companyNameHint,
-                          onChanged: _cubit.updateCompanyName,
-                        ),
-                        const SizedBox(height: AppSpacing.md),
-                        AppTextField(
-                          label: Text(context.l10n.descriptionLabel),
-                          controller: _descriptionCtlr,
-                          maxLines: 5,
-                          keyboardType: TextInputType.text,
-                          inputFormatters: [LengthLimitingTextInputFormatter(255)],
-                          contentPadding: const EdgeInsets.symmetric(
-                            horizontal: AppSpacing.sm,
-                            vertical: AppSpacing.sm,
-                          ),
-                          hintText: context.l10n.descriptionHint,
-                          onChanged: _cubit.updateDescription,
-                          maxLength: 255,
-                        ),
-                        const SizedBox(height: AppSpacing.md),
-                        AppTextField(
-                          label: Text(context.l10n.cardNumberLabel),
-                          controller: _cardNumberCtlr,
-                          keyboardType: TextInputType.number,
-                          inputFormatters: [InputFormatters.cardNumberFormatter],
-                          contentPadding: const EdgeInsets.symmetric(
-                            horizontal: AppSpacing.sm,
-                            vertical: AppSpacing.sm,
-                          ),
-                          hintText: context.l10n.cardNumberHint,
-                          onChanged: _cubit.updateCardNumber,
-                        ),
-                        const SizedBox(height: AppSpacing.md),
-                        PartnerVerificationDocuments(state: state, cubit: _cubit),
-                        const SizedBox(height: AppSpacing.md),
-                        PartnerVerificationAgreement(
-                          isChecked: state.isTermsAccepted,
-                          onChanged: _cubit.toggleTermsAccepted,
-                        ),
-                        const SizedBox(height: AppSpacing.xxxxxxlg),
-                      ],
-                    ),
-                  ),
-                ],
+          body: ScrollableForm(
+            formKey: _formKey,
+            contentPadding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+            listViewChildren: [
+              AppTextField(
+                label: Text(context.l10n.companyNameLabel),
+                controller: _companyNameCtlr,
+                maxLines: 3,
+                keyboardType: TextInputType.text,
+                inputFormatters: [LengthLimitingTextInputFormatter(50)],
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: AppSpacing.sm,
+                  vertical: AppSpacing.sm,
+                ),
+                maxLength: 50,
+                hintText: context.l10n.companyNameHint,
+                onChanged: _cubit.updateCompanyName,
               ),
-            ),
-          ),
-          floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-          floatingActionButton: AppButton(
-            margin: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
-            isLoading: state.isSubmitting,
-            onPressed: () => _cubit.submitVerification(context.l10n),
-            child: Text(context.l10n.submitForVerification),
+              const SizedBox(height: AppSpacing.md),
+              AppTextField(
+                label: Text(context.l10n.descriptionLabel),
+                controller: _descriptionCtlr,
+                maxLines: 5,
+                keyboardType: TextInputType.text,
+                inputFormatters: [LengthLimitingTextInputFormatter(255)],
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: AppSpacing.sm,
+                  vertical: AppSpacing.sm,
+                ),
+                hintText: context.l10n.descriptionHint,
+                onChanged: _cubit.updateDescription,
+                maxLength: 255,
+              ),
+              const SizedBox(height: AppSpacing.md),
+              AppTextField(
+                label: Text(context.l10n.cardNumberLabel),
+                controller: _cardNumberCtlr,
+                keyboardType: TextInputType.number,
+                inputFormatters: [InputFormatters.cardNumberFormatter],
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: AppSpacing.sm,
+                  vertical: AppSpacing.sm,
+                ),
+                hintText: context.l10n.cardNumberHint,
+                onChanged: _cubit.updateCardNumber,
+              ),
+              const SizedBox(height: AppSpacing.md),
+              PartnerVerificationDocuments(state: state, cubit: _cubit),
+            ],
+            columnChildren: [
+              CheckboxListTile(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(AppSpacing.md),
+                ),
+                controlAffinity: ListTileControlAffinity.leading,
+                contentPadding: EdgeInsets.zero,
+                value: _isTermsAccepted,
+                onChanged: (_) => setState(() {
+                  _isTermsAccepted = !_isTermsAccepted;
+                }),
+                subtitle: Text(
+                  context.l10n.termsAgreement,
+                ),
+              ),
+              const SizedBox(height: AppSpacing.md),
+              AppButton(
+                margin: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+                isLoading: state.isSubmitting,
+                onPressed: () => _cubit.submitVerification(context.l10n),
+                child: Text(context.l10n.submitForVerification),
+              ),
+            ],
           ),
         );
       },

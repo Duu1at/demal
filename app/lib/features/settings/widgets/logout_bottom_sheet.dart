@@ -67,11 +67,11 @@ class LogoutBottomSheet extends StatelessWidget {
                 child: AppButton(
                   variant: AppButtonVariant.destructive,
                   onPressed: () {
+                    final authCubit = context.read<AuthCubit>();
+                    final router = GoRouter.of(context);
                     Navigator.pop(context);
-                    context.read<AuthCubit>().logout().then((value) {
-                      if (context.mounted) {
-                        context.goNamed(AppRouteNames.login);
-                      }
+                    authCubit.logout().then((_) {
+                      router.goNamed(AppRouteNames.login);
                     });
                   },
                   child: const Text('Выйти'),

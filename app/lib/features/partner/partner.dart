@@ -24,6 +24,5 @@ export 'verification/cubit/partner_verification_cubit.dart';
 export 'verification/view/partner_verification_rejected_view.dart';
 export 'verification/view/partner_verification_status_view.dart';
 export 'verification/view/partner_verification_view.dart';
-export 'verification/widgets/partner_verification_agreement.dart';
 export 'verification/widgets/partner_verification_documents.dart';
 export 'verification/widgets/partner_verification_text_field.dart';

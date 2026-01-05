@@ -36,16 +36,16 @@ class UpgradeRoleBottomSheet extends StatelessWidget {
     return BlocConsumer<UpgrateRoleCubit, RequestStatus<UserModel>>(
       listener: (context, state) {
         if (state is RequestSuccess<UserModel>) {
+          final router = GoRouter.of(context);
           final authCubit = context.read<AuthCubit>();
           Navigator.of(context).pop();
-          authCubit.updateProfile();
-          if (context.mounted) {
-            context.goNamed(AppRouteNames.partnerVerification);
-          }
+          authCubit.updateProfile().then((_) {
+            router.goNamed(AppRouteNames.partnerVerification);
+          });
         }
         if (state is RequestFailure) {
-          Navigator.of(context).pop();
           context.read<ErrorHandler>().handleError(state, context);
+          Navigator.of(context).pop();
         }
       },
       builder: (context, state) {
