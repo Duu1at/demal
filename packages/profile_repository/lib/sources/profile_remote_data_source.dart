@@ -51,14 +51,4 @@ final class ProfileRemoteDataSource {
           ),
         );
   }
-
-  Future<UserModel> upgradeToPartner() {
-    return apiClient
-        .patchResponse<Map<String, dynamic>>('/api/v1/users/upgrade-role')
-        .then(
-          (res) => UserModel.fromJson(
-            res.data?['user'] as Map<String, dynamic>,
-          ),
-        );
-  }
 }

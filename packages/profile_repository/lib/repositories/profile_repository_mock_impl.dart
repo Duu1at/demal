@@ -92,17 +92,4 @@ final class ProfileRepositoryMockImpl implements ProfileRepository {
   Future<void> deleteProfileData() async {
     await Future<void>.delayed(delay);
   }
-
-  @override
-  Future<UserModel> upgradeToPartner() async {
-    await Future<void>.delayed(delay);
-    return const UserModel(
-      userId: 'test-user-id',
-      fullName: 'Test User',
-      role: RoleEnum.PARTNER,
-      imageUrl: null,
-      createdAt: '2024-01-01T00:00:00.000Z',
-      partnerProfile: null,
-    );
-  }
 }

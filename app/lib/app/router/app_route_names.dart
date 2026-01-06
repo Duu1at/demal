@@ -25,7 +25,6 @@ abstract class AppRouteNames {
   static const partnerToursBookings = 'partnerToursBookings';
   static const partnerVerification = 'partnerVerification';
   static const partnerVerificationStatus = 'partnerVerificationStatus';
-  static const partnerVerificationRejected = 'partnerVerificationRejected';
 
   static const accessDenied = 'accessDenied';
 }

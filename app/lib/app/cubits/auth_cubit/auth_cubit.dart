@@ -40,6 +40,7 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   Future<void> deleteAccount() async {
+    emit(state.copyWith(status: AuthStatus.loading));
     await Future.wait([
       _authRepository.deleteAccount(),
       _profileRepository.deleteProfileData(),

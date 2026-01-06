@@ -7,7 +7,6 @@ abstract class ProfileRepository {
   Future<UserModel> updateProfile(ProfileUpdateParam param);
   UserModel? getProfileFromLocal();
 
-  Future<UserModel> upgradeToPartner();
   Future<PartnerVerifyStatusModel> getPartnerVerifyStatus();
   Future<void> deleteProfileData();
   Future<PartnerProfileModel> updatePartnerProfile(PartnerProfileParam param);

@@ -16,7 +16,7 @@ class SettingsView extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => UpgrateRoleCubit(context.read<ProfileRepository>()),
+          create: (context) => VerifyStatusCubit(context.read<ProfileRepository>()),
         ),
       ],
       child: const SettingsViewBody(),
@@ -82,14 +82,7 @@ class _SettingsViewBodyState extends State<SettingsViewBody> with SettingsChange
 
               if (_authState.status == AuthStatus.authenticated && _authState.user.isClient) ...[
                 const SizedBox(height: AppSpacing.lg),
-                CardDrawerTitle(
-                  icon: Icon(
-                    Icons.business_center_outlined,
-                    color: theme.colorScheme.primary,
-                  ),
-                  title: 'Стать организатором',
-                  onTap: () => UpgradeRoleBottomSheet.show(context),
-                ),
+                const BecomeOrganizerTile(),
               ],
               const SizedBox(height: AppSpacing.lg),
               CardDrawerTitle(
@@ -100,7 +93,6 @@ class _SettingsViewBodyState extends State<SettingsViewBody> with SettingsChange
                 title: context.l10n.appTheme,
                 onTap: () async => changeTheme(),
               ),
-
               const SizedBox(height: AppSpacing.lg),
               CardDrawerTitle(
                 icon: Icon(Icons.language, color: theme.colorScheme.primary),

@@ -49,8 +49,11 @@ class PartnerVerificationCubit extends Cubit<PartnerVerificationState> {
       }
 
       final file = File(result.files.single.path!);
+      final extension = result.files.single.extension?.toLowerCase();
+      final isImage = ['jpg', 'jpeg', 'png'].contains(extension);
+
       final uploadResult = await uploadRepository.uploadSingleFile(
-        UploadEnumParam.document,
+        isImage ? UploadEnumParam.image : UploadEnumParam.document,
         file,
       );
 

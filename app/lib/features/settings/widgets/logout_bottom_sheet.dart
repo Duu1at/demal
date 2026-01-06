@@ -71,7 +71,7 @@ class LogoutBottomSheet extends StatelessWidget {
                     final router = GoRouter.of(context);
                     Navigator.pop(context);
                     authCubit.logout().then((_) {
-                      router.goNamed(AppRouteNames.login);
+                      router.go(AppRouteNames.login);
                     });
                   },
                   child: const Text('Выйти'),

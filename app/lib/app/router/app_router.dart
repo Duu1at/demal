@@ -111,11 +111,6 @@ final class AppRouter {
               name: AppRouteNames.partnerVerificationStatus,
               builder: (context, state) => const PartnerVerificationStatusView(),
             ),
-            GoRoute(
-              path: AppRouteNames.partnerVerificationRejected,
-              name: AppRouteNames.partnerVerificationRejected,
-              builder: (context, state) => const PartnerVerificationRejectedView(),
-            ),
           ],
         ),
 

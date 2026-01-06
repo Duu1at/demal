@@ -22,67 +22,76 @@ class DeleteAccountBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return Padding(
-      padding: const EdgeInsets.all(AppSpacing.lg),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            padding: const EdgeInsets.all(AppSpacing.lg),
-            decoration: BoxDecoration(
-              color: Colors.red.withValues(alpha: .1),
-              shape: BoxShape.circle,
-            ),
-            child: const Icon(
-              Icons.delete_forever,
-              color: Colors.red,
-              size: 48,
-            ),
-          ),
-          const SizedBox(height: AppSpacing.lg),
-          Text(
-            'Удалить аккаунт',
-            style: theme.textTheme.titleLarge?.copyWith(
-              fontWeight: FontWeight.bold,
-              color: Colors.red,
-            ),
-          ),
-          const SizedBox(height: AppSpacing.md),
-          Text(
-            'Вы уверены, что хотите удалить свой аккаунт? Это действие необратимо, и все ваши данные будут удалены навсегда.',
-            style: theme.textTheme.bodyMedium,
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: AppSpacing.xlg),
-          Row(
+    return BlocConsumer<AuthCubit, AuthState>(
+      listener: (context, state) {
+        if (state.status == AuthStatus.unauthenticated) {
+          context.go(AppRouteNames.login);
+        }
+      },
+      builder: (context, state) {
+        final isLoading = state.status == AuthStatus.loading;
+
+        return Padding(
+          padding: const EdgeInsets.all(AppSpacing.lg),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
-              Expanded(
-                child: AppButton(
-                  variant: AppButtonVariant.outline,
-                  onPressed: () => Navigator.pop(context),
-                  child: const Text('Отмена'),
+              Container(
+                padding: const EdgeInsets.all(AppSpacing.lg),
+                decoration: BoxDecoration(
+                  color: Colors.red.withValues(alpha: .1),
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(
+                  Icons.delete_forever,
+                  color: Colors.red,
+                  size: 48,
                 ),
               ),
-              const SizedBox(width: AppSpacing.md),
-              Expanded(
-                child: AppButton(
-                  variant: AppButtonVariant.destructive,
-                  onPressed: () {
-                    final authCubit = context.read<AuthCubit>();
-                    final router = GoRouter.of(context);
-                    Navigator.pop(context);
-                    authCubit.deleteAccount().then((_) {
-                      router.goNamed(AppRouteNames.login);
-                    });
-                  },
-                  child: const Text('Удалить'),
+              const SizedBox(height: AppSpacing.lg),
+              Text(
+                'Удалить аккаунт',
+                style: theme.textTheme.titleLarge?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.red,
                 ),
               ),
+              const SizedBox(height: AppSpacing.md),
+              Text(
+                'Вы уверены, что хотите удалить свой аккаунт? Это действие необратимо, и все ваши данные будут удалены навсегда.',
+                style: theme.textTheme.bodyMedium,
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: AppSpacing.xlg),
+              Row(
+                children: [
+                  Expanded(
+                    child: AppButton(
+                      variant: AppButtonVariant.outline,
+                      onPressed: isLoading ? null : () => Navigator.pop(context),
+                      child: const Text('Отмена'),
+                    ),
+                  ),
+                  const SizedBox(width: AppSpacing.md),
+                  Expanded(
+                    child: AppButton(
+                      variant: AppButtonVariant.destructive,
+                      isLoading: isLoading,
+                      onPressed: isLoading
+                          ? null
+                          : () {
+                              context.read<AuthCubit>().deleteAccount();
+                            },
+                      child: const Text('Удалить'),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: AppSpacing.md),
             ],
           ),
-          const SizedBox(height: AppSpacing.md),
-        ],
-      ),
+        );
+      },
     );
   }
 }

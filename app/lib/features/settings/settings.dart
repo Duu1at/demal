@@ -7,4 +7,5 @@ export 'widgets/upgrade_role_bottom_sheet.dart';
 export 'widgets/logout_bottom_sheet.dart';
 export 'widgets/delete_account_bottom_sheet.dart';
 export 'cubits/update_profile_cubit/update_profile_cubit.dart';
-export 'cubits/upgrate_role_cubit/upgrate_role_cubit.dart';
+export 'cubits/verify_status_cubit/verify_status_cubit.dart';
+export 'widgets/become_organizer_tile.dart';

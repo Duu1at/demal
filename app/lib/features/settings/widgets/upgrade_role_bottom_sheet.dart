@@ -5,6 +5,7 @@ import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:profile_repository/profile_repository.dart';
 
 class UpgradeRoleBottomSheet extends StatelessWidget {
   const UpgradeRoleBottomSheet({super.key});
@@ -18,7 +19,7 @@ class UpgradeRoleBottomSheet extends StatelessWidget {
       child: MultiBlocProvider(
         providers: [
           BlocProvider.value(
-            value: context.read<UpgrateRoleCubit>(),
+            value: context.read<VerifyStatusCubit>(),
           ),
           BlocProvider.value(
             value: context.read<AuthCubit>(),
@@ -33,9 +34,9 @@ class UpgradeRoleBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return BlocConsumer<UpgrateRoleCubit, RequestStatus<UserModel>>(
+    return BlocConsumer<VerifyStatusCubit, RequestStatus<PartnerVerifyStatusModel>>(
       listener: (context, state) {
-        if (state is RequestSuccess<UserModel>) {
+        if (state is RequestSuccess<PartnerVerifyStatusModel>) {
           final router = GoRouter.of(context);
           final authCubit = context.read<AuthCubit>();
           Navigator.of(context).pop();
@@ -101,7 +102,7 @@ class UpgradeRoleBottomSheet extends StatelessWidget {
                     Expanded(
                       child: AppButton(
                         onPressed: () {
-                          context.read<UpgrateRoleCubit>().upgradeToPartner();
+                          context.goNamed(AppRouteNames.partnerVerification);
                         },
                         child: const Text('Подтвердить'),
                       ),

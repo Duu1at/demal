@@ -58,10 +58,13 @@ class PartnerVerificationDocument extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: AppSpacing.xlg),
-            _PartnerVerificationActionButton(
-              label: context.l10n.chooseFilesButton,
-              onPressed: () => cubit.pickAndUploadDocument(context),
-            ),
+            if (state.isUploadingDocument)
+              const Center(child: CircularProgressIndicator())
+            else
+              _PartnerVerificationActionButton(
+                label: context.l10n.chooseFilesButton,
+                onPressed: () => cubit.pickAndUploadDocument(context),
+              ),
           ],
         ],
       ),
