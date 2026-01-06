@@ -52,34 +52,35 @@ class _SettingsViewBodyState extends State<SettingsViewBody> with SettingsChange
           padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
           child: Column(
             children: [
-              const SizedBox(height: AppSpacing.sm),
-              ListTile(
-                contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                tileColor: context.appColors.bgCard,
-                leading: AvatarIcon(
-                  size: 60,
-                  imageUrl: _authState.user.imageUrl,
-                  cacheManager: ImageStorage.instance.avatarManager,
-                ),
-                title: Text(
-                  _authState.user.fullName ?? 'Duulat Bolsunbek uulu',
-                  style: theme.textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.w600,
+              if (_authState.status == AuthStatus.authenticated) ...[
+                const SizedBox(height: AppSpacing.sm),
+                ListTile(
+                  contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
                   ),
-                ),
-                subtitle: Text(
-                  'Фото профиля, имя, описание',
-                  style: theme.textTheme.bodySmall?.copyWith(
-                    color: context.appColors.disabled,
+                  tileColor: context.appColors.bgCard,
+                  leading: AvatarIcon(
+                    size: 60,
+                    imageUrl: _authState.user.imageUrl,
+                    cacheManager: ImageStorage.instance.avatarManager,
                   ),
+                  title: Text(
+                    _authState.user.fullName ?? 'Duulat Bolsunbek uulu',
+                    style: theme.textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  subtitle: Text(
+                    'Фото профиля, имя, описание',
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      color: context.appColors.disabled,
+                    ),
+                  ),
+                  trailing: const Icon(Icons.arrow_forward_ios_rounded),
+                  onTap: () => context.pushNamed(AppRouteNames.settingsEditProfile),
                 ),
-                trailing: const Icon(Icons.arrow_forward_ios_rounded),
-                onTap: () => context.pushNamed(AppRouteNames.settingsEditProfile),
-              ),
-
+              ],
               if (_authState.status == AuthStatus.authenticated && _authState.user.isClient) ...[
                 const SizedBox(height: AppSpacing.lg),
                 const BecomeOrganizerTile(),

@@ -19,8 +19,12 @@ final class AppRouter {
       errorBuilder: (_, _) => const ErrorView(),
       routes: [
         GoRoute(
-          path: AppRouteNames.clientHome,
-          name: AppRouteNames.clientHome,
+          path: '/',
+          builder: (_, _) => const SplashView(),
+        ),
+        GoRoute(
+          path: '/${AppRouteNames.client}',
+          name: AppRouteNames.client,
           builder: (_, _) => const ClientToursView(),
           routes: [
             GoRoute(
@@ -99,7 +103,7 @@ final class AppRouter {
             ),
           ],
         ),
-        
+
         GoRoute(
           path: '/${AppRouteNames.partnerVerification}',
           name: AppRouteNames.partnerVerification,
@@ -145,12 +149,6 @@ final class AppRouter {
               },
             ),
           ],
-        ),
-        GoRoute(
-          path: '/${AppRouteNames.accessDenied}',
-          name: AppRouteNames.accessDenied,
-          parentNavigatorKey: AppRouteNames.navigatorKey,
-          builder: (context, state) => const AccessDeniedView(),
         ),
       ],
     );

@@ -29,7 +29,12 @@ class OtpVerifyButton extends StatelessWidget {
         if (verifyStatus is RequestSuccess<String>) {
           context.read<AuthCubit>().checkUser().then((value) {
             if (context.mounted) {
-              context.pushNamed(AppRouteNames.clientHome);
+              final user = context.read<AuthCubit>().state.user;
+              if (user.isPartner) {
+                context.goNamed(AppRouteNames.partner);
+                return;
+              }
+              context.goNamed(AppRouteNames.client);
             }
           });
         }
@@ -44,20 +49,28 @@ class OtpVerifyButton extends StatelessWidget {
       },
       buildWhen: (p, c) => p.verifyStatus != c.verifyStatus,
       builder: (context, state) {
-        return AppButton(
-          isLoading: state.verifyStatus is RequestLoading,
-          onPressed: () {
-            focusNode.unfocus();
-            if (formKey.currentState!.validate()) {
-              final pin = pinController.text.trim();
-              if (pin.length != 6) return;
-              context.read<OtpCubit>().verifyOtpCode(
-                email: email,
-                pin: pin,
-              );
-            }
+        return BlocBuilder<AuthCubit, AuthState>(
+          builder: (context, authState) {
+            final isOtpLoading = state.verifyStatus is RequestLoading;
+            final isAuthLoading = authState.status == AuthStatus.loading;
+            final isLoading = isOtpLoading || isAuthLoading;
+
+            return AppButton(
+              isLoading: isLoading,
+              onPressed: () {
+                focusNode.unfocus();
+                if (formKey.currentState!.validate()) {
+                  final pin = pinController.text.trim();
+                  if (pin.length != 6) return;
+                  context.read<OtpCubit>().verifyOtpCode(
+                    email: email,
+                    pin: pin,
+                  );
+                }
+              },
+              child: const Text('Проверить'),
+            );
           },
-          child: const Text('Проверить'),
         );
       },
     );

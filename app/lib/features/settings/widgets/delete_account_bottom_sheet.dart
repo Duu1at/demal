@@ -25,7 +25,7 @@ class DeleteAccountBottomSheet extends StatelessWidget {
     return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state.status == AuthStatus.unauthenticated) {
-          context.go(AppRouteNames.login);
+          context.goNamed(AppRouteNames.login);
         }
       },
       builder: (context, state) {
