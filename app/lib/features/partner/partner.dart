@@ -1,7 +1,6 @@
 export 'create_tour/create_tour.dart';
 export 'home/bloc/partner_tours_bloc.dart';
 export 'home/view/partner_home_view.dart';
-export 'home/widgets/partner_home_filter_tabs.dart';
 export 'home/widgets/partner_tour_card.dart';
 export 'home/widgets/partner_tour_card_edit_button.dart';
 export 'home/widgets/partner_tour_card_header.dart';

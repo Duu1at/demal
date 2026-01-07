@@ -139,7 +139,7 @@ final class AppRouter {
               },
             ),
             GoRoute(
-              path: AppRouteNames.partnerToursBookings,
+              path: '${AppRouteNames.partnerToursBookings}/:tourId',
               name: AppRouteNames.partnerToursBookings,
               builder: (context, state) {
                 final tourId = state.pathParameters['tourId'];
