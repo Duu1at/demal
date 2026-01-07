@@ -63,7 +63,7 @@ class _PartnerVerificationViewBodyState extends State<_PartnerVerificationViewBo
           context.read<ErrorHandler>().handleError(state.requestStatus, context);
         }
         if (state.requestStatus.isSuccess) {
-          context.goNamed(AppRouteNames.partnerVerificationStatus);
+          context.pushReplacementNamed(AppRouteNames.partnerVerificationStatus);
         }
       },
       builder: (context, state) {

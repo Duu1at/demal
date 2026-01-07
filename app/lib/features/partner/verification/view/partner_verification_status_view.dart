@@ -34,7 +34,7 @@ class PartnerVerificationStatusViewBody extends StatelessWidget {
           title: const Text('Статус верификации'),
           leading: IconButton(
             onPressed: () {
-              context.goNamed(AppRouteNames.settings);
+              context.pop();
             },
             icon: const Icon(Icons.arrow_back_ios_new_outlined),
           ),

@@ -22,7 +22,7 @@ class BecomeOrganizerTile extends StatelessWidget {
             UpgradeRoleBottomSheet.show(context);
             return;
           }
-          context.goNamed(AppRouteNames.partnerVerificationStatus);
+          context.pushNamed(AppRouteNames.partnerVerificationStatus);
         }
         if (state is RequestFailure) {
           context.read<ErrorHandler>().handleError(state, context);

@@ -113,8 +113,7 @@ class _SettingsViewBodyState extends State<SettingsViewBody> with SettingsChange
               CardDrawerTitle(
                 icon: Icon(Icons.share, color: theme.colorScheme.primary),
                 title: context.l10n.shareApp,
-                onTap: () => context.goNamed(AppRouteNames.partnerVerification),
-                // onTap: () => AppLaunch.launchURL(''),
+                onTap: () => AppLaunch.launchURL(''),
               ),
               if (_authState.status == AuthStatus.authenticated) ...[
                 const SizedBox(height: AppSpacing.lg),
