@@ -1,11 +1,10 @@
-import 'package:app/features/partner/create_tour/cubit/create_tour_cubit.dart';
-import 'package:app/features/partner/create_tour/widgets/step1_basic_info.dart';
-import 'package:app/features/partner/create_tour/widgets/step2_details.dart';
-import 'package:app/features/partner/create_tour/widgets/step3_media.dart';
+import 'package:app/features/features.dart';
 import 'package:app/utils/image_picker_service/image_picker_service.dart';
 import 'package:app_ui/app_ui.dart';
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tour_repository/tour_repository.dart';
 import 'package:upload_repository/upload_repository.dart';
@@ -17,13 +16,21 @@ class CreateTourView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => CreateTourCubit(
-        tourRepository: context.read<TourRepository>(),
-        uploadRepository: context.read<UploadRepository>(),
-        imagePickerService: ImagePickerService(ImagePicker()),
-        tour: tour,
-      ),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => CreateTourFormCubit(
+            tourRepository: context.read<TourRepository>(),
+            tour: tour,
+          ),
+        ),
+        BlocProvider(
+          create: (context) => TourMediaCubit(
+            imagePickerService: ImagePickerService(ImagePicker()),
+            uploadRepository: context.read<UploadRepository>(),
+          ),
+        ),
+      ],
       child: const _CreateTourViewContent(),
     );
   }
@@ -34,15 +41,13 @@ class _CreateTourViewContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<CreateTourCubit, CreateTourState>(
+    return BlocConsumer<CreateTourFormCubit, CreateTourFormState>(
       listener: (context, state) {
         if (state.error != null) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(state.error.toString().replaceAll('Exception: ', '')),
-              backgroundColor: Theme.of(context).colorScheme.error,
-            ),
-          );
+          context.read<ErrorHandler>().handleError(state.error!, context);
+        }
+        if (state.isSuccess) {
+          context.pop(true);
         }
       },
       builder: (context, state) {
@@ -54,9 +59,7 @@ class _CreateTourViewContent extends StatelessWidget {
               child: _ProgressIndicator(currentStep: state.currentStep),
             ),
           ),
-          body: state.isLoading
-              ? const Center(child: CircularProgressIndicator())
-              : _buildStepContent(context, state.currentStep),
+          body: _buildStepContent(context, state.currentStep),
           floatingActionButton: CreateTourActionButton(
             currentStep: state.currentStep,
             canProceed: _canProceed(state),
@@ -80,7 +83,7 @@ class _CreateTourViewContent extends StatelessWidget {
     }
   }
 
-  bool _canProceed(CreateTourState state) {
+  bool _canProceed(CreateTourFormState state) {
     switch (state.currentStep) {
       case CreateTourStep.basicInfo:
         return state.canProceedToStep2;
@@ -136,11 +139,11 @@ class CreateTourActionButton extends StatelessWidget {
       onPressed: () {
         if (currentStep == CreateTourStep.media) {
           if (canSubmit) {
-            context.read<CreateTourCubit>().submit(context);
+            context.read<CreateTourFormCubit>().submit();
           }
         } else {
           if (canProceed) {
-            context.read<CreateTourCubit>().nextStep();
+            context.read<CreateTourFormCubit>().nextStep();
           }
         }
       },

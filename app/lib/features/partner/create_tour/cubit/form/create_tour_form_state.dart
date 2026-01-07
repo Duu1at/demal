@@ -1,24 +1,24 @@
-part of 'create_tour_cubit.dart';
+part of 'create_tour_form_cubit.dart';
 
 enum CreateTourStep { basicInfo, details, media }
 
-class CreateTourState extends Equatable {
-  const CreateTourState({
+class CreateTourFormState extends Equatable {
+  const CreateTourFormState({
     this.currentStep = CreateTourStep.basicInfo,
     this.tourId,
-    this.isLoading = false,
     this.isSubmitting = false,
+    this.isSuccess = false,
     this.error,
-    // Шаг 1: Основная информация
+    // Step 1: Basic Info
     this.title = '',
     this.tourType = '',
     this.location = '',
     this.date = '',
     this.time = '',
-    this.price = 0.0,
+    this.price = 0,
     this.currency = 'KGS',
     this.availableSpots = 0,
-    // Шаг 2: Детали
+    // Step 2: Details
     this.description = '',
     this.program = const {},
     this.meetingPointAddress = '',
@@ -26,28 +26,28 @@ class CreateTourState extends Equatable {
     this.whatsIncluded = const [],
     this.whatsNotIncluded = const [],
     this.whatToBring = '',
-    // Шаг 3: Медиа
+    // Step 3: Media
     this.mainImageUrl = '',
     this.imageGalleryUrls = const [],
   });
 
   final CreateTourStep currentStep;
   final String? tourId;
-  final bool isLoading;
   final bool isSubmitting;
+  final bool isSuccess;
   final Object? error;
 
-  // Шаг 1
+  // Step 1
   final String title;
   final String tourType;
   final String location;
   final String date;
   final String time;
-  final double price;
+  final int price;
   final String currency;
   final int availableSpots;
 
-  // Шаг 2
+  // Step 2
   final String description;
   final Map<String, String> program;
   final String meetingPointAddress;
@@ -56,22 +56,22 @@ class CreateTourState extends Equatable {
   final List<String> whatsNotIncluded;
   final String whatToBring;
 
-  // Шаг 3
+  // Step 3
   final String mainImageUrl;
   final List<String> imageGalleryUrls;
 
-  CreateTourState copyWith({
+  CreateTourFormState copyWith({
     CreateTourStep? currentStep,
     String? tourId,
-    bool? isLoading,
     bool? isSubmitting,
+    bool? isSuccess,
     Object? error,
     String? title,
     String? tourType,
     String? location,
     String? date,
     String? time,
-    double? price,
+    int? price,
     String? currency,
     int? availableSpots,
     String? description,
@@ -84,11 +84,11 @@ class CreateTourState extends Equatable {
     String? mainImageUrl,
     List<String>? imageGalleryUrls,
   }) {
-    return CreateTourState(
+    return CreateTourFormState(
       currentStep: currentStep ?? this.currentStep,
       tourId: tourId ?? this.tourId,
-      isLoading: isLoading ?? this.isLoading,
       isSubmitting: isSubmitting ?? this.isSubmitting,
+      isSuccess: isSuccess ?? this.isSuccess,
       error: error,
       title: title ?? this.title,
       tourType: tourType ?? this.tourType,
@@ -132,8 +132,8 @@ class CreateTourState extends Equatable {
   List<Object?> get props => [
     currentStep,
     tourId,
-    isLoading,
     isSubmitting,
+    isSuccess,
     error,
     title,
     tourType,

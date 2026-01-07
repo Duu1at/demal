@@ -28,7 +28,6 @@ class AuthRemoteDataSource {
         .then((value) => value.data?['auth_token'] as String);
   }
 
-
   Future<void> deleteAccount() {
     return client.delete('/api/v1/users/account');
   }
