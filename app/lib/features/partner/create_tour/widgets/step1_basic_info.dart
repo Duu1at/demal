@@ -40,18 +40,6 @@ class _Step1BasicInfoState extends State<Step1BasicInfo> {
   }
 
   @override
-  void dispose() {
-    _titleController.dispose();
-    _tourTypeController.dispose();
-    _locationController.dispose();
-    _dateController.dispose();
-    _timeController.dispose();
-    _priceController.dispose();
-    _spotsController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return BlocConsumer<CreateTourFormCubit, CreateTourFormState>(
       listenWhen: (previous, current) => previous.tourId != current.tourId,
@@ -89,7 +77,6 @@ class _Step1BasicInfoState extends State<Step1BasicInfo> {
               onChanged: (value) => context.read<CreateTourFormCubit>().updateTourType(value),
               validator: (value) => value?.isEmpty ?? true ? 'Обязательное поле' : null,
               maxLength: 55,
-              maxLines: 3,
             ),
             const SizedBox(height: AppSpacing.md),
             AppTextField(
@@ -245,20 +232,31 @@ class _Step1BasicInfoState extends State<Step1BasicInfo> {
               controller: _spotsController,
               onChanged: (value) {
                 final spots = int.tryParse(value);
-                if (spots != null) {
-                  context.read<CreateTourFormCubit>().updateAvailableSpots(spots);
-                }
+                if (spots == null) return;
+                context.read<CreateTourFormCubit>().updateAvailableSpots(spots);
               },
               validator: (value) {
                 final spots = int.tryParse(value ?? '0') ?? 0;
                 return spots <= 0 ? 'Количество мест должно быть больше 0' : null;
               },
             ),
-            const SizedBox(height: 100),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.2),
           ],
           columnChildren: const [],
         );
       },
     );
+  }
+
+  @override
+  void dispose() {
+    _titleController.dispose();
+    _tourTypeController.dispose();
+    _locationController.dispose();
+    _dateController.dispose();
+    _timeController.dispose();
+    _priceController.dispose();
+    _spotsController.dispose();
+    super.dispose();
   }
 }

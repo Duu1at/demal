@@ -21,6 +21,7 @@ class CreateTourView extends StatelessWidget {
         BlocProvider(
           create: (context) => CreateTourFormCubit(
             tourRepository: context.read<TourRepository>(),
+            uploadRepository: context.read<UploadRepository>(),
             tour: tour,
           ),
         ),

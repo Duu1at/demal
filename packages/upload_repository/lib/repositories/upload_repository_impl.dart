@@ -31,4 +31,9 @@ final class UploadRepositoryImpl implements UploadRepository {
   ) {
     return uploadRemoteDataSource.uploadWithKeys(type, files);
   }
+
+  @override
+  Future<void> deleteFile(String url) {
+    return uploadRemoteDataSource.deleteFile(url);
+  }
 }

@@ -11,7 +11,7 @@ abstract class AppRouteNames {
   static const settingsAboutUs = 'settingsAboutUs';
   static const settingsEditProfile = 'settingsEditProfile';
 
-  static const client = '/client';
+  static const client = 'client';
   static const clientTourDetails = 'clientTourDetails';
   static const clientTourTickets = 'clientTourTickets';
   static const clientBookingDetails = 'clientBookingDetails';

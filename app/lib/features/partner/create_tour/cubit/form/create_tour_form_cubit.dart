@@ -1,12 +1,14 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tour_repository/tour_repository.dart';
+import 'package:upload_repository/upload_repository.dart';
 
 part 'create_tour_form_state.dart';
 
 class CreateTourFormCubit extends Cubit<CreateTourFormState> {
   CreateTourFormCubit({
     required this.tourRepository,
+    required this.uploadRepository,
     this.tour,
   }) : super(const CreateTourFormState()) {
     if (tour != null) {
@@ -15,6 +17,7 @@ class CreateTourFormCubit extends Cubit<CreateTourFormState> {
   }
 
   final TourRepository tourRepository;
+  final UploadRepository uploadRepository;
   final TourModel? tour;
 
   void _loadTourForEditing() {
@@ -73,12 +76,22 @@ class CreateTourFormCubit extends Cubit<CreateTourFormState> {
   void updatePrice(int value) => emit(state.copyWith(price: value));
   void updateCurrency(String value) => emit(state.copyWith(currency: value));
   void updateAvailableSpots(int value) => emit(state.copyWith(availableSpots: value));
-  void updateMainImageUrl(String url) => emit(state.copyWith(mainImageUrl: url));
+  void updateMainImageUrl(String url) {
+    if (state.mainImageUrl.isNotEmpty && state.mainImageUrl != url) {
+      uploadRepository.deleteFile(state.mainImageUrl);
+    }
+    emit(state.copyWith(mainImageUrl: url));
+  }
+
   void addGalleryImageUrls(List<String> urls) =>
       emit(state.copyWith(imageGalleryUrls: [...state.imageGalleryUrls, ...urls]));
   void removeGalleryImage(int index) {
-    final updated = List<String>.from(state.imageGalleryUrls)..removeAt(index);
-    emit(state.copyWith(imageGalleryUrls: updated));
+    if (index >= 0 && index < state.imageGalleryUrls.length) {
+      final urlToDelete = state.imageGalleryUrls[index];
+      uploadRepository.deleteFile(urlToDelete);
+      final updated = List<String>.from(state.imageGalleryUrls)..removeAt(index);
+      emit(state.copyWith(imageGalleryUrls: updated));
+    }
   }
 
   // Step 2: Details
