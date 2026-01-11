@@ -32,14 +32,6 @@ class SettingsViewBody extends StatefulWidget {
 }
 
 class _SettingsViewBodyState extends State<SettingsViewBody> with SettingsChangeMixin<SettingsViewBody> {
-  late AuthState _authState;
-
-  @override
-  void initState() {
-    super.initState();
-    _authState = context.read<AuthCubit>().state;
-  }
-
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -50,94 +42,98 @@ class _SettingsViewBodyState extends State<SettingsViewBody> with SettingsChange
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
-          child: Column(
-            children: [
-              if (_authState.status == AuthStatus.authenticated) ...[
-                const SizedBox(height: AppSpacing.sm),
-                ListTile(
-                  contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  tileColor: context.appColors.bgCard,
-                  leading: AvatarIcon(
-                    size: 60,
-                    imageUrl: _authState.user.imageUrl,
-                    cacheManager: ImageStorage.instance.avatarManager,
-                  ),
-                  title: Text(
-                    _authState.user.fullName ?? 'Duulat Bolsunbek uulu',
-                    style: theme.textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.w600,
+          child: BlocBuilder<AuthCubit, AuthState>(
+            builder: (context, state) {
+              return Column(
+                children: [
+                  if (state.status == AuthStatus.authenticated) ...[
+                    const SizedBox(height: AppSpacing.sm),
+                    ListTile(
+                      contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      tileColor: context.appColors.bgCard,
+                      leading: AvatarIcon(
+                        size: 60,
+                        imageUrl: state.user.imageUrl,
+                        cacheManager: ImageStorage.instance.avatarManager,
+                      ),
+                      title: Text(
+                        state.user.fullName ?? 'Duulat Bolsunbek uulu',
+                        style: theme.textTheme.titleMedium?.copyWith(
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      subtitle: Text(
+                        'Фото профиля, имя, описание',
+                        style: theme.textTheme.bodySmall?.copyWith(
+                          color: context.appColors.disabled,
+                        ),
+                      ),
+                      trailing: const Icon(Icons.arrow_forward_ios_rounded),
+                      onTap: () => context.pushNamed(AppRouteNames.settingsEditProfile),
                     ),
+                  ],
+                  if (state.status == AuthStatus.authenticated && state.user.isClient) ...[
+                    const SizedBox(height: AppSpacing.lg),
+                    const BecomeOrganizerTile(),
+                  ],
+                  const SizedBox(height: AppSpacing.lg),
+                  CardDrawerTitle(
+                    icon: Icon(
+                      Icons.brightness_6,
+                      color: theme.colorScheme.primary,
+                    ),
+                    title: context.l10n.appTheme,
+                    onTap: () async => changeTheme(),
                   ),
-                  subtitle: Text(
-                    'Фото профиля, имя, описание',
-                    style: theme.textTheme.bodySmall?.copyWith(
+                  const SizedBox(height: AppSpacing.lg),
+                  CardDrawerTitle(
+                    icon: Icon(Icons.language, color: theme.colorScheme.primary),
+                    title: context.l10n.appLanguage,
+                    onTap: changeLocale,
+                  ),
+                  const SizedBox(height: AppSpacing.lg),
+                  CardDrawerTitle(
+                    icon: Icon(
+                      Icons.info_outline,
+                      color: theme.colorScheme.primary,
+                    ),
+                    title: context.l10n.aboutUs,
+                    onTap: () => context.pushNamed(AppRouteNames.settingsAboutUs),
+                  ),
+                  const SizedBox(height: AppSpacing.lg),
+                  CardDrawerTitle(
+                    icon: Icon(Icons.share, color: theme.colorScheme.primary),
+                    title: context.l10n.shareApp,
+                    onTap: () => AppLaunch.launchURL(''),
+                  ),
+                  if (state.status == AuthStatus.authenticated) ...[
+                    const SizedBox(height: AppSpacing.lg),
+                    CardDrawerTitle(
+                      icon: const Icon(Icons.logout, color: Colors.red),
+                      title: context.l10n.logOut,
+                      onTap: () => LogoutBottomSheet.show(context),
+                    ),
+                    const SizedBox(height: AppSpacing.lg),
+                    CardDrawerTitle(
+                      icon: const Icon(Icons.delete_forever, color: Colors.red),
+                      title: context.l10n.deleteAccount,
+                      onTap: () => DeleteAccountBottomSheet.show(context),
+                    ),
+                  ],
+
+                  const Spacer(),
+                  Text(
+                    '${context.l10n.version}1.0.0',
+                    style: theme.textTheme.bodyMedium?.copyWith(
                       color: context.appColors.disabled,
                     ),
                   ),
-                  trailing: const Icon(Icons.arrow_forward_ios_rounded),
-                  onTap: () => context.pushNamed(AppRouteNames.settingsEditProfile),
-                ),
-              ],
-              if (_authState.status == AuthStatus.authenticated && _authState.user.isClient) ...[
-                const SizedBox(height: AppSpacing.lg),
-                const BecomeOrganizerTile(),
-              ],
-              const SizedBox(height: AppSpacing.lg),
-              CardDrawerTitle(
-                icon: Icon(
-                  Icons.brightness_6,
-                  color: theme.colorScheme.primary,
-                ),
-                title: context.l10n.appTheme,
-                onTap: () async => changeTheme(),
-              ),
-              const SizedBox(height: AppSpacing.lg),
-              CardDrawerTitle(
-                icon: Icon(Icons.language, color: theme.colorScheme.primary),
-                title: context.l10n.appLanguage,
-                onTap: changeLocale,
-              ),
-              const SizedBox(height: AppSpacing.lg),
-              CardDrawerTitle(
-                icon: Icon(
-                  Icons.info_outline,
-                  color: theme.colorScheme.primary,
-                ),
-                title: context.l10n.aboutUs,
-                onTap: () => context.pushNamed(AppRouteNames.settingsAboutUs),
-              ),
-              const SizedBox(height: AppSpacing.lg),
-              CardDrawerTitle(
-                icon: Icon(Icons.share, color: theme.colorScheme.primary),
-                title: context.l10n.shareApp,
-                onTap: () => AppLaunch.launchURL(''),
-              ),
-              if (_authState.status == AuthStatus.authenticated) ...[
-                const SizedBox(height: AppSpacing.lg),
-                CardDrawerTitle(
-                  icon: const Icon(Icons.logout, color: Colors.red),
-                  title: context.l10n.logOut,
-                  onTap: () => LogoutBottomSheet.show(context),
-                ),
-                const SizedBox(height: AppSpacing.lg),
-                CardDrawerTitle(
-                  icon: const Icon(Icons.delete_forever, color: Colors.red),
-                  title: context.l10n.deleteAccount,
-                  onTap: () => DeleteAccountBottomSheet.show(context),
-                ),
-              ],
-
-              const Spacer(),
-              Text(
-                '${context.l10n.version}1.0.0',
-                style: theme.textTheme.bodyMedium?.copyWith(
-                  color: context.appColors.disabled,
-                ),
-              ),
-            ],
+                ],
+              );
+            },
           ),
         ),
       ),

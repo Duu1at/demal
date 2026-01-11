@@ -123,6 +123,7 @@ class _AvatarIconState extends State<AvatarIcon> with SingleTickerProviderStateM
       result = CachedNetworkImage(
         key: globalKey,
         imageUrl: widget.imageUrl!,
+        cacheManager: widget.cacheManager,
         fit: BoxFit.cover,
         errorListener: (value) {
           isError = true;
