@@ -81,7 +81,7 @@ class TourMediaCubit extends Cubit<TourMediaState> {
       } else {
         emit(state.copyWith(isGalleryLoading: false));
       }
-    }on Object catch (e) {
+    } on Object catch (e) {
       emit(state.copyWith(isGalleryLoading: false, error: e));
     }
   }

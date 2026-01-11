@@ -18,6 +18,7 @@ class EditableAvatar extends StatefulWidget {
     this.onDelete,
     this.isReadOnly = false,
     this.expand = false,
+    this.isLoading = false,
   });
 
   final String? avatarUrl;
@@ -26,6 +27,7 @@ class EditableAvatar extends StatefulWidget {
   final bool expand;
   final ValueChanged<File>? onUpdate;
   final VoidCallback? onDelete;
+  final bool isLoading;
 
   @override
   State<EditableAvatar> createState() => _EditableAvatarState();
@@ -81,9 +83,21 @@ class _EditableAvatarState extends State<EditableAvatar> with SingleTickerProvid
           key: _globalKey,
           avatarUrl: widget.avatarUrl,
           size: widget.size,
-          onTap: !widget.isReadOnly ? () => _onTap(createOverlay: true) : null,
+          onTap: !widget.isReadOnly ? () => _onTap(createOverlay: widget.avatarUrl != null) : null,
         ),
-        if (!widget.isReadOnly)
+        if (widget.isLoading)
+          Positioned.fill(
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.black45,
+                borderRadius: BorderRadius.circular(widget.size / 2),
+              ),
+              child: const Center(
+                child: CircularProgressIndicator(color: Colors.white),
+              ),
+            ),
+          ),
+        if (!widget.isReadOnly && !widget.isLoading)
           Positioned(
             bottom: 0,
             right: 0,
@@ -154,30 +168,37 @@ class _EditableAvatarState extends State<EditableAvatar> with SingleTickerProvid
       actions: [
         CustomActionButton(
           onTap: () async {
-            GoRouter.of(context).pop();
+            if (widget.expand && createOverlay) {
+              await _animationController.reverse();
+            }
+            if (mounted) GoRouter.of(context).pop();
             await select(ImageSource.camera);
           },
           title: 'Камера',
         ),
         CustomActionButton(
           onTap: () async {
-            GoRouter.of(context).pop();
+            if (widget.expand && createOverlay) {
+              await _animationController.reverse();
+            }
+            if (mounted) GoRouter.of(context).pop();
             await select(ImageSource.gallery);
           },
-          title: 'Gallery',
+          title: 'Галерея',
         ),
-        CustomActionButton(
-          onTap: () async {
-            widget.onDelete?.call();
-            GoRouter.of(context).pop();
-          },
-          title: 'Удалить',
-        ),
+        if (widget.avatarUrl != null)
+          CustomActionButton(
+            onTap: () async {
+              if (widget.expand && createOverlay) {
+                await _animationController.reverse();
+              }
+              widget.onDelete?.call();
+              if (mounted) GoRouter.of(context).pop();
+            },
+            title: 'Удалить',
+          ),
       ],
     );
-    if (widget.expand) {
-      await _animationController.reverse();
-    }
   }
 
   Future<void> select(ImageSource source) async {

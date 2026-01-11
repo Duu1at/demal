@@ -55,7 +55,7 @@ final class TourRemoteDataSource {
       '/api/v1/tours',
       data: param.toJson(),
     );
-    return TourModel.fromJson(response.data?['tour'] as Map<String, dynamic>);
+    return TourModel.fromJson(response.data?['data'] as Map<String, dynamic>);
   }
 
   Future<ToursModel> getPartnerTours(int page, int limit) async {

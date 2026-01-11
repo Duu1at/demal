@@ -4,7 +4,9 @@ import 'package:app_ui/app_ui.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:profile_repository/profile_repository.dart';
 import 'package:tour_repository/tour_repository.dart';
+import 'package:upload_repository/upload_repository.dart';
 
 @immutable
 final class AppRouter {
@@ -99,7 +101,13 @@ final class AppRouter {
             GoRoute(
               path: AppRouteNames.settingsEditProfile,
               name: AppRouteNames.settingsEditProfile,
-              builder: (context, state) => const EditProfileView(),
+              builder: (context, state) => BlocProvider(
+                create: (context) => UpdateProfileCubit(
+                  profileRepository: context.read<ProfileRepository>(),
+                  uploadRepository: context.read<UploadRepository>(),
+                ),
+                child: const EditProfileView(),
+              ),
             ),
           ],
         ),

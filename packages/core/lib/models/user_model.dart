@@ -15,6 +15,7 @@ final class UserModel {
     this.userId,
     this.email,
     this.partnerProfile,
+    this.phoneNumber,
   });
 
   const UserModel.empty()
@@ -24,7 +25,8 @@ final class UserModel {
       imageUrl = '',
       createdAt = '',
       partnerProfile = null,
-      email = '';
+      email = '',
+      phoneNumber = '';
 
   factory UserModel.fromJson(Map<String, dynamic> json) => _$UserModelFromJson(json);
 
@@ -47,6 +49,9 @@ final class UserModel {
 
   final String? email;
 
+  @JsonKey(name: 'phone_number')
+  final String? phoneNumber;
+
   bool get isPartner => role == RoleEnum.PARTNER;
   bool get isClient => role == RoleEnum.CLIENT;
 
@@ -58,6 +63,7 @@ final class UserModel {
     String? createdAt,
     PartnerProfileModel? partnerProfile,
     String? email,
+    String? phoneNumber,
   }) {
     return UserModel(
       userId: userId ?? this.userId,
@@ -67,6 +73,7 @@ final class UserModel {
       createdAt: createdAt ?? this.createdAt,
       partnerProfile: partnerProfile ?? this.partnerProfile,
       email: email ?? this.email,
+      phoneNumber: phoneNumber ?? this.phoneNumber,
     );
   }
 
