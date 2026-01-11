@@ -3,7 +3,7 @@ import 'package:meta/meta.dart';
 
 part 'profile_update_param.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 @immutable
 final class ProfileUpdateParam {
   const ProfileUpdateParam({

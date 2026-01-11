@@ -17,24 +17,18 @@ class EditProfileView extends StatefulWidget {
 }
 
 class _EditProfileViewState extends State<EditProfileView> with SettingsChangeMixin<EditProfileView> {
-  late final AuthState _authState;
-
-  @override
-  void initState() {
-    super.initState();
-    _authState = context.read<AuthCubit>().state;
-  }
-
   void _updateProfile({
     String? fullName,
     String? description,
     String? phoneNumber,
     File? imageFile,
+    String? imageUrl,
   }) {
     final param = ProfileUpdateParam(
-      fullName: fullName ?? _authState.user.fullName,
-      description: description ?? _authState.user.partnerProfile?.description,
-      phoneNumber: phoneNumber ?? _authState.user.phoneNumber,
+      fullName: fullName,
+      description: description,
+      phoneNumber: phoneNumber,
+      imageUrl: imageUrl,
     );
 
     context.read<UpdateProfileCubit>().updateProfile(
@@ -73,7 +67,7 @@ class _EditProfileViewState extends State<EditProfileView> with SettingsChangeMi
                       size: 120,
                       expand: true,
                       isReadOnly: false,
-                      onDelete: () => _updateProfile(imageFile: null),
+                      onDelete: () => _updateProfile(imageUrl: ''),
                       onUpdate: (file) => _updateProfile(imageFile: file),
                     ),
                   ),
