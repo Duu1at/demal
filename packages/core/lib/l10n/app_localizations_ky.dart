@@ -31,7 +31,7 @@ class AppLocalizationsKy extends AppLocalizations {
 
   @override
   String otpMessage(Object phone) {
-    return '$phone номерине 4 сандык OTP коду жиберилди';
+    return '$phone номерине 6 сандык OTP коду жиберилди';
   }
 
   @override
