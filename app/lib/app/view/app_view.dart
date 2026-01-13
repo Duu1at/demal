@@ -49,7 +49,9 @@ class App extends StatelessWidget {
           ),
         ),
         RepositoryProvider<UploadRepository>(
-          create: (context) => const UploadRepositoryMockImpl(),
+          create: (context) => UploadRepositoryImpl(
+            UploadRemoteDataSource(context.read<ApiClient>()),
+          ),
         ),
         RepositoryProvider<ErrorHandler>(create: (context) => const BaseErrorHandler()),
         RepositoryProvider<ErrorHandleSnackBar>(create: (context) => const ErrorHandleSnackBar()),
@@ -64,7 +66,7 @@ class App extends StatelessWidget {
           create: (context) => AuthCubit(
             profileRepository: context.read<ProfileRepository>(),
             authRepository: context.read<AuthRepository>(),
-          ),
+          )..checkUser(),
         ),
       ],
       child: const DemalApp(),
@@ -85,15 +87,14 @@ class _DemalAppState extends State<DemalApp> {
   @override
   void initState() {
     super.initState();
-    final authCubit = context.read<AuthCubit>();
-    _router = AppRouter.instance().router(authCubit);
+    _router = AppRouter.instance().router();
   }
 
   @override
   Widget build(BuildContext context) {
     return GlobalLoaderOverlay(
       child: MaterialApp.router(
-        scaffoldMessengerKey: AppRoutes.scaffoldMessengerKey,
+        scaffoldMessengerKey: AppRouteNames.scaffoldMessengerKey,
         theme: context.watch<AppThemeCubit>().state.themeData,
         locale: context.watch<AppLocaleCubit>().state,
         localizationsDelegates: AppLocalizations.localizationsDelegates,

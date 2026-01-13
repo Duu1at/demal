@@ -14,7 +14,6 @@ class PartnerTourCardParticipants extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final availableSpots = totalSpots - bookedSpots;
     final fillPercentage = totalSpots > 0 ? bookedSpots / totalSpots : 0.0;
 
     return Column(
@@ -43,13 +42,6 @@ class PartnerTourCardParticipants extends StatelessWidget {
                 fontWeight: FontWeight.w600,
               ),
             ),
-            if (availableSpots > 0) ...[
-              const Spacer(),
-              _AvailableSpotsBadge(
-                availableSpots: availableSpots,
-                theme: theme,
-              ),
-            ],
           ],
         ),
         if (totalSpots > 0) ...[
@@ -78,37 +70,5 @@ class PartnerTourCardParticipants extends StatelessWidget {
     } else {
       return theme.colorScheme.primary;
     }
-  }
-}
-
-class _AvailableSpotsBadge extends StatelessWidget {
-  const _AvailableSpotsBadge({
-    required this.availableSpots,
-    required this.theme,
-  });
-
-  final int availableSpots;
-  final ThemeData theme;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 6,
-        vertical: 2,
-      ),
-      decoration: BoxDecoration(
-        color: theme.colorScheme.primaryContainer.withValues(alpha: 0.3),
-        borderRadius: BorderRadius.circular(4),
-      ),
-      child: Text(
-        '$availableSpots свободно',
-        style: theme.textTheme.labelSmall?.copyWith(
-          color: theme.colorScheme.primary,
-          fontSize: 11,
-          fontWeight: FontWeight.w600,
-        ),
-      ),
-    );
   }
 }

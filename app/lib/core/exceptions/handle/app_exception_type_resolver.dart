@@ -29,7 +29,7 @@ class ErrorHandleDialog extends ErrorHandler {
     BuildContext context,
   ) {
     if (!context.mounted) return;
-    final model = parseErrorModel(error);
+    final model = parseErrorModel(error, context);
     showAdaptiveDialog<void>(
       context: context,
       builder: (context) {
@@ -66,6 +66,6 @@ class ErrorHandleSnackBar extends ErrorHandler {
     BuildContext context,
   ) {
     if (!context.mounted) return;
-    AppSnackbar.showError(context: context, title: parseErrorMessage(error));
+    AppSnackbar.showError(context: context, title: parseErrorMessage(error, context));
   }
 }

@@ -69,4 +69,9 @@ final class UploadRepositoryMockImpl implements UploadRepository {
 
     return result;
   }
+
+  @override
+  Future<void> deleteFile(String url) async {
+    await Future<void>.delayed(delay);
+  }
 }

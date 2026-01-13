@@ -9,24 +9,34 @@ part 'user_model.g.dart';
 final class UserModel {
   const UserModel({
     this.fullName,
-    this.role,
+    this.role = RoleEnum.GUEST,
     this.imageUrl,
     this.createdAt,
     this.userId,
     this.email,
     this.partnerProfile,
+    this.phoneNumber,
   });
+
+  const UserModel.empty()
+    : role = RoleEnum.GUEST,
+      userId = '',
+      fullName = '',
+      imageUrl = '',
+      createdAt = '',
+      partnerProfile = null,
+      email = '',
+      phoneNumber = '';
 
   factory UserModel.fromJson(Map<String, dynamic> json) => _$UserModelFromJson(json);
 
   @JsonKey(name: 'user_id')
   final String? userId;
 
-
   @JsonKey(name: 'full_name')
   final String? fullName;
 
-  final RoleEnum? role;
+  final RoleEnum role;
 
   @JsonKey(name: 'image_url')
   final String? imageUrl;
@@ -39,16 +49,21 @@ final class UserModel {
 
   final String? email;
 
+  @JsonKey(name: 'phone_number')
+  final String? phoneNumber;
+
+  bool get isPartner => role == RoleEnum.PARTNER;
+  bool get isClient => role == RoleEnum.CLIENT;
+
   UserModel copyWith({
     String? userId,
-    String? phoneNumber,
     String? fullName,
     RoleEnum? role,
     String? imageUrl,
     String? createdAt,
-
     PartnerProfileModel? partnerProfile,
     String? email,
+    String? phoneNumber,
   }) {
     return UserModel(
       userId: userId ?? this.userId,
@@ -58,10 +73,9 @@ final class UserModel {
       createdAt: createdAt ?? this.createdAt,
       partnerProfile: partnerProfile ?? this.partnerProfile,
       email: email ?? this.email,
+      phoneNumber: phoneNumber ?? this.phoneNumber,
     );
   }
-
-  bool get hasRole => role != null;
 
   Map<String, dynamic> toJson() => _$UserModelToJson(this);
 }

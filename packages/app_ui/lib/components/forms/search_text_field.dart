@@ -19,7 +19,7 @@ class SearchTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppTextField(
       controller: controller,
-      hintText: hintText ?? 'Поиск',
+      hintText: hintText,
       onChanged: onChanged,
       prefixIcon: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 12),

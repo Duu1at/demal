@@ -1,4 +1,10 @@
 export 'view/about_us_view.dart';
+export 'view/edit_profile_view.dart';
 export 'view/settings_view.dart';
 export 'widgets/bullet_point.dart';
 export 'widgets/tour_benefits.dart';
+export 'widgets/upgrade_role_bottom_sheet.dart';
+export 'widgets/logout_bottom_sheet.dart';
+export 'widgets/delete_account_bottom_sheet.dart';
+export 'cubit/update_profile_cubit.dart';
+export 'widgets/become_organizer_tile.dart';

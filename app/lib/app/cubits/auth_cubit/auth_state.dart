@@ -1,15 +1,15 @@
 part of 'auth_cubit.dart';
 
+enum AuthStatus { initial, loading, authenticated, unauthenticated, failure }
+
 final class AuthState extends Equatable {
   const AuthState({
     required this.status,
-    this.user,
+    required this.user,
     this.token,
-    this.errorMessage,
-    this.role,
   });
 
-  const AuthState.initial() : this(status: AuthStatus.initial);
+  const AuthState.initial() : this(status: AuthStatus.initial, user: const UserModel.empty());
 
   const AuthState.authenticated(UserModel user, String token)
     : this(
@@ -18,44 +18,24 @@ final class AuthState extends Equatable {
         token: token,
       );
 
-  const AuthState.unauthenticated() : this(status: AuthStatus.unauthenticated);
-
-  const AuthState.failure(Object message)
-    : this(
-        status: AuthStatus.failure,
-        errorMessage: message,
-      );
+  const AuthState.unauthenticated() : this(status: AuthStatus.unauthenticated, user: const UserModel.empty());
 
   final AuthStatus status;
-  final UserModel? user;
+  final UserModel user;
   final String? token;
-  final Object? errorMessage;
-  final RoleEnum? role;
 
   AuthState copyWith({
     AuthStatus? status,
     UserModel? user,
     String? token,
-    Object? errorMessage,
-    RoleEnum? role,
   }) {
     return AuthState(
       status: status ?? this.status,
       user: user ?? this.user,
       token: token ?? this.token,
-      errorMessage: errorMessage ?? this.errorMessage,
-      role: role ?? this.role,
     );
   }
 
   @override
-  List<Object?> get props => [
-    status,
-    user,
-    token,
-    errorMessage,
-    role,
-  ];
+  List<Object?> get props => [status, user, token];
 }
-
-enum AuthStatus { initial, authenticated, unauthenticated, failure }

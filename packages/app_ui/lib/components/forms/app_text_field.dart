@@ -25,6 +25,9 @@ class AppTextField extends StatelessWidget {
     this.contentPadding,
     this.maxLines = 1,
     this.maxLength,
+    this.onFieldSubmitted,
+    this.textInputAction,
+    this.initialValue,
   });
 
   final String? hintText;
@@ -47,11 +50,16 @@ class AppTextField extends StatelessWidget {
   final EdgeInsets? contentPadding;
   final int maxLines;
   final int? maxLength;
+  final ValueChanged<String>? onFieldSubmitted;
+  final TextInputAction? textInputAction;
+  final String? initialValue;
+
   @override
   Widget build(BuildContext context) {
     return Material(
       color: Colors.transparent,
       child: TextFormField(
+        initialValue: initialValue,
         enabled: enabled,
         cursorColor: Theme.of(context).colorScheme.onSecondary,
         style: style,
@@ -61,6 +69,8 @@ class AppTextField extends StatelessWidget {
         maxLength: maxLength,
         validator: validator,
         onChanged: onChanged,
+        onFieldSubmitted: onFieldSubmitted,
+        textInputAction: textInputAction,
         inputFormatters: inputFormatters,
         readOnly: readOnly,
         keyboardType: keyboardType,

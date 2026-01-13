@@ -1,9 +1,10 @@
 import 'package:app/app/app.dart';
-import 'package:app/features/login/cubit/otp_cubit.dart';
+import 'package:app/features/features.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class OtpVerifyButton extends StatelessWidget {
   const OtpVerifyButton({
@@ -26,7 +27,16 @@ class OtpVerifyButton extends StatelessWidget {
       listener: (context, state) {
         final verifyStatus = state.verifyStatus;
         if (verifyStatus is RequestSuccess<String>) {
-          context.read<AuthCubit>().logIn();
+          context.read<AuthCubit>().checkUser().then((value) {
+            if (context.mounted) {
+              final user = context.read<AuthCubit>().state.user;
+              if (user.isPartner) {
+                context.goNamed(AppRouteNames.partner);
+                return;
+              }
+              context.goNamed(AppRouteNames.client);
+            }
+          });
         }
         if (verifyStatus is RequestFailure<String>) {
           context.read<ErrorHandler>().handleError(
@@ -39,20 +49,28 @@ class OtpVerifyButton extends StatelessWidget {
       },
       buildWhen: (p, c) => p.verifyStatus != c.verifyStatus,
       builder: (context, state) {
-        return AppButton(
-          isLoading: state.verifyStatus is RequestLoading,
-          onPressed: () {
-            focusNode.unfocus();
-            if (formKey.currentState!.validate()) {
-              final pin = pinController.text.trim();
-              if (pin.length != 6) return;
-              context.read<OtpCubit>().verifyOtpCode(
-                email: email,
-                pin: pin,
-              );
-            }
+        return BlocBuilder<AuthCubit, AuthState>(
+          builder: (context, authState) {
+            final isOtpLoading = state.verifyStatus is RequestLoading;
+            final isAuthLoading = authState.status == AuthStatus.loading;
+            final isLoading = isOtpLoading || isAuthLoading;
+
+            return AppButton(
+              isLoading: isLoading,
+              onPressed: () {
+                focusNode.unfocus();
+                if (formKey.currentState!.validate()) {
+                  final pin = pinController.text.trim();
+                  if (pin.length != 6) return;
+                  context.read<OtpCubit>().verifyOtpCode(
+                    email: email,
+                    pin: pin,
+                  );
+                }
+              },
+              child: Text(context.l10n.verify),
+            );
           },
-          child: const Text('Проверить'),
         );
       },
     );

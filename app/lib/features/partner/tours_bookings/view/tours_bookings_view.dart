@@ -35,7 +35,8 @@ class ToursBookingsViewBody extends StatelessWidget {
       body: BlocBuilder<ToursBookingsCubit, ToursBookingsState>(
         builder: (context, state) {
           return switch (state) {
-            ToursBookingsInitial() || ToursBookingsLoading() => const Center(child: CircularProgressIndicator()),
+            ToursBookingsInitial() ||
+            ToursBookingsLoading() => const Center(child: CircularProgressIndicator.adaptive()),
             ToursBookingsSuccess(bookings: final bookings) => ToursBookingsListContent(bookings),
             ToursBookingsError(error: final error) => ErrorBodyWidget(error),
           };

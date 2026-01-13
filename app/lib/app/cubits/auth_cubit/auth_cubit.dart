@@ -11,39 +11,56 @@ class AuthCubit extends Cubit<AuthState> {
   AuthCubit({
     required AuthRepository authRepository,
     required ProfileRepository profileRepository,
-  }) : _repository = authRepository,
+  }) : _authRepository = authRepository,
        _profileRepository = profileRepository,
        super(const AuthState.initial());
 
-  final AuthRepository _repository;
+  final AuthRepository _authRepository;
   final ProfileRepository _profileRepository;
 
-  Future<void> logIn() async {
+  Future<void> checkUser() async {
+    emit(state.copyWith(status: AuthStatus.loading));
     try {
-      var user = _profileRepository.getProfileFromLocal();
-      user ??= await _profileRepository.getProfile();
-      final token = _repository.getToken();
+      final token = _authRepository.getToken();
       if (token == null) {
         emit(const AuthState.unauthenticated());
         return;
       }
-      emit(AuthState.authenticated(user, token));
-    } on Object catch (e) {
-      emit(AuthState.failure(e));
+
+      final localUser = _profileRepository.getProfileFromLocal();
+      if (localUser != null) {
+        emit(AuthState.authenticated(localUser, token));
+      }
+
+      try {
+        final remoteUser = await _profileRepository.getProfile();
+        emit(AuthState.authenticated(remoteUser, token));
+      } on Object catch (_) {
+        emit(const AuthState.unauthenticated());
+      }
+    } on Object catch (_) {
       emit(const AuthState.unauthenticated());
     }
   }
 
   Future<void> logout() async {
-    await _repository.logOut();
+    await Future.wait([
+      _profileRepository.deleteProfileData(),
+      _authRepository.logOut(),
+    ]);
     emit(const AuthState.unauthenticated());
   }
 
   Future<void> deleteAccount() async {
+    emit(state.copyWith(status: AuthStatus.loading));
     await Future.wait([
-      _repository.deleteAccount(),
+      _authRepository.deleteAccount(),
       _profileRepository.deleteProfileData(),
     ]);
     emit(const AuthState.unauthenticated());
+  }
+
+  Future<void> updateProfile() async {
+    await checkUser();
   }
 }

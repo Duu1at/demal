@@ -1,4 +1,4 @@
-import 'package:app/app/router/app_router.dart';
+import 'package:app/app/app.dart';
 import 'package:app/features/login/cubit/otp_cubit.dart';
 import 'package:app/features/login/widgets/email_field.dart';
 import 'package:app_ui/app_ui.dart';
@@ -57,7 +57,7 @@ class __LoginViewState extends State<_LoginView> {
           ),
           const SizedBox(height: AppSpacing.md),
           Text(
-            'Добро пожаловать!',
+            context.l10n.welcome,
             style: Theme.of(context).textTheme.headlineMedium,
             textAlign: TextAlign.center,
           ),
@@ -65,7 +65,7 @@ class __LoginViewState extends State<_LoginView> {
           EmailField(
             controller: _emailController,
             hintText: 'example@gmail.com',
-            label: 'Email',
+            label: context.l10n.email,
           ),
           const SizedBox(height: AppSpacing.xlg),
           BlocConsumer<OtpCubit, OtpState>(
@@ -75,7 +75,7 @@ class __LoginViewState extends State<_LoginView> {
               switch (sendStatus) {
                 case RequestSuccess():
                   context.pushNamed(
-                    AppRoutes.otp,
+                    AppRouteNames.otp,
                     extra: OtpArgs(
                       email: _emailController.text,
                       otpCubit: context.read<OtpCubit>(),
@@ -96,7 +96,7 @@ class __LoginViewState extends State<_LoginView> {
                     context.read<OtpCubit>().sendOtp(_emailController.text);
                   }
                 },
-                child: const Text('Войти'),
+                child: Text(context.l10n.signIn),
               );
             },
           ),
@@ -114,7 +114,7 @@ class __LoginViewState extends State<_LoginView> {
                 ),
                 const SizedBox(width: AppSpacing.lg),
                 Text(
-                  'Войти через Google',
+                  context.l10n.signInGoogle,
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
               ],
@@ -137,7 +137,7 @@ class __LoginViewState extends State<_LoginView> {
                 ),
                 const SizedBox(width: AppSpacing.lg),
                 Text(
-                  'Войти через Apple',
+                  context.l10n.signInApple,
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
               ],

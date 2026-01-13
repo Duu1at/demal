@@ -15,10 +15,11 @@ final class ImagePickerService {
     double? maxHeight,
     int? quality,
     int? limit,
+    ImageSource? source,
   }) async {
     try {
-      final source = await _selectImageSource(context);
-      if (source == ImageSource.camera) {
+      final selectedSource = source ?? await _selectImageSource(context);
+      if (selectedSource == ImageSource.camera) {
         final image = await _picker.pickImage(
           maxWidth: maxWidth,
           maxHeight: maxHeight,
@@ -26,7 +27,16 @@ final class ImagePickerService {
           source: ImageSource.camera,
         );
         return image != null ? [image] : [];
-      } else if (source == ImageSource.gallery) {
+      } else if (selectedSource == ImageSource.gallery) {
+        if (limit == 1) {
+          final image = await _picker.pickImage(
+            maxWidth: maxWidth,
+            maxHeight: maxHeight,
+            imageQuality: quality,
+            source: ImageSource.gallery,
+          );
+          return image != null ? [image] : [];
+        }
         return _picker.pickMultiImage(
           maxWidth: maxWidth,
           maxHeight: maxHeight,

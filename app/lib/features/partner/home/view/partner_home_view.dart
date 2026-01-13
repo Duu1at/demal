@@ -1,4 +1,4 @@
-import 'package:app/app/router/app_router.dart';
+import 'package:app/app/app.dart';
 import 'package:app/features/features.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
@@ -30,23 +30,18 @@ class _PartnerHomeView extends StatelessWidget {
     return Scaffold(
       appBar: HomeAppBar(
         onMenuTap: () {
-          final rootContext = AppRoutes.navigatorKey.currentContext;
+          final rootContext = AppRouteNames.navigatorKey.currentContext;
           if (rootContext == null) return;
-          GoRouter.of(rootContext).pushNamed(AppRoutes.settings);
+          GoRouter.of(rootContext).pushNamed(AppRouteNames.settings);
         },
         onNotificationTap: () {
-          GoRouter.of(context).pushNamed(AppRoutes.partnerVerification);
+          GoRouter.of(context).pushNamed(AppRouteNames.partnerVerification);
         },
       ),
-      body: CustomScrollView(
+      body: const CustomScrollView(
         slivers: [
-          const SliverToBoxAdapter(child: SizedBox(height: AppSpacing.sm)),
-          PartnerHomeFilterTabs(
-            selectedFilter: TourFilter.active,
-            onFilterChanged: (filter) {},
-          ),
-          const SliverToBoxAdapter(child: SizedBox(height: AppSpacing.sm)),
-          const SliverPadding(
+          SliverToBoxAdapter(child: SizedBox(height: AppSpacing.sm)),
+          SliverPadding(
             padding: EdgeInsets.symmetric(horizontal: AppSpacing.lg),
             sliver: PartnerToursPagination(),
           ),
@@ -55,7 +50,7 @@ class _PartnerHomeView extends StatelessWidget {
 
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          final result = await GoRouter.of(context).pushNamed(AppRoutes.partnerCreateTour);
+          final result = await GoRouter.of(context).pushNamed(AppRouteNames.partnerCreateTour);
           if (result == true && context.mounted) {
             context.read<PartnerToursBloc>().add(const PartnerToursRefreshEvent());
           }

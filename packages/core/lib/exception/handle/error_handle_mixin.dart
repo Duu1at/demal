@@ -1,6 +1,6 @@
 import 'package:api_client/api_client.dart';
 import 'package:core/core.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 abstract class ErrorHandler {
   const ErrorHandler();
@@ -10,25 +10,25 @@ abstract class ErrorHandler {
     BuildContext context,
   );
 
-  String parseErrorMessage(Object error) {
-    if (error is AppException) return error.getUiMessage();
+  String parseErrorMessage(Object error, BuildContext context) {
+    if (error is AppException) return error.getUiMessage(context);
     if (error is DioException) {
-      return error.errorMessage ?? 'Пожалуйста, попробуйте позже или свяжитесь с поддержкой';
+      return error.errorMessage ?? context.l10n.pleaseTryLater;
     }
-    return 'Пожалуйста, попробуйте позже или свяжитесь с поддержкой';
+    return context.l10n.pleaseTryLater;
   }
 
-  ErrorModel parseErrorModel(Object error) {
-    if (error is AppException) return error.getModel();
+  ErrorModel parseErrorModel(Object error, BuildContext context) {
+    if (error is AppException) return error.getModel(context);
     if (error is DioException) {
       return ErrorModel(
-        title: 'Ошибка',
-        message: error.errorMessage ?? 'Пожалуйста, попробуйте позже или свяжитесь с поддержкой',
+        title: context.l10n.error,
+        message: error.errorMessage ?? context.l10n.pleaseTryLater,
       );
     }
-    return const ErrorModel(
-      title: 'Что-то пошло не так',
-      message: 'Пожалуйста, попробуйте позже или свяжитесь с поддержкой',
+    return ErrorModel(
+      title: context.l10n.somethingWentWrong,
+      message: context.l10n.pleaseTryLater,
     );
   }
 }

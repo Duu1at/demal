@@ -1,122 +1,73 @@
 import 'package:app/app/app.dart';
+import 'package:app/core/exceptions/exception.dart';
+import 'package:app/features/features.dart';
 import 'package:app_ui/app_ui.dart';
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:profile_repository/profile_repository.dart';
 
-/// Screen shown when partner verification is pending approval
 class PartnerVerificationStatusView extends StatelessWidget {
   const PartnerVerificationStatusView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Статус верификации'),
-        automaticallyImplyLeading: false,
-      ),
-      body: FutureBuilder<PartnerVerifyStatusModel>(
-        future: context.read<ProfileRepository>().getPartnerVerifyStatus(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          }
-
-          if (snapshot.hasError) {
-            return Center(
-              child: Padding(
-                padding: const EdgeInsets.all(AppSpacing.lg),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Icon(
-                      Icons.error_outline,
-                      size: 64,
-                      color: AppColors.red,
-                    ),
-                    const SizedBox(height: AppSpacing.lg),
-                    Text(
-                      'Ошибка загрузки статуса',
-                      style: context.textTheme.titleLarge,
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(height: AppSpacing.md),
-                    AppButton(
-                      onPressed: () {},
-                      child: const Text('Повторить'),
-                    ),
-                  ],
-                ),
-              ),
-            );
-          }
-
-          final status = snapshot.data;
-          return SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.all(AppSpacing.lg),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(
-                    Icons.hourglass_empty,
-                    size: 80,
-                    color: AppColors.orange,
-                  ),
-                  const SizedBox(height: AppSpacing.xlg),
-                  Text(
-                    'Заявка на рассмотрении',
-                    style: context.textTheme.headlineSmall?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: AppSpacing.md),
-                  Text(
-                    'Ваша заявка на верификацию отправлена и находится на проверке. Мы уведомим вас о результатах.',
-                    style: context.textTheme.bodyLarge,
-                    textAlign: TextAlign.center,
-                  ),
-                  if (status?.submittedAt != null) ...[
-                    const SizedBox(height: AppSpacing.lg),
-                    Container(
-                      padding: const EdgeInsets.all(AppSpacing.md),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(AppSpacing.md),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const Icon(Icons.access_time, size: 20),
-                          const SizedBox(width: AppSpacing.sm),
-                          Text(
-                            'Отправлено: ${_formatDate(status!.submittedAt!)}',
-                            style: context.textTheme.bodyMedium,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                  const SizedBox(height: AppSpacing.xxlg),
-                  AppButton(
-                    onPressed: () {},
-                    child: const Text('Обновить статус'),
-                  ),
-                  const SizedBox(height: AppSpacing.md),
-                  TextButton(
-                    onPressed: () => context.read<AuthCubit>().logout(),
-                    child: const Text('Выйти'),
-                  ),
-                ],
-              ),
-            ),
-          );
-        },
-      ),
+    return BlocProvider(
+      create: (context) => VerifyStatusCubit(
+        context.read<ProfileRepository>(),
+      )..getVerifyStatus(),
+      child: const PartnerVerificationStatusViewBody(),
     );
   }
+}
 
-  String _formatDate(DateTime date) {
-    return '${date.day}.${date.month}.${date.year}';
+class PartnerVerificationStatusViewBody extends StatelessWidget {
+  const PartnerVerificationStatusViewBody({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return PopScope(
+      canPop: false,
+      child: ScaffoldWithBgImage(
+        appBar: AppBar(
+          title: const Text('Статус верификации'),
+          leading: IconButton(
+            onPressed: () {
+              context.pop();
+            },
+            icon: const Icon(Icons.arrow_back_ios_new_outlined),
+          ),
+        ),
+        body: RefreshIndicator(
+          onRefresh: () => context.read<VerifyStatusCubit>().getVerifyStatus(),
+          child: CustomScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            slivers: [
+              SliverFillRemaining(
+                hasScrollBody: false,
+                child: BlocConsumer<VerifyStatusCubit, RequestStatus<PartnerVerifyStatusModel>>(
+                  listener: (context, state) {
+                    if (state is RequestSuccess<PartnerVerifyStatusModel>) {
+                      if (state.data?.verificationStatus == PartnerVerifyStatusEnum.verified) {
+                        context.read<AuthCubit>().updateProfile();
+                      }
+                    }
+                  },
+                  builder: (context, state) {
+                    return switch (state) {
+                      RequestInitial() => const SizedBox.shrink(),
+                      RequestLoading() => const Center(child: CircularProgressIndicator.adaptive()),
+                      RequestSuccess<PartnerVerifyStatusModel>(data: final data) => VerifySuccessView(data),
+                      RequestFailure(:final exception) => Center(child: ErrorBodyWidget(exception)),
+                    };
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
