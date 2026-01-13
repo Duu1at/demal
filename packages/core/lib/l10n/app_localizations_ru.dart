@@ -226,7 +226,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get tourOrganizer => 'Организатор тура';
 
   @override
-  String get bookTour => 'Забронировать тур';
+  String get bookTour => 'Забронировать';
 
   @override
   String get welcome => 'Добро пожаловать!';
