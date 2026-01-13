@@ -40,7 +40,7 @@ final class TourUpdateParam {
 
   final String? time;
 
-  final double? price;
+  final int? price;
 
   final String? currency;
 

@@ -2,6 +2,7 @@ import 'package:app/utils/formatter/currency_formatter.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:tour_repository/tour_repository.dart';
 
 class PartnerTourCardPrice extends StatelessWidget {
   const PartnerTourCardPrice({
@@ -11,14 +12,14 @@ class PartnerTourCardPrice extends StatelessWidget {
   });
 
   final int? price;
-  final String? currency;
+  final Currency? currency;
 
   @override
   Widget build(BuildContext context) {
     if (price == null) return const SizedBox.shrink();
 
     final theme = Theme.of(context);
-    final currencySymbol = AppCurrencyFormatter.cuccancyType(currency ?? 'KGS');
+    final currencySymbol = AppCurrencyFormatter.cuccancyType(currency ?? Currency.KGS);
     final formattedPrice = NumberFormat('#,###', 'ru').format(price);
 
     return Container(

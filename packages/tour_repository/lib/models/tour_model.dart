@@ -54,7 +54,7 @@ final class TourModel {
 
   final int? price;
 
-  final String? currency;
+  final Currency? currency;
 
   @JsonKey(name: 'available_spots')
   final int? availableSpots;
@@ -95,4 +95,14 @@ final class TourModel {
   final DateTime? updatedAt;
 
   Map<String, dynamic> toJson() => _$TourModelToJson(this);
+}
+
+@JsonEnum()
+enum Currency {
+  @JsonValue('KGS')
+  KGS,
+  @JsonValue('USD')
+  USD,
+  @JsonValue('RUB')
+  RUB,
 }

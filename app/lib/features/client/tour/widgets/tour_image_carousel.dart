@@ -39,7 +39,7 @@ class _TourImageCarouselState extends State<TourImageCarousel> {
                   imageUrl: widget.tour.imageGalleryUrls?[index] ?? '',
                   fit: BoxFit.cover,
                   progressIndicatorBuilder: (context, child, progress) {
-                    return const Center(child: CircularProgressIndicator());
+                    return const Center(child: CircularProgressIndicator.adaptive());
                   },
                   errorWidget: (context, error, stack) => const Center(child: Icon(Icons.broken_image, size: 60)),
                 ),

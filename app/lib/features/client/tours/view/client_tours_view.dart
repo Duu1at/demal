@@ -1,5 +1,5 @@
 import 'package:app/app/app.dart';
-import 'package:app/app/router/nav_helper.dart';
+import 'package:app/app/router/navigation_helper.dart';
 import 'package:app/features/features.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
@@ -94,7 +94,7 @@ class _ClientToursViewBodyState extends State<ClientToursViewBody> {
                   const SliverToBoxAdapter(
                     child: Padding(
                       padding: EdgeInsets.all(AppSpacing.md),
-                      child: Center(child: CircularProgressIndicator()),
+                      child: Center(child: CircularProgressIndicator.adaptive()),
                     ),
                   ),
                 const SliverToBoxAdapter(child: SizedBox(height: AppSpacing.xl)),

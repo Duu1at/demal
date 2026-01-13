@@ -1,4 +1,5 @@
 import 'package:app_ui/app_ui.dart';
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 
 class ToursEmptyState extends StatelessWidget {
@@ -22,13 +23,13 @@ class ToursEmptyState extends StatelessWidget {
             ),
             const SizedBox(height: AppSpacing.md),
             Text(
-              'No tours found',
+              context.l10n.noToursFound,
               style: Theme.of(context).textTheme.titleMedium,
             ),
             if (hasSearchQuery) ...[
               const SizedBox(height: AppSpacing.sm),
               Text(
-                'Try adjusting your search',
+                context.l10n.adjustSearch,
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   color: Theme.of(
                     context,

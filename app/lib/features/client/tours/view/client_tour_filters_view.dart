@@ -1,5 +1,6 @@
 import 'package:app/features/client/tours/bloc/tours_bloc.dart';
 import 'package:app_ui/app_ui.dart';
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tour_repository/tour_repository.dart';
@@ -70,8 +71,8 @@ class _ClientTourFiltersViewState extends State<ClientTourFiltersView> {
     final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Filters'),
-        actions: [TextButton(onPressed: _onReset, child: const Text('Reset'))],
+        title: Text(context.l10n.filtersTitle),
+        actions: [TextButton(onPressed: _onReset, child: Text(context.l10n.reset))],
       ),
       body: SafeArea(
         child: Form(
@@ -80,30 +81,30 @@ class _ClientTourFiltersViewState extends State<ClientTourFiltersView> {
             padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
             children: [
               const SizedBox(height: AppSpacing.lg),
-              Text('Location', style: theme.textTheme.labelLarge),
+              Text(context.l10n.locationLabel, style: theme.textTheme.labelLarge),
               const SizedBox(height: AppSpacing.xs),
               AppTextField(
                 controller: _locationController,
-                hintText: 'City, region...',
+                hintText: context.l10n.locationHint,
               ),
 
               const SizedBox(height: AppSpacing.lg),
-              Text('Tour type', style: theme.textTheme.labelLarge),
+              Text(context.l10n.tourTypeLabel, style: theme.textTheme.labelLarge),
               const SizedBox(height: AppSpacing.xs),
               AppTextField(
                 controller: _tourTypeController,
-                hintText: 'e.g. hiking, safari',
+                hintText: context.l10n.tourTypeHint,
                 onChanged: (v) => _tourType = v.trim().isEmpty ? null : v.trim(),
               ),
 
               const SizedBox(height: AppSpacing.lg),
-              Text('Date range', style: theme.textTheme.labelLarge),
+              Text(context.l10n.dateRangeLabel, style: theme.textTheme.labelLarge),
               const SizedBox(height: AppSpacing.xs),
               Row(
                 children: [
                   Expanded(
                     child: _DateField(
-                      label: 'From',
+                      label: context.l10n.dateFromLabel,
                       value: _dateFrom,
                       onPick: (d) => setState(() => _dateFrom = d),
                     ),
@@ -111,7 +112,7 @@ class _ClientTourFiltersViewState extends State<ClientTourFiltersView> {
                   const SizedBox(width: AppSpacing.md),
                   Expanded(
                     child: _DateField(
-                      label: 'To',
+                      label: context.l10n.dateToLabel,
                       value: _dateTo,
                       onPick: (d) => setState(() => _dateTo = d),
                     ),
@@ -121,7 +122,7 @@ class _ClientTourFiltersViewState extends State<ClientTourFiltersView> {
 
               const SizedBox(height: AppSpacing.lg),
               Text(
-                'Price range (min - max)',
+                context.l10n.priceRangeLabel,
                 style: theme.textTheme.labelLarge,
               ),
               const SizedBox(height: AppSpacing.xs),
@@ -131,7 +132,7 @@ class _ClientTourFiltersViewState extends State<ClientTourFiltersView> {
                     child: AppTextField(
                       keyboardType: TextInputType.number,
                       controller: _priceMinController,
-                      hintText: 'Min',
+                      hintText: context.l10n.minHint,
                       onChanged: (v) => _priceMin = _toDoubleOrNull(v),
                     ),
                   ),
@@ -140,7 +141,7 @@ class _ClientTourFiltersViewState extends State<ClientTourFiltersView> {
                     child: AppTextField(
                       keyboardType: TextInputType.number,
                       controller: _priceMaxController,
-                      hintText: 'Max',
+                      hintText: context.l10n.maxHint,
                       onChanged: (v) => _priceMax = _toDoubleOrNull(v),
                     ),
                   ),
@@ -148,38 +149,38 @@ class _ClientTourFiltersViewState extends State<ClientTourFiltersView> {
               ),
 
               const SizedBox(height: AppSpacing.lg),
-              Text('Sort by', style: theme.textTheme.labelLarge),
+              Text(context.l10n.sortByLabel, style: theme.textTheme.labelLarge),
               const SizedBox(height: AppSpacing.xs),
               DropdownButtonFormField<TourSortBy>(
                 initialValue: _sortBy,
                 isExpanded: true,
-                items: const [
+                items: [
                   DropdownMenuItem(
                     value: TourSortBy.dateAsc,
-                    child: Text('Date ↑'),
+                    child: Text(context.l10n.sortDateAsc),
                   ),
                   DropdownMenuItem(
                     value: TourSortBy.dateDesc,
-                    child: Text('Date ↓'),
+                    child: Text(context.l10n.sortDateDesc),
                   ),
                   DropdownMenuItem(
                     value: TourSortBy.priceAsc,
-                    child: Text('Price ↑'),
+                    child: Text(context.l10n.sortPriceAsc),
                   ),
                   DropdownMenuItem(
                     value: TourSortBy.priceDesc,
-                    child: Text('Price ↓'),
+                    child: Text(context.l10n.sortPriceDesc),
                   ),
                   DropdownMenuItem(
                     value: TourSortBy.ratingDesc,
-                    child: Text('Rating ↓'),
+                    child: Text(context.l10n.sortRatingDesc),
                   ),
                 ],
                 onChanged: (v) => setState(() => _sortBy = v),
               ),
 
               const SizedBox(height: AppSpacing.xl),
-              AppButton(onPressed: _onApply, child: const Text('Apply')),
+              AppButton(onPressed: _onApply, child: Text(context.l10n.apply)),
               const SizedBox(height: AppSpacing.lg),
             ],
           ),
@@ -226,7 +227,7 @@ class _ClientTourFiltersViewState extends State<ClientTourFiltersView> {
     if (_dateFrom != null && _dateTo != null && _dateFrom!.isAfter(_dateTo!)) {
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(const SnackBar(content: Text('Invalid date range')));
+      ).showSnackBar(SnackBar(content: Text(context.l10n.invalidDateRange)));
       return false;
     }
     return true;

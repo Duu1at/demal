@@ -1,5 +1,5 @@
 import 'package:app/app/app.dart';
-import 'package:app/app/router/nav_helper.dart';
+import 'package:app/app/router/navigation_helper.dart';
 import 'package:app/utils/tour_card/tour_model_extensions.dart';
 import 'package:app/features/client/tours/widgets/tour_card.dart';
 import 'package:flutter/material.dart';
@@ -29,21 +29,13 @@ class TourCardWidget extends StatelessWidget {
       duration: tour.formatDuration(),
       city: tour.city,
       country: tour.country,
-      price: tour.price?.toDouble(),
+      price: tour.price,
       cacheManager: cacheManager,
-      onTap: () {
-        if (tour.tourId != null) {
-          context.pushNamed(
-            AppRouteNames.clientTourDetails,
-            pathParameters: {'tourId': tour.tourId ?? ''},
-          );
-        }
-      },
-      onBookTap: () {
-        if (tour.tourId != null) {
-          context.goNamedIfAuthenticated(AppRouteNames.clientTourTickets);
-        }
-      },
+      onTap: () => context.pushNamed(
+        AppRouteNames.clientTourDetails,
+        pathParameters: {'tourId': tour.tourId ?? ''},
+      ),
+      onBookTap: () => context.goNamedIfAuthenticated(AppRouteNames.clientBookingDetails),
     );
   }
 }

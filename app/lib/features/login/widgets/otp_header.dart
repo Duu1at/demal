@@ -15,7 +15,7 @@ class OtpHeader extends StatelessWidget {
 
     return Column(
       children: [
-        Text('Введите код', style: theme.textTheme.headlineSmall),
+        Text(context.l10n.enterCode, style: theme.textTheme.headlineSmall),
         const SizedBox(height: AppSpacing.sm),
         Text.rich(
           TextSpan(

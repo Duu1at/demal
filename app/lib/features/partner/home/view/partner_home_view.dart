@@ -38,15 +38,10 @@ class _PartnerHomeView extends StatelessWidget {
           GoRouter.of(context).pushNamed(AppRouteNames.partnerVerification);
         },
       ),
-      body: CustomScrollView(
+      body: const CustomScrollView(
         slivers: [
-          const SliverToBoxAdapter(child: SizedBox(height: AppSpacing.sm)),
-          PartnerHomeFilterTabs(
-            selectedFilter: TourFilter.active,
-            onFilterChanged: (filter) {},
-          ),
-          const SliverToBoxAdapter(child: SizedBox(height: AppSpacing.sm)),
-          const SliverPadding(
+          SliverToBoxAdapter(child: SizedBox(height: AppSpacing.sm)),
+          SliverPadding(
             padding: EdgeInsets.symmetric(horizontal: AppSpacing.lg),
             sliver: PartnerToursPagination(),
           ),

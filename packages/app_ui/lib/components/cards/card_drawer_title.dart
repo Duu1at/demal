@@ -8,10 +8,12 @@ class CardDrawerTitle extends StatelessWidget {
     this.withBorder = false,
     this.tileColor,
     this.onTap,
+    this.actionIcon,
     super.key,
   });
 
   final Widget icon;
+  final Widget? actionIcon;
   final String title;
   final void Function()? onTap;
   final bool withBorder;
@@ -61,10 +63,11 @@ class CardDrawerTitle extends StatelessWidget {
                 ],
               ),
               const Spacer(),
-              Assets.icons.arrowRight.svg(
-                width: 24,
-                colorFilter: ColorFilter.mode(color.onSurface, BlendMode.srcIn),
-              ),
+              actionIcon ??
+                  Assets.icons.arrowRight.svg(
+                    width: 24,
+                    colorFilter: ColorFilter.mode(color.onSurface, BlendMode.srcIn),
+                  ),
             ],
           ),
         ),

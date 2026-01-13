@@ -1,5 +1,6 @@
 import 'package:app/utils/image_storage/image_storage.dart';
 import 'package:app_ui/app_ui.dart';
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:tour_repository/tour_repository.dart';
 
@@ -28,7 +29,7 @@ class TourOrganizerTile extends StatelessWidget {
                 ),
               ),
               Text(
-                'Организатор тура',
+                context.l10n.tourOrganizer,
                 style: theme.textTheme.bodyMedium?.copyWith(
                   color: theme.hintColor,
                 ),

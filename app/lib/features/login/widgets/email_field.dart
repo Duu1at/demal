@@ -24,7 +24,7 @@ class EmailField extends StatelessWidget {
       hintStyle: Theme.of(context).textTheme.bodyLarge,
       onChanged: onChanged,
       keyboardType: TextInputType.emailAddress,
-      validator: InputValidators.emailValidator,
+      validator: (val) => InputValidators.emailValidator(context, val),
       label: Text(
         label ?? '',
         style: Theme.of(context).textTheme.bodyLarge,

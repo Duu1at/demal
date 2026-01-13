@@ -4,14 +4,14 @@ abstract class AppRouteNames {
   static final navigatorKey = GlobalKey<NavigatorState>();
   static final scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
 
-  static const clientHome = '/';
-
   static const login = 'login';
   static const otp = 'otp';
 
   static const settings = 'settings';
   static const settingsAboutUs = 'settingsAboutUs';
+  static const settingsEditProfile = 'settingsEditProfile';
 
+  static const client = 'client';
   static const clientTourDetails = 'clientTourDetails';
   static const clientTourTickets = 'clientTourTickets';
   static const clientBookingDetails = 'clientBookingDetails';
@@ -24,7 +24,4 @@ abstract class AppRouteNames {
   static const partnerToursBookings = 'partnerToursBookings';
   static const partnerVerification = 'partnerVerification';
   static const partnerVerificationStatus = 'partnerVerificationStatus';
-  static const partnerVerificationRejected = 'partnerVerificationRejected';
-
-  static const accessDenied = 'accessDenied';
 }

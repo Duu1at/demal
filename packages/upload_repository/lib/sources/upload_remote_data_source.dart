@@ -81,4 +81,11 @@ final class UploadRemoteDataSource {
 
     return <String, String>{};
   }
+
+  Future<void> deleteFile(String url) async {
+    await apiClient.delete<Map<String, dynamic>>(
+      '/api/v1/upload',
+      data: {'url': url},
+    );
+  }
 }

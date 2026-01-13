@@ -1,4 +1,5 @@
 import 'package:app/features/login/cubit/otp_cubit.dart';
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pinput/pinput.dart';
@@ -56,7 +57,7 @@ class OtpCodeInput extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         validator: (value) {
           if (value == null || value.length != 6) {
-            return 'Введите 6 цифр';
+            return context.l10n.enter6Digits;
           }
           return null;
         },

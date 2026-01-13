@@ -57,7 +57,7 @@ class __LoginViewState extends State<_LoginView> {
           ),
           const SizedBox(height: AppSpacing.md),
           Text(
-            'Добро пожаловать!',
+            context.l10n.welcome,
             style: Theme.of(context).textTheme.headlineMedium,
             textAlign: TextAlign.center,
           ),
@@ -65,7 +65,7 @@ class __LoginViewState extends State<_LoginView> {
           EmailField(
             controller: _emailController,
             hintText: 'example@gmail.com',
-            label: 'Email',
+            label: context.l10n.email,
           ),
           const SizedBox(height: AppSpacing.xlg),
           BlocConsumer<OtpCubit, OtpState>(
@@ -96,7 +96,7 @@ class __LoginViewState extends State<_LoginView> {
                     context.read<OtpCubit>().sendOtp(_emailController.text);
                   }
                 },
-                child: const Text('Войти'),
+                child: Text(context.l10n.signIn),
               );
             },
           ),
@@ -114,7 +114,7 @@ class __LoginViewState extends State<_LoginView> {
                 ),
                 const SizedBox(width: AppSpacing.lg),
                 Text(
-                  'Войти через Google',
+                  context.l10n.signInGoogle,
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
               ],
@@ -137,7 +137,7 @@ class __LoginViewState extends State<_LoginView> {
                 ),
                 const SizedBox(width: AppSpacing.lg),
                 Text(
-                  'Войти через Apple',
+                  context.l10n.signInApple,
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
               ],

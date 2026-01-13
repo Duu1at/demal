@@ -40,7 +40,7 @@ final class TourCreateParam {
 
   final String time;
 
-  final double price;
+  final int price;
 
   final String? currency;
 

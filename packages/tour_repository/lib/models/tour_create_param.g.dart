@@ -12,7 +12,7 @@ TourCreateParam _$TourCreateParamFromJson(Map<String, dynamic> json) => TourCrea
   location: json['location'] as String,
   date: json['date'] as String,
   time: json['time'] as String,
-  price: (json['price'] as num).toDouble(),
+  price: (json['price'] as num).toInt(),
   meetingPoint: json['meeting_point'] == null
       ? null
       : MeetingPoint.fromJson(

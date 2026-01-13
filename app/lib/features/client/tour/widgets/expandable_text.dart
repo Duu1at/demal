@@ -1,4 +1,5 @@
 import 'package:app_ui/app_ui.dart';
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 
 class ExpandableText extends StatefulWidget {
@@ -34,7 +35,7 @@ class _ExpandableTextState extends State<ExpandableText> {
           GestureDetector(
             onTap: () => setState(() => _isExpanded = !_isExpanded),
             child: Text(
-              _isExpanded ? 'Скрыть' : 'Показать больше',
+              _isExpanded ? context.l10n.hide : context.l10n.showMore,
               style: theme.textTheme.bodyMedium?.copyWith(
                 color: theme.colorScheme.primary,
                 fontWeight: FontWeight.w700,

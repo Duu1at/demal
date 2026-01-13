@@ -1,4 +1,3 @@
-import 'package:app/features/client/tours/widgets/tour_card_constants.dart';
 import 'package:app/utils/tour_card/tour_card_utils.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
@@ -28,14 +27,14 @@ class TourHeaderRow extends StatelessWidget {
               Icon(
                 Icons.travel_explore_outlined,
                 size: 16,
-                color: context.appColors.disabled,
+                color: Theme.of(context).colorScheme.onSurface,
               ),
               const SizedBox(width: AppSpacing.xs),
               Expanded(
                 child: Text(
                   typeOfTour ?? '',
                   style: textTheme.bodySmall?.copyWith(
-                    color: context.appColors.disabled,
+                    color: Theme.of(context).colorScheme.onSurface,
                   ),
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
@@ -55,11 +54,11 @@ class TourHeaderRow extends StatelessWidget {
         const Icon(
           Icons.star,
           color: Colors.amber,
-          size: TourCardConstants.ratingIconSize,
+          size: 16,
         ),
-        const SizedBox(width: TourCardConstants.spacingSmall),
+        const SizedBox(width: 4),
         Text(
-          rating?.toStringAsFixed(1) ?? '0.0',
+          rating?.toStringAsFixed(1) ?? '0',
           style: textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w600),
         ),
         Text(

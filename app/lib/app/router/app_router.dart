@@ -4,7 +4,9 @@ import 'package:app_ui/app_ui.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:profile_repository/profile_repository.dart';
 import 'package:tour_repository/tour_repository.dart';
+import 'package:upload_repository/upload_repository.dart';
 
 @immutable
 final class AppRouter {
@@ -19,8 +21,12 @@ final class AppRouter {
       errorBuilder: (_, _) => const ErrorView(),
       routes: [
         GoRoute(
-          path: AppRouteNames.clientHome,
-          name: AppRouteNames.clientHome,
+          path: '/',
+          builder: (_, _) => const SplashView(),
+        ),
+        GoRoute(
+          path: '/${AppRouteNames.client}',
+          name: AppRouteNames.client,
           builder: (_, _) => const ClientToursView(),
           routes: [
             GoRoute(
@@ -92,6 +98,17 @@ final class AppRouter {
               name: AppRouteNames.settingsAboutUs,
               builder: (context, state) => const AboutUsView(),
             ),
+            GoRoute(
+              path: AppRouteNames.settingsEditProfile,
+              name: AppRouteNames.settingsEditProfile,
+              builder: (context, state) => BlocProvider(
+                create: (context) => UpdateProfileCubit(
+                  profileRepository: context.read<ProfileRepository>(),
+                  uploadRepository: context.read<UploadRepository>(),
+                ),
+                child: const EditProfileView(),
+              ),
+            ),
           ],
         ),
 
@@ -105,11 +122,6 @@ final class AppRouter {
               path: AppRouteNames.partnerVerificationStatus,
               name: AppRouteNames.partnerVerificationStatus,
               builder: (context, state) => const PartnerVerificationStatusView(),
-            ),
-            GoRoute(
-              path: AppRouteNames.partnerVerificationRejected,
-              name: AppRouteNames.partnerVerificationRejected,
-              builder: (context, state) => const PartnerVerificationRejectedView(),
             ),
           ],
         ),
@@ -135,7 +147,7 @@ final class AppRouter {
               },
             ),
             GoRoute(
-              path: AppRouteNames.partnerToursBookings,
+              path: '${AppRouteNames.partnerToursBookings}/:tourId',
               name: AppRouteNames.partnerToursBookings,
               builder: (context, state) {
                 final tourId = state.pathParameters['tourId'];
@@ -145,12 +157,6 @@ final class AppRouter {
               },
             ),
           ],
-        ),
-        GoRoute(
-          path: '/${AppRouteNames.accessDenied}',
-          name: AppRouteNames.accessDenied,
-          parentNavigatorKey: AppRouteNames.navigatorKey,
-          builder: (context, state) => const AccessDeniedView(),
         ),
       ],
     );

@@ -1,7 +1,7 @@
 abstract class TourCardUtils {
-  static String formatPrice(double? price) {
-    if (price == null) return '0.0 сом/person';
-    return '${price.toStringAsFixed(1)} сом/person';
+  static String formatPrice(int? price) {
+    if (price == null) return '0 с';
+    return '$price с';
   }
 
   static String formatDuration(String? duration, String? distance) {

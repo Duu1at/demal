@@ -1,5 +1,6 @@
 import 'package:app/utils/utils.dart';
 import 'package:app_ui/app_ui.dart';
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
@@ -50,11 +51,11 @@ class _TourReviewsBottomSheetState extends State<TourReviewsBottomSheet> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: const Text(
-              'Произошла ошибка при загрузке отзывов.',
+            content: Text(
+              context.l10n.failedToLoadReviews,
             ),
             action: SnackBarAction(
-              label: 'Повторить',
+              label: context.l10n.retry,
               onPressed: () => _pagingController.fetchNextPage(),
             ),
           ),
@@ -81,7 +82,7 @@ class _TourReviewsBottomSheetState extends State<TourReviewsBottomSheet> {
         children: [
           Flexible(
             child: Text(
-              'Отзывы',
+              context.l10n.reviews,
               style: theme.textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.bold,
               ),
@@ -108,13 +109,13 @@ class _TourReviewsBottomSheetState extends State<TourReviewsBottomSheet> {
                     firstPageProgressIndicatorBuilder: (context) => const Center(
                       child: Padding(
                         padding: EdgeInsets.all(AppSpacing.xl),
-                        child: CircularProgressIndicator(),
+                        child: CircularProgressIndicator.adaptive(),
                       ),
                     ),
                     newPageProgressIndicatorBuilder: (context) => const Center(
                       child: Padding(
                         padding: EdgeInsets.all(AppSpacing.md),
-                        child: CircularProgressIndicator(),
+                        child: CircularProgressIndicator.adaptive(),
                       ),
                     ),
                     noItemsFoundIndicatorBuilder: (context) => Center(
@@ -130,7 +131,7 @@ class _TourReviewsBottomSheetState extends State<TourReviewsBottomSheet> {
                             ),
                             const SizedBox(height: AppSpacing.md),
                             Text(
-                              'Пока нет отзывов',
+                              context.l10n.noReviewsYet,
                               style: theme.textTheme.titleMedium?.copyWith(
                                 color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
                               ),
@@ -198,7 +199,7 @@ class _ReviewCard extends StatelessWidget {
                     Text(
                       (user?.fullName != null && user!.fullName!.isNotEmpty)
                           ? user.fullName!
-                          : 'Анонимный пользователь',
+                          : context.l10n.anonymousUser,
                       style: theme.textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.w600,
                       ),
@@ -275,12 +276,12 @@ class _FirstPageError extends StatelessWidget {
             ),
             const SizedBox(height: AppSpacing.md),
             Text(
-              'Не удалось загрузить отзывы',
+              context.l10n.failedToLoadReviews,
               style: theme.textTheme.titleMedium,
             ),
             const SizedBox(height: AppSpacing.sm),
             Text(
-              'Проверьте подключение к интернету',
+              context.l10n.checkInternetConnection,
               style: theme.textTheme.bodyMedium?.copyWith(
                 color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
               ),
@@ -288,7 +289,7 @@ class _FirstPageError extends StatelessWidget {
             const SizedBox(height: AppSpacing.lg),
             ElevatedButton(
               onPressed: onRetry,
-              child: const Text('Повторить'),
+              child: Text(context.l10n.retry),
             ),
           ],
         ),
@@ -311,14 +312,14 @@ class _NewPageError extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            'Не удалось загрузить следующую страницу',
+            context.l10n.failedToLoadNextPage,
             style: theme.textTheme.bodyMedium,
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: AppSpacing.sm),
           OutlinedButton(
             onPressed: onRetry,
-            child: const Text('Повторить'),
+            child: Text(context.l10n.retry),
           ),
         ],
       ),
