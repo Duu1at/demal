@@ -1,4 +1,6 @@
 import 'package:core/core.dart';
+import 'package:flutter/widgets.dart';
+
 
 abstract class AppException<T extends Object> implements Exception {
   const AppException(
@@ -15,8 +17,8 @@ abstract class AppException<T extends Object> implements Exception {
   final StackTrace? stackTrace;
   final String? message;
 
-  String getUiMessage();
-  ErrorModel getModel();
+  String getUiMessage(BuildContext context);
+  ErrorModel getModel(BuildContext context);
 }
 
 enum ExceptionType {

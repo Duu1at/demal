@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:app/utils/permission/permission_reqester.dart';
 import 'package:app/widgets/avatar/avatar_display.dart';
 import 'package:app_ui/app_ui.dart';
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
@@ -93,7 +94,7 @@ class _EditableAvatarState extends State<EditableAvatar> with SingleTickerProvid
                 borderRadius: BorderRadius.circular(widget.size / 2),
               ),
               child: const Center(
-                child: CircularProgressIndicator(color: Colors.white),
+                child: CircularProgressIndicator.adaptive(),
               ),
             ),
           ),
@@ -174,7 +175,7 @@ class _EditableAvatarState extends State<EditableAvatar> with SingleTickerProvid
             if (mounted) GoRouter.of(context).pop();
             await select(ImageSource.camera);
           },
-          title: 'Камера',
+          title: context.l10n.camera,
         ),
         CustomActionButton(
           onTap: () async {
@@ -184,7 +185,7 @@ class _EditableAvatarState extends State<EditableAvatar> with SingleTickerProvid
             if (mounted) GoRouter.of(context).pop();
             await select(ImageSource.gallery);
           },
-          title: 'Галерея',
+          title: context.l10n.gallery,
         ),
         if (widget.avatarUrl != null)
           CustomActionButton(
@@ -195,7 +196,7 @@ class _EditableAvatarState extends State<EditableAvatar> with SingleTickerProvid
               widget.onDelete?.call();
               if (mounted) GoRouter.of(context).pop();
             },
-            title: 'Удалить',
+            title: context.l10n.delete,
           ),
       ],
     );
@@ -245,7 +246,7 @@ class _EditableAvatarState extends State<EditableAvatar> with SingleTickerProvid
               widget.onDelete?.call();
               GoRouter.of(context).pop();
             },
-            child: const Text('Удалить  фото'),
+            child: Text(context.l10n.deletePhoto),
           ),
         ],
       ),

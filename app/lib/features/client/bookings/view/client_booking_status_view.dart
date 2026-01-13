@@ -1,4 +1,5 @@
 import 'package:app_ui/app_ui.dart';
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 
 class ClientBookingStatusView extends StatelessWidget {
@@ -13,7 +14,7 @@ class ClientBookingStatusView extends StatelessWidget {
           Assets.images.succesStatus.image(),
           const SizedBox(height: AppSpacing.xl),
           Text(
-            'Ваш тур забронирован!',
+            context.l10n.tourBooked,
             style: Theme.of(
               context,
             ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w700),
@@ -21,7 +22,7 @@ class ClientBookingStatusView extends StatelessWidget {
           const SizedBox(height: AppSpacing.xl),
           AppButton(
             margin: const EdgeInsets.symmetric(horizontal: AppSpacing.xxlg),
-            child: const Text('Мой тур'),
+            child: Text(context.l10n.myTour),
             onPressed: () {},
           ),
         ],

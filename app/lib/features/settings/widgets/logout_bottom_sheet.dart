@@ -1,5 +1,6 @@
 import 'package:app/app/app.dart';
 import 'package:app_ui/app_ui.dart';
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -41,14 +42,14 @@ class LogoutBottomSheet extends StatelessWidget {
           ),
           const SizedBox(height: AppSpacing.lg),
           Text(
-            'Выйти из аккаунта',
+            context.l10n.logoutTitle,
             style: theme.textTheme.titleLarge?.copyWith(
               fontWeight: FontWeight.bold,
             ),
           ),
           const SizedBox(height: AppSpacing.md),
           Text(
-            'Вы уверены, что хотите выйти из своего аккаунта?',
+            context.l10n.logoutConfirmation,
             style: theme.textTheme.bodyMedium,
             textAlign: TextAlign.center,
           ),
@@ -59,7 +60,7 @@ class LogoutBottomSheet extends StatelessWidget {
                 child: AppButton(
                   variant: AppButtonVariant.outline,
                   onPressed: () => Navigator.pop(context),
-                  child: const Text('Отмена'),
+                  child: Text(context.l10n.cancel),
                 ),
               ),
               const SizedBox(width: AppSpacing.md),
@@ -74,7 +75,7 @@ class LogoutBottomSheet extends StatelessWidget {
                       router.goNamed(AppRouteNames.login);
                     });
                   },
-                  child: const Text('Выйти'),
+                  child: Text(context.l10n.logOut),
                 ),
               ),
             ],

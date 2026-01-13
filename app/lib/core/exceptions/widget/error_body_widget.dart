@@ -9,7 +9,7 @@ class ErrorBodyWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = context.read<ErrorHandler>().parseErrorModel(error);
+    final model = context.read<ErrorHandler>().parseErrorModel(error, context);
     return Column(
       children: [
         if (model.icon != null)

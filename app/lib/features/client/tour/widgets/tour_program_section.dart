@@ -1,4 +1,5 @@
 import 'package:app_ui/app_ui.dart';
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:tour_repository/tour_repository.dart';
 
@@ -15,7 +16,7 @@ class TourProgramSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Программа тура', style: theme.textTheme.titleMedium),
+        Text(context.l10n.tourProgram, style: theme.textTheme.titleMedium),
         const SizedBox(height: AppSpacing.sm),
         ...program.entries.map(
           (entry) => ListTile(

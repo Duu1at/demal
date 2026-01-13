@@ -71,14 +71,14 @@ class UpgradeRoleBottomSheet extends StatelessWidget {
               ),
               const SizedBox(height: AppSpacing.lg),
               Text(
-                'Стать организатором',
+                context.l10n.roleUpgradeTitle,
                 style: theme.textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
               ),
               const SizedBox(height: AppSpacing.md),
               Text(
-                'После смены роли на организатора вам будут недоступны функции клиента. Вы сможете создавать и управлять турами, но не сможете бронировать туры как клиент.',
+                context.l10n.roleUpgradeDescription,
                 style: theme.textTheme.bodyMedium,
                 textAlign: TextAlign.center,
               ),
@@ -86,7 +86,7 @@ class UpgradeRoleBottomSheet extends StatelessWidget {
               if (isLoading)
                 const Padding(
                   padding: EdgeInsets.symmetric(vertical: AppSpacing.md),
-                  child: CircularProgressIndicator(),
+                  child: CircularProgressIndicator.adaptive(),
                 )
               else
                 Row(
@@ -95,7 +95,7 @@ class UpgradeRoleBottomSheet extends StatelessWidget {
                       child: AppButton(
                         variant: AppButtonVariant.outline,
                         onPressed: () => Navigator.pop(context),
-                        child: const Text('Отмена'),
+                        child: Text(context.l10n.cancel),
                       ),
                     ),
                     const SizedBox(width: AppSpacing.md),
@@ -104,7 +104,7 @@ class UpgradeRoleBottomSheet extends StatelessWidget {
                         onPressed: () {
                           context.goNamed(AppRouteNames.partnerVerification);
                         },
-                        child: const Text('Подтвердить'),
+                        child: Text(context.l10n.confirm),
                       ),
                     ),
                   ],

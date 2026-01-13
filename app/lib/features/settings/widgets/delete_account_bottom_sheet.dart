@@ -1,5 +1,6 @@
 import 'package:app/app/app.dart';
 import 'package:app_ui/app_ui.dart';
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -50,7 +51,7 @@ class DeleteAccountBottomSheet extends StatelessWidget {
               ),
               const SizedBox(height: AppSpacing.lg),
               Text(
-                'Удалить аккаунт',
+                context.l10n.deleteAccountTitle,
                 style: theme.textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.bold,
                   color: Colors.red,
@@ -58,7 +59,7 @@ class DeleteAccountBottomSheet extends StatelessWidget {
               ),
               const SizedBox(height: AppSpacing.md),
               Text(
-                'Вы уверены, что хотите удалить свой аккаунт? Это действие необратимо, и все ваши данные будут удалены навсегда.',
+                context.l10n.deleteAccountConfirmation,
                 style: theme.textTheme.bodyMedium,
                 textAlign: TextAlign.center,
               ),
@@ -69,7 +70,7 @@ class DeleteAccountBottomSheet extends StatelessWidget {
                     child: AppButton(
                       variant: AppButtonVariant.outline,
                       onPressed: isLoading ? null : () => Navigator.pop(context),
-                      child: const Text('Отмена'),
+                      child: Text(context.l10n.cancel),
                     ),
                   ),
                   const SizedBox(width: AppSpacing.md),
@@ -82,7 +83,7 @@ class DeleteAccountBottomSheet extends StatelessWidget {
                           : () {
                               context.read<AuthCubit>().deleteAccount();
                             },
-                      child: const Text('Удалить'),
+                      child: Text(context.l10n.deleteAccount),
                     ),
                   ),
                 ],

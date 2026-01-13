@@ -93,42 +93,6 @@ abstract class AppLocalizations {
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[Locale('en'), Locale('ky'), Locale('ru')];
 
-  /// No description provided for @onboardingTitle1.
-  ///
-  /// In en, this message translates to:
-  /// **'All tours in one place'**
-  String get onboardingTitle1;
-
-  /// No description provided for @onboardingSubTitle1.
-  ///
-  /// In en, this message translates to:
-  /// **'Hundreds of weekend offers in one convenient feed'**
-  String get onboardingSubTitle1;
-
-  /// No description provided for @onboardingTitle2.
-  ///
-  /// In en, this message translates to:
-  /// **'Verified guides'**
-  String get onboardingTitle2;
-
-  /// No description provided for @onboardingSubTitle2.
-  ///
-  /// In en, this message translates to:
-  /// **'Read honest reviews from real travelers'**
-  String get onboardingSubTitle2;
-
-  /// No description provided for @onboardingTitle3.
-  ///
-  /// In en, this message translates to:
-  /// **'Book in 3 clicks'**
-  String get onboardingTitle3;
-
-  /// No description provided for @onboardingSubTitle3.
-  ///
-  /// In en, this message translates to:
-  /// **'No long chats, screenshots or waiting'**
-  String get onboardingSubTitle3;
-
   /// No description provided for @next.
   ///
   /// In en, this message translates to:
@@ -392,6 +356,588 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'You must agree to the terms'**
   String get termsRequired;
+
+  /// No description provided for @validationError.
+  ///
+  /// In en, this message translates to:
+  /// **'Validation Error'**
+  String get validationError;
+
+  /// No description provided for @error.
+  ///
+  /// In en, this message translates to:
+  /// **'Error'**
+  String get error;
+
+  /// No description provided for @somethingWentWrong.
+  ///
+  /// In en, this message translates to:
+  /// **'Something went wrong'**
+  String get somethingWentWrong;
+
+  /// No description provided for @pleaseTryLater.
+  ///
+  /// In en, this message translates to:
+  /// **'Please try again later or contact support'**
+  String get pleaseTryLater;
+
+  /// No description provided for @search.
+  ///
+  /// In en, this message translates to:
+  /// **'Search'**
+  String get search;
+
+  /// No description provided for @totalAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Amount: {amount}'**
+  String totalAmount(Object amount);
+
+  /// No description provided for @failedToLoadTickets.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load tickets'**
+  String get failedToLoadTickets;
+
+  /// No description provided for @failedToLoadNextPage.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load next page'**
+  String get failedToLoadNextPage;
+
+  /// No description provided for @checkInternetConnection.
+  ///
+  /// In en, this message translates to:
+  /// **'Check internet connection'**
+  String get checkInternetConnection;
+
+  /// No description provided for @retry.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get retry;
+
+  /// No description provided for @tourBooked.
+  ///
+  /// In en, this message translates to:
+  /// **'Your tour is booked!'**
+  String get tourBooked;
+
+  /// No description provided for @myTour.
+  ///
+  /// In en, this message translates to:
+  /// **'My Tour'**
+  String get myTour;
+
+  /// No description provided for @pay.
+  ///
+  /// In en, this message translates to:
+  /// **'Pay {amount}'**
+  String pay(Object amount);
+
+  /// No description provided for @whatIsIncluded.
+  ///
+  /// In en, this message translates to:
+  /// **'What is included'**
+  String get whatIsIncluded;
+
+  /// No description provided for @whatIsNotIncluded.
+  ///
+  /// In en, this message translates to:
+  /// **'Not included'**
+  String get whatIsNotIncluded;
+
+  /// No description provided for @tourProgram.
+  ///
+  /// In en, this message translates to:
+  /// **'Tour Program'**
+  String get tourProgram;
+
+  /// No description provided for @description.
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get description;
+
+  /// No description provided for @gatheringPlace.
+  ///
+  /// In en, this message translates to:
+  /// **'Gathering Place'**
+  String get gatheringPlace;
+
+  /// No description provided for @hide.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide'**
+  String get hide;
+
+  /// No description provided for @showMore.
+  ///
+  /// In en, this message translates to:
+  /// **'Show more'**
+  String get showMore;
+
+  /// No description provided for @reviews.
+  ///
+  /// In en, this message translates to:
+  /// **'Reviews'**
+  String get reviews;
+
+  /// No description provided for @noReviewsYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No reviews yet'**
+  String get noReviewsYet;
+
+  /// No description provided for @anonymousUser.
+  ///
+  /// In en, this message translates to:
+  /// **'Anonymous User'**
+  String get anonymousUser;
+
+  /// No description provided for @failedToLoadReviews.
+  ///
+  /// In en, this message translates to:
+  /// **'Error loading reviews.'**
+  String get failedToLoadReviews;
+
+  /// No description provided for @tourOrganizer.
+  ///
+  /// In en, this message translates to:
+  /// **'Tour Organizer'**
+  String get tourOrganizer;
+
+  /// No description provided for @bookTour.
+  ///
+  /// In en, this message translates to:
+  /// **'Book Tour'**
+  String get bookTour;
+
+  /// No description provided for @welcome.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome!'**
+  String get welcome;
+
+  /// No description provided for @signIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign In'**
+  String get signIn;
+
+  /// No description provided for @signInGoogle.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign In with Google'**
+  String get signInGoogle;
+
+  /// No description provided for @signInApple.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign In with Apple'**
+  String get signInApple;
+
+  /// No description provided for @verify.
+  ///
+  /// In en, this message translates to:
+  /// **'Verify'**
+  String get verify;
+
+  /// No description provided for @enterCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Code'**
+  String get enterCode;
+
+  /// No description provided for @enter6Digits.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter 6 digits'**
+  String get enter6Digits;
+
+  /// No description provided for @resendCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Resend Code'**
+  String get resendCode;
+
+  /// No description provided for @camera.
+  ///
+  /// In en, this message translates to:
+  /// **'Camera'**
+  String get camera;
+
+  /// No description provided for @gallery.
+  ///
+  /// In en, this message translates to:
+  /// **'Gallery'**
+  String get gallery;
+
+  /// No description provided for @delete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get delete;
+
+  /// No description provided for @deletePhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Photo'**
+  String get deletePhoto;
+
+  /// No description provided for @fieldRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Field is required'**
+  String get fieldRequired;
+
+  /// No description provided for @statusPending.
+  ///
+  /// In en, this message translates to:
+  /// **'Pending'**
+  String get statusPending;
+
+  /// No description provided for @statusConfirmed.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirmed'**
+  String get statusConfirmed;
+
+  /// No description provided for @statusPaid.
+  ///
+  /// In en, this message translates to:
+  /// **'Paid'**
+  String get statusPaid;
+
+  /// No description provided for @statusCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed'**
+  String get statusCompleted;
+
+  /// No description provided for @statusCancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancelled'**
+  String get statusCancelled;
+
+  /// No description provided for @statusUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown'**
+  String get statusUnknown;
+
+  /// No description provided for @dateAndTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Date and Time: '**
+  String get dateAndTime;
+
+  /// No description provided for @seatsCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Seats count: '**
+  String get seatsCount;
+
+  /// No description provided for @total.
+  ///
+  /// In en, this message translates to:
+  /// **'Total'**
+  String get total;
+
+  /// No description provided for @statusLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Status: '**
+  String get statusLabel;
+
+  /// No description provided for @noTickets.
+  ///
+  /// In en, this message translates to:
+  /// **'You have no tickets yet'**
+  String get noTickets;
+
+  /// No description provided for @contactDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact Details'**
+  String get contactDetails;
+
+  /// No description provided for @fullName.
+  ///
+  /// In en, this message translates to:
+  /// **'Full Name'**
+  String get fullName;
+
+  /// No description provided for @guests.
+  ///
+  /// In en, this message translates to:
+  /// **'Guests'**
+  String get guests;
+
+  /// No description provided for @noToursFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No tours found'**
+  String get noToursFound;
+
+  /// No description provided for @adjustSearch.
+  ///
+  /// In en, this message translates to:
+  /// **'Try adjusting your search'**
+  String get adjustSearch;
+
+  /// No description provided for @failedToLoadTours.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load tours'**
+  String get failedToLoadTours;
+
+  /// No description provided for @filtersTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Filters'**
+  String get filtersTitle;
+
+  /// No description provided for @reset.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset'**
+  String get reset;
+
+  /// No description provided for @locationLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Location'**
+  String get locationLabel;
+
+  /// No description provided for @locationHint.
+  ///
+  /// In en, this message translates to:
+  /// **'City, region...'**
+  String get locationHint;
+
+  /// No description provided for @tourTypeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Tour type'**
+  String get tourTypeLabel;
+
+  /// No description provided for @tourTypeHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. hiking, safari'**
+  String get tourTypeHint;
+
+  /// No description provided for @dateRangeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Date range'**
+  String get dateRangeLabel;
+
+  /// No description provided for @dateFromLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'From'**
+  String get dateFromLabel;
+
+  /// No description provided for @dateToLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'To'**
+  String get dateToLabel;
+
+  /// No description provided for @priceRangeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Price range (min - max)'**
+  String get priceRangeLabel;
+
+  /// No description provided for @minHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Min'**
+  String get minHint;
+
+  /// No description provided for @maxHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Max'**
+  String get maxHint;
+
+  /// No description provided for @sortByLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Sort by'**
+  String get sortByLabel;
+
+  /// No description provided for @sortDateAsc.
+  ///
+  /// In en, this message translates to:
+  /// **'Date ↑'**
+  String get sortDateAsc;
+
+  /// No description provided for @sortDateDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Date ↓'**
+  String get sortDateDesc;
+
+  /// No description provided for @sortPriceAsc.
+  ///
+  /// In en, this message translates to:
+  /// **'Price ↑'**
+  String get sortPriceAsc;
+
+  /// No description provided for @sortPriceDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Price ↓'**
+  String get sortPriceDesc;
+
+  /// No description provided for @sortRatingDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Rating ↓'**
+  String get sortRatingDesc;
+
+  /// No description provided for @apply.
+  ///
+  /// In en, this message translates to:
+  /// **'Apply'**
+  String get apply;
+
+  /// No description provided for @invalidDateRange.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid date range'**
+  String get invalidDateRange;
+
+  /// No description provided for @settingsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get settingsTitle;
+
+  /// No description provided for @notSpecified.
+  ///
+  /// In en, this message translates to:
+  /// **'Not specified'**
+  String get notSpecified;
+
+  /// No description provided for @profileInfoSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile photo, name, description'**
+  String get profileInfoSubtitle;
+
+  /// No description provided for @becomeOrganizerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Become a Tour Operator'**
+  String get becomeOrganizerTitle;
+
+  /// No description provided for @becomeOrganizerAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Become an organizer'**
+  String get becomeOrganizerAction;
+
+  /// No description provided for @deleteAccountTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Account'**
+  String get deleteAccountTitle;
+
+  /// No description provided for @deleteAccountConfirmation.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete your account? This action is irreversible, and all your data will be permanently deleted.'**
+  String get deleteAccountConfirmation;
+
+  /// No description provided for @logoutTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Log Out'**
+  String get logoutTitle;
+
+  /// No description provided for @logoutConfirmation.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to log out of your account?'**
+  String get logoutConfirmation;
+
+  /// No description provided for @cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
+
+  /// No description provided for @confirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm'**
+  String get confirm;
+
+  /// No description provided for @profileUpdatedSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile updated successfully'**
+  String get profileUpdatedSuccess;
+
+  /// No description provided for @nameLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get nameLabel;
+
+  /// No description provided for @phoneLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone Number'**
+  String get phoneLabel;
+
+  /// No description provided for @notSpecifiedEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Not specified'**
+  String get notSpecifiedEmail;
+
+  /// No description provided for @roleUpgradeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Become an Organizer'**
+  String get roleUpgradeTitle;
+
+  /// No description provided for @roleUpgradeDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'After switching roles to an organizer, client functions will be unavailable. You can create and manage tours but cannot book tours as a client.'**
+  String get roleUpgradeDescription;
+
+  /// No description provided for @searchTours.
+  ///
+  /// In en, this message translates to:
+  /// **'Search tours'**
+  String get searchTours;
+
+  /// No description provided for @email.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get email;
+
+  /// No description provided for @tourFallback.
+  ///
+  /// In en, this message translates to:
+  /// **'Tour'**
+  String get tourFallback;
+
+  /// No description provided for @reviewsCountParam.
+  ///
+  /// In en, this message translates to:
+  /// **'({count} reviews)'**
+  String reviewsCountParam(int count);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

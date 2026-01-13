@@ -82,7 +82,7 @@ class Step3Media extends StatelessWidget {
                           border: Border.all(color: Colors.grey[300]!),
                         ),
                         child: mediaState.isMainImageLoading
-                            ? const Center(child: CircularProgressIndicator())
+                            ? const Center(child: CircularProgressIndicator.adaptive())
                             : Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
@@ -160,7 +160,7 @@ class Step3Media extends StatelessWidget {
                           border: Border.all(color: Colors.grey[300]!),
                         ),
                         child: mediaState.isGalleryLoading
-                            ? const Center(child: CircularProgressIndicator())
+                            ? const Center(child: CircularProgressIndicator.adaptive())
                             : Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [

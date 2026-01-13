@@ -37,7 +37,7 @@ class _SettingsViewBodyState extends State<SettingsViewBody> with SettingsChange
     final theme = Theme.of(context);
     return ScaffoldWithBgImage(
       appBar: AppBar(
-        title: Text('Настройки', style: theme.textTheme.titleLarge),
+        title: Text(context.l10n.settingsTitle, style: theme.textTheme.titleLarge),
       ),
       body: SafeArea(
         child: Padding(
@@ -60,13 +60,13 @@ class _SettingsViewBodyState extends State<SettingsViewBody> with SettingsChange
                         cacheManager: ImageStorage.instance.avatarManager,
                       ),
                       title: Text(
-                        state.user.fullName ?? 'Duulat Bolsunbek uulu',
+                        state.user.fullName ?? context.l10n.notSpecified,
                         style: theme.textTheme.titleMedium?.copyWith(
                           fontWeight: FontWeight.w600,
                         ),
                       ),
                       subtitle: Text(
-                        'Фото профиля, имя, описание',
+                        context.l10n.profileInfoSubtitle,
                         style: theme.textTheme.bodySmall?.copyWith(
                           color: context.appColors.disabled,
                         ),

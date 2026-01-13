@@ -29,7 +29,7 @@ class TourCardContent extends StatelessWidget {
   final String? distance;
   final String? city;
   final String? country;
-  final double? price;
+  final int? price;
   final VoidCallback? onBookTap;
 
   @override
@@ -62,7 +62,7 @@ class TourCardContent extends StatelessWidget {
   Widget _buildTitle(TextTheme textTheme) {
     return Text(
       title ?? '',
-      style: textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
+      style: textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700),
       maxLines: 3,
       overflow: TextOverflow.ellipsis,
     );
@@ -77,13 +77,13 @@ class TourCardContent extends StatelessWidget {
         Icon(
           Icons.calendar_month_outlined,
           size: 16,
-          color: context.appColors.disabled,
+          color: Theme.of(context).colorScheme.onSurface,
         ),
         const SizedBox(width: AppSpacing.xs),
         Text(
           durationText,
           style: textTheme.bodySmall?.copyWith(
-            color: context.appColors.disabled,
+            color: Theme.of(context).colorScheme.onSurface,
           ),
         ),
       ],
@@ -98,13 +98,13 @@ class TourCardContent extends StatelessWidget {
         Icon(
           Icons.location_on_outlined,
           size: 16,
-          color: context.appColors.disabled,
+          color: Theme.of(context).colorScheme.onSurface,
         ),
         const SizedBox(width: AppSpacing.xs),
         Text(
           locationText,
           style: textTheme.bodySmall?.copyWith(
-            color: context.appColors.disabled,
+            color: Theme.of(context).colorScheme.onSurface,
           ),
           maxLines: 2,
           overflow: TextOverflow.ellipsis,

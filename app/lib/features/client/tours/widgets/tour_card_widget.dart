@@ -29,7 +29,7 @@ class TourCardWidget extends StatelessWidget {
       duration: tour.formatDuration(),
       city: tour.city,
       country: tour.country,
-      price: tour.price?.toDouble(),
+      price: tour.price,
       cacheManager: cacheManager,
       onTap: () => context.pushNamed(
         AppRouteNames.clientTourDetails,

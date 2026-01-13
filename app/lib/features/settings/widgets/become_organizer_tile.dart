@@ -37,7 +37,7 @@ class BecomeOrganizerTile extends StatelessWidget {
                   child: CircularProgressIndicator.adaptive(),
                 )
               : null,
-          title: 'Стать организатором',
+          title: context.l10n.roleUpgradeTitle,
           icon: Icon(
             Icons.business_center_outlined,
             color: theme.colorScheme.primary,

@@ -9,24 +9,6 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get onboardingTitle1 => 'All tours in one place';
-
-  @override
-  String get onboardingSubTitle1 => 'Hundreds of weekend offers in one convenient feed';
-
-  @override
-  String get onboardingTitle2 => 'Verified guides';
-
-  @override
-  String get onboardingSubTitle2 => 'Read honest reviews from real travelers';
-
-  @override
-  String get onboardingTitle3 => 'Book in 3 clicks';
-
-  @override
-  String get onboardingSubTitle3 => 'No long chats, screenshots or waiting';
-
-  @override
   String get next => 'Next';
 
   @override
@@ -162,4 +144,308 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get termsRequired => 'You must agree to the terms';
+
+  @override
+  String get validationError => 'Validation Error';
+
+  @override
+  String get error => 'Error';
+
+  @override
+  String get somethingWentWrong => 'Something went wrong';
+
+  @override
+  String get pleaseTryLater => 'Please try again later or contact support';
+
+  @override
+  String get search => 'Search';
+
+  @override
+  String totalAmount(Object amount) {
+    return 'Total Amount: $amount';
+  }
+
+  @override
+  String get failedToLoadTickets => 'Failed to load tickets';
+
+  @override
+  String get failedToLoadNextPage => 'Failed to load next page';
+
+  @override
+  String get checkInternetConnection => 'Check internet connection';
+
+  @override
+  String get retry => 'Retry';
+
+  @override
+  String get tourBooked => 'Your tour is booked!';
+
+  @override
+  String get myTour => 'My Tour';
+
+  @override
+  String pay(Object amount) {
+    return 'Pay $amount';
+  }
+
+  @override
+  String get whatIsIncluded => 'What is included';
+
+  @override
+  String get whatIsNotIncluded => 'Not included';
+
+  @override
+  String get tourProgram => 'Tour Program';
+
+  @override
+  String get description => 'Description';
+
+  @override
+  String get gatheringPlace => 'Gathering Place';
+
+  @override
+  String get hide => 'Hide';
+
+  @override
+  String get showMore => 'Show more';
+
+  @override
+  String get reviews => 'Reviews';
+
+  @override
+  String get noReviewsYet => 'No reviews yet';
+
+  @override
+  String get anonymousUser => 'Anonymous User';
+
+  @override
+  String get failedToLoadReviews => 'Error loading reviews.';
+
+  @override
+  String get tourOrganizer => 'Tour Organizer';
+
+  @override
+  String get bookTour => 'Book Tour';
+
+  @override
+  String get welcome => 'Welcome!';
+
+  @override
+  String get signIn => 'Sign In';
+
+  @override
+  String get signInGoogle => 'Sign In with Google';
+
+  @override
+  String get signInApple => 'Sign In with Apple';
+
+  @override
+  String get verify => 'Verify';
+
+  @override
+  String get enterCode => 'Enter Code';
+
+  @override
+  String get enter6Digits => 'Enter 6 digits';
+
+  @override
+  String get resendCode => 'Resend Code';
+
+  @override
+  String get camera => 'Camera';
+
+  @override
+  String get gallery => 'Gallery';
+
+  @override
+  String get delete => 'Delete';
+
+  @override
+  String get deletePhoto => 'Delete Photo';
+
+  @override
+  String get fieldRequired => 'Field is required';
+
+  @override
+  String get statusPending => 'Pending';
+
+  @override
+  String get statusConfirmed => 'Confirmed';
+
+  @override
+  String get statusPaid => 'Paid';
+
+  @override
+  String get statusCompleted => 'Completed';
+
+  @override
+  String get statusCancelled => 'Cancelled';
+
+  @override
+  String get statusUnknown => 'Unknown';
+
+  @override
+  String get dateAndTime => 'Date and Time: ';
+
+  @override
+  String get seatsCount => 'Seats count: ';
+
+  @override
+  String get total => 'Total';
+
+  @override
+  String get statusLabel => 'Status: ';
+
+  @override
+  String get noTickets => 'You have no tickets yet';
+
+  @override
+  String get contactDetails => 'Contact Details';
+
+  @override
+  String get fullName => 'Full Name';
+
+  @override
+  String get guests => 'Guests';
+
+  @override
+  String get noToursFound => 'No tours found';
+
+  @override
+  String get adjustSearch => 'Try adjusting your search';
+
+  @override
+  String get failedToLoadTours => 'Failed to load tours';
+
+  @override
+  String get filtersTitle => 'Filters';
+
+  @override
+  String get reset => 'Reset';
+
+  @override
+  String get locationLabel => 'Location';
+
+  @override
+  String get locationHint => 'City, region...';
+
+  @override
+  String get tourTypeLabel => 'Tour type';
+
+  @override
+  String get tourTypeHint => 'e.g. hiking, safari';
+
+  @override
+  String get dateRangeLabel => 'Date range';
+
+  @override
+  String get dateFromLabel => 'From';
+
+  @override
+  String get dateToLabel => 'To';
+
+  @override
+  String get priceRangeLabel => 'Price range (min - max)';
+
+  @override
+  String get minHint => 'Min';
+
+  @override
+  String get maxHint => 'Max';
+
+  @override
+  String get sortByLabel => 'Sort by';
+
+  @override
+  String get sortDateAsc => 'Date ↑';
+
+  @override
+  String get sortDateDesc => 'Date ↓';
+
+  @override
+  String get sortPriceAsc => 'Price ↑';
+
+  @override
+  String get sortPriceDesc => 'Price ↓';
+
+  @override
+  String get sortRatingDesc => 'Rating ↓';
+
+  @override
+  String get apply => 'Apply';
+
+  @override
+  String get invalidDateRange => 'Invalid date range';
+
+  @override
+  String get settingsTitle => 'Settings';
+
+  @override
+  String get notSpecified => 'Not specified';
+
+  @override
+  String get profileInfoSubtitle => 'Profile photo, name, description';
+
+  @override
+  String get becomeOrganizerTitle => 'Become a Tour Operator';
+
+  @override
+  String get becomeOrganizerAction => 'Become an organizer';
+
+  @override
+  String get deleteAccountTitle => 'Delete Account';
+
+  @override
+  String get deleteAccountConfirmation =>
+      'Are you sure you want to delete your account? This action is irreversible, and all your data will be permanently deleted.';
+
+  @override
+  String get logoutTitle => 'Log Out';
+
+  @override
+  String get logoutConfirmation => 'Are you sure you want to log out of your account?';
+
+  @override
+  String get cancel => 'Cancel';
+
+  @override
+  String get confirm => 'Confirm';
+
+  @override
+  String get profileUpdatedSuccess => 'Profile updated successfully';
+
+  @override
+  String get nameLabel => 'Name';
+
+  @override
+  String get phoneLabel => 'Phone Number';
+
+  @override
+  String get notSpecifiedEmail => 'Not specified';
+
+  @override
+  String get roleUpgradeTitle => 'Become an Organizer';
+
+  @override
+  String get roleUpgradeDescription =>
+      'After switching roles to an organizer, client functions will be unavailable. You can create and manage tours but cannot book tours as a client.';
+
+  @override
+  String get searchTours => 'Search tours';
+
+  @override
+  String get email => 'Email';
+
+  @override
+  String get tourFallback => 'Tour';
+
+  @override
+  String reviewsCountParam(int count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+    );
+    final String countString = countNumberFormat.format(count);
+
+    return '($countString reviews)';
+  }
 }

@@ -1,9 +1,11 @@
 import 'package:app/utils/formatter/formatter.dart';
 import 'package:app_ui/app_ui.dart';
-import 'package:bookings_repository/bookings_repository.dart';
+import 'package:core/core.dart';
+import 'package:bookings_repository/bookings_repository.dart' hide BookingStatusEnum;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:tour_repository/tour_repository.dart';
 
 class ClientMyTicketsView extends StatefulWidget {
   const ClientMyTicketsView({super.key});
@@ -44,11 +46,11 @@ class _ClientMyTicketsViewState extends State<ClientMyTicketsView> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: const Text(
-              'Произошла ошибка при загрузке данных.',
+            content: Text(
+              context.l10n.failedToLoadTickets,
             ),
             action: SnackBarAction(
-              label: 'Повторить',
+              label: context.l10n.retry,
               onPressed: () => _pagingController.fetchNextPage(),
             ),
           ),
@@ -71,7 +73,7 @@ class _ClientMyTicketsViewState extends State<ClientMyTicketsView> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
-        title: Text('Мои билеты', style: theme.textTheme.titleLarge),
+        title: Text(context.l10n.myTickets, style: theme.textTheme.titleLarge),
       ),
       body: RefreshIndicator(
         onRefresh: () async => _pagingController.refresh(),
@@ -94,13 +96,13 @@ class _ClientMyTicketsViewState extends State<ClientMyTicketsView> {
                 firstPageProgressIndicatorBuilder: (context) => const Center(
                   child: Padding(
                     padding: EdgeInsets.all(AppSpacing.xl),
-                    child: CircularProgressIndicator(),
+                    child: CircularProgressIndicator.adaptive(),
                   ),
                 ),
                 newPageProgressIndicatorBuilder: (context) => const Center(
                   child: Padding(
                     padding: EdgeInsets.all(AppSpacing.md),
-                    child: CircularProgressIndicator(),
+                    child: CircularProgressIndicator.adaptive(),
                   ),
                 ),
                 noItemsFoundIndicatorBuilder: (context) => Center(
@@ -116,7 +118,7 @@ class _ClientMyTicketsViewState extends State<ClientMyTicketsView> {
                         ),
                         const SizedBox(height: AppSpacing.md),
                         Text(
-                          'У вас пока нет билетов',
+                          context.l10n.noTickets,
                           style: theme.textTheme.titleMedium?.copyWith(
                             color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
                           ),
@@ -140,14 +142,14 @@ class _BookingCard extends StatelessWidget {
 
   final BookingModel booking;
 
-  String _formatStatus(BookingStatusEnum? status) {
+  String _formatStatus(BuildContext context, BookingStatusEnum? status) {
     return switch (status) {
-      BookingStatusEnum.pending => 'Ожидает подтверждения',
-      BookingStatusEnum.confirmed => 'Подтверждено',
-      BookingStatusEnum.paid => 'Оплачено',
-      BookingStatusEnum.completed => 'Завершено',
-      BookingStatusEnum.cancelled => 'Отменено',
-      null => 'Неизвестно',
+      BookingStatusEnum.pending => context.l10n.statusPending,
+      BookingStatusEnum.confirmed => context.l10n.statusConfirmed,
+      BookingStatusEnum.paid => context.l10n.statusPaid,
+      BookingStatusEnum.completed => context.l10n.statusCompleted,
+      BookingStatusEnum.cancelled => context.l10n.statusCancelled,
+      null => context.l10n.statusUnknown,
     };
   }
 
@@ -171,7 +173,7 @@ class _BookingCard extends StatelessWidget {
             const SizedBox(height: AppSpacing.xs),
             RichText(
               text: TextSpan(
-                text: 'Дата и время: ',
+                text: context.l10n.dateAndTime,
                 style: theme.textTheme.bodyMedium,
                 children: <TextSpan>[
                   TextSpan(
@@ -188,7 +190,7 @@ class _BookingCard extends StatelessWidget {
             const SizedBox(height: AppSpacing.xs),
             RichText(
               text: TextSpan(
-                text: 'Место сбора: ',
+                text: context.l10n.gatheringPlace,
                 style: theme.textTheme.bodyMedium,
                 children: <TextSpan>[
                   TextSpan(
@@ -205,7 +207,7 @@ class _BookingCard extends StatelessWidget {
             const SizedBox(height: AppSpacing.xs),
             RichText(
               text: TextSpan(
-                text: 'Количество мест: ',
+                text: context.l10n.seatsCount,
                 style: theme.textTheme.bodyMedium,
                 children: <TextSpan>[
                   TextSpan(
@@ -222,11 +224,11 @@ class _BookingCard extends StatelessWidget {
             const SizedBox(height: AppSpacing.xs),
             RichText(
               text: TextSpan(
-                text: 'Статус: ',
+                text: context.l10n.statusLabel,
                 style: theme.textTheme.bodyMedium,
                 children: <TextSpan>[
                   TextSpan(
-                    text: '"${_formatStatus(booking.status)}"',
+                    text: '"${_formatStatus(context, booking.status as BookingStatusEnum?)}"',
                     style: theme.textTheme.bodyMedium?.copyWith(
                       fontWeight: FontWeight.w500,
                     ),
@@ -238,7 +240,7 @@ class _BookingCard extends StatelessWidget {
           if (booking.totalAmount != null) ...[
             const SizedBox(height: AppSpacing.md),
             Text(
-              'Итоговая сумма: ${booking.totalAmount} ${AppCurrencyFormatter.cuccancyType('KGZ')}',
+              '${context.l10n.totalAmount(booking.totalAmount.toString())} ${AppCurrencyFormatter.cuccancyType(Currency.KGS)}',
               style: theme.textTheme.titleLarge?.copyWith(
                 fontWeight: FontWeight.w600,
               ),
@@ -271,12 +273,12 @@ class _FirstPageError extends StatelessWidget {
             ),
             const SizedBox(height: AppSpacing.md),
             Text(
-              'Не удалось загрузить билеты',
+              context.l10n.failedToLoadTickets,
               style: theme.textTheme.titleMedium,
             ),
             const SizedBox(height: AppSpacing.sm),
             Text(
-              'Проверьте подключение к интернету',
+              context.l10n.checkInternetConnection,
               style: theme.textTheme.bodyMedium?.copyWith(
                 color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
               ),
@@ -284,7 +286,7 @@ class _FirstPageError extends StatelessWidget {
             const SizedBox(height: AppSpacing.lg),
             ElevatedButton(
               onPressed: onRetry,
-              child: const Text('Повторить'),
+              child: Text(context.l10n.retry),
             ),
           ],
         ),
@@ -307,14 +309,14 @@ class _NewPageError extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            'Не удалось загрузить следующую страницу',
+            context.l10n.failedToLoadNextPage,
             style: theme.textTheme.bodyMedium,
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: AppSpacing.sm),
           OutlinedButton(
             onPressed: onRetry,
-            child: const Text('Повторить'),
+            child: Text(context.l10n.retry),
           ),
         ],
       ),

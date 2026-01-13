@@ -57,7 +57,7 @@ class PartnerVerificationStatusViewBody extends StatelessWidget {
                   builder: (context, state) {
                     return switch (state) {
                       RequestInitial() => const SizedBox.shrink(),
-                      RequestLoading() => const Center(child: CircularProgressIndicator()),
+                      RequestLoading() => const Center(child: CircularProgressIndicator.adaptive()),
                       RequestSuccess<PartnerVerifyStatusModel>(data: final data) => VerifySuccessView(data),
                       RequestFailure(:final exception) => Center(child: ErrorBodyWidget(exception)),
                     };

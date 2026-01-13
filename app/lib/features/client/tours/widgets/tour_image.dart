@@ -1,4 +1,3 @@
-import 'package:app/features/client/tours/widgets/tour_card_constants.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
@@ -13,7 +12,7 @@ class TourImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AspectRatio(
-      aspectRatio: TourCardConstants.imageAspectRatio,
+      aspectRatio: 16 / 9,
       child: CachedNetworkImage(
         imageUrl: imageUrl ?? '',
         cacheManager: cacheManager,
@@ -38,7 +37,7 @@ class TourImage extends StatelessWidget {
       alignment: Alignment.center,
       child: const Icon(
         Icons.image_not_supported_outlined,
-        size: TourCardConstants.errorIconSize,
+        size: 48,
         color: Colors.grey,
       ),
     );

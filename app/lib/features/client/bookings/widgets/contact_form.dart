@@ -1,4 +1,5 @@
 import 'package:app_ui/app_ui.dart';
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 
 class ContactForm extends StatelessWidget {
@@ -17,11 +18,11 @@ class ContactForm extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Contact Details', style: theme.textTheme.titleMedium),
+        Text(context.l10n.contactDetails, style: theme.textTheme.titleMedium),
         const SizedBox(height: AppSpacing.lg),
 
         AppTextField(
-          hintText: 'Full Name',
+          hintText: context.l10n.fullName,
           prefixIcon: Padding(
             padding: const EdgeInsets.all(8),
             child: Assets.icons.user.svg(
@@ -38,7 +39,7 @@ class ContactForm extends StatelessWidget {
 
         const SizedBox(height: AppSpacing.md),
         AppTextField(
-          hintText: 'Email',
+          hintText: context.l10n.email,
           prefixIcon: Padding(
             padding: const EdgeInsets.all(AppSpacing.sm),
             child: Assets.icons.email.svg(

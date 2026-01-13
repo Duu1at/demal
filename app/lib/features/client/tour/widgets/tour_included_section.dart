@@ -1,4 +1,5 @@
 import 'package:app_ui/app_ui.dart';
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:tour_repository/tour_repository.dart';
 
@@ -20,7 +21,7 @@ class TourIncludedSection extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Что включено', style: theme.textTheme.titleMedium),
+              Text(context.l10n.whatIsIncluded, style: theme.textTheme.titleMedium),
               const SizedBox(height: AppSpacing.sm),
               ...included.map((item) => _buildRow(context, item, true)),
             ],
@@ -30,7 +31,7 @@ class TourIncludedSection extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Не включено', style: theme.textTheme.titleMedium),
+              Text(context.l10n.whatIsNotIncluded, style: theme.textTheme.titleMedium),
               const SizedBox(height: AppSpacing.sm),
               ...notIncluded.map((item) => _buildRow(context, item, false)),
             ],

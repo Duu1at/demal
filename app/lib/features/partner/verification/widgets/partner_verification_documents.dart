@@ -59,7 +59,7 @@ class PartnerVerificationDocument extends StatelessWidget {
             ),
             const SizedBox(height: AppSpacing.xlg),
             if (state.isUploadingDocument)
-              const Center(child: CircularProgressIndicator())
+              const Center(child: CircularProgressIndicator.adaptive())
             else
               _PartnerVerificationActionButton(
                 label: context.l10n.chooseFilesButton,

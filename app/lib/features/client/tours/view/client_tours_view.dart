@@ -94,7 +94,7 @@ class _ClientToursViewBodyState extends State<ClientToursViewBody> {
                   const SliverToBoxAdapter(
                     child: Padding(
                       padding: EdgeInsets.all(AppSpacing.md),
-                      child: Center(child: CircularProgressIndicator()),
+                      child: Center(child: CircularProgressIndicator.adaptive()),
                     ),
                   ),
                 const SliverToBoxAdapter(child: SizedBox(height: AppSpacing.xl)),

@@ -1,4 +1,5 @@
 import 'package:app_ui/app_ui.dart';
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 
 class GuestsSelector extends StatelessWidget {
@@ -16,7 +17,7 @@ class GuestsSelector extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text('Guests', style: theme.textTheme.titleMedium),
+        Text(context.l10n.guests, style: theme.textTheme.titleMedium),
         Row(
           children: [
             _CountButton(

@@ -34,7 +34,7 @@ class TourCard extends StatelessWidget {
   final String? city;
   final String? country;
   final double? oldPrice;
-  final double? price;
+  final int? price;
   final VoidCallback? onTap;
   final CacheManager? cacheManager;
   final VoidCallback? onBookTap;
@@ -72,13 +72,13 @@ class TourCard extends StatelessWidget {
   BoxDecoration _buildDecoration(BuildContext context) {
     return BoxDecoration(
       color: context.appColors.bgCard,
-      borderRadius: BorderRadius.circular(TourCardConstants.borderRadius),
+      borderRadius: BorderRadius.circular(16),
       boxShadow: [
         BoxShadow(
           color: Theme.of(context).colorScheme.primary.withValues(
-            alpha: TourCardConstants.shadowOpacity,
+            alpha: 0.2,
           ),
-          blurRadius: TourCardConstants.shadowBlurRadius,
+          blurRadius: 8,
         ),
       ],
     );

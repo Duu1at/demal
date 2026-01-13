@@ -1,4 +1,5 @@
 import 'package:app/features/login/cubit/otp_cubit.dart';
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -16,7 +17,7 @@ class OtpResendButton extends StatelessWidget {
         return TextButton(
           onPressed: isTimerFinished ? () => context.read<OtpCubit>().sendOtp(email) : null,
           child: Text(
-            'Отправить повторно ${isTimerFinished ? '' : '(${state.remainingSeconds.formatTime()})'}',
+            '${context.l10n.resendCode} ${isTimerFinished ? '' : '(${state.remainingSeconds.formatTime()})'}',
             style: theme.primaryTextTheme.titleSmall!.copyWith(
               color: isTimerFinished ? theme.colorScheme.primary : theme.disabledColor,
             ),

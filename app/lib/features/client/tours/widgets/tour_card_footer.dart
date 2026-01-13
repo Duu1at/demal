@@ -1,12 +1,12 @@
-import 'package:app/features/client/tours/widgets/tour_card_constants.dart';
 import 'package:app/utils/tour_card/tour_card_utils.dart';
 import 'package:app_ui/app_ui.dart';
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 
 class TourCardFooter extends StatelessWidget {
   const TourCardFooter({this.price, this.onBookTap, super.key});
 
-  final double? price;
+  final int? price;
   final VoidCallback? onBookTap;
 
   @override
@@ -15,7 +15,7 @@ class TourCardFooter extends StatelessWidget {
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [_buildPrice(textTheme), _buildBookButton(textTheme)],
+      children: [_buildPrice(textTheme), _buildBookButton(context, textTheme)],
     );
   }
 
@@ -26,15 +26,15 @@ class TourCardFooter extends StatelessWidget {
     );
   }
 
-  Widget _buildBookButton(TextTheme textTheme) {
+  Widget _buildBookButton(BuildContext context, TextTheme textTheme) {
     return SizedBox(
-      width: TourCardConstants.bookButtonWidth,
-      height: TourCardConstants.bookButtonHeight,
+      width: 130,
+      height: 32,
       child: AppButton(
         onPressed: onBookTap,
         size: AppButtonSize.sm,
         child: Text(
-          TourCardConstants.bookButtonText,
+          context.l10n.bookTour,
           style: textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w700),
           textAlign: TextAlign.center,
         ),

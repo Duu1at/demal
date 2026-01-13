@@ -36,7 +36,7 @@ class _EditProfileViewState extends State<EditProfileView> with SettingsChangeMi
       imageFile: imageFile,
       onSuccess: () {
         context.read<AuthCubit>().updateProfile();
-        AppSnackbar.showSuccess(context: context, title: 'Профиль успешно обновлен');
+        AppSnackbar.showSuccess(context: context, title: context.l10n.profileUpdatedSuccess);
       },
     );
   }
@@ -76,7 +76,7 @@ class _EditProfileViewState extends State<EditProfileView> with SettingsChangeMi
                     key: Key('name_${user.fullName}'),
                     initialValue: user.fullName,
                     contentPadding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm),
-                    label: Text(isPartner ? 'Название компании' : 'Имя'),
+                    label: Text(isPartner ? context.l10n.companyNameLabel : context.l10n.nameLabel),
                     textInputAction: TextInputAction.done,
                     suffixIcon: const Icon(Icons.edit, size: 20),
                     onFieldSubmitted: (v) {
@@ -89,7 +89,7 @@ class _EditProfileViewState extends State<EditProfileView> with SettingsChangeMi
                     key: Key('phone_${user.phoneNumber}'),
                     initialValue: user.phoneNumber,
                     contentPadding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm),
-                    label: const Text('Номер телефона'),
+                    label: Text(context.l10n.phoneLabel),
                     textInputAction: TextInputAction.done,
                     prefix: const Text('+996 '),
                     suffixIcon: const Icon(Icons.edit, size: 20),
@@ -107,7 +107,7 @@ class _EditProfileViewState extends State<EditProfileView> with SettingsChangeMi
                   ),
                   const SizedBox(height: AppSpacing.md),
                   AppTextField(
-                    initialValue: user.email ?? 'Не указан',
+                    initialValue: user.email ?? context.l10n.notSpecifiedEmail,
                     contentPadding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm),
                     label: const Text('Email'),
                     readOnly: true,
@@ -120,7 +120,7 @@ class _EditProfileViewState extends State<EditProfileView> with SettingsChangeMi
                       key: Key('desc_${user.partnerProfile?.description}'),
                       initialValue: user.partnerProfile?.description,
                       contentPadding: const EdgeInsets.all(AppSpacing.sm),
-                      label: const Text('Описание'),
+                      label: Text(context.l10n.descriptionLabel),
                       maxLength: 100,
                       maxLines: 3,
                       textInputAction: TextInputAction.done,

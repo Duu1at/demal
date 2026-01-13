@@ -1,5 +1,6 @@
 import 'package:app/features/client/client.dart';
 import 'package:app_ui/app_ui.dart';
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:tour_repository/tour_repository.dart';
 
@@ -14,7 +15,7 @@ class TourDescriptionSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Описание',
+          context.l10n.description,
           style: theme.textTheme.titleMedium?.copyWith(
             fontWeight: FontWeight.w600,
           ),

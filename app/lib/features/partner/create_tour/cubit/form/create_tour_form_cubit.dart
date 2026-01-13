@@ -32,7 +32,7 @@ class CreateTourFormCubit extends Cubit<CreateTourFormState> {
         date: tour!.date ?? '',
         time: tour!.time ?? '',
         price: tour!.price ?? 0,
-        currency: tour!.currency ?? 'KGS',
+        currency: tour!.currency?.name ?? 'KGS',
         availableSpots: tour!.availableSpots ?? 0,
         description: tour!.description ?? '',
         program: tour!.program ?? {},

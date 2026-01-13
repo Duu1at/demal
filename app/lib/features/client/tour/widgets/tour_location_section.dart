@@ -1,4 +1,5 @@
 import 'package:app_ui/app_ui.dart';
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:tour_repository/tour_repository.dart';
 
@@ -12,7 +13,7 @@ class TourLocationSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Место сбора', style: theme.textTheme.titleMedium),
+        Text(context.l10n.gatheringPlace, style: theme.textTheme.titleMedium),
         const SizedBox(height: AppSpacing.xs),
         Text(tour.meetingPoint?.address ?? '', style: theme.textTheme.bodyMedium),
       ],

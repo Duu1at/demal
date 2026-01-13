@@ -68,7 +68,7 @@ class OtpVerifyButton extends StatelessWidget {
                   );
                 }
               },
-              child: const Text('Проверить'),
+              child: Text(context.l10n.verify),
             );
           },
         );

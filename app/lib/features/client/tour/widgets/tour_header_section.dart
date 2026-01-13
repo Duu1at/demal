@@ -1,6 +1,7 @@
 import 'package:app/features/client/tour/widgets/tour_reviews_bottom_sheet.dart';
 import 'package:app/utils/utils.dart';
 import 'package:app_ui/app_ui.dart';
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:tour_repository/tour_repository.dart';
 
@@ -19,7 +20,7 @@ class TourHeaderSection extends StatelessWidget {
           children: [
             Flexible(
               child: Text(
-                tour.title ?? '',
+                tour.title ?? context.l10n.tourFallback,
                 style: theme.textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
@@ -27,7 +28,7 @@ class TourHeaderSection extends StatelessWidget {
             ),
             const SizedBox(width: AppSpacing.md),
             Text(
-              '${tour.price ?? 0} ${AppCurrencyFormatter.cuccancyType(tour.currency ?? '')}',
+              '${tour.price ?? 0} ${AppCurrencyFormatter.cuccancyType(tour.currency ?? Currency.KGS)}',
               style: theme.textTheme.titleLarge?.copyWith(
                 fontWeight: FontWeight.bold,
               ),
@@ -75,13 +76,13 @@ class TourHeaderSection extends StatelessWidget {
                     enableDrag: true,
                     child: TourReviewsBottomSheet(
                       tourId: tour.tourId!,
-                      tourTitle: tour.title ?? 'Тур',
+                      tourTitle: tour.title ?? context.l10n.tourFallback,
                     ),
                   );
                 }
               },
               child: Text(
-                '(${tour.reviewsCount ?? 0} Reviews)',
+                context.l10n.reviewsCountParam(tour.reviewsCount ?? 0),
                 style: theme.textTheme.bodyMedium?.copyWith(
                   color: theme.hintColor,
                   decoration: tour.tourId != null ? TextDecoration.underline : null,
