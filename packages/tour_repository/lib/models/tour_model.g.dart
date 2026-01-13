@@ -15,7 +15,7 @@ TourModel _$TourModelFromJson(Map<String, dynamic> json) => TourModel(
   date: json['date'] as String?,
   time: json['time'] as String?,
   price: (json['price'] as num?)?.toInt(),
-  currency: json['currency'] as String?,
+  currency: $enumDecodeNullable(_$CurrencyEnumMap, json['currency']),
   availableSpots: (json['available_spots'] as num?)?.toInt(),
   description: json['description'] as String?,
   program: (json['program'] as Map<String, dynamic>?)?.map(
@@ -47,7 +47,7 @@ Map<String, dynamic> _$TourModelToJson(TourModel instance) => <String, dynamic>{
   'date': instance.date,
   'time': instance.time,
   'price': instance.price,
-  'currency': instance.currency,
+  'currency': _$CurrencyEnumMap[instance.currency],
   'available_spots': instance.availableSpots,
   'description': instance.description,
   'program': instance.program,
@@ -62,4 +62,10 @@ Map<String, dynamic> _$TourModelToJson(TourModel instance) => <String, dynamic>{
   'reviews_count': instance.reviewsCount,
   'created_at': instance.createdAt?.toIso8601String(),
   'updated_at': instance.updatedAt?.toIso8601String(),
+};
+
+const _$CurrencyEnumMap = {
+  Currency.KGS: 'KGS',
+  Currency.USD: 'USD',
+  Currency.RUB: 'RUB',
 };

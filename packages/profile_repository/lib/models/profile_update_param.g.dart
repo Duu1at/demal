@@ -6,18 +6,16 @@ part of 'profile_update_param.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-ProfileUpdateParam _$ProfileUpdateParamFromJson(Map<String, dynamic> json) =>
-    ProfileUpdateParam(
-      fullName: json['full_name'] as String?,
-      imageUrl: json['image_url'] as String?,
-      phoneNumber: json['phone_number'] as String?,
-      description: json['description'] as String?,
-    );
+ProfileUpdateParam _$ProfileUpdateParamFromJson(Map<String, dynamic> json) => ProfileUpdateParam(
+  fullName: json['full_name'] as String?,
+  imageUrl: json['image_url'] as String?,
+  phoneNumber: json['phone_number'] as String?,
+  description: json['description'] as String?,
+);
 
-Map<String, dynamic> _$ProfileUpdateParamToJson(ProfileUpdateParam instance) =>
-    <String, dynamic>{
-      'full_name': ?instance.fullName,
-      'phone_number': ?instance.phoneNumber,
-      'image_url': ?instance.imageUrl,
-      'description': ?instance.description,
-    };
+Map<String, dynamic> _$ProfileUpdateParamToJson(ProfileUpdateParam instance) => <String, dynamic>{
+  'full_name': ?instance.fullName,
+  'phone_number': ?instance.phoneNumber,
+  'image_url': ?instance.imageUrl,
+  'description': ?instance.description,
+};

@@ -1,7 +1,6 @@
 import 'package:core/core.dart';
 import 'package:flutter/widgets.dart';
 
-
 abstract class AppException<T extends Object> implements Exception {
   const AppException(
     this.error, {

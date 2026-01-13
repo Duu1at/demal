@@ -1,7 +1,6 @@
 import 'package:core/core.dart';
 import 'package:flutter/widgets.dart';
 
-
 final class ValidationException extends AppException<String> {
   const ValidationException(super.error);
 
