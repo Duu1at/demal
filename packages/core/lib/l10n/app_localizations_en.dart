@@ -225,7 +225,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get tourOrganizer => 'Tour Organizer';
 
   @override
-  String get bookTour => 'Book Tour';
+  String get bookTour => 'Book';
 
   @override
   String get welcome => 'Welcome!';

@@ -510,7 +510,7 @@ abstract class AppLocalizations {
   /// No description provided for @bookTour.
   ///
   /// In en, this message translates to:
-  /// **'Book Tour'**
+  /// **'Book'**
   String get bookTour;
 
   /// No description provided for @welcome.

@@ -226,7 +226,7 @@ class AppLocalizationsKy extends AppLocalizations {
   String get tourOrganizer => 'Тур уюштуруучусу';
 
   @override
-  String get bookTour => 'Турду брондоо';
+  String get bookTour => 'Брондоо';
 
   @override
   String get welcome => 'Кош келиңиз!';
