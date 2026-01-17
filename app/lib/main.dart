@@ -2,8 +2,15 @@ import 'dart:async';
 import 'package:api_client/api_client.dart';
 import 'package:api_client/interceptors/app_interceptor.dart';
 import 'package:app/app/view/app_view.dart';
+import 'package:app/core/core.dart' as app_core;
+import 'package:app/firebase_options.dart';
 import 'package:app/env.dart';
 import 'package:auth_repository/auth_repository.dart';
+import 'package:core/core.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:storage/storage.dart';
@@ -17,6 +24,25 @@ void main() async {
   await runZonedGuarded(
     () async {
       WidgetsFlutterBinding.ensureInitialized();
+      await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
+      );
+
+      final crashlyticsService = app_core.FirebaseCrashlyticsService(
+        FirebaseCrashlytics.instance,
+      );
+      final crashlyticsClient = CrashlyticsClientImpl(crashlyticsService);
+
+      final analyticsService = app_core.FirebaseAnalyticsService(
+        FirebaseAnalytics.instance,
+        crashlyticsClient,
+      );
+      final remoteConfigService = app_core.FirebaseRemoteConfigService(
+        FirebaseRemoteConfig.instance,
+        crashlyticsClient,
+      );
+
+      await remoteConfigService.fetchAndActivate();
 
       Bloc.observer = TalkerBlocObserver(
         talker: talker,
@@ -33,6 +59,7 @@ void main() async {
         talker
           ..error(details.exceptionAsString())
           ..error(details.stack.toString());
+        crashlyticsService.report(details.exception, details.stack);
         FlutterError.dumpErrorToConsole(details);
       };
 
@@ -70,11 +97,17 @@ void main() async {
                 dio: bearerDio,
               ),
             ),
+            RepositoryProvider<AnalyticsService>.value(value: analyticsService),
+            RepositoryProvider<CrashlyticsService>.value(value: crashlyticsService),
+            RepositoryProvider<RemoteConfigService>.value(value: remoteConfigService),
           ],
           child: const App(),
         ),
       );
     },
-    talker.handle,
+    (error, stack) {
+      talker.handle(error, stack);
+      FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+    },
   );
 }

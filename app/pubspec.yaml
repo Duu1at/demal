@@ -54,6 +54,10 @@ dependencies:
   json_annotation:
   intl:
   file_picker:
+  firebase_core:
+  firebase_analytics:
+  firebase_crashlytics:
+  firebase_remote_config:
 
 dev_dependencies:
   flutter_test:

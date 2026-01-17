@@ -9,3 +9,7 @@ export 'models/user_model.dart';
 export 'models/partner_profile_model.dart';
 export 'enums/role_enum.dart';
 export 'enums/partner_verify_status_enum.dart';
+export 'crashlytics/crashlytics_service.dart';
+export 'crashlytics/clients/crashlytics_client.dart';
+export 'analytics/analytics_service.dart';
+export 'remote_config/remote_config_service.dart';
