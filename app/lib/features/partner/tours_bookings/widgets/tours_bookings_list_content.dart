@@ -1,5 +1,6 @@
 import 'package:app/features/features.dart';
 import 'package:app_ui/app_ui.dart';
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:tour_repository/tour_repository.dart';
@@ -8,9 +9,9 @@ class ToursBookingsListContent extends StatelessWidget {
   const ToursBookingsListContent(this.bookings, {super.key});
   final ToursBookingsModel bookings;
 
-  String _formatAmount(int amount) {
+  String _formatAmount(int amount, BuildContext context) {
     final formatter = NumberFormat('#,###', 'ru_RU');
-    return '${formatter.format(amount)} сом';
+    return '${formatter.format(amount)} ${context.l10n.currencySom}';
   }
 
   int _calculatePaidAmount() {
@@ -50,15 +51,15 @@ class ToursBookingsListContent extends StatelessWidget {
           const SizedBox(height: AppSpacing.sm),
           StatCard(
             icon: Icons.check_circle_outline,
-            label: 'Участников',
+            label: context.l10n.participantsCount,
             value: '$paidParticipants',
             color: AppColors.blue[30] ?? Colors.blue,
           ),
           const SizedBox(height: AppSpacing.sm),
           StatCard(
             icon: Icons.payments_outlined,
-            label: 'Сумма оплачено',
-            value: _formatAmount(paidAmount),
+            label: context.l10n.amountPaid,
+            value: _formatAmount(paidAmount, context),
             color: AppColors.green[40] ?? Colors.green.shade700,
           ),
           const SizedBox(height: AppSpacing.sm),
@@ -80,7 +81,7 @@ class ToursBookingsListContent extends StatelessWidget {
                           size: 64,
                         ),
                         Text(
-                          'Пока нет бронирований для этого тура',
+                          context.l10n.noBookingsForTour,
                           style: Theme.of(context).textTheme.titleMedium,
                         ),
                       ],

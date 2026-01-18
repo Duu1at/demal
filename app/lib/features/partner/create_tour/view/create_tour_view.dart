@@ -54,7 +54,7 @@ class _CreateTourViewContent extends StatelessWidget {
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
-            title: Text(state.tourId != null ? 'Редактирование тура' : 'Создание тура'),
+            title: Text(state.tourId != null ? context.l10n.editTourTitle : context.l10n.createTourTitle),
             bottom: PreferredSize(
               preferredSize: const Size.fromHeight(6),
               child: _ProgressIndicator(currentStep: state.currentStep),
@@ -149,7 +149,7 @@ class CreateTourActionButton extends StatelessWidget {
         }
       },
       child: Text(
-        currentStep == CreateTourStep.media ? 'Сохранить' : 'Далее',
+        currentStep == CreateTourStep.media ? context.l10n.save : context.l10n.next,
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:app_ui/app_ui.dart';
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 
 class PartnerToursErrorState extends StatelessWidget {
@@ -54,7 +55,7 @@ class PartnerToursErrorState extends StatelessWidget {
               ),
               const SizedBox(height: AppSpacing.xlg),
               Text(
-                'Не удалось загрузить туры',
+                context.l10n.failedToLoadToursTitle,
                 style: theme.textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.w600,
                   color: colorScheme.onSurface,
@@ -63,7 +64,7 @@ class PartnerToursErrorState extends StatelessWidget {
               ),
               const SizedBox(height: AppSpacing.md),
               Text(
-                'Проверьте подключение к интернету и попробуйте снова',
+                context.l10n.checkInternetAndTryAgain,
                 style: theme.textTheme.bodyMedium?.copyWith(
                   color: colorScheme.onSurface.withValues(alpha: 0.6),
                   height: 1.5,
@@ -75,7 +76,7 @@ class PartnerToursErrorState extends StatelessWidget {
                 AppButton(
                   onPressed: onRetry,
                   leading: const Icon(Icons.refresh_rounded, size: 20),
-                  child: const Text('Попробовать снова'),
+                  child: Text(context.l10n.tryAgain),
                 ),
               ],
             ],

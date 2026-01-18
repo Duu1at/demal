@@ -93,6 +93,192 @@ abstract class AppLocalizations {
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[Locale('en'), Locale('ky'), Locale('ru')];
 
+  /// No description provided for @verificationStatusTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Verification Status'**
+  String get verificationStatusTitle;
+
+  /// No description provided for @editTourTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Tour'**
+  String get editTourTitle;
+
+  /// No description provided for @createTourTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Tour'**
+  String get createTourTitle;
+
+  /// No description provided for @save.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get save;
+
+  /// No description provided for @tourTitleLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Tour Title'**
+  String get tourTitleLabel;
+
+  /// No description provided for @tourTitleHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Example: Lake Issyk-Kul Tour'**
+  String get tourTitleHint;
+
+  /// No description provided for @tourTypeExampleHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Example: Active rest, Excursion'**
+  String get tourTypeExampleHint;
+
+  /// No description provided for @tourLocationHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Where the tour takes place'**
+  String get tourLocationHint;
+
+  /// No description provided for @dateLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Date'**
+  String get dateLabel;
+
+  /// No description provided for @dateFormatHint.
+  ///
+  /// In en, this message translates to:
+  /// **'DD.MM.YYYY'**
+  String get dateFormatHint;
+
+  /// No description provided for @timeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Time'**
+  String get timeLabel;
+
+  /// No description provided for @timeFormatHint.
+  ///
+  /// In en, this message translates to:
+  /// **'HH:MM'**
+  String get timeFormatHint;
+
+  /// No description provided for @priceLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Price'**
+  String get priceLabel;
+
+  /// No description provided for @priceMustBeGreaterThanZero.
+  ///
+  /// In en, this message translates to:
+  /// **'Price must be greater than 0'**
+  String get priceMustBeGreaterThanZero;
+
+  /// No description provided for @currencyLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Currency'**
+  String get currencyLabel;
+
+  /// No description provided for @availableSpotsLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Available Spots'**
+  String get availableSpotsLabel;
+
+  /// No description provided for @spotsCountHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Number of spots'**
+  String get spotsCountHint;
+
+  /// No description provided for @spotsMustBeGreaterThanZero.
+  ///
+  /// In en, this message translates to:
+  /// **'Number of spots must be greater than 0'**
+  String get spotsMustBeGreaterThanZero;
+
+  /// No description provided for @detailedDescriptionHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Detailed tour description'**
+  String get detailedDescriptionHint;
+
+  /// No description provided for @meetingPointLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Meeting Point'**
+  String get meetingPointLabel;
+
+  /// No description provided for @meetingPointHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Meeting place address'**
+  String get meetingPointHint;
+
+  /// No description provided for @whatToBringLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'What to bring'**
+  String get whatToBringLabel;
+
+  /// No description provided for @whatToBringHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Recommendations for participants'**
+  String get whatToBringHint;
+
+  /// No description provided for @mainImageLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Main Image *'**
+  String get mainImageLabel;
+
+  /// No description provided for @addMainImageLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Add main image'**
+  String get addMainImageLabel;
+
+  /// No description provided for @galleryImagesLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Image Gallery *'**
+  String get galleryImagesLabel;
+
+  /// No description provided for @maxImagesCountError.
+  ///
+  /// In en, this message translates to:
+  /// **'Maximum 10 images'**
+  String get maxImagesCountError;
+
+  /// No description provided for @addCountLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Add'**
+  String get addCountLabel;
+
+  /// No description provided for @addItemHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Add item'**
+  String get addItemHint;
+
+  /// No description provided for @addAtLeastOneItemError.
+  ///
+  /// In en, this message translates to:
+  /// **'Add at least one item'**
+  String get addAtLeastOneItemError;
+
+  /// No description provided for @toursBookingsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Tours Bookings'**
+  String get toursBookingsTitle;
+
   /// No description provided for @next.
   ///
   /// In en, this message translates to:
@@ -102,7 +288,7 @@ abstract class AppLocalizations {
   /// No description provided for @otpMessage.
   ///
   /// In en, this message translates to:
-  /// **'A 4-digit OTP code was sent to {phone}'**
+  /// **'A 6-digit OTP code was sent to {phone}'**
   String otpMessage(Object phone);
 
   /// No description provided for @selectLang.
@@ -938,6 +1124,210 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'({count} reviews)'**
   String reviewsCountParam(int count);
+
+  /// No description provided for @noTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No title'**
+  String get noTitle;
+
+  /// No description provided for @edit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get edit;
+
+  /// No description provided for @tryAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Try again'**
+  String get tryAgain;
+
+  /// No description provided for @currencySom.
+  ///
+  /// In en, this message translates to:
+  /// **'som'**
+  String get currencySom;
+
+  /// No description provided for @seats.
+  ///
+  /// In en, this message translates to:
+  /// **'Seats'**
+  String get seats;
+
+  /// No description provided for @noToursYet.
+  ///
+  /// In en, this message translates to:
+  /// **'You have no tours yet'**
+  String get noToursYet;
+
+  /// No description provided for @createFirstTourAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Create your first tour and start receiving bookings'**
+  String get createFirstTourAction;
+
+  /// No description provided for @failedToLoadToursTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load tours'**
+  String get failedToLoadToursTitle;
+
+  /// No description provided for @checkInternetAndTryAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Check internet connection and try again'**
+  String get checkInternetAndTryAgain;
+
+  /// No description provided for @statusActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get statusActive;
+
+  /// No description provided for @statusDraft.
+  ///
+  /// In en, this message translates to:
+  /// **'Draft'**
+  String get statusDraft;
+
+  /// No description provided for @toMain.
+  ///
+  /// In en, this message translates to:
+  /// **'Go to main'**
+  String get toMain;
+
+  /// No description provided for @participantsCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Participants'**
+  String get participantsCount;
+
+  /// No description provided for @amountPaid.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount paid'**
+  String get amountPaid;
+
+  /// No description provided for @noBookingsForTour.
+  ///
+  /// In en, this message translates to:
+  /// **'No bookings for this tour yet'**
+  String get noBookingsForTour;
+
+  /// No description provided for @bookingStatusPendingShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Pending'**
+  String get bookingStatusPendingShort;
+
+  /// No description provided for @bookingStatusConfirmedShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirmed'**
+  String get bookingStatusConfirmedShort;
+
+  /// No description provided for @bookingStatusPaidShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Paid'**
+  String get bookingStatusPaidShort;
+
+  /// No description provided for @bookingStatusCompletedShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed'**
+  String get bookingStatusCompletedShort;
+
+  /// No description provided for @bookingStatusCancelledShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancelled'**
+  String get bookingStatusCancelledShort;
+
+  /// No description provided for @bookingStatusUnknownShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown'**
+  String get bookingStatusUnknownShort;
+
+  /// No description provided for @documentUploaded.
+  ///
+  /// In en, this message translates to:
+  /// **'Document Uploaded'**
+  String get documentUploaded;
+
+  /// No description provided for @ipCertificateScan.
+  ///
+  /// In en, this message translates to:
+  /// **'IE certificate scan'**
+  String get ipCertificateScan;
+
+  /// No description provided for @uploadIpCertificateHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Please upload a scan of your IE certificate in good quality. The document can also be taken from the Tunduk app.'**
+  String get uploadIpCertificateHint;
+
+  /// No description provided for @verificationCongratulations.
+  ///
+  /// In en, this message translates to:
+  /// **'Congratulations!'**
+  String get verificationCongratulations;
+
+  /// No description provided for @verificationRejectedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Request rejected'**
+  String get verificationRejectedTitle;
+
+  /// No description provided for @verificationPendingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Request under review'**
+  String get verificationPendingTitle;
+
+  /// No description provided for @verificationApprovedDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Your application is approved. You have now become a partner and can create tours.'**
+  String get verificationApprovedDesc;
+
+  /// No description provided for @verificationRejectedDescDefault.
+  ///
+  /// In en, this message translates to:
+  /// **'Your application was rejected by the moderator. Please correct the data and submit again.'**
+  String get verificationRejectedDescDefault;
+
+  /// No description provided for @verificationRejectedReason.
+  ///
+  /// In en, this message translates to:
+  /// **'Rejection reason: {reason}'**
+  String verificationRejectedReason(Object reason);
+
+  /// No description provided for @verificationPendingDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Your verification request has been sent and is under review. Review takes 1 to 2 business days.'**
+  String get verificationPendingDesc;
+
+  /// No description provided for @submittedAt.
+  ///
+  /// In en, this message translates to:
+  /// **'Submitted: {date}'**
+  String submittedAt(Object date);
+
+  /// No description provided for @resubmitRequest.
+  ///
+  /// In en, this message translates to:
+  /// **'Resubmit request'**
+  String get resubmitRequest;
+
+  /// No description provided for @updateStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Update status'**
+  String get updateStatus;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

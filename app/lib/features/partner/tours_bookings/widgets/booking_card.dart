@@ -1,6 +1,7 @@
 import 'package:app/features/features.dart';
 import 'package:app/utils/formatter/formatter.dart';
 import 'package:app_ui/app_ui.dart';
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:tour_repository/tour_repository.dart';
@@ -9,14 +10,14 @@ class BookingCard extends StatelessWidget {
   const BookingCard(this.booking, {super.key});
   final TourBookingModel? booking;
 
-  String _formatStatus(BookingStatusEnum? status) {
+  String _formatStatus(BookingStatusEnum? status, BuildContext context) {
     return switch (status) {
-      BookingStatusEnum.pending => 'Ожидает',
-      BookingStatusEnum.confirmed => 'Подтверждено',
-      BookingStatusEnum.paid => 'Оплачено',
-      BookingStatusEnum.completed => 'Завершено',
-      BookingStatusEnum.cancelled => 'Отменено',
-      null => 'Неизвестно',
+      BookingStatusEnum.pending => context.l10n.bookingStatusPendingShort,
+      BookingStatusEnum.confirmed => context.l10n.bookingStatusConfirmedShort,
+      BookingStatusEnum.paid => context.l10n.bookingStatusPaidShort,
+      BookingStatusEnum.completed => context.l10n.bookingStatusCompletedShort,
+      BookingStatusEnum.cancelled => context.l10n.bookingStatusCancelledShort,
+      null => context.l10n.bookingStatusUnknownShort,
     };
   }
 
@@ -31,12 +32,12 @@ class BookingCard extends StatelessWidget {
     };
   }
 
-  String _formatAmount(String? amount) {
-    if (amount == null || amount.isEmpty) return '0 сом';
+  String _formatAmount(String? amount, BuildContext context) {
+    if (amount == null || amount.isEmpty) return '0 ${context.l10n.currencySom}';
     final amountNum = int.tryParse(amount);
-    if (amountNum == null) return '$amount сом';
+    if (amountNum == null) return '$amount ${context.l10n.currencySom}';
     final formatter = NumberFormat('#,###', 'ru_RU');
-    return '${formatter.format(amountNum)} сом';
+    return '${formatter.format(amountNum)} ${context.l10n.currencySom}';
   }
 
   String _formatDate(DateTime? date) {
@@ -96,7 +97,7 @@ class BookingCard extends StatelessWidget {
                   ),
                 ),
                 child: Text(
-                  _formatStatus(booking!.status),
+                  _formatStatus(booking!.status, context),
                   style: textTheme.labelSmall?.copyWith(
                     color: statusColor,
                     fontWeight: FontWeight.w600,
@@ -126,7 +127,7 @@ class BookingCard extends StatelessWidget {
               Expanded(
                 child: InfoChip(
                   icon: Icons.event_seat_outlined,
-                  label: 'Мест',
+                  label: context.l10n.seats,
                   value: '${booking!.seatsCount ?? 0}',
                 ),
               ),
@@ -149,7 +150,7 @@ class BookingCard extends StatelessWidget {
                       ),
                       const SizedBox(width: AppSpacing.xs),
                       Text(
-                        _formatAmount(booking!.totalAmount),
+                        _formatAmount(booking!.totalAmount, context),
                         style: textTheme.titleMedium?.copyWith(
                           fontWeight: FontWeight.w600,
                           color: theme.colorScheme.primary,

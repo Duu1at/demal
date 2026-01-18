@@ -1,5 +1,6 @@
 import 'package:app/features/features.dart';
 import 'package:app_ui/app_ui.dart';
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -57,11 +58,11 @@ class _Step1BasicInfoState extends State<Step1BasicInfo> {
                 horizontal: AppSpacing.sm,
                 vertical: AppSpacing.sm,
               ),
-              label: const Text('Название тура'),
-              hintText: 'Например: Тур по озеру Иссык-Куль',
+              label: Text(context.l10n.tourTitleLabel),
+              hintText: context.l10n.tourTitleHint,
               controller: _titleController,
               onChanged: (value) => context.read<CreateTourFormCubit>().updateTitle(value),
-              validator: (value) => value?.isEmpty ?? true ? 'Обязательное поле' : null,
+              validator: (value) => value?.isEmpty ?? true ? context.l10n.fieldRequired : null,
               maxLines: 4,
               maxLength: 255,
             ),
@@ -71,11 +72,11 @@ class _Step1BasicInfoState extends State<Step1BasicInfo> {
                 horizontal: AppSpacing.sm,
                 vertical: AppSpacing.sm,
               ),
-              label: const Text('Тип тура'),
-              hintText: 'Например: Активный отдых, Экскурсия',
+              label: Text(context.l10n.tourTypeLabel),
+              hintText: context.l10n.tourTypeExampleHint,
               controller: _tourTypeController,
               onChanged: (value) => context.read<CreateTourFormCubit>().updateTourType(value),
-              validator: (value) => value?.isEmpty ?? true ? 'Обязательное поле' : null,
+              validator: (value) => value?.isEmpty ?? true ? context.l10n.fieldRequired : null,
               maxLength: 55,
             ),
             const SizedBox(height: AppSpacing.md),
@@ -84,11 +85,11 @@ class _Step1BasicInfoState extends State<Step1BasicInfo> {
                 horizontal: AppSpacing.sm,
                 vertical: AppSpacing.sm,
               ),
-              label: const Text('Местоположение'),
-              hintText: 'Где проходит тур',
+              label: Text(context.l10n.locationLabel),
+              hintText: context.l10n.tourLocationHint,
               controller: _locationController,
               onChanged: (value) => context.read<CreateTourFormCubit>().updateLocation(value),
-              validator: (value) => value?.isEmpty ?? true ? 'Обязательное поле' : null,
+              validator: (value) => value?.isEmpty ?? true ? context.l10n.fieldRequired : null,
             ),
             const SizedBox(height: AppSpacing.md),
             Row(
@@ -115,12 +116,12 @@ class _Step1BasicInfoState extends State<Step1BasicInfo> {
                           horizontal: AppSpacing.sm,
                           vertical: AppSpacing.sm,
                         ),
-                        label: const Text('Дата'),
-                        hintText: 'ДД.ММ.ГГГГ',
+                        label: Text(context.l10n.dateLabel),
+                        hintText: context.l10n.dateFormatHint,
                         readOnly: true,
                         controller: _dateController,
                         suffixIcon: const Icon(Icons.calendar_today),
-                        validator: (value) => value?.isEmpty ?? true ? 'Обязательное поле' : null,
+                        validator: (value) => value?.isEmpty ?? true ? context.l10n.fieldRequired : null,
                       ),
                     ),
                   ),
@@ -152,12 +153,12 @@ class _Step1BasicInfoState extends State<Step1BasicInfo> {
                           horizontal: AppSpacing.sm,
                           vertical: AppSpacing.sm,
                         ),
-                        label: const Text('Время'),
-                        hintText: 'ЧЧ:ММ',
+                        label: Text(context.l10n.timeLabel),
+                        hintText: context.l10n.timeFormatHint,
                         readOnly: true,
                         controller: _timeController,
                         suffixIcon: const Icon(Icons.access_time),
-                        validator: (value) => value?.isEmpty ?? true ? 'Обязательное поле' : null,
+                        validator: (value) => value?.isEmpty ?? true ? context.l10n.fieldRequired : null,
                       ),
                     ),
                   ),
@@ -174,7 +175,7 @@ class _Step1BasicInfoState extends State<Step1BasicInfo> {
                       horizontal: AppSpacing.sm,
                       vertical: AppSpacing.sm,
                     ),
-                    label: const Text('Цена'),
+                    label: Text(context.l10n.priceLabel),
                     hintText: '0',
                     keyboardType: TextInputType.number,
                     controller: _priceController,
@@ -186,7 +187,7 @@ class _Step1BasicInfoState extends State<Step1BasicInfo> {
                     },
                     validator: (value) {
                       final price = int.tryParse(value ?? '0') ?? 0;
-                      return price <= 0 ? 'Цена должна быть больше 0' : null;
+                      return price <= 0 ? context.l10n.priceMustBeGreaterThanZero : null;
                     },
                   ),
                 ),
@@ -199,7 +200,7 @@ class _Step1BasicInfoState extends State<Step1BasicInfo> {
                         horizontal: AppSpacing.sm,
                         vertical: AppSpacing.sm,
                       ),
-                      labelText: 'Валюта',
+                      labelText: context.l10n.currencyLabel,
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(16),
                       ),
@@ -226,8 +227,8 @@ class _Step1BasicInfoState extends State<Step1BasicInfo> {
                 horizontal: AppSpacing.sm,
                 vertical: AppSpacing.sm,
               ),
-              label: const Text('Доступные места'),
-              hintText: 'Количество мест',
+              label: Text(context.l10n.availableSpotsLabel),
+              hintText: context.l10n.spotsCountHint,
               keyboardType: TextInputType.number,
               controller: _spotsController,
               onChanged: (value) {
@@ -237,7 +238,7 @@ class _Step1BasicInfoState extends State<Step1BasicInfo> {
               },
               validator: (value) {
                 final spots = int.tryParse(value ?? '0') ?? 0;
-                return spots <= 0 ? 'Количество мест должно быть больше 0' : null;
+                return spots <= 0 ? context.l10n.spotsMustBeGreaterThanZero : null;
               },
             ),
             SizedBox(height: MediaQuery.of(context).size.height * 0.2),

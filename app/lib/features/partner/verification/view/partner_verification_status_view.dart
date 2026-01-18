@@ -31,7 +31,7 @@ class PartnerVerificationStatusViewBody extends StatelessWidget {
       canPop: false,
       child: ScaffoldWithBgImage(
         appBar: AppBar(
-          title: const Text('Статус верификации'),
+          title: Text(context.l10n.verificationStatusTitle),
           leading: IconButton(
             onPressed: () {
               context.pop();

@@ -74,7 +74,6 @@ class PartnerTourCardShimmer extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: AppSpacing.sm),
-                // Shimmer для мета-информации
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

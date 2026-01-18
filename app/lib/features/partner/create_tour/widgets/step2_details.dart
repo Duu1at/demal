@@ -1,5 +1,6 @@
 import 'package:app/features/features.dart';
 import 'package:app_ui/app_ui.dart';
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -59,7 +60,7 @@ class _Step2DetailsState extends State<Step2Details> {
             const SizedBox(height: AppSpacing.md),
             AppTextField(
               contentPadding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm, vertical: AppSpacing.sm),
-              hintText: 'Подробное описание тура',
+              hintText: context.l10n.detailedDescriptionHint,
               maxLines: 5,
               controller: _descriptionController,
               onChanged: (value) => context.read<CreateTourFormCubit>().updateDescription(value),
@@ -67,30 +68,30 @@ class _Step2DetailsState extends State<Step2Details> {
             const SizedBox(height: AppSpacing.md),
             AppTextField(
               contentPadding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm, vertical: AppSpacing.sm),
-              label: const Text('Точка встречи'),
-              hintText: 'Адрес места встречи',
+              label: Text(context.l10n.meetingPointLabel),
+              hintText: context.l10n.meetingPointHint,
               controller: _meetingPointAddressController,
               onChanged: (value) => context.read<CreateTourFormCubit>().updateMeetingPointAddress(value),
             ),
             const SizedBox(height: AppSpacing.md),
             AppTextField(
               contentPadding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm, vertical: AppSpacing.sm),
-              label: const Text('Что взять с собой'),
-              hintText: 'Рекомендации для участников',
+              label: Text(context.l10n.whatToBringLabel),
+              hintText: context.l10n.whatToBringHint,
               maxLines: 3,
               controller: _whatToBringController,
               onChanged: (value) => context.read<CreateTourFormCubit>().updateWhatToBring(value),
             ),
             const SizedBox(height: AppSpacing.lg),
             TourItemsListInput(
-              title: 'Что включено',
+              title: context.l10n.whatIsIncluded,
               items: state.whatsIncluded,
               onAdd: (item) => context.read<CreateTourFormCubit>().addWhatsIncluded(item),
               onRemove: (index) => context.read<CreateTourFormCubit>().removeWhatsIncluded(index),
             ),
             const SizedBox(height: AppSpacing.lg),
             TourItemsListInput(
-              title: 'Что не включено',
+              title: context.l10n.whatIsNotIncluded,
               items: state.whatsNotIncluded,
               onAdd: (item) => context.read<CreateTourFormCubit>().addWhatsNotIncluded(item),
               onRemove: (index) => context.read<CreateTourFormCubit>().removeWhatsNotIncluded(index),
