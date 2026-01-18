@@ -544,112 +544,123 @@ class AppLocalizationsKy extends AppLocalizations {
   }
 
   @override
-  String get noTitle => 'No title';
+  String get noTitle => 'Аталышы жок';
 
   @override
-  String get edit => 'Edit';
+  String get edit => 'Өзгөртүү';
 
   @override
-  String get tryAgain => 'Try again';
+  String get tryAgain => 'Кайра аракет кылуу';
 
   @override
-  String get currencySom => 'som';
+  String get currencySom => 'сом';
 
   @override
-  String get seats => 'Seats';
+  String get seats => 'Орун';
 
   @override
-  String get noToursYet => 'You have no tours yet';
+  String get noToursYet => 'Сизде азырынча турлар жок';
 
   @override
-  String get createFirstTourAction => 'Create your first tour and start receiving bookings';
+  String get createFirstTourAction => 'Биринчи туруңузду түзүңүз жана брондоолорду кабыл ала баштаңыз';
 
   @override
-  String get failedToLoadToursTitle => 'Failed to load tours';
+  String get failedToLoadToursTitle => 'Турларды жүктөө ишке ашкан жок';
 
   @override
-  String get checkInternetAndTryAgain => 'Check internet connection and try again';
+  String get checkInternetAndTryAgain => 'Интернет байланышын текшерип, кайра аракет кылып көрүңүз';
 
   @override
-  String get statusActive => 'Active';
+  String get statusActive => 'Активдүү';
 
   @override
-  String get statusDraft => 'Draft';
+  String get statusDraft => 'Каралама';
 
   @override
-  String get toMain => 'Go to main';
+  String get toMain => 'Башкы бетке өтүү';
 
   @override
-  String get participantsCount => 'Participants';
+  String get participantsCount => 'Катышуучулар';
 
   @override
-  String get amountPaid => 'Amount paid';
+  String get amountPaid => 'Төлөнгөн сумма';
 
   @override
-  String get noBookingsForTour => 'No bookings for this tour yet';
+  String get noBookingsForTour => 'Бул тур үчүн азырынча брондоолор жок';
 
   @override
-  String get bookingStatusPendingShort => 'Pending';
+  String get bookingStatusPendingShort => 'Күтүүдө';
 
   @override
-  String get bookingStatusConfirmedShort => 'Confirmed';
+  String get bookingStatusConfirmedShort => 'Тастыкталды';
 
   @override
-  String get bookingStatusPaidShort => 'Paid';
+  String get bookingStatusPaidShort => 'Төлөндү';
 
   @override
-  String get bookingStatusCompletedShort => 'Completed';
+  String get bookingStatusCompletedShort => 'Аяктады';
 
   @override
-  String get bookingStatusCancelledShort => 'Cancelled';
+  String get bookingStatusCancelledShort => 'Жокко чыгарылды';
 
   @override
-  String get bookingStatusUnknownShort => 'Unknown';
+  String get bookingStatusUnknownShort => 'Белгисиз';
 
   @override
-  String get documentUploaded => 'Document Uploaded';
+  String get documentUploaded => 'Документ жүктөлдү';
 
   @override
-  String get ipCertificateScan => 'IE certificate scan';
+  String get ipCertificateScan => 'ИП күбөлүгүнүн сүрөтү';
 
   @override
   String get uploadIpCertificateHint =>
-      'Please upload a scan of your IE certificate in good quality. The document can also be taken from the Tunduk app.';
+      'Сураныч, ИП күбөлүгүңүздүн сапаттуу сүрөтүн жүктөңүз. Документти Tunduk тиркемесинен алсаңыз болот.';
 
   @override
-  String get verificationCongratulations => 'Congratulations!';
+  String get verificationCongratulations => 'Куттуктайбыз!';
 
   @override
-  String get verificationRejectedTitle => 'Request rejected';
+  String get verificationRejectedTitle => 'Өтүнмө четке кагылды';
 
   @override
-  String get verificationPendingTitle => 'Request under review';
+  String get verificationPendingTitle => 'Өтүнмө каралууда';
 
   @override
-  String get verificationApprovedDesc =>
-      'Your application is approved. You have now become a partner and can create tours.';
+  String get verificationApprovedDesc => 'Сиздин өтүнмөңүз жактырылды. Эми сиз өнөктөш болуп, турларды түзө аласыз.';
 
   @override
   String get verificationRejectedDescDefault =>
-      'Your application was rejected by the moderator. Please correct the data and submit again.';
+      'Сиздин өтүнмөңүз модератор тарабынан четке кагылды. Сураныч, маалыматтарды оңдоп, кайра жөнөтүңүз.';
 
   @override
   String verificationRejectedReason(Object reason) {
-    return 'Rejection reason: $reason';
+    return 'Четке кагуу себеби: $reason';
   }
 
   @override
   String get verificationPendingDesc =>
-      'Your verification request has been sent and is under review. Review takes 1 to 2 business days.';
+      'Сиздин верификацияга өтүнмөңүз жөнөтүлдү жана текшерилүүдө. Кароо 1-2 жумушчу күндү алат.';
+
+  @override
+  String get date => 'Дата';
+
+  @override
+  String get availableSpots => 'Бош орундар';
+
+  @override
+  String get bookingDetailsTitle => 'Брондоо чоо-жайы';
+
+  @override
+  String get whatsappNumberHint => 'WhatsApp катталган номерди көрсөтүңүз';
 
   @override
   String submittedAt(Object date) {
-    return 'Submitted: $date';
+    return 'Жөнөтүлдү: $date';
   }
 
   @override
-  String get resubmitRequest => 'Resubmit request';
+  String get resubmitRequest => 'Өтүнмөнү кайра жөнөтүү';
 
   @override
-  String get updateStatus => 'Update status';
+  String get updateStatus => 'Статусту жаңылоо';
 }

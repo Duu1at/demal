@@ -36,13 +36,12 @@ class ContactForm extends StatelessWidget {
           ),
           controller: nameController,
         ),
-
         const SizedBox(height: AppSpacing.md),
         AppTextField(
-          hintText: context.l10n.email,
+          hintText: context.l10n.phoneLabel,
           prefixIcon: Padding(
             padding: const EdgeInsets.all(AppSpacing.sm),
-            child: Assets.icons.email.svg(
+            child: Assets.icons.phone.svg(
               width: 20,
               height: 20,
               colorFilter: ColorFilter.mode(
@@ -52,6 +51,11 @@ class ContactForm extends StatelessWidget {
             ),
           ),
           controller: emailController,
+        ),
+        const SizedBox(height: AppSpacing.xs),
+        Text(
+          context.l10n.whatsappNumberHint,
+          style: theme.textTheme.bodyMedium,
         ),
       ],
     );

@@ -6,9 +6,11 @@ class GuestsSelector extends StatelessWidget {
   const GuestsSelector({
     required this.count,
     required this.onChanged,
+    this.maxGuests,
     super.key,
   });
   final int count;
+  final int? maxGuests;
   final ValueChanged<int> onChanged;
 
   @override
@@ -30,7 +32,7 @@ class GuestsSelector extends StatelessWidget {
             ),
             _CountButton(
               icon: Icons.add,
-              onPressed: () => onChanged(count + 1),
+              onPressed: (maxGuests == null || count < maxGuests!) ? () => onChanged(count + 1) : null,
             ),
           ],
         ),

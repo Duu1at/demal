@@ -40,7 +40,7 @@ class OtpCubit extends Cubit<OtpState> {
 
   void startTimer() {
     _timer?.cancel();
-    num seconds = 4;
+    num seconds = 120;
     emit(state.copyWith(remainingSeconds: seconds));
 
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {

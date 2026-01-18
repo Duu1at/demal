@@ -84,6 +84,7 @@ class _ClientTourFiltersViewState extends State<ClientTourFiltersView> {
               Text(context.l10n.locationLabel, style: theme.textTheme.labelLarge),
               const SizedBox(height: AppSpacing.xs),
               AppTextField(
+                contentPadding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm),
                 controller: _locationController,
                 hintText: context.l10n.locationHint,
               ),
@@ -92,6 +93,7 @@ class _ClientTourFiltersViewState extends State<ClientTourFiltersView> {
               Text(context.l10n.tourTypeLabel, style: theme.textTheme.labelLarge),
               const SizedBox(height: AppSpacing.xs),
               AppTextField(
+                contentPadding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm),
                 controller: _tourTypeController,
                 hintText: context.l10n.tourTypeHint,
                 onChanged: (v) => _tourType = v.trim().isEmpty ? null : v.trim(),
@@ -130,6 +132,7 @@ class _ClientTourFiltersViewState extends State<ClientTourFiltersView> {
                 children: [
                   Expanded(
                     child: AppTextField(
+                      contentPadding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm),
                       keyboardType: TextInputType.number,
                       controller: _priceMinController,
                       hintText: context.l10n.minHint,
@@ -139,6 +142,7 @@ class _ClientTourFiltersViewState extends State<ClientTourFiltersView> {
                   const SizedBox(width: AppSpacing.md),
                   Expanded(
                     child: AppTextField(
+                      contentPadding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm),
                       keyboardType: TextInputType.number,
                       controller: _priceMaxController,
                       hintText: context.l10n.maxHint,

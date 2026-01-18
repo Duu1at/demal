@@ -1,41 +1,4 @@
 {
-  "ky": [
-    "noTitle",
-    "edit",
-    "tryAgain",
-    "currencySom",
-    "seats",
-    "noToursYet",
-    "createFirstTourAction",
-    "failedToLoadToursTitle",
-    "checkInternetAndTryAgain",
-    "statusActive",
-    "statusDraft",
-    "toMain",
-    "participantsCount",
-    "amountPaid",
-    "noBookingsForTour",
-    "bookingStatusPendingShort",
-    "bookingStatusConfirmedShort",
-    "bookingStatusPaidShort",
-    "bookingStatusCompletedShort",
-    "bookingStatusCancelledShort",
-    "bookingStatusUnknownShort",
-    "documentUploaded",
-    "ipCertificateScan",
-    "uploadIpCertificateHint",
-    "verificationCongratulations",
-    "verificationRejectedTitle",
-    "verificationPendingTitle",
-    "verificationApprovedDesc",
-    "verificationRejectedDescDefault",
-    "verificationRejectedReason",
-    "verificationPendingDesc",
-    "submittedAt",
-    "resubmitRequest",
-    "updateStatus"
-  ],
-
   "ru": [
     "next"
   ]

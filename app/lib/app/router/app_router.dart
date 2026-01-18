@@ -58,7 +58,11 @@ final class AppRouter {
             GoRoute(
               path: AppRouteNames.clientBookingDetails,
               name: AppRouteNames.clientBookingDetails,
-              builder: (context, state) => const ClientBookingDetailsView(),
+              builder: (context, state) {
+                final tour = state.extra as TourModel?;
+                if (tour == null) return const ErrorView();
+                return ClientBookingDetailsView(tour);
+              },
             ),
             GoRoute(
               path: AppRouteNames.clientBookingStatus,

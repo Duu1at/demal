@@ -639,7 +639,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get verificationPendingDesc =>
-      'Your verification request has been sent and is under review. Review takes 1 to 2 business days.';
+      'Your verification request has been submitted and is under review. Review takes 1 to 2 business days.';
+
+  @override
+  String get date => 'Date';
+
+  @override
+  String get availableSpots => 'Available spots';
+
+  @override
+  String get bookingDetailsTitle => 'Booking Details';
+
+  @override
+  String get whatsappNumberHint => 'Provide the number linked to WhatsApp';
 
   @override
   String submittedAt(Object date) {

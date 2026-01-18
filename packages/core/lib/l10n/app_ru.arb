@@ -393,6 +393,12 @@
     }
   },
   "verificationPendingDesc": "Ваша заявка на верификацию отправлена и находится на проверке. Рассмотрение занимает от 1 до 2 рабочих дней.",
+  "date": "Дата",
+  "@date": {},
+  "availableSpots": "Осталось мест",
+  "@availableSpots": {},
+  "bookingDetailsTitle": "Детали бронирования",
+  "@bookingDetailsTitle": {},
   "@verificationPendingDesc": {},
   "submittedAt": "Отправлено: {date}",
   "@submittedAt": {
@@ -403,5 +409,7 @@
   "resubmitRequest": "Заново отправить заявку",
   "@resubmitRequest": {},
   "updateStatus": "Обновить статус",
-  "@updateStatus": {}
+  "@updateStatus": {},
+  "whatsappNumberHint": "Укажите номер, к которому привязан WhatsApp",
+  "@whatsappNumberHint": {}
 }

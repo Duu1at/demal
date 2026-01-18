@@ -1,5 +1,7 @@
 import 'package:app_ui/app_ui.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 
 class BookingHeaderCard extends StatelessWidget {
   const BookingHeaderCard({
@@ -26,11 +28,25 @@ class BookingHeaderCard extends StatelessWidget {
       children: [
         ClipRRect(
           borderRadius: BorderRadius.circular(12),
-          child: Image.network(
-            imageUrl,
+          child: CachedNetworkImage(
+            imageUrl: imageUrl,
             width: 80,
             height: 80,
             fit: BoxFit.cover,
+            placeholder: (context, url) => Shimmer.fromColors(
+              baseColor: context.appColors.shimmerBase ?? Colors.grey[300]!,
+              highlightColor: context.appColors.shimmerHighlight ?? Colors.grey[100]!,
+              child: Container(color: context.appColors.shimmerBase ?? Colors.grey[300]),
+            ),
+            errorWidget: (context, url, error) => Container(
+              color: context.appColors.shimmerBase ?? Colors.grey[300],
+              alignment: Alignment.center,
+              child: Icon(
+                Icons.image_not_supported_outlined,
+                size: 24,
+                color: context.appColors.shimmerHighlight,
+              ),
+            ),
           ),
         ),
         const SizedBox(width: 12),

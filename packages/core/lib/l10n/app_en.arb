@@ -432,7 +432,11 @@
       "reason": {}
     }
   },
-  "verificationPendingDesc": "Your verification request has been sent and is under review. Review takes 1 to 2 business days.",
+  "verificationPendingDesc": "Your verification request has been submitted and is under review. Review takes 1 to 2 business days.",
+  "date": "Date",
+  "availableSpots": "Available spots",
+  "bookingDetailsTitle": "Booking Details",
+  "whatsappNumberHint": "Provide the number linked to WhatsApp",
   "@verificationPendingDesc": {},
   "submittedAt": "Submitted: {date}",
   "@submittedAt": {

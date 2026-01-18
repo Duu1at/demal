@@ -642,6 +642,18 @@ class AppLocalizationsRu extends AppLocalizations {
       'Ваша заявка на верификацию отправлена и находится на проверке. Рассмотрение занимает от 1 до 2 рабочих дней.';
 
   @override
+  String get date => 'Дата';
+
+  @override
+  String get availableSpots => 'Осталось мест';
+
+  @override
+  String get bookingDetailsTitle => 'Детали бронирования';
+
+  @override
+  String get whatsappNumberHint => 'Укажите номер, к которому привязан WhatsApp';
+
+  @override
   String submittedAt(Object date) {
     return 'Отправлено: $date';
   }

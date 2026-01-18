@@ -1308,8 +1308,32 @@ abstract class AppLocalizations {
   /// No description provided for @verificationPendingDesc.
   ///
   /// In en, this message translates to:
-  /// **'Your verification request has been sent and is under review. Review takes 1 to 2 business days.'**
+  /// **'Your verification request has been submitted and is under review. Review takes 1 to 2 business days.'**
   String get verificationPendingDesc;
+
+  /// No description provided for @date.
+  ///
+  /// In en, this message translates to:
+  /// **'Date'**
+  String get date;
+
+  /// No description provided for @availableSpots.
+  ///
+  /// In en, this message translates to:
+  /// **'Available spots'**
+  String get availableSpots;
+
+  /// No description provided for @bookingDetailsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Booking Details'**
+  String get bookingDetailsTitle;
+
+  /// No description provided for @whatsappNumberHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Provide the number linked to WhatsApp'**
+  String get whatsappNumberHint;
 
   /// No description provided for @submittedAt.
   ///
