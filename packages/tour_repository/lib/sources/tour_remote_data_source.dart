@@ -72,7 +72,7 @@ final class TourRemoteDataSource {
   }
 
   Future<TourModel> updateTour(String tourId, TourUpdateParam param) async {
-    final response = await client.putResponse<Map<String, dynamic>>(
+    final response = await client.patchResponse<Map<String, dynamic>>(
       '/api/v1/tours/$tourId',
       data: param.toJson(),
     );

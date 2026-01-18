@@ -1,4 +1,5 @@
 import 'package:app_ui/app_ui.dart';
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 
 class TourItemsListInput extends StatefulWidget {
@@ -42,7 +43,7 @@ class TourItemsListInputState extends State<TourItemsListInput> {
             Expanded(
               child: AppTextField(
                 contentPadding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm, vertical: AppSpacing.sm),
-                hintText: 'Добавить пункт',
+                hintText: context.l10n.addItemHint,
                 controller: _controller,
               ),
             ),
@@ -82,7 +83,7 @@ class TourItemsListInputState extends State<TourItemsListInput> {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: AppSpacing.sm),
             child: Text(
-              'Добавьте хотя бы один пункт',
+              context.l10n.addAtLeastOneItemError,
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
                 color: Theme.of(context).colorScheme.error,
               ),

@@ -9,11 +9,104 @@ class AppLocalizationsRu extends AppLocalizations {
   AppLocalizationsRu([String locale = 'ru']) : super(locale);
 
   @override
+  String get verificationStatusTitle => 'Статус верификации';
+
+  @override
+  String get editTourTitle => 'Редактирование тура';
+
+  @override
+  String get createTourTitle => 'Создание тура';
+
+  @override
+  String get save => 'Сохранить';
+
+  @override
+  String get tourTitleLabel => 'Название тура';
+
+  @override
+  String get tourTitleHint => 'Например: Тур по озеру Иссык-Куль';
+
+  @override
+  String get tourTypeExampleHint => 'Например: Активный отдых, Экскурсия';
+
+  @override
+  String get tourLocationHint => 'Где проходит тур';
+
+  @override
+  String get dateLabel => 'Дата';
+
+  @override
+  String get dateFormatHint => 'ДД.ММ.ГГГГ';
+
+  @override
+  String get timeLabel => 'Время';
+
+  @override
+  String get timeFormatHint => 'ЧЧ:ММ';
+
+  @override
+  String get priceLabel => 'Цена';
+
+  @override
+  String get priceMustBeGreaterThanZero => 'Цена должна быть больше 0';
+
+  @override
+  String get currencyLabel => 'Валюта';
+
+  @override
+  String get availableSpotsLabel => 'Доступные места';
+
+  @override
+  String get spotsCountHint => 'Количество мест';
+
+  @override
+  String get spotsMustBeGreaterThanZero => 'Количество мест должно быть больше 0';
+
+  @override
+  String get detailedDescriptionHint => 'Подробное описание тура';
+
+  @override
+  String get meetingPointLabel => 'Точка встречи';
+
+  @override
+  String get meetingPointHint => 'Адрес места встречи';
+
+  @override
+  String get whatToBringLabel => 'Что взять с собой';
+
+  @override
+  String get whatToBringHint => 'Рекомендации для участников';
+
+  @override
+  String get mainImageLabel => 'Главное изображение *';
+
+  @override
+  String get addMainImageLabel => 'Добавить главное изображение';
+
+  @override
+  String get galleryImagesLabel => 'Галерея изображений *';
+
+  @override
+  String get maxImagesCountError => 'Максимум 10 изображений';
+
+  @override
+  String get addCountLabel => 'Добавить';
+
+  @override
+  String get addItemHint => 'Добавить пункт';
+
+  @override
+  String get addAtLeastOneItemError => 'Добавьте хотя бы один пункт';
+
+  @override
+  String get toursBookingsTitle => 'Бронирования туров';
+
+  @override
   String get next => 'Next';
 
   @override
   String otpMessage(Object phone) {
-    return 'На номер $phone было отправлено 4-значное сообщение OTP';
+    return 'На номер $phone было отправлено 6-значное сообщение OTP';
   }
 
   @override
@@ -277,7 +370,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get statusPaid => 'Оплачено';
 
   @override
-  String get statusCompleted => 'Завершено';
+  String get statusCompleted => 'Завершен';
 
   @override
   String get statusCancelled => 'Отменено';
@@ -449,4 +542,132 @@ class AppLocalizationsRu extends AppLocalizations {
 
     return '($countString отзывов)';
   }
+
+  @override
+  String get noTitle => 'Без названия';
+
+  @override
+  String get edit => 'Редактировать';
+
+  @override
+  String get tryAgain => 'Попробовать снова';
+
+  @override
+  String get currencySom => 'сом';
+
+  @override
+  String get seats => 'Мест';
+
+  @override
+  String get noToursYet => 'У вас пока нет туров';
+
+  @override
+  String get createFirstTourAction => 'Создайте свой первый тур и начните принимать бронирования';
+
+  @override
+  String get failedToLoadToursTitle => 'Не удалось загрузить туры';
+
+  @override
+  String get checkInternetAndTryAgain => 'Проверьте подключение к интернету и попробуйте снова';
+
+  @override
+  String get statusActive => 'Активный';
+
+  @override
+  String get statusDraft => 'Черновик';
+
+  @override
+  String get toMain => 'Перейти на главную';
+
+  @override
+  String get participantsCount => 'Участников';
+
+  @override
+  String get amountPaid => 'Сумма оплачено';
+
+  @override
+  String get noBookingsForTour => 'Пока нет бронирований для этого тура';
+
+  @override
+  String get bookingStatusPendingShort => 'Ожидает';
+
+  @override
+  String get bookingStatusConfirmedShort => 'Подтверждено';
+
+  @override
+  String get bookingStatusPaidShort => 'Оплачено';
+
+  @override
+  String get bookingStatusCompletedShort => 'Завершено';
+
+  @override
+  String get bookingStatusCancelledShort => 'Отменено';
+
+  @override
+  String get bookingStatusUnknownShort => 'Неизвестно';
+
+  @override
+  String get documentUploaded => 'Документ загружен';
+
+  @override
+  String get ipCertificateScan => 'Скан свидетельства ИП';
+
+  @override
+  String get uploadIpCertificateHint =>
+      'Пожалуйста, загрузите скан вашего ИП свидетельства в хорошем качестве. Документ также можно взять в приложении Tunduk.';
+
+  @override
+  String get verificationCongratulations => 'Поздравляем!';
+
+  @override
+  String get verificationRejectedTitle => 'Заявка отклонена';
+
+  @override
+  String get verificationPendingTitle => 'Заявка на рассмотрении';
+
+  @override
+  String get verificationApprovedDesc => 'Ваша заявка одобрена. Теперь вы стали партнером и можете создавать туры.';
+
+  @override
+  String get verificationRejectedDescDefault =>
+      'Ваша заявка была отклонена модератором. Пожалуйста, исправьте данные и отправьте снова.';
+
+  @override
+  String verificationRejectedReason(Object reason) {
+    return 'Причина отклонения: $reason';
+  }
+
+  @override
+  String get verificationPendingDesc =>
+      'Ваша заявка на верификацию отправлена и находится на проверке. Рассмотрение занимает от 1 до 2 рабочих дней.';
+
+  @override
+  String get date => 'Дата';
+
+  @override
+  String get availableSpots => 'Осталось мест';
+
+  @override
+  String get bookingDetailsTitle => 'Детали бронирования';
+
+  @override
+  String get whatsappNumberHint => 'Укажите номер, к которому привязан WhatsApp';
+
+  @override
+  String get comingSoonTitle => 'Скоро появится';
+
+  @override
+  String get featureInDevelopmentMessage =>
+      'Данная функция находится в разработке. Ожидайте в следующих версиях приложения.';
+
+  @override
+  String submittedAt(Object date) {
+    return 'Отправлено: $date';
+  }
+
+  @override
+  String get resubmitRequest => 'Заново отправить заявку';
+
+  @override
+  String get updateStatus => 'Обновить статус';
 }

@@ -9,11 +9,104 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
+  String get verificationStatusTitle => 'Verification Status';
+
+  @override
+  String get editTourTitle => 'Edit Tour';
+
+  @override
+  String get createTourTitle => 'Create Tour';
+
+  @override
+  String get save => 'Save';
+
+  @override
+  String get tourTitleLabel => 'Tour Title';
+
+  @override
+  String get tourTitleHint => 'Example: Lake Issyk-Kul Tour';
+
+  @override
+  String get tourTypeExampleHint => 'Example: Active rest, Excursion';
+
+  @override
+  String get tourLocationHint => 'Where the tour takes place';
+
+  @override
+  String get dateLabel => 'Date';
+
+  @override
+  String get dateFormatHint => 'DD.MM.YYYY';
+
+  @override
+  String get timeLabel => 'Time';
+
+  @override
+  String get timeFormatHint => 'HH:MM';
+
+  @override
+  String get priceLabel => 'Price';
+
+  @override
+  String get priceMustBeGreaterThanZero => 'Price must be greater than 0';
+
+  @override
+  String get currencyLabel => 'Currency';
+
+  @override
+  String get availableSpotsLabel => 'Available Spots';
+
+  @override
+  String get spotsCountHint => 'Number of spots';
+
+  @override
+  String get spotsMustBeGreaterThanZero => 'Number of spots must be greater than 0';
+
+  @override
+  String get detailedDescriptionHint => 'Detailed tour description';
+
+  @override
+  String get meetingPointLabel => 'Meeting Point';
+
+  @override
+  String get meetingPointHint => 'Meeting place address';
+
+  @override
+  String get whatToBringLabel => 'What to bring';
+
+  @override
+  String get whatToBringHint => 'Recommendations for participants';
+
+  @override
+  String get mainImageLabel => 'Main Image *';
+
+  @override
+  String get addMainImageLabel => 'Add main image';
+
+  @override
+  String get galleryImagesLabel => 'Image Gallery *';
+
+  @override
+  String get maxImagesCountError => 'Maximum 10 images';
+
+  @override
+  String get addCountLabel => 'Add';
+
+  @override
+  String get addItemHint => 'Add item';
+
+  @override
+  String get addAtLeastOneItemError => 'Add at least one item';
+
+  @override
+  String get toursBookingsTitle => 'Tours Bookings';
+
+  @override
   String get next => 'Next';
 
   @override
   String otpMessage(Object phone) {
-    return 'A 4-digit OTP code was sent to $phone';
+    return 'A 6-digit OTP code was sent to $phone';
   }
 
   @override
@@ -448,4 +541,133 @@ class AppLocalizationsEn extends AppLocalizations {
 
     return '($countString reviews)';
   }
+
+  @override
+  String get noTitle => 'No title';
+
+  @override
+  String get edit => 'Edit';
+
+  @override
+  String get tryAgain => 'Try again';
+
+  @override
+  String get currencySom => 'som';
+
+  @override
+  String get seats => 'Seats';
+
+  @override
+  String get noToursYet => 'You have no tours yet';
+
+  @override
+  String get createFirstTourAction => 'Create your first tour and start receiving bookings';
+
+  @override
+  String get failedToLoadToursTitle => 'Failed to load tours';
+
+  @override
+  String get checkInternetAndTryAgain => 'Check internet connection and try again';
+
+  @override
+  String get statusActive => 'Active';
+
+  @override
+  String get statusDraft => 'Draft';
+
+  @override
+  String get toMain => 'Go to main';
+
+  @override
+  String get participantsCount => 'Participants';
+
+  @override
+  String get amountPaid => 'Amount paid';
+
+  @override
+  String get noBookingsForTour => 'No bookings for this tour yet';
+
+  @override
+  String get bookingStatusPendingShort => 'Pending';
+
+  @override
+  String get bookingStatusConfirmedShort => 'Confirmed';
+
+  @override
+  String get bookingStatusPaidShort => 'Paid';
+
+  @override
+  String get bookingStatusCompletedShort => 'Completed';
+
+  @override
+  String get bookingStatusCancelledShort => 'Cancelled';
+
+  @override
+  String get bookingStatusUnknownShort => 'Unknown';
+
+  @override
+  String get documentUploaded => 'Document Uploaded';
+
+  @override
+  String get ipCertificateScan => 'IE certificate scan';
+
+  @override
+  String get uploadIpCertificateHint =>
+      'Please upload a scan of your IE certificate in good quality. The document can also be taken from the Tunduk app.';
+
+  @override
+  String get verificationCongratulations => 'Congratulations!';
+
+  @override
+  String get verificationRejectedTitle => 'Request rejected';
+
+  @override
+  String get verificationPendingTitle => 'Request under review';
+
+  @override
+  String get verificationApprovedDesc =>
+      'Your application is approved. You have now become a partner and can create tours.';
+
+  @override
+  String get verificationRejectedDescDefault =>
+      'Your application was rejected by the moderator. Please correct the data and submit again.';
+
+  @override
+  String verificationRejectedReason(Object reason) {
+    return 'Rejection reason: $reason';
+  }
+
+  @override
+  String get verificationPendingDesc =>
+      'Your verification request has been submitted and is under review. Review takes 1 to 2 business days.';
+
+  @override
+  String get date => 'Date';
+
+  @override
+  String get availableSpots => 'Available spots';
+
+  @override
+  String get bookingDetailsTitle => 'Booking Details';
+
+  @override
+  String get whatsappNumberHint => 'Provide the number linked to WhatsApp';
+
+  @override
+  String get comingSoonTitle => 'Coming Soon';
+
+  @override
+  String get featureInDevelopmentMessage =>
+      'This feature is under development. Expect it in the next versions of the app.';
+
+  @override
+  String submittedAt(Object date) {
+    return 'Submitted: $date';
+  }
+
+  @override
+  String get resubmitRequest => 'Resubmit request';
+
+  @override
+  String get updateStatus => 'Update status';
 }

@@ -35,7 +35,10 @@ class TourCardWidget extends StatelessWidget {
         AppRouteNames.clientTourDetails,
         pathParameters: {'tourId': tour.tourId ?? ''},
       ),
-      onBookTap: () => context.goNamedIfAuthenticated(AppRouteNames.clientBookingDetails),
+      onBookTap: () => context.goNamedIfAuthenticated(
+        AppRouteNames.clientBookingDetails,
+        extra: tour,
+      ),
     );
   }
 }

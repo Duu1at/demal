@@ -1,4 +1,5 @@
 import 'package:app_ui/app_ui.dart';
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 
 class PartnerToursEmptyState extends StatelessWidget {
@@ -52,7 +53,7 @@ class PartnerToursEmptyState extends StatelessWidget {
               ),
               const SizedBox(height: AppSpacing.xlg),
               Text(
-                'У вас пока нет туров',
+                context.l10n.noToursYet,
                 style: theme.textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.w600,
                   color: colorScheme.onSurface,
@@ -61,7 +62,7 @@ class PartnerToursEmptyState extends StatelessWidget {
               ),
               const SizedBox(height: AppSpacing.md),
               Text(
-                'Создайте свой первый тур и начните принимать бронирования',
+                context.l10n.createFirstTourAction,
                 style: theme.textTheme.bodyMedium?.copyWith(
                   color: colorScheme.onSurface.withValues(alpha: 0.6),
                   height: 1.5,

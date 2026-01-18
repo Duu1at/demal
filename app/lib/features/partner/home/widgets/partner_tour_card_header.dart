@@ -1,4 +1,5 @@
 import 'package:app_ui/app_ui.dart';
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 
 class PartnerTourCardHeader extends StatelessWidget {
@@ -20,7 +21,7 @@ class PartnerTourCardHeader extends StatelessWidget {
       children: [
         Expanded(
           child: Text(
-            title ?? 'Без названия',
+            title ?? context.l10n.noTitle,
             style: theme.textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.w700,
               height: 1.3,
@@ -52,22 +53,26 @@ class PartnerTourStatusBadge extends StatelessWidget {
     final theme = Theme.of(context);
     final statusLower = status.toLowerCase();
 
-    final (backgroundColor, textColor) = switch (statusLower) {
+    final (backgroundColor, textColor, localizedStatus) = switch (statusLower) {
       'active' || 'активный' => (
         theme.colorScheme.primaryContainer,
         theme.colorScheme.onPrimaryContainer,
+        context.l10n.statusActive,
       ),
       'draft' || 'черновик' => (
         theme.colorScheme.surfaceContainerHighest,
         theme.colorScheme.onSurfaceVariant,
+        context.l10n.statusDraft,
       ),
       'completed' || 'завершен' => (
         theme.colorScheme.tertiaryContainer,
         theme.colorScheme.onTertiaryContainer,
+        context.l10n.statusCompleted,
       ),
       _ => (
         theme.colorScheme.surfaceContainerHighest,
         theme.colorScheme.onSurfaceVariant,
+        status,
       ),
     };
 
@@ -81,7 +86,7 @@ class PartnerTourStatusBadge extends StatelessWidget {
         borderRadius: BorderRadius.circular(4),
       ),
       child: Text(
-        status,
+        localizedStatus,
         style: theme.textTheme.labelSmall?.copyWith(
           color: textColor,
           fontWeight: FontWeight.w500,

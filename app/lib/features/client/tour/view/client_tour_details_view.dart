@@ -31,25 +31,30 @@ class ClientTourDetailsViewBody extends StatefulWidget {
 class _ClientTourDetailsViewBodyState extends State<ClientTourDetailsViewBody> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      backgroundColor: Theme.of(context).colorScheme.surface,
-      body: BlocBuilder<TourDetailBloc, TourDetailState>(
-        builder: (context, state) {
-          return switch (state) {
+    return BlocBuilder<TourDetailBloc, TourDetailState>(
+      builder: (context, state) {
+        return Scaffold(
+          extendBodyBehindAppBar: true,
+          backgroundColor: Theme.of(context).colorScheme.surface,
+          body: switch (state) {
             TourDetailInitial() => const TourDetailLoadingWidget(),
             TourDetailLoading() => const TourDetailLoadingWidget(),
             TourDetailSuccess(tour: final tour) => TourDetailSuccessWidget(tour),
             TourDetailError(error: final error) => TourDetailErrorWidget(error),
-          };
-        },
-      ),
-      floatingActionButton: AppButton(
-        margin: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
-        onPressed: () => context.goNamedIfAuthenticated(AppRouteNames.clientBookingDetails),
-        child: Text(context.l10n.bookTour),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+          },
+          floatingActionButton: state is TourDetailSuccess
+              ? AppButton(
+                  margin: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+                  onPressed: () => context.goNamedIfAuthenticated(
+                    AppRouteNames.clientBookingDetails,
+                    extra: state.tour,
+                  ),
+                  child: Text(context.l10n.bookTour),
+                )
+              : null,
+          floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        );
+      },
     );
   }
 }

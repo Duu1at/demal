@@ -27,7 +27,7 @@ class Step3Media extends StatelessWidget {
           var newUrls = state.urls;
           if (newUrls.length > remaining) {
             newUrls = newUrls.take(remaining).toList();
-            AppSnackbar.showInfo(context: context, title: 'Максимум 10 изображений');
+            AppSnackbar.showInfo(context: context, title: context.l10n.maxImagesCountError);
           }
           context.read<CreateTourFormCubit>().addGalleryImageUrls(newUrls);
         }
@@ -40,7 +40,7 @@ class Step3Media extends StatelessWidget {
                 listViewChildren: [
                   const SizedBox(height: AppSpacing.md),
                   Text(
-                    'Главное изображение *',
+                    context.l10n.mainImageLabel,
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                   const SizedBox(height: AppSpacing.sm),
@@ -93,7 +93,7 @@ class Step3Media extends StatelessWidget {
                                   ),
                                   const SizedBox(height: AppSpacing.sm),
                                   Text(
-                                    'Добавить главное изображение',
+                                    context.l10n.addMainImageLabel,
                                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                                       color: Colors.grey[600],
                                     ),
@@ -104,7 +104,7 @@ class Step3Media extends StatelessWidget {
                     ),
                   const SizedBox(height: AppSpacing.lg),
                   Text(
-                    'Галерея изображений *',
+                    context.l10n.galleryImagesLabel,
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                   const SizedBox(height: AppSpacing.sm),
@@ -171,7 +171,7 @@ class Step3Media extends StatelessWidget {
                                   ),
                                   const SizedBox(height: AppSpacing.xs),
                                   Text(
-                                    'Добавить (${10 - formState.imageGalleryUrls.length})',
+                                    '${context.l10n.addCountLabel} (${10 - formState.imageGalleryUrls.length})',
                                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                                       color: Colors.grey[600],
                                     ),

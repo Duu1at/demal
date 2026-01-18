@@ -1,15 +1,15 @@
-import 'package:app/app/app.dart';
-import 'package:app/features/client/bookings/widgets/booking_header_card.dart';
-import 'package:app/features/client/bookings/widgets/contact_form.dart';
-import 'package:app/features/client/bookings/widgets/guests_selecter.dart';
+import 'package:app/features/client/client.dart';
+import 'package:app/utils/utils.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:go_router/go_router.dart';
+import 'package:tour_repository/tour_repository.dart';
 
 class ClientBookingDetailsView extends StatefulWidget {
-  const ClientBookingDetailsView({super.key});
+  const ClientBookingDetailsView(this.tour, {super.key});
+
+  final TourModel tour;
 
   @override
   State<ClientBookingDetailsView> createState() => _ClientBookingDetailsViewState();
@@ -23,57 +23,72 @@ class _ClientBookingDetailsViewState extends State<ClientBookingDetailsView> {
     final theme = Theme.of(context);
     return ScaffoldWithBgImage(
       appBar: AppBar(
-        title: const Text('Booking Details'),
+        title: Text(context.l10n.bookingDetailsTitle),
         centerTitle: true,
         systemOverlayStyle: SystemUiOverlayStyle.light,
         elevation: 0,
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: AppSpacing.lg),
-            const BookingHeaderCard(
-              imageUrl:
-                  'https://avatars.mds.yandex.net/i?id=0235fe3dc435f6213d89da66f423f0cb_l-10024314-images-thumbs&n=13',
-              region: 'Chui',
-              tourTitle: 'Ala-archa',
-              data: '12.10.2025 5-февраль',
-              raiting: '4.5 (675)',
-            ),
-            const DividerHorisontal(),
+      body: ScrollableForm(
+        listViewChildren: [
+          BookingHeaderCard(
+            imageUrl: widget.tour.mainImageUrl ?? '',
+            region: widget.tour.location,
+            tourTitle: widget.tour.title,
+            data: widget.tour.date,
+            raiting: '${widget.tour.averageRating ?? 0} (${widget.tour.reviewsCount ?? 0})',
+          ),
+          const DividerHorisontal(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(context.l10n.dateLabel, style: theme.textTheme.titleMedium),
+              Text(
+                widget.tour.date ?? '',
+                style: theme.textTheme.titleMedium,
+              ),
+            ],
+          ),
+          if (widget.tour.availableSpots != null) ...[
+            const SizedBox(height: AppSpacing.sm),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Data', style: theme.textTheme.titleMedium),
                 Text(
-                  'Jan 16 - Jan 20, 2025',
+                  context.l10n.availableSpots,
+                  style: theme.textTheme.titleMedium,
+                ),
+                Text(
+                  '${widget.tour.availableSpots}',
                   style: theme.textTheme.titleMedium,
                 ),
               ],
             ),
-            const SizedBox(height: AppSpacing.md),
-            GuestsSelector(
-              count: guests,
-              onChanged: (v) => setState(() => guests = v),
-            ),
-            const DividerHorisontal(),
-            const _TotalPriceRow(total: 1050),
-            const DividerHorisontal(),
-            ContactForm(
-              nameController: TextEditingController(),
-              emailController: TextEditingController(),
-            ),
           ],
-        ),
+          const SizedBox(height: AppSpacing.md),
+          GuestsSelector(
+            count: guests,
+            maxGuests: widget.tour.availableSpots,
+            onChanged: (v) => setState(() => guests = v),
+          ),
+          const DividerHorisontal(),
+          _TotalPriceRow(total: (widget.tour.price ?? 0) * guests),
+          const DividerHorisontal(),
+          ContactForm(
+            nameController: TextEditingController(),
+            emailController: TextEditingController(),
+          ),
+        ],
+        columnChildren: [
+          AppButton(
+            onPressed: () => context.showFeatureInDevelopment(),
+            child: Text(
+              context.l10n.pay(
+                '${(widget.tour.price ?? 0) * guests} ${context.l10n.currencySom}',
+              ),
+            ),
+          ),
+        ],
       ),
-      floatingActionButton: AppButton(
-        margin: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
-        onPressed: () => context.pushNamed(AppRouteNames.clientBookingStatus),
-        child: Text(context.l10n.pay('121312 с')),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }

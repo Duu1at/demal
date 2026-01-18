@@ -42,7 +42,7 @@ class VerifySuccessView extends StatelessWidget {
                     const Icon(Icons.access_time, size: 20),
                     const SizedBox(width: AppSpacing.sm),
                     Text(
-                      'Отправлено: ${_formatDate(data?.submittedAt)}',
+                      context.l10n.submittedAt(data?.submittedAt ?? DateTime.now()),
                       style: context.textTheme.bodyMedium,
                     ),
                   ],
@@ -53,19 +53,19 @@ class VerifySuccessView extends StatelessWidget {
             if (status == PartnerVerifyStatusEnum.rejected)
               AppButton(
                 onPressed: () => context.pushReplacementNamed(AppRouteNames.partnerVerification),
-                child: const Text('Заново отправить заявку'),
+                child: Text(context.l10n.resubmitRequest),
               )
             else if (status == PartnerVerifyStatusEnum.verified)
               AppButton(
                 onPressed: () => context.pushReplacementNamed(AppRouteNames.partner),
-                child: const Text('Перейти на главную'),
+                child: Text(context.l10n.toMain),
               )
             else
               AppButton(
                 onPressed: () {
                   context.read<VerifyStatusCubit>().getVerifyStatus();
                 },
-                child: const Text('Обновить статус'),
+                child: Text(context.l10n.updateStatus),
               ),
           ],
         ),
@@ -90,11 +90,11 @@ class VerifySuccessView extends StatelessWidget {
     String text;
     switch (status) {
       case PartnerVerifyStatusEnum.verified:
-        text = 'Поздравляем!';
+        text = context.l10n.verificationCongratulations;
       case PartnerVerifyStatusEnum.rejected:
-        text = 'Заявка отклонена';
+        text = context.l10n.verificationRejectedTitle;
       case PartnerVerifyStatusEnum.pending:
-        text = 'Заявка на рассмотрении';
+        text = context.l10n.verificationPendingTitle;
       case PartnerVerifyStatusEnum.notStarted:
       case null:
         text = '';
@@ -113,26 +113,21 @@ class VerifySuccessView extends StatelessWidget {
     Color? color;
     switch (status) {
       case PartnerVerifyStatusEnum.verified:
-        text = 'Ваша заявка одобрена. Теперь вы стали партнером и можете создавать туры.';
+        text = context.l10n.verificationApprovedDesc;
       case PartnerVerifyStatusEnum.rejected:
         text = comments?.isNotEmpty ?? false
-            ? 'Причина отклонения: $comments'
-            : 'Ваша заявка была отклонена модератором. Пожалуйста, исправьте данные и отправьте снова.';
+            ? context.l10n.verificationRejectedReason(comments!)
+            : context.l10n.verificationRejectedDescDefault;
         color = AppColors.red;
       case PartnerVerifyStatusEnum.pending:
       case PartnerVerifyStatusEnum.notStarted:
       case null:
-        text =
-            'Ваша заявка на верификацию отправлена и находится на проверке. Рассмотрение занимает от 1 до 2 рабочих дней.';
+        text = context.l10n.verificationPendingDesc;
     }
     return Text(
       text,
       style: context.textTheme.bodyLarge?.copyWith(color: color),
       textAlign: TextAlign.center,
     );
-  }
-
-  String _formatDate(DateTime? date) {
-    return '${date?.day}.${date?.month}.${date?.year}';
   }
 }

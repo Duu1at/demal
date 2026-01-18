@@ -9,6 +9,99 @@ class AppLocalizationsKy extends AppLocalizations {
   AppLocalizationsKy([String locale = 'ky']) : super(locale);
 
   @override
+  String get verificationStatusTitle => 'Верификациянын статусу';
+
+  @override
+  String get editTourTitle => 'Турду өзгөртүү';
+
+  @override
+  String get createTourTitle => 'Тур түзүү';
+
+  @override
+  String get save => 'Сактоо';
+
+  @override
+  String get tourTitleLabel => 'Турдун аталышы';
+
+  @override
+  String get tourTitleHint => 'Мисалы: Ысык-Көлгө тур';
+
+  @override
+  String get tourTypeExampleHint => 'Мисалы: Жигердүү эс алуу, Экскурсия';
+
+  @override
+  String get tourLocationHint => 'Тур кайда өтөт';
+
+  @override
+  String get dateLabel => 'Күнү';
+
+  @override
+  String get dateFormatHint => 'КК.АА.ЖЖЖЖ';
+
+  @override
+  String get timeLabel => 'Убакыт';
+
+  @override
+  String get timeFormatHint => 'СС:ММ';
+
+  @override
+  String get priceLabel => 'Баасы';
+
+  @override
+  String get priceMustBeGreaterThanZero => 'Баасы 0дөн жогору болушу керек';
+
+  @override
+  String get currencyLabel => 'Валюта';
+
+  @override
+  String get availableSpotsLabel => 'Бош орундар';
+
+  @override
+  String get spotsCountHint => 'Орун саны';
+
+  @override
+  String get spotsMustBeGreaterThanZero => 'Орун саны 0дөн көп болушу керек';
+
+  @override
+  String get detailedDescriptionHint => 'Турдун кеңири сүрөттөлүшү';
+
+  @override
+  String get meetingPointLabel => 'Жолугушуу жери';
+
+  @override
+  String get meetingPointHint => 'Жолугушуу дареги';
+
+  @override
+  String get whatToBringLabel => 'Өзүңүз менен эмне алуу керек';
+
+  @override
+  String get whatToBringHint => 'Катышуучуларга сунуштар';
+
+  @override
+  String get mainImageLabel => 'Башкы сүрөт *';
+
+  @override
+  String get addMainImageLabel => 'Башкы сүрөттү кошуу';
+
+  @override
+  String get galleryImagesLabel => 'Сүрөт галереясы *';
+
+  @override
+  String get maxImagesCountError => 'Эң көп 10 сүрөт';
+
+  @override
+  String get addCountLabel => 'Кошуу';
+
+  @override
+  String get addItemHint => 'Пункт кошуу';
+
+  @override
+  String get addAtLeastOneItemError => 'Кеминде бир пункт кошуңуз';
+
+  @override
+  String get toursBookingsTitle => 'Турларды брондоо';
+
+  @override
   String get next => 'Кийинкиси';
 
   @override
@@ -449,4 +542,131 @@ class AppLocalizationsKy extends AppLocalizations {
 
     return '($countString пикир)';
   }
+
+  @override
+  String get noTitle => 'Аталышы жок';
+
+  @override
+  String get edit => 'Өзгөртүү';
+
+  @override
+  String get tryAgain => 'Кайра аракет кылуу';
+
+  @override
+  String get currencySom => 'сом';
+
+  @override
+  String get seats => 'Орун';
+
+  @override
+  String get noToursYet => 'Сизде азырынча турлар жок';
+
+  @override
+  String get createFirstTourAction => 'Биринчи туруңузду түзүңүз жана брондоолорду кабыл ала баштаңыз';
+
+  @override
+  String get failedToLoadToursTitle => 'Турларды жүктөө ишке ашкан жок';
+
+  @override
+  String get checkInternetAndTryAgain => 'Интернет байланышын текшерип, кайра аракет кылып көрүңүз';
+
+  @override
+  String get statusActive => 'Активдүү';
+
+  @override
+  String get statusDraft => 'Каралама';
+
+  @override
+  String get toMain => 'Башкы бетке өтүү';
+
+  @override
+  String get participantsCount => 'Катышуучулар';
+
+  @override
+  String get amountPaid => 'Төлөнгөн сумма';
+
+  @override
+  String get noBookingsForTour => 'Бул тур үчүн азырынча брондоолор жок';
+
+  @override
+  String get bookingStatusPendingShort => 'Күтүүдө';
+
+  @override
+  String get bookingStatusConfirmedShort => 'Тастыкталды';
+
+  @override
+  String get bookingStatusPaidShort => 'Төлөндү';
+
+  @override
+  String get bookingStatusCompletedShort => 'Аяктады';
+
+  @override
+  String get bookingStatusCancelledShort => 'Жокко чыгарылды';
+
+  @override
+  String get bookingStatusUnknownShort => 'Белгисиз';
+
+  @override
+  String get documentUploaded => 'Документ жүктөлдү';
+
+  @override
+  String get ipCertificateScan => 'ИП күбөлүгүнүн сүрөтү';
+
+  @override
+  String get uploadIpCertificateHint =>
+      'Сураныч, ИП күбөлүгүңүздүн сапаттуу сүрөтүн жүктөңүз. Документти Tunduk тиркемесинен алсаңыз болот.';
+
+  @override
+  String get verificationCongratulations => 'Куттуктайбыз!';
+
+  @override
+  String get verificationRejectedTitle => 'Өтүнмө четке кагылды';
+
+  @override
+  String get verificationPendingTitle => 'Өтүнмө каралууда';
+
+  @override
+  String get verificationApprovedDesc => 'Сиздин өтүнмөңүз жактырылды. Эми сиз өнөктөш болуп, турларды түзө аласыз.';
+
+  @override
+  String get verificationRejectedDescDefault =>
+      'Сиздин өтүнмөңүз модератор тарабынан четке кагылды. Сураныч, маалыматтарды оңдоп, кайра жөнөтүңүз.';
+
+  @override
+  String verificationRejectedReason(Object reason) {
+    return 'Четке кагуу себеби: $reason';
+  }
+
+  @override
+  String get verificationPendingDesc =>
+      'Сиздин верификацияга өтүнмөңүз жөнөтүлдү жана текшерилүүдө. Кароо 1-2 жумушчу күндү алат.';
+
+  @override
+  String get date => 'Дата';
+
+  @override
+  String get availableSpots => 'Бош орундар';
+
+  @override
+  String get bookingDetailsTitle => 'Брондоо чоо-жайы';
+
+  @override
+  String get whatsappNumberHint => 'WhatsApp катталган номерди көрсөтүңүз';
+
+  @override
+  String get comingSoonTitle => 'Жакында чыгат';
+
+  @override
+  String get featureInDevelopmentMessage => 'Бул функция иштелип чыгууда. Тиркеменин кийинки версияларында күтүңүз.';
+
+  @override
+  String submittedAt(Object date) {
+    return 'Жөнөтүлдү: $date';
+  }
+
+  @override
+  String get resubmitRequest => 'Өтүнмөнү кайра жөнөтүү';
+
+  @override
+  String get updateStatus => 'Статусту жаңылоо';
 }

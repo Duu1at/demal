@@ -33,7 +33,7 @@ class PartnerVerificationDocument extends StatelessWidget {
                   const SizedBox(width: AppSpacing.sm),
                   Expanded(
                     child: Text(
-                      'Document Uploaded',
+                      context.l10n.documentUploaded,
                       style: textTheme.bodyMedium,
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -47,13 +47,13 @@ class PartnerVerificationDocument extends StatelessWidget {
             ),
           ] else ...[
             Text(
-              'Скан свидетельства ИП',
+              context.l10n.ipCertificateScan,
               style: textTheme.titleMedium,
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: AppSpacing.sm),
             Text(
-              'Пожалуйста, загрузите скан вашего ИП свидетельства в хорошем качестве. Документ также можно взять в приложении Tunduk.',
+              context.l10n.uploadIpCertificateHint,
               style: textTheme.bodyMedium,
               textAlign: TextAlign.center,
             ),

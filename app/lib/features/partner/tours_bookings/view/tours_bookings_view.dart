@@ -1,6 +1,7 @@
 import 'package:app/core/exceptions/exception.dart';
 import 'package:app/features/features.dart';
 import 'package:app_ui/app_ui.dart';
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tour_repository/tour_repository.dart';
@@ -29,7 +30,7 @@ class ToursBookingsViewBody extends StatelessWidget {
     return ScaffoldWithBgImage(
       backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
-        title: Text(tour?.title ?? 'Tours Bookings'),
+        title: Text(tour?.title ?? context.l10n.toursBookingsTitle),
         centerTitle: true,
       ),
       body: BlocBuilder<ToursBookingsCubit, ToursBookingsState>(
