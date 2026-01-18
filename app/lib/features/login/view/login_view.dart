@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:app/app/app.dart';
 import 'package:app/features/login/cubit/otp_cubit.dart';
 import 'package:app/features/login/widgets/email_field.dart';
+import 'package:app/utils/utils.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:auth_repository/auth_repository.dart';
 import 'package:core/core.dart';
@@ -106,7 +107,7 @@ class __LoginViewState extends State<_LoginView> {
         columnChildren: [
           AppButton(
             variant: AppButtonVariant.outline,
-            onPressed: () {},
+            onPressed: () => context.showFeatureInDevelopment(),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

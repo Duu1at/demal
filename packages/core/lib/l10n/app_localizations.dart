@@ -1335,6 +1335,18 @@ abstract class AppLocalizations {
   /// **'Provide the number linked to WhatsApp'**
   String get whatsappNumberHint;
 
+  /// No description provided for @comingSoonTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Coming Soon'**
+  String get comingSoonTitle;
+
+  /// No description provided for @featureInDevelopmentMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'This feature is under development. Expect it in the next versions of the app.'**
+  String get featureInDevelopmentMessage;
+
   /// No description provided for @submittedAt.
   ///
   /// In en, this message translates to:

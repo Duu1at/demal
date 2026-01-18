@@ -421,5 +421,9 @@
   "updateStatus": "Статусту жаңылоо",
   "@updateStatus": {},
   "whatsappNumberHint": "WhatsApp катталган номерди көрсөтүңүз",
-  "@whatsappNumberHint": {}
+  "@whatsappNumberHint": {},
+  "comingSoonTitle": "Жакында чыгат",
+  "@comingSoonTitle": {},
+  "featureInDevelopmentMessage": "Бул функция иштелип чыгууда. Тиркеменин кийинки версияларында күтүңүз.",
+  "@featureInDevelopmentMessage": {}
 }

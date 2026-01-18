@@ -437,6 +437,8 @@
   "availableSpots": "Available spots",
   "bookingDetailsTitle": "Booking Details",
   "whatsappNumberHint": "Provide the number linked to WhatsApp",
+  "comingSoonTitle": "Coming Soon",
+  "featureInDevelopmentMessage": "This feature is under development. Expect it in the next versions of the app.",
   "@verificationPendingDesc": {},
   "submittedAt": "Submitted: {date}",
   "@submittedAt": {

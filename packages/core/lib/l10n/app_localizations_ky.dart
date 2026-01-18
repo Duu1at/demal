@@ -654,6 +654,12 @@ class AppLocalizationsKy extends AppLocalizations {
   String get whatsappNumberHint => 'WhatsApp катталган номерди көрсөтүңүз';
 
   @override
+  String get comingSoonTitle => 'Жакында чыгат';
+
+  @override
+  String get featureInDevelopmentMessage => 'Бул функция иштелип чыгууда. Тиркеменин кийинки версияларында күтүңүз.';
+
+  @override
   String submittedAt(Object date) {
     return 'Жөнөтүлдү: $date';
   }

@@ -1,6 +1,7 @@
 import 'package:app/app/app.dart';
 import 'package:app/app/router/navigation_helper.dart';
 import 'package:app/features/features.dart';
+import 'package:app/utils/utils.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -77,7 +78,7 @@ class _ClientToursViewBodyState extends State<ClientToursViewBody> {
     return Scaffold(
       appBar: HomeAppBar(
         onMenuTap: () => context.pushNamed(AppRouteNames.settings),
-        onNotificationTap: () {},
+        onNotificationTap: () => context.showFeatureInDevelopment(),
       ),
       body: RefreshIndicator(
         onRefresh: () async => context.read<ToursBloc>().add(const ToursRefresh()),

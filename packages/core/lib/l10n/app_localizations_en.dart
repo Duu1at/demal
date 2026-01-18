@@ -654,6 +654,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get whatsappNumberHint => 'Provide the number linked to WhatsApp';
 
   @override
+  String get comingSoonTitle => 'Coming Soon';
+
+  @override
+  String get featureInDevelopmentMessage =>
+      'This feature is under development. Expect it in the next versions of the app.';
+
+  @override
   String submittedAt(Object date) {
     return 'Submitted: $date';
   }

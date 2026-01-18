@@ -654,6 +654,13 @@ class AppLocalizationsRu extends AppLocalizations {
   String get whatsappNumberHint => 'Укажите номер, к которому привязан WhatsApp';
 
   @override
+  String get comingSoonTitle => 'Скоро появится';
+
+  @override
+  String get featureInDevelopmentMessage =>
+      'Данная функция находится в разработке. Ожидайте в следующих версиях приложения.';
+
+  @override
   String submittedAt(Object date) {
     return 'Отправлено: $date';
   }

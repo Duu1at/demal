@@ -411,5 +411,9 @@
   "updateStatus": "Обновить статус",
   "@updateStatus": {},
   "whatsappNumberHint": "Укажите номер, к которому привязан WhatsApp",
-  "@whatsappNumberHint": {}
+  "@whatsappNumberHint": {},
+  "comingSoonTitle": "Скоро появится",
+  "@comingSoonTitle": {},
+  "featureInDevelopmentMessage": "Данная функция находится в разработке. Ожидайте в следующих версиях приложения.",
+  "@featureInDevelopmentMessage": {}
 }
