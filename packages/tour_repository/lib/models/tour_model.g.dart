@@ -18,24 +18,38 @@ TourModel _$TourModelFromJson(Map<String, dynamic> json) => TourModel(
   currency: $enumDecodeNullable(_$CurrencyEnumMap, json['currency']),
   availableSpots: (json['available_spots'] as num?)?.toInt(),
   description: json['description'] as String?,
-  program: (json['program'] as Map<String, dynamic>?)?.map(
+  program: (_emptyListToNull(json, 'program') as Map<String, dynamic>?)?.map(
     (k, e) => MapEntry(k, e as String),
   ),
-  meetingPoint: json['meeting_point'] == null
+  meetingPoint: _emptyListToNull(json, 'meeting_point') == null
       ? null
       : MeetingPointModel.fromJson(
-          json['meeting_point'] as Map<String, dynamic>,
+          _emptyListToNull(json, 'meeting_point') as Map<String, dynamic>,
         ),
-  whatsIncluded: (json['whats_included'] as List<dynamic>?)?.map((e) => e as String).toList(),
-  whatsNotIncluded: (json['whats_not_included'] as List<dynamic>?)?.map((e) => e as String).toList(),
+  whatsIncluded: (json['whats_included'] as List<dynamic>?)
+      ?.map((e) => e as String)
+      .toList(),
+  whatsNotIncluded: (json['whats_not_included'] as List<dynamic>?)
+      ?.map((e) => e as String)
+      .toList(),
   whatToBring: json['what_to_bring'] as String?,
-  imageGalleryUrls: (json['image_gallery_urls'] as List<dynamic>?)?.map((e) => e as String).toList(),
-  organizer: json['organizer'] == null ? null : OrganizerModel.fromJson(json['organizer'] as Map<String, dynamic>),
+  imageGalleryUrls: (json['image_gallery_urls'] as List<dynamic>?)
+      ?.map((e) => e as String)
+      .toList(),
+  organizer: _emptyListToNull(json, 'organizer') == null
+      ? null
+      : OrganizerModel.fromJson(
+          _emptyListToNull(json, 'organizer') as Map<String, dynamic>,
+        ),
   status: json['status'] as String?,
   averageRating: (json['average_rating'] as num?)?.toDouble(),
   reviewsCount: (json['reviews_count'] as num?)?.toInt(),
-  createdAt: json['created_at'] == null ? null : DateTime.parse(json['created_at'] as String),
-  updatedAt: json['updated_at'] == null ? null : DateTime.parse(json['updated_at'] as String),
+  createdAt: json['created_at'] == null
+      ? null
+      : DateTime.parse(json['created_at'] as String),
+  updatedAt: json['updated_at'] == null
+      ? null
+      : DateTime.parse(json['updated_at'] as String),
 );
 
 Map<String, dynamic> _$TourModelToJson(TourModel instance) => <String, dynamic>{

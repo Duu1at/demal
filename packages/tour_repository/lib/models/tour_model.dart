@@ -61,9 +61,10 @@ final class TourModel {
 
   final String? description;
 
+  @JsonKey(name: 'program', readValue: _emptyListToNull)
   final Map<String, String>? program;
 
-  @JsonKey(name: 'meeting_point')
+  @JsonKey(name: 'meeting_point', readValue: _emptyListToNull)
   final MeetingPointModel? meetingPoint;
 
   @JsonKey(name: 'whats_included')
@@ -78,6 +79,7 @@ final class TourModel {
   @JsonKey(name: 'image_gallery_urls')
   final List<String>? imageGalleryUrls;
 
+  @JsonKey(readValue: _emptyListToNull)
   final OrganizerModel? organizer;
 
   final String? status;
@@ -105,4 +107,10 @@ enum Currency {
   USD,
   @JsonValue('RUB')
   RUB,
+}
+
+Object? _emptyListToNull(Map<dynamic, dynamic> json, String key) {
+  final value = json[key];
+  if (value is Map) return value;
+  return null;
 }
