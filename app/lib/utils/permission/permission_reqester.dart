@@ -21,13 +21,4 @@ abstract final class PermissionReqeuster {
       onDenied?.call(status);
     }
   }
-
-  static Future<void> requestGallery({
-    void Function(PermissionStatus status)? onDenied,
-  }) async {
-    final status = await Permission.photos.request();
-    if (status != PermissionStatus.granted) {
-      onDenied?.call(status);
-    }
-  }
 }

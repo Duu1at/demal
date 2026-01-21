@@ -225,9 +225,8 @@ class _EditableAvatarState extends State<EditableAvatar> with SingleTickerProvid
                     onDenied: (status) => accessModal(source),
                   );
                 case ImageSource.gallery:
-                  PermissionReqeuster.requestGallery(
-                    onDenied: (status) => accessModal(source),
-                  );
+                  // No permission needed for gallery with Photo Picker
+                  break;
               }
             }
           }

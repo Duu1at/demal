@@ -138,5 +138,4 @@ melos:
       description: "Build an unsigned release IPA for iOS"
 
     build-appbundle:
-      run: melos exec --scope="app" -- flutter build appbundle
-      description: "Build an App Bundle for the main application"
+      run: melos exec --scope="app" -- flutter build appbundle --obfuscate --split-debug-info=./build/app/outputs/symbols
