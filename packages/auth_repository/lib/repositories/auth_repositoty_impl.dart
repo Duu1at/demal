@@ -18,14 +18,27 @@ final class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<void> deleteAccount() async {
-    await authRemoteDataSource.deleteAccount().then(
-      (value) => authLocalDataSource.clearStorage(),
-    );
+    await Future.wait([
+      authRemoteDataSource.deleteAccount(),
+      authLocalDataSource.clearStorage(),
+    ]);
   }
 
   @override
   Future<void> logOut() async {
-    await authLocalDataSource.logOut();
+    await Future.wait([
+      authRemoteDataSource.logOut(),
+      authLocalDataSource.deleteToken(),
+    ]);
+  }
+
+  @override
+  Future<void> signInWithGoogle() async {
+    final token = await authRemoteDataSource.signInWithGoogle();
+    if (token == null) {
+      throw const AuthException('No token found.');
+    }
+    await authLocalDataSource.saveToken(token);
   }
 
   @override

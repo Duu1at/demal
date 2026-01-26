@@ -15,7 +15,7 @@ class AuthLocalDataSource {
     return storage.readString(key: AuthStorageKey.tokenKey);
   }
 
-  Future<void> logOut() async {
+  Future<void> deleteToken() async {
     await storage.delete(key: AuthStorageKey.tokenKey);
   }
 

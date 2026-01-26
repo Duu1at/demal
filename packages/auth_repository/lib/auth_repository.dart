@@ -4,3 +4,5 @@ export 'repositories/auth_repository.dart';
 export 'repositories/auth_repositoty_impl.dart';
 export 'sources/auth_local_data_source.dart';
 export 'sources/auth_remote_data_source.dart';
+export 'sources/supabase_google_sign_service.dart';
+export 'models/google_auth_user_params.dart';

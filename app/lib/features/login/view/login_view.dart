@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:app/app/app.dart';
 import 'package:app/features/features.dart';
-import 'package:app/utils/utils.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:auth_repository/auth_repository.dart';
 import 'package:core/core.dart';
@@ -16,11 +15,20 @@ class LoginView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => OtpCubit(
-        context.read<AuthRepository>(),
-        context.read<PreferencesStorage>(),
-      ),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (_) => OtpCubit(
+            context.read<AuthRepository>(),
+            context.read<PreferencesStorage>(),
+          ),
+        ),
+        BlocProvider(
+          create: (_) => GoogleSignCubit(
+            context.read<AuthRepository>(),
+          ),
+        ),
+      ],
       child: const _LoginView(),
     );
   }
@@ -104,24 +112,7 @@ class __LoginViewState extends State<_LoginView> {
           ),
         ],
         columnChildren: [
-          AppButton(
-            variant: AppButtonVariant.outline,
-            onPressed: () => context.showFeatureInDevelopment(),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Assets.icons.google.svg(
-                  width: 24,
-                  height: 24,
-                ),
-                const SizedBox(width: AppSpacing.lg),
-                Text(
-                  context.l10n.signInGoogle,
-                  style: Theme.of(context).textTheme.bodyMedium,
-                ),
-              ],
-            ),
-          ),
+          const GoogleSignInButton(),
           if (Platform.isIOS) ...[
             const SizedBox(height: AppSpacing.md),
             AppButton(

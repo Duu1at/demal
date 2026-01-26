@@ -7,10 +7,13 @@ import 'package:bookings_repository/bookings_repository.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:profile_repository/profile_repository.dart';
 import 'package:storage/storage.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:tour_repository/tour_repository.dart';
 import 'package:upload_repository/upload_repository.dart';
 
@@ -29,7 +32,15 @@ class App extends StatelessWidget {
         RepositoryProvider<AuthRepository>(
           create: (context) => AuthRepositoryImpl(
             authLocalDataSource: AuthLocalDataSource(context.read<PreferencesStorage>()),
-            authRemoteDataSource: AuthRemoteDataSource(context.read<ApiClient>()),
+            authRemoteDataSource: AuthRemoteDataSource(
+              client: context.read<ApiClient>(),
+              supabaseGoogleSignService: SupabaseGoogleSignService(
+                googleSignIn: GoogleSignIn.instance,
+                supabase: Supabase.instance,
+                webClientId: dotenv.env['SUPABASE_WEB_CLIENT_ID']!,
+                iosClientId: dotenv.env['SUPABASE_IOS_CLIENT_ID']!,
+              ),
+            ),
           ),
         ),
         RepositoryProvider<TourRepository>(

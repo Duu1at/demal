@@ -4,7 +4,6 @@ import 'package:api_client/interceptors/app_interceptor.dart';
 import 'package:app/app/view/app_view.dart';
 import 'package:app/core/core.dart' as app_core;
 import 'package:app/firebase_options.dart';
-import 'package:app/env.dart';
 import 'package:auth_repository/auth_repository.dart';
 import 'package:core/core.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -13,7 +12,9 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:storage/storage.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:talker_bloc_logger/talker_bloc_logger_observer.dart';
 import 'package:talker_bloc_logger/talker_bloc_logger_settings.dart';
 import 'package:talker_dio_logger/talker_dio_logger.dart';
@@ -24,8 +25,17 @@ void main() async {
   await runZonedGuarded(
     () async {
       WidgetsFlutterBinding.ensureInitialized();
+
+      await dotenv.load();
+
       await Firebase.initializeApp(
+        name: 'demal',
         options: DefaultFirebaseOptions.currentPlatform,
+      );
+
+      await Supabase.initialize(
+        url: dotenv.env['SUPABASE_URL']!,
+        anonKey: dotenv.env['SUPABASE_ANON_KEY']!,
       );
 
       final crashlyticsService = app_core.FirebaseCrashlyticsService(
@@ -67,7 +77,7 @@ void main() async {
       final connectionChecker = ConnectionChecker();
 
       final baseOptions = BaseOptions(
-        baseUrl: Env.baseUrl,
+        baseUrl: dotenv.env['BASE_URL']!,
         connectTimeout: const Duration(seconds: 120),
         receiveTimeout: const Duration(seconds: 120),
       );
