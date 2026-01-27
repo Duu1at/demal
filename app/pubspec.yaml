@@ -63,7 +63,7 @@ dependencies:
   package_info_plus:
   google_sign_in:
   supabase_flutter:
-  flutter_dotenv: ^6.0.0
+  flutter_dotenv:
 
 dev_dependencies:
   flutter_test:

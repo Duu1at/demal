@@ -1,4 +1,4 @@
-import 'package:app/features/login/cubits/otp_cubit/otp_cubit.dart';
+import 'package:app/features/login/login.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

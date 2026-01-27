@@ -1,7 +1,4 @@
-import 'package:app/features/login/widgets/otp_code_input.dart';
-import 'package:app/features/login/widgets/otp_header.dart';
-import 'package:app/features/login/widgets/otp_resend_button.dart';
-import 'package:app/features/login/widgets/otp_verify_button.dart';
+import 'package:app/features/login/login.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';

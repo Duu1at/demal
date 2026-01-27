@@ -5,3 +5,7 @@ export 'view/otp_view.dart';
 export 'widgets/email_field.dart';
 export 'widgets/google_sign_in_button.dart';
 export 'widgets/otp_form.dart';
+export 'widgets/otp_code_input.dart';
+export 'widgets/otp_header.dart';
+export 'widgets/otp_resend_button.dart';
+export 'widgets/otp_verify_button.dart';
