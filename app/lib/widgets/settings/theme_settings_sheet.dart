@@ -58,6 +58,7 @@ class ThemeSelectorSheet extends StatelessWidget {
                       context,
                     ).colorScheme.surfaceContainerHigh,
                   ),
+                  SizedBox(height: MediaQuery.of(context).viewPadding.bottom + 16),
                 ],
               ),
             ),

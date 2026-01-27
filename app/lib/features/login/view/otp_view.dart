@@ -1,5 +1,6 @@
-import 'package:app/features/login/widgets/otp_form.dart';
+import 'package:app/features/login/login.dart';
 import 'package:app_ui/app_ui.dart';
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 
 class OtpView extends StatelessWidget {
@@ -9,7 +10,7 @@ class OtpView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScaffoldWithBgImage(
-      appBar: AppBar(elevation: 0, title: const Text('Verify')),
+      appBar: AppBar(elevation: 0, title: Text(context.l10n.verify)),
       body: SingleChildScrollView(
         child: Column(
           children: [

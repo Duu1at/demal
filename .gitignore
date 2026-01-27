@@ -43,3 +43,4 @@ coverage/
 lib/l10n/gen/
 .l10n_errors.txt
 .fvm/
+*.env

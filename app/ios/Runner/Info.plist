@@ -61,5 +61,16 @@
 		<string>Приложению нужен доступ к микрофону для записи видео (если потребуется).</string>
 		<key>UIStatusBarHidden</key>
 		<false/>
+		<key>CFBundleURLTypes</key>
+		<array>
+			<dict>
+				<key>CFBundleTypeRole</key>
+				<string>Editor</string>
+				<key>CFBundleURLSchemes</key>
+				<array>
+					<string>com.googleusercontent.apps.719564618125-rlraap69qvr1o1mjtcj8ppv8ppnknvdn</string>
+				</array>
+			</dict>
+		</array>
 	</dict>
 </plist>

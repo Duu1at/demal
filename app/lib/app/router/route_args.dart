@@ -1,4 +1,4 @@
-import 'package:app/features/features.dart';
+import 'package:app/features/login/login.dart';
 
 class OtpArgs {
   const OtpArgs({

@@ -35,4 +35,9 @@ final class AuthRepositoryeMockImpl implements AuthRepository {
 
     return 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3NzRjYjlkYS05YzI0LTQ0NWItYmY5My1iODVmZTZhN2ZlNmQiLCJlbWFpbCI6ImRib2xzdW5iZWt1dWx1QGdtYWlsLmNvbSIsInJvbGUiOiJDTElFTlQiLCJpYXQiOjE3NjcxMjE1NzMsImV4cCI6MTc2NzcyNjM3M30.GfDCfs92aEjCuWiAqgx6sa35lrXQpp7jXnowisyd0Uc';
   }
+
+  @override
+  Future<void> signInWithGoogle() {
+    return Future.delayed(const Duration(seconds: 1), () {});
+  }
 }

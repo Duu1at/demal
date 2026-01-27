@@ -55,7 +55,7 @@ class ContactForm extends StatelessWidget {
         const SizedBox(height: AppSpacing.xs),
         Text(
           context.l10n.whatsappNumberHint,
-          style: theme.textTheme.bodyMedium,
+          style: theme.textTheme.bodySmall,
         ),
       ],
     );

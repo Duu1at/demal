@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 
 class AboutUsView extends StatelessWidget {
   const AboutUsView({super.key});
-
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -20,6 +19,7 @@ class AboutUsView extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const SizedBox(height: AppSpacing.lg),
               Text(
@@ -29,13 +29,7 @@ class AboutUsView extends StatelessWidget {
                   color: theme.colorScheme.primary,
                 ),
               ),
-              const SizedBox(height: AppSpacing.md),
-              Text(
-                '${context.l10n.lastUpdate} Декабрь 10, 2023',
-                style: theme.textTheme.bodyMedium?.copyWith(
-                  color: context.appColors.disabled,
-                ),
-              ),
+
               const SizedBox(height: AppSpacing.md),
               const TourBenefits(),
               const Spacer(),
@@ -101,6 +95,7 @@ class AboutUsView extends StatelessWidget {
                   ),
                 ],
               ),
+              SizedBox(height: MediaQuery.of(context).viewInsets.bottom + 16),
             ],
           ),
         ),

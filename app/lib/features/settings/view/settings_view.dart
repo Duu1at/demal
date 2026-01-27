@@ -125,12 +125,7 @@ class _SettingsViewBodyState extends State<SettingsViewBody> with SettingsChange
                   ],
 
                   const Spacer(),
-                  Text(
-                    '${context.l10n.version}1.0.0',
-                    style: theme.textTheme.bodyMedium?.copyWith(
-                      color: context.appColors.disabled,
-                    ),
-                  ),
+                  const AppVersion(),
                 ],
               );
             },
