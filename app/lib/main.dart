@@ -29,7 +29,6 @@ void main() async {
       await dotenv.load();
 
       await Firebase.initializeApp(
-        name: 'demal',
         options: DefaultFirebaseOptions.currentPlatform,
       );
 
