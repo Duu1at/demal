@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:api_client/api_client.dart';
+import 'package:core/core.dart';
 
 class DioRequestExecutor implements RequestExecutor {
   const DioRequestExecutor(this.dio, this.connection);
@@ -36,6 +37,8 @@ class DioRequestExecutor implements RequestExecutor {
     } on DioException catch (e, s) {
       log('ApiClient request $method $path', error: e, stackTrace: s);
       throw ApiClientException(e, s);
+    } on ConnectionException {
+      rethrow;
     } catch (e, s) {
       log('ApiClient request $method $path', error: e, stackTrace: s);
       throw ApiClientUnknownException(e, s);

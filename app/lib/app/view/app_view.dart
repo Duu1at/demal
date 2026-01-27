@@ -1,6 +1,6 @@
 import 'package:api_client/api_client.dart';
 import 'package:app/app/app.dart';
-import 'package:app/core/exceptions/exception.dart';
+import 'package:app/core/core.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:auth_repository/auth_repository.dart';
 import 'package:bookings_repository/bookings_repository.dart';
@@ -78,6 +78,11 @@ class App extends StatelessWidget {
             profileRepository: context.read<ProfileRepository>(),
             authRepository: context.read<AuthRepository>(),
           )..checkUser(),
+        ),
+        BlocProvider<ConnectivityCubit>(
+          create: (context) => ConnectivityCubit(
+            context.read<ConnectionChecker>(),
+          ),
         ),
       ],
       child: const DemalApp(),

@@ -13,3 +13,4 @@ export 'crashlytics/crashlytics_service.dart';
 export 'crashlytics/clients/crashlytics_client.dart';
 export 'analytics/analytics_service.dart';
 export 'remote_config/remote_config_service.dart';
+export 'connectivity/connection_checker.dart';

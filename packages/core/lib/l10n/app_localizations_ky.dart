@@ -568,6 +568,9 @@ class AppLocalizationsKy extends AppLocalizations {
   String get failedToLoadToursTitle => 'Турларды жүктөө ишке ашкан жок';
 
   @override
+  String get noInternetConnection => 'Интернет байланышы жок';
+
+  @override
   String get checkInternetAndTryAgain => 'Интернет байланышын текшерип, кайра аракет кылып көрүңүз';
 
   @override
@@ -669,4 +672,7 @@ class AppLocalizationsKy extends AppLocalizations {
 
   @override
   String get updateStatus => 'Статусту жаңылоо';
+
+  @override
+  String get waitingForNetwork => 'Тармак күтүүдө...';
 }

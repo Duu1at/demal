@@ -19,19 +19,18 @@ ToursParam _$ToursParamFromJson(Map<String, dynamic> json) => ToursParam(
   limit: (json['limit'] as num?)?.toInt(),
 );
 
-Map<String, dynamic> _$ToursParamToJson(ToursParam instance) =>
-    <String, dynamic>{
-      'search': ?instance.search,
-      'location': ?instance.location,
-      'tour_type': ?instance.tourType,
-      'date_from': ?instance.dateFrom,
-      'date_to': ?instance.dateTo,
-      'price_min': ?instance.priceMin,
-      'price_max': ?instance.priceMax,
-      'sort_by': ?_$TourSortByEnumMap[instance.sortBy],
-      'page': ?instance.page,
-      'limit': ?instance.limit,
-    };
+Map<String, dynamic> _$ToursParamToJson(ToursParam instance) => <String, dynamic>{
+  'search': ?instance.search,
+  'location': ?instance.location,
+  'tour_type': ?instance.tourType,
+  'date_from': ?instance.dateFrom,
+  'date_to': ?instance.dateTo,
+  'price_min': ?instance.priceMin,
+  'price_max': ?instance.priceMax,
+  'sort_by': ?_$TourSortByEnumMap[instance.sortBy],
+  'page': ?instance.page,
+  'limit': ?instance.limit,
+};
 
 const _$TourSortByEnumMap = {
   TourSortBy.dateAsc: 'date_asc',

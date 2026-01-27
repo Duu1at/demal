@@ -5,6 +5,7 @@ import 'package:app/app/view/app_view.dart';
 import 'package:app/core/core.dart' as app_core;
 import 'package:app/firebase_options.dart';
 import 'package:auth_repository/auth_repository.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:core/core.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -73,7 +74,7 @@ void main() async {
       };
 
       final storage = await PreferencesStorage.getInstance();
-      final connectionChecker = ConnectionChecker();
+      final connectionChecker = ConnectionChecker(Connectivity());
 
       final baseOptions = BaseOptions(
         baseUrl: dotenv.env['BASE_URL']!,
@@ -100,10 +101,11 @@ void main() async {
         MultiRepositoryProvider(
           providers: [
             RepositoryProvider<PreferencesStorage>(create: (context) => storage),
+            RepositoryProvider<ConnectionChecker>(create: (context) => connectionChecker),
             RepositoryProvider<ApiClient>(
               create: (context) => ApiClient.fromDio(
-                connection: connectionChecker,
                 dio: bearerDio,
+                connection: context.read<ConnectionChecker>(),
               ),
             ),
             RepositoryProvider<AnalyticsService>.value(value: analyticsService),

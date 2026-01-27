@@ -382,6 +382,8 @@
   "@createFirstTourAction": {},
   "failedToLoadToursTitle": "Failed to load tours",
   "@failedToLoadToursTitle": {},
+  "noInternetConnection": "No internet connection",
+  "@noInternetConnection": {},
   "checkInternetAndTryAgain": "Check internet connection and try again",
   "@checkInternetAndTryAgain": {},
   "statusActive": "Active",
@@ -449,5 +451,7 @@
   "resubmitRequest": "Resubmit request",
   "@resubmitRequest": {},
   "updateStatus": "Update status",
-  "@updateStatus": {}
+  "@updateStatus": {},
+  "waitingForNetwork": "Waiting for network...",
+  "@waitingForNetwork": {}
 }

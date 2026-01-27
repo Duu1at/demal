@@ -4,23 +4,24 @@ import 'package:meta/meta.dart';
 
 @immutable
 final class ConnectionChecker {
-  ConnectionChecker([
-    Connectivity? connectivity,
-  ]) : connectivity = connectivity ?? Connectivity();
-
+  const ConnectionChecker(this.connectivity);
   final Connectivity connectivity;
 
   Future<bool> checkInternetConnection() async {
     try {
       final connectivityResult = await connectivity.checkConnectivity();
-      return connectivityResult.any(
-        (element) =>
-            element == ConnectivityResult.mobile ||
-            element == ConnectivityResult.ethernet ||
-            element == ConnectivityResult.wifi,
-      );
+      return isConnected(connectivityResult);
     } on Object catch (e, s) {
       throw ConnectionException(e, s);
     }
+  }
+
+  bool isConnected(List<ConnectivityResult> result) {
+    return result.any(
+      (element) =>
+          element == ConnectivityResult.mobile ||
+          element == ConnectivityResult.ethernet ||
+          element == ConnectivityResult.wifi,
+    );
   }
 }

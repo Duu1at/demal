@@ -1,6 +1,7 @@
 export 'bloc/tours_bloc.dart';
 export 'view/client_tour_filters_view.dart';
 export 'view/client_tours_view.dart';
+export 'widgets/client_tours_app_bar.dart';
 export 'widgets/tour_card.dart';
 export 'widgets/tour_card_content.dart';
 export 'widgets/tour_card_footer.dart';

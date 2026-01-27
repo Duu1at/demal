@@ -1,5 +1,6 @@
 import 'package:app/app/app.dart';
 import 'package:app/app/router/navigation_helper.dart';
+import 'package:app/core/core.dart';
 import 'package:app/features/features.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:core/core.dart';
@@ -40,7 +41,10 @@ class _ClientTourDetailsViewBodyState extends State<ClientTourDetailsViewBody> {
             TourDetailInitial() => const TourDetailLoadingWidget(),
             TourDetailLoading() => const TourDetailLoadingWidget(),
             TourDetailSuccess(tour: final tour) => TourDetailSuccessWidget(tour),
-            TourDetailError(error: final error) => TourDetailErrorWidget(error),
+            TourDetailError(error: final error) => ErrorBodyWidget(
+              error,
+              onRetry: () => context.read<TourDetailBloc>().add(TourDetailEvent(widget.tourId)),
+            ),
           },
           floatingActionButton: state is TourDetailSuccess
               ? AppButton(

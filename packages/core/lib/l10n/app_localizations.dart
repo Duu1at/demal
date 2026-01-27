@@ -1173,6 +1173,12 @@ abstract class AppLocalizations {
   /// **'Failed to load tours'**
   String get failedToLoadToursTitle;
 
+  /// No description provided for @noInternetConnection.
+  ///
+  /// In en, this message translates to:
+  /// **'No internet connection'**
+  String get noInternetConnection;
+
   /// No description provided for @checkInternetAndTryAgain.
   ///
   /// In en, this message translates to:
@@ -1364,6 +1370,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Update status'**
   String get updateStatus;
+
+  /// No description provided for @waitingForNetwork.
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting for network...'**
+  String get waitingForNetwork;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
