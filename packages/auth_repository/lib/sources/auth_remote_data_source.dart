@@ -55,7 +55,7 @@ class AuthRemoteDataSource {
             '/api/v1/auth/google',
             data: googleAuthUserParams.toJson(),
           )
-          .then((value) => value.data?['access_token'] as String?);
+          .then((value) => value.data?['auth_token'] as String?);
     } on Object catch (e, s) {
       throw AuthException(e, s);
     }

@@ -18,18 +18,14 @@ final class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<void> deleteAccount() async {
-    await Future.wait([
-      authRemoteDataSource.deleteAccount(),
-      authLocalDataSource.clearStorage(),
-    ]);
+    await authRemoteDataSource.deleteAccount();
+    await authLocalDataSource.clearStorage();
   }
 
   @override
   Future<void> logOut() async {
-    await Future.wait([
-      authRemoteDataSource.logOut(),
-      authLocalDataSource.deleteToken(),
-    ]);
+    await authRemoteDataSource.logOut();
+    await authLocalDataSource.deleteToken();
   }
 
   @override
