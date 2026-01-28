@@ -15,9 +15,15 @@ pod-install:
 
 gen-assets:
 	cd packages/app_ui && flutter pub run build_runner build --delete-conflicting-outputs
+	dart format .
+
+gen-locale:
+	cd packages/core && flutter gen-l10n
+	dart format .
 
 build-runner:
 	melos run-build-runner
+	dart format .
 
 git-update:
 	echo "Updating git..."

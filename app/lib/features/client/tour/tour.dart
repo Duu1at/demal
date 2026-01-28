@@ -9,5 +9,4 @@ export 'widgets/tour_organizer_tile.dart';
 export 'widgets/tour_program_section.dart';
 export 'widgets/expandable_text.dart';
 export 'widgets/tour_detail_success_widget.dart';
-export 'widgets/tour_detail_error_widget.dart';
 export 'widgets/tour_detail_loading_widget.dart';

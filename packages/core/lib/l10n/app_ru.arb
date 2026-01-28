@@ -342,6 +342,8 @@
   "@createFirstTourAction": {},
   "failedToLoadToursTitle": "Не удалось загрузить туры",
   "@failedToLoadToursTitle": {},
+  "noInternetConnection": "Нет интернет-соединения",
+  "@noInternetConnection": {},
   "checkInternetAndTryAgain": "Проверьте подключение к интернету и попробуйте снова",
   "@checkInternetAndTryAgain": {},
   "statusActive": "Активный",
@@ -415,5 +417,7 @@
   "comingSoonTitle": "Скоро появится",
   "@comingSoonTitle": {},
   "featureInDevelopmentMessage": "Данная функция находится в разработке. Ожидайте в следующих версиях приложения.",
-  "@featureInDevelopmentMessage": {}
+  "@featureInDevelopmentMessage": {},
+  "waitingForNetwork": "Ожидание сети...",
+  "@waitingForNetwork": {}
 }

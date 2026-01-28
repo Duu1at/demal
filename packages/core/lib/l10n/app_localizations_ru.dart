@@ -568,6 +568,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get failedToLoadToursTitle => 'Не удалось загрузить туры';
 
   @override
+  String get noInternetConnection => 'Нет интернет-соединения';
+
+  @override
   String get checkInternetAndTryAgain => 'Проверьте подключение к интернету и попробуйте снова';
 
   @override
@@ -670,4 +673,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get updateStatus => 'Обновить статус';
+
+  @override
+  String get waitingForNetwork => 'Ожидание сети...';
 }

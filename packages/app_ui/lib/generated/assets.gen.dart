@@ -143,6 +143,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/flag_ru.png
   AssetGenImage get flagRu => const AssetGenImage('assets/images/flag_ru.png');
 
+  /// File path: assets/images/ic_launcher_foreground.png
+  AssetGenImage get icLauncherForeground => const AssetGenImage('assets/images/ic_launcher_foreground.png');
+
   /// File path: assets/images/illustration_3.png
   AssetGenImage get illustration3 => const AssetGenImage('assets/images/illustration_3.png');
 
@@ -172,6 +175,7 @@ class $AssetsImagesGen {
     backgroundTop,
     flagKg,
     flagRu,
+    icLauncherForeground,
     illustration3,
     logo,
     onboarding1,
@@ -182,6 +186,16 @@ class $AssetsImagesGen {
   ];
 }
 
+class $AssetsLottieGen {
+  const $AssetsLottieGen();
+
+  /// File path: assets/lottie/error_404.json
+  String get error404 => 'packages/app_ui/assets/lottie/error_404.json';
+
+  /// List of all assets
+  List<String> get values => [error404];
+}
+
 class Assets {
   const Assets._();
 
@@ -189,6 +203,7 @@ class Assets {
 
   static const $AssetsIconsGen icons = $AssetsIconsGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
+  static const $AssetsLottieGen lottie = $AssetsLottieGen();
 }
 
 class AssetGenImage {

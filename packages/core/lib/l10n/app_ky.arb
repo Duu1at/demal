@@ -352,6 +352,8 @@
   "@createFirstTourAction": {},
   "failedToLoadToursTitle": "Турларды жүктөө ишке ашкан жок",
   "@failedToLoadToursTitle": {},
+  "noInternetConnection": "Интернет байланышы жок",
+  "@noInternetConnection": {},
   "checkInternetAndTryAgain": "Интернет байланышын текшерип, кайра аракет кылып көрүңүз",
   "@checkInternetAndTryAgain": {},
   "statusActive": "Активдүү",
@@ -425,5 +427,7 @@
   "comingSoonTitle": "Жакында чыгат",
   "@comingSoonTitle": {},
   "featureInDevelopmentMessage": "Бул функция иштелип чыгууда. Тиркеменин кийинки версияларында күтүңүз.",
-  "@featureInDevelopmentMessage": {}
+  "@featureInDevelopmentMessage": {},
+  "waitingForNetwork": "Тармак күтүүдө...",
+  "@waitingForNetwork": {}
 }

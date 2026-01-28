@@ -7,9 +7,7 @@ part of 'tours_model.dart';
 // **************************************************************************
 
 ToursModel _$ToursModelFromJson(Map<String, dynamic> json) => ToursModel(
-  tours: (json['tours'] as List<dynamic>?)
-      ?.map((e) => TourModel.fromJson(e as Map<String, dynamic>))
-      .toList(),
+  tours: (json['tours'] as List<dynamic>?)?.map((e) => TourModel.fromJson(e as Map<String, dynamic>)).toList(),
   success: json['success'] as bool?,
   pagination: json['pagination'] == null
       ? null
@@ -18,9 +16,8 @@ ToursModel _$ToursModelFromJson(Map<String, dynamic> json) => ToursModel(
         ),
 );
 
-Map<String, dynamic> _$ToursModelToJson(ToursModel instance) =>
-    <String, dynamic>{
-      'success': instance.success,
-      'pagination': instance.pagination,
-      'tours': instance.tours,
-    };
+Map<String, dynamic> _$ToursModelToJson(ToursModel instance) => <String, dynamic>{
+  'success': instance.success,
+  'pagination': instance.pagination,
+  'tours': instance.tours,
+};

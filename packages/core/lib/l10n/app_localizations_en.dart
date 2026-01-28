@@ -567,6 +567,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get failedToLoadToursTitle => 'Failed to load tours';
 
   @override
+  String get noInternetConnection => 'No internet connection';
+
+  @override
   String get checkInternetAndTryAgain => 'Check internet connection and try again';
 
   @override
@@ -670,4 +673,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get updateStatus => 'Update status';
+
+  @override
+  String get waitingForNetwork => 'Waiting for network...';
 }

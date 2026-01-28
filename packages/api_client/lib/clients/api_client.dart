@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:api_client/api_client.dart';
+import 'package:core/core.dart';
 
 Type _getType<T>() => T;
 final Type _voidType = _getType<void>();
