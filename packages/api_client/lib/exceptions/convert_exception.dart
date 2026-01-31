@@ -1,14 +1,26 @@
-import 'package:meta/meta.dart';
+import 'package:flutter/material.dart';
+import 'package:core/core.dart';
 
 @immutable
-final class ConvertException implements Exception {
-  const ConvertException([
-    this.error,
-    this.stackTrace,
-    this.message,
-  ]);
+final class ConvertException extends AppException<Object> {
+  const ConvertException(
+    super.error, {
+    super.stackTrace,
+    super.message,
+    super.type,
+    super.handleType,
+  });
 
-  final Object? error;
-  final StackTrace? stackTrace;
-  final String? message;
+  @override
+  ErrorModel getModel() {
+    return ErrorModel(
+      title: L10nService.instance.l10n.somethingWentWrong,
+      message: L10nService.instance.l10n.technicalErrorContactSupport,
+    );
+  }
+
+  @override
+  String getUiMessage() {
+    return L10nService.instance.l10n.technicalErrorContactSupport;
+  }
 }

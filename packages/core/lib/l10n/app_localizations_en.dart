@@ -676,4 +676,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get waitingForNetwork => 'Waiting for network...';
+
+  @override
+  String get errorOccurred => 'Error Occurred';
+
+  @override
+  String get technicalErrorContactSupport => 'Technical error. Please contact support.';
+
+  @override
+  String get catchConnectionError => 'Connection Error';
+
+  @override
+  String get ok => 'ok';
 }

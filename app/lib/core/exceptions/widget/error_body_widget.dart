@@ -12,7 +12,7 @@ class ErrorBodyWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = context.read<ErrorHandler>().parseErrorModel(error, context);
+    final model = context.read<ErrorHandler>().parseErrorModel(error);
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(AppSpacing.lg),

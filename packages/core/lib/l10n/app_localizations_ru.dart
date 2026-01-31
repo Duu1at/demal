@@ -676,4 +676,16 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get waitingForNetwork => 'Ожидание сети...';
+
+  @override
+  String get errorOccurred => 'Произошла ошибка';
+
+  @override
+  String get technicalErrorContactSupport => 'Техническая ошибка. Пожалуйста, свяжитесь с поддержкой.';
+
+  @override
+  String get catchConnectionError => 'Ошибка подключения';
+
+  @override
+  String get ok => 'ок';
 }

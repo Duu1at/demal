@@ -1376,6 +1376,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Waiting for network...'**
   String get waitingForNetwork;
+
+  /// No description provided for @errorOccurred.
+  ///
+  /// In en, this message translates to:
+  /// **'Error Occurred'**
+  String get errorOccurred;
+
+  /// No description provided for @technicalErrorContactSupport.
+  ///
+  /// In en, this message translates to:
+  /// **'Technical error. Please contact support.'**
+  String get technicalErrorContactSupport;
+
+  /// No description provided for @catchConnectionError.
+  ///
+  /// In en, this message translates to:
+  /// **'Connection Error'**
+  String get catchConnectionError;
+
+  /// No description provided for @ok.
+  ///
+  /// In en, this message translates to:
+  /// **'ok'**
+  String get ok;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

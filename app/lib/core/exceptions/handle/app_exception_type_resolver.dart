@@ -26,15 +26,18 @@ class ErrorHandleDialog extends ErrorHandler {
   @override
   void handleError(
     Object error,
-    BuildContext context,
-  ) {
+    BuildContext context, {
+    VoidCallback? onThen,
+    String? description,
+  }) {
     if (!context.mounted) return;
-    final model = parseErrorModel(error, context);
+    final model = parseErrorModel(error);
     showAdaptiveDialog<void>(
       context: context,
       builder: (context) {
         return AlertDialog.adaptive(
           title: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
               if (model.icon != null)
                 Padding(
@@ -44,16 +47,23 @@ class ErrorHandleDialog extends ErrorHandler {
               Text(model.title),
             ],
           ),
-          content: Text(model.message),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(model.message),
+              const SizedBox(height: 8),
+              if (description != null) Text(description),
+            ],
+          ),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: Text(MaterialLocalizations.of(context).okButtonLabel),
+              child: Text(context.l10n.ok),
             ),
           ],
         );
       },
-    );
+    ).then((_) => onThen?.call());
   }
 }
 
@@ -66,6 +76,6 @@ class ErrorHandleSnackBar extends ErrorHandler {
     BuildContext context,
   ) {
     if (!context.mounted) return;
-    AppSnackbar.showError(context: context, title: parseErrorMessage(error, context));
+    AppSnackbar.showError(context: context, title: parseErrorMessage(error));
   }
 }

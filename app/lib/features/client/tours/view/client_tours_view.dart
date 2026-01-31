@@ -75,7 +75,7 @@ class _ClientToursViewBodyState extends State<ClientToursViewBody> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const ClientToursAppBar(),
-      body: RefreshIndicator(
+      body: RefreshIndicator.adaptive(
         onRefresh: () async => context.read<ToursBloc>().add(const ToursRefresh()),
         child: BlocBuilder<ToursBloc, ToursState>(
           builder: (context, state) {

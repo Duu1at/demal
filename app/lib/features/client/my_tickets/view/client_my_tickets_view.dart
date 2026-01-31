@@ -75,7 +75,7 @@ class _ClientMyTicketsViewState extends State<ClientMyTicketsView> {
         backgroundColor: Colors.transparent,
         title: Text(context.l10n.myTickets, style: theme.textTheme.titleLarge),
       ),
-      body: RefreshIndicator(
+      body: RefreshIndicator.adaptive(
         onRefresh: () async => _pagingController.refresh(),
         child: PagingListener(
           controller: _pagingController,

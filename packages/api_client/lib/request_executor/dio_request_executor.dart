@@ -32,16 +32,16 @@ class DioRequestExecutor implements RequestExecutor {
         );
       } else {
         log('ApiClient connection error $method $path');
-        throw const ConnectionException();
+        throw const ConnectionException('No internet connection');
       }
     } on DioException catch (e, s) {
       log('ApiClient request $method $path', error: e, stackTrace: s);
-      throw ApiClientException(e, s);
+      throw ApiClientException(e, stackTrace: s);
     } on ConnectionException {
       rethrow;
     } catch (e, s) {
       log('ApiClient request $method $path', error: e, stackTrace: s);
-      throw ApiClientUnknownException(e, s);
+      throw ApiClientUnknownException(e, stackTrace: s);
     }
   }
 }
