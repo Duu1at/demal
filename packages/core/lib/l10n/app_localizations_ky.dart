@@ -675,4 +675,16 @@ class AppLocalizationsKy extends AppLocalizations {
 
   @override
   String get waitingForNetwork => 'Тармак күтүүдө...';
+
+  @override
+  String get errorOccurred => 'Ката кетти';
+
+  @override
+  String get technicalErrorContactSupport => 'Техникалык ката. Колдоо кызматына кайрылыңыз.';
+
+  @override
+  String get catchConnectionError => 'Туташуу катасы';
+
+  @override
+  String get ok => 'ок';
 }

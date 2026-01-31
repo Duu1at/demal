@@ -11,7 +11,7 @@ mixin ConverterMixin {
       return fromJson(jsonData);
     } catch (e, s) {
       log('Type conversion error', error: e, stackTrace: s);
-      throw ConvertException(e, s, 'Failed to convert to $T');
+      throw ConvertException(e, stackTrace: s, message: 'Failed to convert to $T');
     }
   }
 
@@ -23,7 +23,7 @@ mixin ConverterMixin {
       return jsonData.map((e) => fromJson(e as Map<String, dynamic>)).toList();
     } catch (e, s) {
       log('List conversion error', error: e, stackTrace: s);
-      throw ConvertException(e, s, 'Failed to convert to List<$T>');
+      throw ConvertException(e, stackTrace: s, message: 'Failed to convert to List<$T>');
     }
   }
 }

@@ -117,6 +117,13 @@ class _DemalAppState extends State<DemalApp> {
         supportedLocales: AppLocalizations.supportedLocales,
         title: 'Demal',
         routerConfig: _router,
+        builder: (context, child) {
+          final localizations = Localizations.of<AppLocalizations>(context, AppLocalizations);
+          if (localizations != null) {
+            L10nService.instance.localizations = localizations;
+          }
+          return child ?? const SizedBox.shrink();
+        },
       ),
     );
   }

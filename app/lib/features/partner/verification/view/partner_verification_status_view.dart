@@ -39,7 +39,7 @@ class PartnerVerificationStatusViewBody extends StatelessWidget {
             icon: const Icon(Icons.arrow_back_ios_new_outlined),
           ),
         ),
-        body: RefreshIndicator(
+        body: RefreshIndicator.adaptive(
           onRefresh: () => context.read<VerifyStatusCubit>().getVerifyStatus(),
           child: CustomScrollView(
             physics: const AlwaysScrollableScrollPhysics(),

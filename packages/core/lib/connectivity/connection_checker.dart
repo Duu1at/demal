@@ -12,7 +12,7 @@ final class ConnectionChecker {
       final connectivityResult = await connectivity.checkConnectivity();
       return isConnected(connectivityResult);
     } on Object catch (e, s) {
-      throw ConnectionException(e, s);
+      throw ConnectionException(e, stackTrace: s);
     }
   }
 
