@@ -1,3 +1,4 @@
+import 'package:app/utils/utils.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -38,6 +39,7 @@ class _TourImageCarouselState extends State<TourImageCarousel> {
                 CachedNetworkImage(
                   imageUrl: widget.tour.imageGalleryUrls?[index] ?? '',
                   fit: BoxFit.cover,
+                  cacheManager: ImageStorage.instance.tourManager,
                   progressIndicatorBuilder: (context, child, progress) {
                     return const Center(child: CircularProgressIndicator.adaptive());
                   },

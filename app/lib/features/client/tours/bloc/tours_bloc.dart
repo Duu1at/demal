@@ -9,7 +9,7 @@ import 'package:tour_repository/tour_repository.dart';
 part 'tours_event.dart';
 part 'tours_state.dart';
 
-const int _pageSize = 5;
+const int _pageSize = 10;
 const Duration _searchDebounce = Duration(milliseconds: 500);
 
 EventTransformer<T> _debounce<T>(Duration duration) {
