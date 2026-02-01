@@ -114,7 +114,7 @@ class _ClientToursViewBodyState extends State<ClientToursViewBody> {
     }
 
     if (state.error != null && isEmpty) {
-      return const ToursErrorState();
+      return ToursErrorState(state.error!);
     }
 
     if (isEmpty && !state.isLoading) {

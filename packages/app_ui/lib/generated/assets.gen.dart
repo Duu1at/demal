@@ -192,8 +192,11 @@ class $AssetsLottieGen {
   /// File path: assets/lottie/error_404.json
   String get error404 => 'packages/app_ui/assets/lottie/error_404.json';
 
+  /// File path: assets/lottie/error_connection.json
+  String get errorConnection => 'packages/app_ui/assets/lottie/error_connection.json';
+
   /// List of all assets
-  List<String> get values => [error404];
+  List<String> get values => [error404, errorConnection];
 }
 
 class Assets {
