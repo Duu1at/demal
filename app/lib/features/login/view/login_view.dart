@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:app/app/app.dart';
 import 'package:app/features/login/login.dart';
 import 'package:app_ui/app_ui.dart';
@@ -110,33 +109,8 @@ class __LoginViewState extends State<_LoginView> {
             },
           ),
         ],
-        columnChildren: [
-          const GoogleSignInButton(),
-          if (Platform.isIOS) ...[
-            const SizedBox(height: AppSpacing.md),
-            AppButton(
-              variant: AppButtonVariant.outline,
-              onPressed: () {},
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Assets.icons.apple.svg(
-                    colorFilter: ColorFilter.mode(
-                      Theme.of(context).colorScheme.onSurface,
-                      BlendMode.srcIn,
-                    ),
-                    width: 24,
-                    height: 24,
-                  ),
-                  const SizedBox(width: AppSpacing.lg),
-                  Text(
-                    context.l10n.signInApple,
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
-                ],
-              ),
-            ),
-          ],
+        columnChildren: const [
+          GoogleSignInButton(),
         ],
       ),
     );

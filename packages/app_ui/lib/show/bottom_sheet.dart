@@ -27,6 +27,9 @@ abstract final class BottomSheets {
           top: Radius.circular(AppSpacing.md),
         ),
       ),
+      constraints: BoxConstraints(
+        maxHeight: MediaQuery.of(context).size.height * 0.8,
+      ),
       enableDrag: enableDrag,
       isScrollControlled: true,
       useRootNavigator: true,
