@@ -100,8 +100,8 @@ void main() async {
       runApp(
         MultiRepositoryProvider(
           providers: [
-            RepositoryProvider<PreferencesStorage>(create: (context) => storage),
-            RepositoryProvider<ConnectionChecker>(create: (context) => connectionChecker),
+            RepositoryProvider<PreferencesStorage>.value(value: storage),
+            RepositoryProvider<ConnectionChecker>.value(value: connectionChecker),
             RepositoryProvider<ApiClient>(
               create: (context) => ApiClient.fromDio(
                 dio: bearerDio,
