@@ -67,6 +67,9 @@ class App extends StatelessWidget {
         RepositoryProvider<ErrorHandler>(create: (context) => const BaseErrorHandler()),
         RepositoryProvider<ErrorHandleSnackBar>(create: (context) => const ErrorHandleSnackBar()),
         RepositoryProvider<ErrorHandleDialog>(create: (context) => const ErrorHandleDialog()),
+        BlocProvider<VersionCheckCubit>(
+          create: (context) => VersionCheckCubit(context.read<VersionCheckService>()),
+        ),
         BlocProvider<AppThemeCubit>(
           create: (context) => AppThemeCubit(context.read<AppRepository>()),
         ),
@@ -106,10 +109,29 @@ class _DemalAppState extends State<DemalApp> {
     _router = AppRouter.instance().router();
   }
 
+  void _checkAndShowVersionDialog() {
+    Future.delayed(const Duration(milliseconds: 500), () async {
+      if (!mounted) return;
+
+      await context.read<VersionCheckCubit>().checkVersion();
+      if (!mounted) return;
+
+      final updateType = context.read<VersionCheckCubit>().state;
+      if (updateType == UpdateType.none) return;
+
+      await showVersionUpdateDialog(
+        AppRouteNames.navigatorKey.currentContext!,
+        versionCheckService: context.read<VersionCheckService>(),
+        updateType: updateType,
+      );
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return GlobalLoaderOverlay(
       child: MaterialApp.router(
+        debugShowCheckedModeBanner: false,
         scaffoldMessengerKey: AppRouteNames.scaffoldMessengerKey,
         theme: context.watch<AppThemeCubit>().state.themeData,
         locale: context.watch<AppLocaleCubit>().state,
@@ -122,6 +144,11 @@ class _DemalAppState extends State<DemalApp> {
           if (localizations != null) {
             L10nService.instance.localizations = localizations;
           }
+
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            _checkAndShowVersionDialog();
+          });
+
           return child ?? const SizedBox.shrink();
         },
       ),

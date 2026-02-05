@@ -51,6 +51,7 @@ void main() async {
         FirebaseRemoteConfig.instance,
         crashlyticsClient,
       );
+      final versionCheckService = app_core.VersionCheckService(remoteConfigService);
 
       await remoteConfigService.fetchAndActivate();
 
@@ -100,8 +101,8 @@ void main() async {
       runApp(
         MultiRepositoryProvider(
           providers: [
-            RepositoryProvider<PreferencesStorage>(create: (context) => storage),
-            RepositoryProvider<ConnectionChecker>(create: (context) => connectionChecker),
+            RepositoryProvider<PreferencesStorage>.value(value: storage),
+            RepositoryProvider<ConnectionChecker>.value(value: connectionChecker),
             RepositoryProvider<ApiClient>(
               create: (context) => ApiClient.fromDio(
                 dio: bearerDio,
@@ -111,6 +112,7 @@ void main() async {
             RepositoryProvider<AnalyticsService>.value(value: analyticsService),
             RepositoryProvider<CrashlyticsService>.value(value: crashlyticsService),
             RepositoryProvider<RemoteConfigService>.value(value: remoteConfigService),
+            RepositoryProvider<app_core.VersionCheckService>.value(value: versionCheckService),
           ],
           child: const App(),
         ),

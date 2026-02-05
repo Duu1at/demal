@@ -73,80 +73,73 @@ class _TourReviewsBottomSheetState extends State<TourReviewsBottomSheet> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Container(
-      constraints: BoxConstraints(
-        maxHeight: MediaQuery.of(context).size.height * 0.6,
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Flexible(
-            child: Text(
-              context.l10n.reviews,
-              style: theme.textTheme.titleMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(
+          context.l10n.reviews,
+          style: theme.textTheme.titleMedium?.copyWith(
+            fontWeight: FontWeight.bold,
           ),
+        ),
 
-          Expanded(
-            child: PagingListener(
-              controller: _pagingController,
-              builder: (context, state, fetchNextPage) {
-                return PagedListView<int, TourReviewModel>(
-                  state: state,
-                  fetchNextPage: fetchNextPage,
-                  padding: const EdgeInsets.all(AppSpacing.lg),
-                  builderDelegate: PagedChildBuilderDelegate(
-                    animateTransitions: true,
-                    itemBuilder: (context, review, index) => _ReviewCard(review: review),
-                    firstPageErrorIndicatorBuilder: (context) => _FirstPageError(
-                      onRetry: () => _pagingController.refresh(),
+        Flexible(
+          child: PagingListener(
+            controller: _pagingController,
+            builder: (context, state, fetchNextPage) {
+              return PagedListView<int, TourReviewModel>(
+                state: state,
+                fetchNextPage: fetchNextPage,
+                padding: const EdgeInsets.all(AppSpacing.lg),
+                builderDelegate: PagedChildBuilderDelegate(
+                  animateTransitions: true,
+                  itemBuilder: (context, review, index) => _ReviewCard(review: review),
+                  firstPageErrorIndicatorBuilder: (context) => _FirstPageError(
+                    onRetry: () => _pagingController.refresh(),
+                  ),
+                  newPageErrorIndicatorBuilder: (context) => _NewPageError(
+                    onRetry: () => _pagingController.fetchNextPage(),
+                  ),
+                  firstPageProgressIndicatorBuilder: (context) => const Center(
+                    child: Padding(
+                      padding: EdgeInsets.all(AppSpacing.xl),
+                      child: CircularProgressIndicator.adaptive(),
                     ),
-                    newPageErrorIndicatorBuilder: (context) => _NewPageError(
-                      onRetry: () => _pagingController.fetchNextPage(),
+                  ),
+                  newPageProgressIndicatorBuilder: (context) => const Center(
+                    child: Padding(
+                      padding: EdgeInsets.all(AppSpacing.md),
+                      child: CircularProgressIndicator.adaptive(),
                     ),
-                    firstPageProgressIndicatorBuilder: (context) => const Center(
-                      child: Padding(
-                        padding: EdgeInsets.all(AppSpacing.xl),
-                        child: CircularProgressIndicator.adaptive(),
-                      ),
-                    ),
-                    newPageProgressIndicatorBuilder: (context) => const Center(
-                      child: Padding(
-                        padding: EdgeInsets.all(AppSpacing.md),
-                        child: CircularProgressIndicator.adaptive(),
-                      ),
-                    ),
-                    noItemsFoundIndicatorBuilder: (context) => Center(
-                      child: Padding(
-                        padding: const EdgeInsets.all(AppSpacing.xl),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.comment_outlined,
-                              size: 64,
-                              color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
+                  ),
+                  noItemsFoundIndicatorBuilder: (context) => Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(AppSpacing.xl),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.comment_outlined,
+                            size: 64,
+                            color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
+                          ),
+                          const SizedBox(height: AppSpacing.md),
+                          Text(
+                            context.l10n.noReviewsYet,
+                            style: theme.textTheme.titleMedium?.copyWith(
+                              color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
                             ),
-                            const SizedBox(height: AppSpacing.md),
-                            Text(
-                              context.l10n.noReviewsYet,
-                              style: theme.textTheme.titleMedium?.copyWith(
-                                color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
-                              ),
-                            ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
-                );
-              },
-            ),
+                ),
+              );
+            },
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
@@ -161,95 +154,82 @@ class _ReviewCard extends StatelessWidget {
     final theme = Theme.of(context);
     final user = review.user;
 
-    return AppCard(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              if (user != null && user.imageUrl != null && user.imageUrl!.isNotEmpty)
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: AppSpacing.xs),
+      child: AppCard(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
                 SizedBox(
                   width: 40,
                   height: 40,
                   child: AvatarIcon(
-                    imageUrl: user.imageUrl,
+                    imageUrl: user?.imageUrl,
                     cacheManager: ImageStorage.instance.avatarManager,
                     size: 40,
                   ),
-                )
-              else
-                Container(
-                  width: 40,
-                  height: 40,
-                  decoration: BoxDecoration(
-                    color: theme.colorScheme.surfaceContainerHighest,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Icon(
-                    Icons.person,
-                    size: 24,
-                    color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
-                  ),
                 ),
-              const SizedBox(width: AppSpacing.sm),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      (user?.fullName != null && user!.fullName!.isNotEmpty)
-                          ? user.fullName!
-                          : context.l10n.anonymousUser,
-                      style: theme.textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.w600,
+
+                const SizedBox(width: AppSpacing.sm),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        (user?.fullName != null && user!.fullName!.isNotEmpty)
+                            ? user.fullName!
+                            : context.l10n.anonymousUser,
+                        style: theme.textTheme.titleMedium?.copyWith(
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
-                    ),
-                    if (review.rating != null) ...[
-                      const SizedBox(height: AppSpacing.xs),
-                      Row(
-                        children: [
-                          ...List.generate(5, (index) {
-                            final starIndex = index + 1;
-                            return Icon(
-                              starIndex <= (review.rating ?? 0).round() ? Icons.star : Icons.star_border,
-                              size: 16,
-                              color: starIndex <= (review.rating ?? 0).round()
-                                  ? Colors.amber
-                                  : theme.colorScheme.onSurface.withValues(alpha: 0.3),
-                            );
-                          }),
-                          const SizedBox(width: AppSpacing.xs),
-                          Text(
-                            review.rating!.toStringAsFixed(1),
-                            style: theme.textTheme.bodySmall?.copyWith(
-                              color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
+                      if (review.rating != null) ...[
+                        const SizedBox(height: AppSpacing.xs),
+                        Row(
+                          children: [
+                            ...List.generate(5, (index) {
+                              final starIndex = index + 1;
+                              return Icon(
+                                starIndex <= (review.rating ?? 0).round() ? Icons.star : Icons.star_border,
+                                size: 16,
+                                color: starIndex <= (review.rating ?? 0).round()
+                                    ? Colors.amber
+                                    : theme.colorScheme.onSurface.withValues(alpha: 0.3),
+                              );
+                            }),
+                            const SizedBox(width: AppSpacing.xs),
+                            Text(
+                              review.rating!.toStringAsFixed(1),
+                              style: theme.textTheme.bodySmall?.copyWith(
+                                color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
+                          ],
+                        ),
+                      ],
                     ],
-                  ],
-                ),
-              ),
-              // Дата
-              if (review.createdAt != null)
-                Text(
-                  AppDateFormats.formatDdMMYyyy.format(review.createdAt!),
-                  style: theme.textTheme.bodySmall?.copyWith(
-                    color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
                   ),
                 ),
-            ],
-          ),
-          // Текст отзыва
-          if (review.text != null && review.text!.isNotEmpty) ...[
-            const SizedBox(height: AppSpacing.md),
-            Text(
-              review.text!,
-              style: theme.textTheme.bodyMedium,
+                if (review.createdAt != null)
+                  Text(
+                    AppDateFormats.formatDdMMYyyy.format(review.createdAt!),
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+                    ),
+                  ),
+              ],
             ),
+            if (review.text != null && review.text!.isNotEmpty) ...[
+              const SizedBox(height: AppSpacing.md),
+              Text(
+                review.text!,
+                style: theme.textTheme.bodyMedium,
+              ),
+            ],
           ],
-        ],
+        ),
       ),
     );
   }

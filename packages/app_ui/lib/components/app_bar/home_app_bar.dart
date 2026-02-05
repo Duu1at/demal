@@ -29,12 +29,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
         ),
       ),
-      title: Column(
-        children: [
-          Text('Demal', style: theme.primaryTextTheme.titleLarge),
-          Text('Бишкек', style: theme.primaryTextTheme.labelSmall),
-        ],
-      ),
+      title: Text('Demal', style: theme.primaryTextTheme.titleLarge),
       centerTitle: true,
       elevation: 0,
       scrolledUnderElevation: 0,

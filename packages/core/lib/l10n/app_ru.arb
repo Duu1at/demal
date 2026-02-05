@@ -412,5 +412,17 @@
   "catchConnectionError": "Ошибка подключения",
   "@catchConnectionError": {},
   "ok":"ок",
-  "@ok":{}
+  "@ok":{},
+  "updateRequired": "Требуется обновление",
+  "@updateRequired": {},
+  "updateAvailable": "Доступно обновление",
+  "@updateAvailable": {},
+  "updateRequiredMessage": "Для продолжения необходимо обновить приложение до последней версии",
+  "@updateRequiredMessage": {},
+  "updateAvailableMessage": "Доступна новая версия приложения. Хотите обновить сейчас?",
+  "@updateAvailableMessage": {},
+  "updateLater": "Позже",
+  "@updateLater": {},
+  "updateNow": "Обновить",
+  "@updateNow": {}
 }
