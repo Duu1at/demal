@@ -688,4 +688,22 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get ok => 'ok';
+
+  @override
+  String get updateRequired => 'Update Required';
+
+  @override
+  String get updateAvailable => 'Update Available';
+
+  @override
+  String get updateRequiredMessage => 'To continue, please update the app to the latest version';
+
+  @override
+  String get updateAvailableMessage => 'A new version of the application is available. Do you want to update now?';
+
+  @override
+  String get updateLater => 'Later';
+
+  @override
+  String get updateNow => 'Update';
 }

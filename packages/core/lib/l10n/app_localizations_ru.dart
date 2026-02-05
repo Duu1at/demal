@@ -688,4 +688,22 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get ok => 'ок';
+
+  @override
+  String get updateRequired => 'Требуется обновление';
+
+  @override
+  String get updateAvailable => 'Доступно обновление';
+
+  @override
+  String get updateRequiredMessage => 'Для продолжения необходимо обновить приложение до последней версии';
+
+  @override
+  String get updateAvailableMessage => 'Доступна новая версия приложения. Хотите обновить сейчас?';
+
+  @override
+  String get updateLater => 'Позже';
+
+  @override
+  String get updateNow => 'Обновить';
 }

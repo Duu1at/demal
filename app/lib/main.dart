@@ -51,6 +51,7 @@ void main() async {
         FirebaseRemoteConfig.instance,
         crashlyticsClient,
       );
+      final versionCheckService = app_core.VersionCheckService(remoteConfigService);
 
       await remoteConfigService.fetchAndActivate();
 
@@ -111,6 +112,7 @@ void main() async {
             RepositoryProvider<AnalyticsService>.value(value: analyticsService),
             RepositoryProvider<CrashlyticsService>.value(value: crashlyticsService),
             RepositoryProvider<RemoteConfigService>.value(value: remoteConfigService),
+            RepositoryProvider<app_core.VersionCheckService>.value(value: versionCheckService),
           ],
           child: const App(),
         ),

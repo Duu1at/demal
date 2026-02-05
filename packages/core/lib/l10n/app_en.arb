@@ -455,5 +455,17 @@
   "catchConnectionError": "Connection Error",
   "@catchConnectionError": {},
   "ok":"ok",
-  "@ok":{}
+  "@ok":{},
+  "updateRequired": "Update Required",
+  "@updateRequired": {},
+  "updateAvailable": "Update Available",
+  "@updateAvailable": {},
+  "updateRequiredMessage": "To continue, please update the app to the latest version",
+  "@updateRequiredMessage": {},
+  "updateAvailableMessage": "A new version of the application is available. Do you want to update now?",
+  "@updateAvailableMessage": {},
+  "updateLater": "Later",
+  "@updateLater": {},
+  "updateNow": "Update",
+  "@updateNow": {}
 }

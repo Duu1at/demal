@@ -687,4 +687,22 @@ class AppLocalizationsKy extends AppLocalizations {
 
   @override
   String get ok => 'ок';
+
+  @override
+  String get updateRequired => 'Жаңыртуу керек';
+
+  @override
+  String get updateAvailable => 'Жаңыртуу жеткиликтүү';
+
+  @override
+  String get updateRequiredMessage => 'Улантуу үчүн колдонмону акыркы версияга жаңыртыңыз';
+
+  @override
+  String get updateAvailableMessage => 'Колдонмонун жаңы версиясы жеткиликтүү. Азыр жаңыртууну каалайсызбы?';
+
+  @override
+  String get updateLater => 'Кийинчерээк';
+
+  @override
+  String get updateNow => 'Жаңыртуу';
 }

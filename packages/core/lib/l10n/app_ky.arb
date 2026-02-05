@@ -431,5 +431,17 @@
   "catchConnectionError": "Туташуу катасы",
   "@catchConnectionError": {},
   "ok":"ок",
-  "@ok":{}
+  "@ok":{},
+  "updateRequired": "Жаңыртуу керек",
+  "@updateRequired": {},
+  "updateAvailable": "Жаңыртуу жеткиликтүү",
+  "@updateAvailable": {},
+  "updateRequiredMessage": "Улантуу үчүн колдонмону акыркы версияга жаңыртыңыз",
+  "@updateRequiredMessage": {},
+  "updateAvailableMessage": "Колдонмонун жаңы версиясы жеткиликтүү. Азыр жаңыртууну каалайсызбы?",
+  "@updateAvailableMessage": {},
+  "updateLater": "Кийинчерээк",
+  "@updateLater": {},
+  "updateNow": "Жаңыртуу",
+  "@updateNow": {}
 }
