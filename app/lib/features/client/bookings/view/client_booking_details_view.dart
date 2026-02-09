@@ -1,5 +1,4 @@
 import 'package:app/features/client/client.dart';
-import 'package:app/utils/utils.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
@@ -78,16 +77,7 @@ class _ClientBookingDetailsViewState extends State<ClientBookingDetailsView> {
             emailController: TextEditingController(),
           ),
         ],
-        columnChildren: [
-          AppButton(
-            onPressed: () => context.showFeatureInDevelopment(),
-            child: Text(
-              context.l10n.pay(
-                '${(widget.tour.price ?? 0) * guests} ${context.l10n.currencySom}',
-              ),
-            ),
-          ),
-        ],
+        columnChildren: const [],
       ),
     );
   }

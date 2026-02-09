@@ -6,4 +6,3 @@ export 'image_storage/image_storage.dart';
 export 'extensions/datetime_extension.dart';
 export 'extensions/string_extension.dart';
 export 'image_picker_service/image_picker_service.dart';
-export 'extensions/snackbar_extension.dart';

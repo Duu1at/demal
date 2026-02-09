@@ -5,11 +5,9 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   const HomeAppBar({
     super.key,
     this.onMenuTap,
-    this.onNotificationTap,
   });
 
   final VoidCallback? onMenuTap;
-  final VoidCallback? onNotificationTap;
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
@@ -33,19 +31,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
       centerTitle: true,
       elevation: 0,
       scrolledUnderElevation: 0,
-      actions: [
-        IconButton(
-          onPressed: onNotificationTap,
-          icon: Assets.icons.bell.svg(
-            width: 24,
-            height: 24,
-            colorFilter: ColorFilter.mode(
-              theme.colorScheme.onSurface,
-              BlendMode.srcIn,
-            ),
-          ),
-        ),
-      ],
+      actions: const [],
     );
   }
 }

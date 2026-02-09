@@ -109,23 +109,7 @@ class _DemalAppState extends State<DemalApp> {
     _router = AppRouter.instance().router();
   }
 
-  void _checkAndShowVersionDialog() {
-    Future.delayed(const Duration(milliseconds: 500), () async {
-      if (!mounted) return;
 
-      await context.read<VersionCheckCubit>().checkVersion();
-      if (!mounted) return;
-
-      final updateType = context.read<VersionCheckCubit>().state;
-      if (updateType == UpdateType.none) return;
-
-      await showVersionUpdateDialog(
-        AppRouteNames.navigatorKey.currentContext!,
-        versionCheckService: context.read<VersionCheckService>(),
-        updateType: updateType,
-      );
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -144,11 +128,6 @@ class _DemalAppState extends State<DemalApp> {
           if (localizations != null) {
             L10nService.instance.localizations = localizations;
           }
-
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            _checkAndShowVersionDialog();
-          });
-
           return child ?? const SizedBox.shrink();
         },
       ),
