@@ -77,6 +77,7 @@ class _EditableAvatarState extends State<EditableAvatar> with SingleTickerProvid
   @override
   Widget build(BuildContext context) {
     final sizeEdit = widget.size / 6;
+    final hasAvatar = widget.avatarUrl != null && widget.avatarUrl!.isNotEmpty;
 
     final Widget result = Stack(
       children: [
@@ -84,7 +85,7 @@ class _EditableAvatarState extends State<EditableAvatar> with SingleTickerProvid
           key: _globalKey,
           avatarUrl: widget.avatarUrl,
           size: widget.size,
-          onTap: !widget.isReadOnly ? () => _onTap(createOverlay: widget.avatarUrl != null) : null,
+          onTap: !widget.isReadOnly ? () => _onTap(createOverlay: hasAvatar) : null,
         ),
         if (widget.isLoading)
           Positioned.fill(
@@ -108,7 +109,7 @@ class _EditableAvatarState extends State<EditableAvatar> with SingleTickerProvid
                 shape: BoxShape.circle,
                 color: Theme.of(context).colorScheme.primary,
               ),
-              child: widget.avatarUrl != null
+              child: hasAvatar
                   ? Assets.icons.edit.svg(
                       width: sizeEdit,
                       height: sizeEdit,
@@ -141,9 +142,6 @@ class _EditableAvatarState extends State<EditableAvatar> with SingleTickerProvid
         return GestureDetector(
           onTap: () async {
             await _animationController.reverse();
-            if (context.mounted) {
-              GoRouter.of(context).pop();
-            }
           },
           child: AvatarOverlay(
             avatarUrl: widget.avatarUrl,
@@ -187,7 +185,7 @@ class _EditableAvatarState extends State<EditableAvatar> with SingleTickerProvid
           },
           title: context.l10n.gallery,
         ),
-        if (widget.avatarUrl != null)
+        if (widget.avatarUrl != null && widget.avatarUrl!.isNotEmpty)
           CustomActionButton(
             onTap: () async {
               if (widget.expand && createOverlay) {
@@ -225,7 +223,6 @@ class _EditableAvatarState extends State<EditableAvatar> with SingleTickerProvid
                     onDenied: (status) => accessModal(source),
                   );
                 case ImageSource.gallery:
-                  // No permission needed for gallery with Photo Picker
                   break;
               }
             }

@@ -66,7 +66,6 @@ class _EditProfileViewState extends State<EditProfileView> with SettingsChangeMi
                       avatarUrl: user.imageUrl,
                       size: 120,
                       expand: true,
-                      isReadOnly: false,
                       onDelete: () => _updateProfile(imageUrl: ''),
                       onUpdate: (file) => _updateProfile(imageFile: file),
                     ),
