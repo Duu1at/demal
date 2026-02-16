@@ -2,6 +2,7 @@ import 'package:app/app/app.dart';
 import 'package:app/features/features.dart';
 import 'package:app/features/login/login.dart';
 import 'package:app_ui/app_ui.dart';
+import 'package:bookings_repository/bookings_repository.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -62,13 +63,32 @@ final class AppRouter {
               builder: (context, state) {
                 final tour = state.extra as TourModel?;
                 if (tour == null) return const ErrorView();
-                return ClientBookingDetailsView(tour);
+                return BlocProvider(
+                  create: (_) => ClientBookingDetailsBloc(
+                    context.read<BookingsRepository>(),
+                  ),
+                  child: ClientBookingDetailsView(tour),
+                );
               },
             ),
             GoRoute(
               path: AppRouteNames.clientBookingStatus,
               name: AppRouteNames.clientBookingStatus,
               builder: (context, state) => const ClientBookingStatusView(),
+            ),
+            GoRoute(
+              path: AppRouteNames.clientFinikPayment,
+              name: AppRouteNames.clientFinikPayment,
+              builder: (context, state) {
+                final args = state.extra as FinikPaymentArgs?;
+                if (args == null) return const ErrorView();
+                return BlocProvider(
+                  create: (_) => FinikPaymentBloc(
+                    context.read<BookingsRepository>(),
+                  ),
+                  child: FinikPaymentView(args),
+                );
+              },
             ),
           ],
         ),

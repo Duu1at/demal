@@ -65,6 +65,7 @@ dependencies:
   google_sign_in:
   supabase_flutter:
   flutter_dotenv:
+  finik_sdk:
 
 dev_dependencies:
   flutter_test:

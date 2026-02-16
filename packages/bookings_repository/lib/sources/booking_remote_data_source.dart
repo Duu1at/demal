@@ -34,4 +34,19 @@ final class BookingRemoteDataSource {
       fromJson: BookingPaymentConfirmModel.fromJson,
     );
   }
+
+  Future<PaymentInitModel> initPayment(String bookingId) {
+    return _apiClient.postType<PaymentInitModel>(
+      '/api/v1/payments/init',
+      data: {'booking_id': bookingId},
+      fromJson: PaymentInitModel.fromJson,
+    );
+  }
+
+  Future<BookingPaymentStatusModel> getBookingPaymentStatus(String bookingId) {
+    return _apiClient.getType<BookingPaymentStatusModel>(
+      '/api/v1/bookings/$bookingId/payment-status',
+      fromJson: BookingPaymentStatusModel.fromJson,
+    );
+  }
 }

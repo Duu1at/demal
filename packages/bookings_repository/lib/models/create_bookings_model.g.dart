@@ -8,7 +8,7 @@ part of 'create_bookings_model.dart';
 
 CreateBookingsModel _$CreateBookingsModelFromJson(Map<String, dynamic> json) => CreateBookingsModel(
   success: json['success'] as bool,
-  data: CreateTourBookingModel.fromJson(
+  data: CreateBookingModel.fromJson(
     json['data'] as Map<String, dynamic>,
   ),
 );

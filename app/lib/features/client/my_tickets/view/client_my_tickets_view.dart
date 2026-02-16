@@ -1,11 +1,11 @@
 import 'package:app/utils/formatter/formatter.dart';
 import 'package:app_ui/app_ui.dart';
+import 'package:bookings_repository/bookings_repository.dart' as bookings;
 import 'package:core/core.dart';
-import 'package:bookings_repository/bookings_repository.dart' hide BookingStatusEnum;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:tour_repository/tour_repository.dart';
+import 'package:tour_repository/tour_repository.dart' show Currency;
 
 class ClientMyTicketsView extends StatefulWidget {
   const ClientMyTicketsView({super.key});
@@ -15,21 +15,21 @@ class ClientMyTicketsView extends StatefulWidget {
 }
 
 class _ClientMyTicketsViewState extends State<ClientMyTicketsView> {
-  late final PagingController<int, BookingModel> _pagingController;
+  late final PagingController<int, bookings.BookingModel> _pagingController;
 
   @override
   void initState() {
     super.initState();
-    _pagingController = PagingController<int, BookingModel>(
+    _pagingController = PagingController<int, bookings.BookingModel>(
       getNextPageKey: (state) {
         if (state.lastPageIsEmpty) return null;
         if (state.keys == null || state.keys!.isEmpty) return 1;
         return state.nextIntPageKey;
       },
       fetchPage: (pageKey) async {
-        if (!mounted) return <BookingModel>[];
+        if (!mounted) return <bookings.BookingModel>[];
 
-        final result = await context.read<BookingsRepository>().getMyTickets(pageKey);
+        final result = await context.read<bookings.BookingsRepository>().getMyTickets(pageKey);
         return result.bookings;
       },
     );
@@ -80,7 +80,7 @@ class _ClientMyTicketsViewState extends State<ClientMyTicketsView> {
         child: PagingListener(
           controller: _pagingController,
           builder: (context, state, fetchNextPage) {
-            return PagedListView<int, BookingModel>.separated(
+            return PagedListView<int, bookings.BookingModel>.separated(
               state: state,
               fetchNextPage: fetchNextPage,
               padding: const EdgeInsets.all(AppSpacing.lg),
@@ -88,7 +88,7 @@ class _ClientMyTicketsViewState extends State<ClientMyTicketsView> {
                 animateTransitions: true,
                 itemBuilder: (context, booking, index) => _BookingCard(booking: booking),
                 firstPageErrorIndicatorBuilder: (context) => _FirstPageError(
-                  onRetry: () => context.read<BookingsRepository>().getMyTickets(20),
+                  onRetry: () => context.read<bookings.BookingsRepository>().getMyTickets(20),
                 ),
                 newPageErrorIndicatorBuilder: (context) => _NewPageError(
                   onRetry: () => _pagingController.fetchNextPage(),
@@ -140,15 +140,15 @@ class _ClientMyTicketsViewState extends State<ClientMyTicketsView> {
 class _BookingCard extends StatelessWidget {
   const _BookingCard({required this.booking});
 
-  final BookingModel booking;
+  final bookings.BookingModel booking;
 
-  String _formatStatus(BuildContext context, BookingStatusEnum? status) {
+  String _formatStatus(BuildContext context, bookings.BookingStatusEnum? status) {
     return switch (status) {
-      BookingStatusEnum.pending => context.l10n.statusPending,
-      BookingStatusEnum.confirmed => context.l10n.statusConfirmed,
-      BookingStatusEnum.paid => context.l10n.statusPaid,
-      BookingStatusEnum.completed => context.l10n.statusCompleted,
-      BookingStatusEnum.cancelled => context.l10n.statusCancelled,
+      bookings.BookingStatusEnum.pending => context.l10n.statusPending,
+      bookings.BookingStatusEnum.confirmed => context.l10n.statusConfirmed,
+      bookings.BookingStatusEnum.paid => context.l10n.statusPaid,
+      bookings.BookingStatusEnum.completed => context.l10n.statusCompleted,
+      bookings.BookingStatusEnum.cancelled => context.l10n.statusCancelled,
       null => context.l10n.statusUnknown,
     };
   }
@@ -228,7 +228,7 @@ class _BookingCard extends StatelessWidget {
                 style: theme.textTheme.bodyMedium,
                 children: <TextSpan>[
                   TextSpan(
-                    text: '"${_formatStatus(context, booking.status as BookingStatusEnum?)}"',
+                    text: '"${_formatStatus(context, booking.status)}"',
                     style: theme.textTheme.bodyMedium?.copyWith(
                       fontWeight: FontWeight.w500,
                     ),

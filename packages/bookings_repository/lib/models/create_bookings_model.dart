@@ -19,7 +19,7 @@ final class CreateBookingsModel {
   @JsonKey(name: 'success')
   final bool success;
   @JsonKey(name: 'data')
-  final CreateTourBookingModel data;
+  final CreateBookingModel data;
 }
 
 @JsonSerializable()
