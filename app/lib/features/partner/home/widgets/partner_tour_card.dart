@@ -29,7 +29,7 @@ class PartnerTourCard extends StatelessWidget {
       child: Container(
         margin: const EdgeInsets.only(bottom: AppSpacing.md),
         decoration: BoxDecoration(
-          color: theme.colorScheme.surface,
+          color: context.appColors.bgCard,
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
             color: theme.colorScheme.outline.withValues(alpha: 0.06),
