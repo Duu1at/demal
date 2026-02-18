@@ -2,6 +2,7 @@ export 'repositories/booking_repository_impl.dart';
 export 'models/booking_cancel_model.dart';
 export 'models/booking_model.dart';
 export 'models/booking_payment_confirm_model.dart';
+export 'models/booking_payment_details_model.dart';
 export 'models/booking_payment_status_model.dart';
 export 'models/booking_status_enum.dart';
 export 'models/booking_tour_model.dart';
