@@ -81,7 +81,10 @@ final class VersionCheckService {
         );
       });
     } else if (Platform.isIOS) {
-      launchUrl(Uri.parse('https://apps.apple.com'), mode: LaunchMode.externalApplication);
+      launchUrl(
+        Uri.parse('https://apps.apple.com/us/app/demal/id6758624069'),
+        mode: LaunchMode.externalApplication,
+      );
     }
   }
 
