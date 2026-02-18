@@ -23,9 +23,9 @@ class _ClientBookingDetailsViewState extends State<ClientBookingDetailsView> {
   final _phoneController = TextEditingController();
 
   int get _totalAmount => (widget.tour.price ?? 0) * guests;
-  int get _paymentAmount {
+  double get _paymentAmount {
     if (_totalAmount <= 0) return 0;
-    return (_totalAmount * 0.1).ceil().clamp(1, _totalAmount);
+    return (_totalAmount * 0.1).ceil().clamp(1, _totalAmount).toDouble();
   }
 
   @override
@@ -54,7 +54,10 @@ class _ClientBookingDetailsViewState extends State<ClientBookingDetailsView> {
     return BlocConsumer<ClientBookingDetailsBloc, ClientBookingDetailsState>(
       listener: (context, state) async {
         if (state is ClientBookingDetailsValidationError) {
-          AppSnackbar.showError(context: context, title: state.message);
+          AppSnackbar.showError(
+            context: context,
+            title: _validationErrorMessage(context, state.type),
+          );
           return;
         }
         if (state is ClientBookingDetailsFailure) {
@@ -124,11 +127,12 @@ class _ClientBookingDetailsViewState extends State<ClientBookingDetailsView> {
               const DividerHorisontal(),
               ContactForm(
                 nameController: _nameController,
-                emailController: _phoneController,
+                phoneController: _phoneController,
               ),
             ],
             columnChildren: [
               AppButton(
+                isLoading: isSubmitting,
                 onPressed: isSubmitting ? null : _submitBooking,
                 child: Text(context.l10n.bookTour),
               ),
@@ -138,12 +142,26 @@ class _ClientBookingDetailsViewState extends State<ClientBookingDetailsView> {
       },
     );
   }
+
+  String _validationErrorMessage(
+    BuildContext context,
+    ClientBookingDetailsValidationErrorType type,
+  ) {
+    return switch (type) {
+      ClientBookingDetailsValidationErrorType.missingTourId => context.l10n.bookingErrorMissingTourId,
+      ClientBookingDetailsValidationErrorType.nameRequired => context.l10n.bookingErrorNameRequired,
+      ClientBookingDetailsValidationErrorType.amountMustBeGreaterThanZero =>
+        context.l10n.bookingErrorAmountMustBeGreaterThanZero,
+      ClientBookingDetailsValidationErrorType.missingBookingIdFromBackend => context.l10n.bookingErrorMissingBookingId,
+      ClientBookingDetailsValidationErrorType.missingRequestIdFromBackend => context.l10n.bookingErrorMissingRequestId,
+    };
+  }
 }
 
 class _TotalPriceRow extends StatelessWidget {
   const _TotalPriceRow({required this.total, required this.paymentAmount});
   final int total;
-  final int paymentAmount;
+  final double paymentAmount;
 
   @override
   Widget build(BuildContext context) {

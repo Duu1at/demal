@@ -10,7 +10,7 @@ final class CreateBookingsParam {
     required this.tourId,
     required this.seatsCount,
     required this.name,
-    this.email,
+    this.phone,
   });
 
   factory CreateBookingsParam.fromJson(Map<String, dynamic> json) => _$CreateBookingsParamFromJson(json);
@@ -21,8 +21,8 @@ final class CreateBookingsParam {
   final int seatsCount;
   @JsonKey(name: 'name')
   final String name;
-  @JsonKey(name: 'email')
-  final String? email;
+  @JsonKey(name: 'phone')
+  final String? phone;
 
   Map<String, dynamic> toJson() => _$CreateBookingsParamToJson(this);
 }

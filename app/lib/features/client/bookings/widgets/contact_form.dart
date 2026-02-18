@@ -1,3 +1,4 @@
+import 'package:app/utils/utils.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
@@ -5,12 +6,12 @@ import 'package:flutter/material.dart';
 class ContactForm extends StatelessWidget {
   const ContactForm({
     required this.nameController,
-    required this.emailController,
+    required this.phoneController,
     super.key,
   });
 
   final TextEditingController nameController;
-  final TextEditingController emailController;
+  final TextEditingController phoneController;
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +51,8 @@ class ContactForm extends StatelessWidget {
               ),
             ),
           ),
-          controller: emailController,
+          inputFormatters: [InputFormatters.phoneFormatter],
+          controller: phoneController,
         ),
         const SizedBox(height: AppSpacing.xs),
         Text(

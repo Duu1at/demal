@@ -19,20 +19,19 @@ class FinikPaymentBloc extends Bloc<FinikPaymentEvent, FinikPaymentState> {
   ) async {
     emit(const FinikPaymentVerifying());
     try {
-      const maxChecks = 5;
-      for (var i = 0; i < maxChecks; i++) {
-        final status = await bookingsRepository.getBookingPaymentStatus(event.bookingId);
-        final isPaid =
-            (status.paymentStatus ?? '').toUpperCase() == 'PAID' ||
-            (status.bookingStatus ?? '').toUpperCase() == 'PAID';
-        if (isPaid) {
-          emit(const FinikPaymentPaid());
-          return;
-        }
-        if (i < maxChecks - 1) {
-          await Future<void>.delayed(const Duration(seconds: 2));
-        }
+      final status = await bookingsRepository.getBookingPaymentStatus(event.bookingId);
+      final paymentStatus = (status.paymentStatus ?? '').toUpperCase();
+      final bookingStatus = (status.bookingStatus ?? '').toUpperCase();
+
+      if (_isPaid(paymentStatus, bookingStatus)) {
+        emit(const FinikPaymentPaid());
+        return;
       }
+      if (_isFailed(paymentStatus, bookingStatus)) {
+        emit(const FinikPaymentFailed());
+        return;
+      }
+
       emit(const FinikPaymentProcessing());
     } on Object catch (error) {
       emit(FinikPaymentError(error));
@@ -44,5 +43,14 @@ class FinikPaymentBloc extends Bloc<FinikPaymentEvent, FinikPaymentState> {
     Emitter<FinikPaymentState> emit,
   ) {
     emit(const FinikPaymentFailed());
+  }
+
+  bool _isPaid(String paymentStatus, String bookingStatus) {
+    return paymentStatus == 'PAID' || bookingStatus == 'PAID';
+  }
+
+  bool _isFailed(String paymentStatus, String bookingStatus) {
+    const failedStatuses = {'FAILED', 'CANCELLED', 'CANCELED', 'REJECTED', 'DECLINED', 'EXPIRED'};
+    return failedStatuses.contains(paymentStatus) || failedStatuses.contains(bookingStatus);
   }
 }

@@ -654,6 +654,21 @@ class AppLocalizationsEn extends AppLocalizations {
   String get bookingDetailsTitle => 'Booking Details';
 
   @override
+  String get bookingErrorMissingTourId => 'Unable to place booking right now. Please try again.';
+
+  @override
+  String get bookingErrorNameRequired => 'Enter your full name to continue.';
+
+  @override
+  String get bookingErrorAmountMustBeGreaterThanZero => 'Unable to calculate payment amount. Please try again later.';
+
+  @override
+  String get bookingErrorMissingBookingId => 'Booking was created with an error. Please try again.';
+
+  @override
+  String get bookingErrorMissingRequestId => 'Unable to start payment. Please try again.';
+
+  @override
   String get whatsappNumberHint => 'Provide the number linked to WhatsApp';
 
   @override

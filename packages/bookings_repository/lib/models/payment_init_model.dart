@@ -13,13 +13,13 @@ final class PaymentInitModel {
     return PaymentInitModel(
       bookingId: _readString(data, 'booking_id'),
       requestId: _readString(data, 'request_id'),
-      amount: _readInt(data, 'amount'),
+      amount: _readDouble(data, 'amount'),
     );
   }
 
   final String? bookingId;
   final String? requestId;
-  final int? amount;
+  final double? amount;
 }
 
 String? _readString(Map<String, dynamic> json, String key) {
@@ -28,9 +28,9 @@ String? _readString(Map<String, dynamic> json, String key) {
   return null;
 }
 
-int? _readInt(Map<String, dynamic> json, String key) {
+double? _readDouble(Map<String, dynamic> json, String key) {
   final value = json[key];
-  if (value is int) return value;
-  if (value is num) return value.toInt();
+  if (value is double) return value;
+  if (value is num) return value.toDouble();
   return null;
 }

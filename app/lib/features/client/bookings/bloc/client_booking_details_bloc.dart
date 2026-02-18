@@ -18,15 +18,27 @@ class ClientBookingDetailsBloc extends Bloc<ClientBookingDetailsEvent, ClientBoo
     Emitter<ClientBookingDetailsState> emit,
   ) async {
     if (event.tourId == null || event.tourId!.isEmpty) {
-      emit(const ClientBookingDetailsValidationError('Tour id is missing'));
+      emit(
+        const ClientBookingDetailsValidationError(
+          ClientBookingDetailsValidationErrorType.missingTourId,
+        ),
+      );
       return;
     }
     if (event.name.trim().isEmpty) {
-      emit(const ClientBookingDetailsValidationError('Name is required'));
+      emit(
+        const ClientBookingDetailsValidationError(
+          ClientBookingDetailsValidationErrorType.nameRequired,
+        ),
+      );
       return;
     }
     if (event.fallbackPaymentAmount <= 0) {
-      emit(const ClientBookingDetailsValidationError('Amount must be greater than 0'));
+      emit(
+        const ClientBookingDetailsValidationError(
+          ClientBookingDetailsValidationErrorType.amountMustBeGreaterThanZero,
+        ),
+      );
       return;
     }
 
@@ -37,7 +49,7 @@ class ClientBookingDetailsBloc extends Bloc<ClientBookingDetailsEvent, ClientBoo
           tourId: event.tourId!,
           seatsCount: event.seatsCount,
           name: event.name.trim(),
-          email: event.contact.trim().isEmpty ? null : event.contact.trim(),
+          phone: event.contact.trim().isEmpty ? null : event.contact.trim(),
         ),
       );
 
@@ -45,7 +57,7 @@ class ClientBookingDetailsBloc extends Bloc<ClientBookingDetailsEvent, ClientBoo
       if (bookingId == null || bookingId.isEmpty) {
         emit(
           const ClientBookingDetailsValidationError(
-            'Backend must return booking id after create booking',
+            ClientBookingDetailsValidationErrorType.missingBookingIdFromBackend,
           ),
         );
         emit(const ClientBookingDetailsInitial());
@@ -57,7 +69,7 @@ class ClientBookingDetailsBloc extends Bloc<ClientBookingDetailsEvent, ClientBoo
       if (requestId == null || requestId.isEmpty) {
         emit(
           const ClientBookingDetailsValidationError(
-            'Backend must return request_id from /payments/init',
+            ClientBookingDetailsValidationErrorType.missingRequestIdFromBackend,
           ),
         );
         emit(const ClientBookingDetailsInitial());

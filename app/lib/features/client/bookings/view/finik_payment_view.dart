@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:app/app/app.dart';
+import 'package:app/core/core.dart';
 import 'package:app/features/client/client.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:core/core.dart';
@@ -35,6 +38,7 @@ class _FinikPaymentViewState extends State<FinikPaymentView> {
     final state = context.read<FinikPaymentBloc>().state;
     if (_handled || state is FinikPaymentVerifying) return;
 
+    log('Finik payment result: $data');
     final paymentStatus = ((data is Map ? data['status'] : null) ?? '').toString().toUpperCase();
     if (paymentStatus != 'SUCCEEDED') {
       _handled = true;
@@ -42,6 +46,7 @@ class _FinikPaymentViewState extends State<FinikPaymentView> {
       return;
     }
 
+    _handled = true;
     context.read<FinikPaymentBloc>().add(
       FinikPaymentVerifyRequested(widget.args.bookingId),
     );
@@ -55,7 +60,9 @@ class _FinikPaymentViewState extends State<FinikPaymentView> {
       return ScaffoldWithBgImage(
         appBar: AppBar(title: const Text('Payment')),
         body: const Center(
-          child: Text('Missing FINIK_API_KEY or FINIK_ACCOUNT_ID in .env'),
+          child: ErrorBodyWidget(
+            'Payment configuration is missing. Please contact support.',
+          ),
         ),
       );
     }
@@ -92,16 +99,15 @@ class _FinikPaymentViewState extends State<FinikPaymentView> {
                 FinikProvider(
                   apiKey: apiKey,
                   isBeta: false,
-                  locale: FinikSdkLocale.RU,
+                  locale: FinikSdkLocale.fromCode(Localizations.localeOf(context).languageCode),
                   textScenario: TextScenario.PAYMENT,
-                  paymentMethods: const [PaymentMethod.APP, PaymentMethod.QR],
                   onBackPressed: () => context.pop(),
                   onPayment: _handlePaymentResult,
                   widget: CreateItemHandlerWidget(
                     accountId: accountId,
                     nameEn: widget.args.itemName,
                     requestId: widget.args.requestId,
-                    amount: FixedAmount(widget.args.amount.toDouble()),
+                    amount: FixedAmount(widget.args.amount),
                     description: 'Tour booking payment (10%)',
                   ),
                 ),
@@ -129,6 +135,6 @@ final class FinikPaymentArgs {
 
   final String bookingId;
   final String requestId;
-  final int amount;
+  final double amount;
   final String itemName;
 }

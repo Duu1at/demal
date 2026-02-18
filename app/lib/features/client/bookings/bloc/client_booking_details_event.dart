@@ -21,7 +21,7 @@ final class ClientBookingSubmitPressed extends ClientBookingDetailsEvent {
   final int seatsCount;
   final String name;
   final String contact;
-  final int fallbackPaymentAmount;
+  final double fallbackPaymentAmount;
   final String itemName;
 
   @override

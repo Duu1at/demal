@@ -654,6 +654,22 @@ class AppLocalizationsRu extends AppLocalizations {
   String get bookingDetailsTitle => 'Детали бронирования';
 
   @override
+  String get bookingErrorMissingTourId => 'Сейчас не удалось оформить бронирование. Пожалуйста, попробуйте ещё раз.';
+
+  @override
+  String get bookingErrorNameRequired => 'Введите ваше ФИО, чтобы продолжить.';
+
+  @override
+  String get bookingErrorAmountMustBeGreaterThanZero =>
+      'Не удалось рассчитать сумму оплаты. Пожалуйста, попробуйте позже.';
+
+  @override
+  String get bookingErrorMissingBookingId => 'Бронирование создано с ошибкой. Пожалуйста, повторите попытку.';
+
+  @override
+  String get bookingErrorMissingRequestId => 'Не удалось начать оплату. Пожалуйста, повторите попытку.';
+
+  @override
   String get whatsappNumberHint => 'Укажите номер, к которому привязан WhatsApp';
 
   @override

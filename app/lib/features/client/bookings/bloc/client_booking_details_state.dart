@@ -1,5 +1,13 @@
 part of 'client_booking_details_bloc.dart';
 
+enum ClientBookingDetailsValidationErrorType {
+  missingTourId,
+  nameRequired,
+  amountMustBeGreaterThanZero,
+  missingBookingIdFromBackend,
+  missingRequestIdFromBackend,
+}
+
 sealed class ClientBookingDetailsState extends Equatable {
   const ClientBookingDetailsState();
 
@@ -16,11 +24,11 @@ final class ClientBookingDetailsSubmitting extends ClientBookingDetailsState {
 }
 
 final class ClientBookingDetailsValidationError extends ClientBookingDetailsState {
-  const ClientBookingDetailsValidationError(this.message);
-  final String message;
+  const ClientBookingDetailsValidationError(this.type);
+  final ClientBookingDetailsValidationErrorType type;
 
   @override
-  List<Object?> get props => [message];
+  List<Object?> get props => [type];
 }
 
 final class ClientBookingDetailsFailure extends ClientBookingDetailsState {
