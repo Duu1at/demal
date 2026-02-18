@@ -110,7 +110,7 @@ class _SettingsViewBodyState extends State<SettingsViewBody> with SettingsChange
                     title: context.l10n.shareApp,
                     onTap: () => AppShare.shareUri(
                       context: context,
-                      url: 'https://onelink.to/zyqqny',
+                      url: 'https://demal.onelink.me/SxdG/7gltewfm',
                     ),
                   ),
                   if (state.status == AuthStatus.authenticated) ...[
