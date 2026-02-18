@@ -33,10 +33,17 @@ class TicketCard extends StatelessWidget {
     };
   }
 
-  String _formatCurrency(num? amount) {
-    if (amount == null) return '';
+  String _calculateTenPercent(String? priceStr, int? seatsCount) {
+    if (priceStr == null || seatsCount == null) return '';
+
+    final price = double.tryParse(priceStr);
+    if (price == null) return '';
+
+    final total = price * seatsCount;
+    final tenPercent = total * 0.10;
+
     final formatter = NumberFormat('#,###', 'ru_RU');
-    return '${formatter.format(amount)} ${AppCurrencyFormatter.cuccancyType(Currency.KGS)}';
+    return '${formatter.format(tenPercent)} ${AppCurrencyFormatter.cuccancyType(Currency.KGS)}';
   }
 
   @override
@@ -186,7 +193,7 @@ class TicketCard extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        _formatCurrency(booking.totalAmount),
+                        _calculateTenPercent(tour?.price, booking.seatsCount),
                         style: theme.textTheme.titleMedium?.copyWith(
                           fontWeight: FontWeight.bold,
                           color: theme.colorScheme.primary,
