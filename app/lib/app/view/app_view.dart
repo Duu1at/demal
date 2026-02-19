@@ -6,6 +6,7 @@ import 'package:auth_repository/auth_repository.dart';
 import 'package:bookings_repository/bookings_repository.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:go_router/go_router.dart';
@@ -24,6 +25,11 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        RepositoryProvider<RemoteConfigRepository>(
+          create: (context) => RemoteConfigRepositoryImpl(
+            context.read<RemoteConfigClient>(),
+          ),
+        ),
         RepositoryProvider<AppRepository>(
           create: (context) => AppRepositoryImpl(
             AppLocalDataSourceImpl(storage: context.read<PreferencesStorage>()),
@@ -67,9 +73,6 @@ class App extends StatelessWidget {
         RepositoryProvider<ErrorHandler>(create: (context) => const BaseErrorHandler()),
         RepositoryProvider<ErrorHandleSnackBar>(create: (context) => const ErrorHandleSnackBar()),
         RepositoryProvider<ErrorHandleDialog>(create: (context) => const ErrorHandleDialog()),
-        BlocProvider<VersionCheckCubit>(
-          create: (context) => VersionCheckCubit(context.read<VersionCheckService>()),
-        ),
         BlocProvider<AppThemeCubit>(
           create: (context) => AppThemeCubit(context.read<AppRepository>()),
         ),
@@ -85,6 +88,11 @@ class App extends StatelessWidget {
         BlocProvider<ConnectivityCubit>(
           create: (context) => ConnectivityCubit(
             context.read<ConnectionChecker>(),
+          ),
+        ),
+        BlocProvider<RemoteConfigCubit>(
+          create: (context) => RemoteConfigCubit(
+            context.read<RemoteConfigRepository>(),
           ),
         ),
       ],
@@ -105,31 +113,31 @@ class _DemalAppState extends State<DemalApp> {
 
   @override
   void initState() {
-    super.initState();
     _router = AppRouter.instance().router();
+    super.initState();
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      context.read<RemoteConfigCubit>().fetchRemoteConfig();
+    });
   }
-
-
 
   @override
   Widget build(BuildContext context) {
     return GlobalLoaderOverlay(
-      child: MaterialApp.router(
-        debugShowCheckedModeBanner: false,
-        scaffoldMessengerKey: AppRouteNames.scaffoldMessengerKey,
-        theme: context.watch<AppThemeCubit>().state.themeData,
-        locale: context.watch<AppLocaleCubit>().state,
-        localizationsDelegates: AppLocalizations.localizationsDelegates,
-        supportedLocales: AppLocalizations.supportedLocales,
-        title: 'Demal',
-        routerConfig: _router,
-        builder: (context, child) {
-          final localizations = Localizations.of<AppLocalizations>(context, AppLocalizations);
-          if (localizations != null) {
-            L10nService.instance.localizations = localizations;
-          }
-          return child ?? const SizedBox.shrink();
-        },
+      child: RemoteConfigListener(
+        navigationKey: AppRouteNames.navigatorKey,
+        child: MaterialApp.router(
+          debugShowCheckedModeBanner: false,
+          scaffoldMessengerKey: AppRouteNames.scaffoldMessengerKey,
+          theme: context.watch<AppThemeCubit>().state.themeData,
+          locale: context.watch<AppLocaleCubit>().state,
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          title: 'Demal',
+          routerConfig: _router,
+          builder: (context, child) {
+            return L10nSync(child: child ?? const SizedBox.shrink());
+          },
+        ),
       ),
     );
   }
