@@ -90,7 +90,6 @@ class _EditProfileViewState extends State<EditProfileView> with SettingsChangeMi
                     contentPadding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm),
                     label: Text(context.l10n.phoneLabel),
                     textInputAction: TextInputAction.done,
-                    prefix: const Text('+996 '),
                     suffixIcon: const Icon(Icons.edit, size: 20),
                     inputFormatters: [
                       MaskTextInputFormatter(
