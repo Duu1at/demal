@@ -55,6 +55,8 @@ void main() async {
       );
       await setUpRemoteConfig(remoteConfigService, packageInfo);
 
+      talker.log('buildNumber:============ ${packageInfo.buildNumber}');
+
       Bloc.observer = TalkerBlocObserver(
         talker: talker,
         settings: const TalkerBlocLoggerSettings(
