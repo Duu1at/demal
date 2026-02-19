@@ -28,7 +28,7 @@ class _PartnerHomeView extends StatelessWidget {
   const _PartnerHomeView();
   @override
   Widget build(BuildContext context) {
-    return PartnerHomeView(
+    return ScaffoldWithBgImage(
       bgImageTop: true,
       appBar: HomeAppBar(
         onMenuTap: () {
