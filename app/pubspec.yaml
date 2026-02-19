@@ -3,7 +3,7 @@ description: Demal APP UI package.
 publish_to: "none"
 resolution: workspace
 
-version: 1.0.0+8
+version: 1.0.2+1
 
 environment:
   sdk: ^3.10.1
