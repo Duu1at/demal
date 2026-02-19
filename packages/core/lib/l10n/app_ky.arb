@@ -406,6 +406,16 @@
   "@availableSpots": {},
   "bookingDetailsTitle": "Брондоо чоо-жайы",
   "@bookingDetailsTitle": {},
+  "bookingErrorMissingTourId": "Азыр брондоону аяктоо мүмкүн болгон жок. Сураныч, кайра аракет кылыңыз.",
+  "@bookingErrorMissingTourId": {},
+  "bookingErrorNameRequired": "Улантуу үчүн аты-жөнүңүздү киргизиңиз.",
+  "@bookingErrorNameRequired": {},
+  "bookingErrorAmountMustBeGreaterThanZero": "Төлөм суммасын эсептөө мүмкүн болгон жок. Сураныч, кийинчерээк кайталап көрүңүз.",
+  "@bookingErrorAmountMustBeGreaterThanZero": {},
+  "bookingErrorMissingBookingId": "Брондоо ката менен түзүлдү. Сураныч, кайра аракет кылыңыз.",
+  "@bookingErrorMissingBookingId": {},
+  "bookingErrorMissingRequestId": "Төлөмдү баштоо мүмкүн болгон жок. Сураныч, кайра аракет кылыңыз.",
+  "@bookingErrorMissingRequestId": {},
   "submittedAt": "Жөнөтүлдү: {date}",
   "@submittedAt": {
     "placeholders": {

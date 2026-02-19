@@ -24,4 +24,14 @@ final class BookingRepositoryImpl implements BookingsRepository {
   Future<BookingPaymentConfirmModel> confirmBookingPayment(String bookingId) {
     return _bookingRemoteDataSource.confirmBookingPayment(bookingId);
   }
+
+  @override
+  Future<PaymentInitModel> initPayment(String bookingId) {
+    return _bookingRemoteDataSource.initPayment(bookingId);
+  }
+
+  @override
+  Future<BookingPaymentStatusModel> getBookingPaymentStatus(String bookingId) {
+    return _bookingRemoteDataSource.getBookingPaymentStatus(bookingId);
+  }
 }

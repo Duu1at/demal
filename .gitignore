@@ -16,7 +16,7 @@ packages/**/pubspec.lock
 .vscode/*
 !.vscode/extensions.json
 !.vscode/launch.json
-!.vscode/settings.json
+
 
 # Android
 **/android/.gradle
@@ -44,3 +44,5 @@ lib/l10n/gen/
 .l10n_errors.txt
 .fvm/
 *.env
+.fvmrc
+app/ios/Podfile.lock

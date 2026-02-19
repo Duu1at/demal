@@ -7,7 +7,7 @@ abstract final class InputFormatters {
   );
 
   static final phoneFormatter = MaskTextInputFormatter(
-    mask: '(###) ###-###',
+    mask: '996 (###) ###-###',
     filter: {'#': RegExp('[0-9]')},
   );
 

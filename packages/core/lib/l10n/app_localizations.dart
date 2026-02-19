@@ -1335,6 +1335,36 @@ abstract class AppLocalizations {
   /// **'Booking Details'**
   String get bookingDetailsTitle;
 
+  /// No description provided for @bookingErrorMissingTourId.
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to place booking right now. Please try again.'**
+  String get bookingErrorMissingTourId;
+
+  /// No description provided for @bookingErrorNameRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your full name to continue.'**
+  String get bookingErrorNameRequired;
+
+  /// No description provided for @bookingErrorAmountMustBeGreaterThanZero.
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to calculate payment amount. Please try again later.'**
+  String get bookingErrorAmountMustBeGreaterThanZero;
+
+  /// No description provided for @bookingErrorMissingBookingId.
+  ///
+  /// In en, this message translates to:
+  /// **'Booking was created with an error. Please try again.'**
+  String get bookingErrorMissingBookingId;
+
+  /// No description provided for @bookingErrorMissingRequestId.
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to start payment. Please try again.'**
+  String get bookingErrorMissingRequestId;
+
   /// No description provided for @whatsappNumberHint.
   ///
   /// In en, this message translates to:

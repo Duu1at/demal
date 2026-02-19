@@ -1,5 +1,6 @@
-import 'package:app/features/features.dart';
-import 'package:app/utils/formatter/formatter.dart';
+import 'package:app/features/partner/tours_bookings/widgets/contact_row.dart';
+import 'package:app/features/partner/tours_bookings/widgets/detail_row.dart';
+import 'package:app/utils/utils.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
@@ -32,12 +33,16 @@ class BookingCard extends StatelessWidget {
     };
   }
 
+  String _formatCurrency(num? amount, BuildContext context) {
+    if (amount == null) return '0 ${context.l10n.currencySom}';
+    final formatter = NumberFormat('#,###', 'ru_RU');
+    return '${formatter.format(amount)} ${context.l10n.currencySom}';
+  }
+
   String _formatAmount(String? amount, BuildContext context) {
     if (amount == null || amount.isEmpty) return '0 ${context.l10n.currencySom}';
     final amountNum = int.tryParse(amount);
-    if (amountNum == null) return '$amount ${context.l10n.currencySom}';
-    final formatter = NumberFormat('#,###', 'ru_RU');
-    return '${formatter.format(amountNum)} ${context.l10n.currencySom}';
+    return _formatCurrency(amountNum, context);
   }
 
   String _formatDate(DateTime? date) {
@@ -53,33 +58,55 @@ class BookingCard extends StatelessWidget {
     final textTheme = theme.textTheme;
     final statusColor = _getStatusColor(booking!.status, context);
 
+    final user = booking!.user;
+    final paymentInfo = booking!.paymentInfo;
+
     return AppCard(
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              CircleAvatar(
+                radius: 20,
+                backgroundColor: theme.colorScheme.primaryContainer,
+                backgroundImage: (user?.imageUrl != null && user!.imageUrl!.isNotEmpty)
+                    ? NetworkImage(user.imageUrl!)
+                    : null,
+                child: (user?.imageUrl == null || user!.imageUrl!.isEmpty)
+                    ? Text(
+                        (user?.fullName?.isNotEmpty ?? false)
+                            ? user!.fullName![0].toUpperCase()
+                            : (booking!.name?.isNotEmpty ?? false)
+                            ? booking!.name![0].toUpperCase()
+                            : '?',
+                        style: textTheme.titleMedium?.copyWith(
+                          color: theme.colorScheme.onPrimaryContainer,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )
+                    : null,
+              ),
+              const SizedBox(width: AppSpacing.md),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    if (booking!.name != null && booking!.name!.isNotEmpty)
-                      Text(
-                        booking!.name!,
-                        style: textTheme.titleLarge?.copyWith(
-                          fontWeight: FontWeight.w600,
-                        ),
+                    Text(
+                      user?.fullName ?? booking!.name ?? 'Unknown User',
+                      style: textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.w600,
                       ),
-                    if (booking!.createdAt != null) ...[
-                      const SizedBox(height: AppSpacing.xs),
+                    ),
+                    const SizedBox(height: AppSpacing.xs),
+                    if (booking!.createdAt != null)
                       Text(
                         _formatDate(booking!.createdAt),
                         style: textTheme.bodySmall?.copyWith(
                           color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
                         ),
                       ),
-                    ],
                   ],
                 ),
               ),
@@ -89,78 +116,82 @@ class BookingCard extends StatelessWidget {
                   vertical: AppSpacing.xs,
                 ),
                 decoration: BoxDecoration(
-                  color: statusColor.withValues(alpha: 0.15),
-                  borderRadius: BorderRadius.circular(8),
+                  color: statusColor.withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(AppSpacing.sm),
                   border: Border.all(
-                    color: statusColor.withValues(alpha: 0.3),
-                    width: 1,
+                    color: statusColor.withValues(alpha: 0.2),
                   ),
                 ),
                 child: Text(
                   _formatStatus(booking!.status, context),
                   style: textTheme.labelSmall?.copyWith(
                     color: statusColor,
-                    fontWeight: FontWeight.w600,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
             ],
           ),
-          const SizedBox(height: AppSpacing.md),
           const DividerHorisontal(padding: EdgeInsets.zero),
-          if (booking!.email != null && booking!.email!.isNotEmpty)
-            InfoRow(
-              icon: Icons.email_outlined,
 
-              value: booking!.email!,
-            ),
-          if (booking!.user?.phoneNumber != null && booking!.user!.phoneNumber!.isNotEmpty) ...[
-            if (booking!.email != null && booking!.email!.isNotEmpty) const SizedBox(height: AppSpacing.sm),
-            InfoRow(
+          if (booking!.phone != null || user?.phoneNumber != null || booking!.email != null || user?.email != null) ...[
+            ContactRow(
               icon: Icons.phone_outlined,
-              value: booking!.user!.phoneNumber!,
+              value: booking!.phone ?? user?.phoneNumber,
             ),
+            const SizedBox(height: AppSpacing.xs),
+            ContactRow(
+              icon: Icons.email_outlined,
+              value: booking!.email ?? user?.email,
+            ),
+            const SizedBox(height: AppSpacing.md),
           ],
-          const SizedBox(height: AppSpacing.md),
-          Row(
-            children: [
-              Expanded(
-                child: InfoChip(
-                  icon: Icons.event_seat_outlined,
+          Container(
+            padding: const EdgeInsets.all(AppSpacing.md),
+            decoration: BoxDecoration(
+              color: theme.colorScheme.surfaceContainerLowest,
+              borderRadius: BorderRadius.circular(AppSpacing.md),
+              border: Border.all(
+                color: theme.colorScheme.outlineVariant.withValues(alpha: 0.5),
+              ),
+            ),
+            child: Column(
+              children: [
+                DetailRow(
                   label: context.l10n.seats,
                   value: '${booking!.seatsCount ?? 0}',
+                  icon: Icons.event_seat_outlined,
                 ),
-              ),
-              const SizedBox(width: AppSpacing.sm),
-              Expanded(
-                flex: 2,
-                child: Container(
-                  padding: const EdgeInsets.all(AppSpacing.sm),
-                  decoration: BoxDecoration(
-                    color: theme.colorScheme.primaryContainer.withValues(alpha: 0.3),
-                    borderRadius: BorderRadius.circular(8),
+                const SizedBox(height: AppSpacing.sm),
+                const DividerHorisontal(padding: EdgeInsets.zero),
+                const SizedBox(height: AppSpacing.sm),
+                if (paymentInfo != null) ...[
+                  if (paymentInfo.amount != null)
+                    DetailRow(
+                      label: context.l10n.amountPaid,
+                      value: _formatCurrency(paymentInfo.amount, context),
+                      icon: Icons.payments_outlined,
+                      isBold: true,
+                      valueColor: AppColors.green[40],
+                    ),
+                  if (paymentInfo.provider != null) ...[
+                    const SizedBox(height: AppSpacing.xs),
+                    DetailRow(
+                      label: 'Provider',
+                      value: paymentInfo.provider!,
+                      icon: Icons.credit_card_outlined,
+                    ),
+                  ],
+                ] else
+                  DetailRow(
+                    label: context.l10n.total,
+                    value: _formatAmount(booking!.totalAmount, context),
+                    icon: Icons.payments_outlined,
+                    isBold: booking!.status == BookingStatusEnum.paid,
+                    valueColor: booking!.status == BookingStatusEnum.paid ? AppColors.green[40] : null,
                   ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.payments_outlined,
-                        size: 18,
-                        color: theme.colorScheme.primary,
-                      ),
-                      const SizedBox(width: AppSpacing.xs),
-                      Text(
-                        _formatAmount(booking!.totalAmount, context),
-                        style: textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.w600,
-                          color: theme.colorScheme.primary,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ],
       ),

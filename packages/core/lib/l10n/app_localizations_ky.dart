@@ -654,6 +654,22 @@ class AppLocalizationsKy extends AppLocalizations {
   String get bookingDetailsTitle => 'Брондоо чоо-жайы';
 
   @override
+  String get bookingErrorMissingTourId => 'Азыр брондоону аяктоо мүмкүн болгон жок. Сураныч, кайра аракет кылыңыз.';
+
+  @override
+  String get bookingErrorNameRequired => 'Улантуу үчүн аты-жөнүңүздү киргизиңиз.';
+
+  @override
+  String get bookingErrorAmountMustBeGreaterThanZero =>
+      'Төлөм суммасын эсептөө мүмкүн болгон жок. Сураныч, кийинчерээк кайталап көрүңүз.';
+
+  @override
+  String get bookingErrorMissingBookingId => 'Брондоо ката менен түзүлдү. Сураныч, кайра аракет кылыңыз.';
+
+  @override
+  String get bookingErrorMissingRequestId => 'Төлөмдү баштоо мүмкүн болгон жок. Сураныч, кайра аракет кылыңыз.';
+
+  @override
   String get whatsappNumberHint => 'WhatsApp катталган номерди көрсөтүңүз';
 
   @override

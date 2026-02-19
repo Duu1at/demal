@@ -1,45 +1,78 @@
-import 'dart:async';
+import 'dart:convert';
 import 'package:core/core.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
+import 'package:flutter/foundation.dart';
 
-class FirebaseRemoteConfigService implements RemoteConfigService {
-  const FirebaseRemoteConfigService(this._remoteConfig, this._crashlyticsClient);
+@immutable
+final class FirebaseRemoteConfigService implements RemoteConfigClient {
+  const FirebaseRemoteConfigService(this.remoteConfig);
 
-  final FirebaseRemoteConfig _remoteConfig;
-  final CrashlyticsClient _crashlyticsClient;
+  final FirebaseRemoteConfig remoteConfig;
 
   @override
-  FutureOr<void> fetchAndActivate() async {
-    try {
-      await _remoteConfig.setConfigSettings(
-        RemoteConfigSettings(
-          fetchTimeout: const Duration(minutes: 1),
-          minimumFetchInterval: const Duration(minutes: 1),
-        ),
-      );
-      await _remoteConfig.fetchAndActivate();
-    } on Exception catch (e, s) {
-      _crashlyticsClient.report(e, s);
-    }
+  Stream<void> get updatesStream => remoteConfig.onConfigUpdated;
+
+  @override
+  Future<void> setUp(int currentBuildNumber) async {
+    await remoteConfig.setConfigSettings(
+      RemoteConfigSettings(
+        fetchTimeout: const Duration(minutes: 1),
+        minimumFetchInterval: const Duration(seconds: 10),
+      ),
+    );
+
+    await remoteConfig.setDefaults(_defaultParams(currentBuildNumber));
   }
 
   @override
-  bool getBool(String key) {
-    return _remoteConfig.getBool(key);
+  Future<void> refresh() async {
+    await remoteConfig.fetchAndActivate();
   }
 
   @override
-  double getDouble(String key) {
-    return _remoteConfig.getDouble(key);
+  Future<RemoteConfigModel> getConfig() async {
+    final appVersion = await _fetchAndDecode<AppVersionConfigModel>(
+      key: RemoteConfigKeys.appVersion,
+      parser: (String value) => AppVersionConfigModel.fromJson(
+        jsonDecode(value) as Map<String, dynamic>,
+      ),
+    );
+    final technicalBreak = remoteConfig.getBool(RemoteConfigKeys.technicalBreak);
+
+    return RemoteConfigModel(
+      technicalBreak: technicalBreak,
+      appVersion: appVersion,
+    );
   }
 
-  @override
-  int getInt(String key) {
-    return _remoteConfig.getInt(key);
+  Future<T> _fetchAndDecode<T>({
+    required String key,
+    required T Function(String value) parser,
+  }) async {
+    final configString = remoteConfig.getString(key);
+
+    if (configString.isEmpty) throw Exception('Empty remote config value for key: $key');
+
+    return parser(configString);
   }
 
-  @override
-  String getString(String key) {
-    return _remoteConfig.getString(key);
+  static Map<String, dynamic> _defaultAppVersionValue(int currentBuildNumber) {
+    return {
+      'android': {
+        'requiredBuildNumber': currentBuildNumber,
+        'recommendedBuildNumber': currentBuildNumber,
+      },
+      'ios': {
+        'requiredBuildNumber': currentBuildNumber,
+        'recommendedBuildNumber': currentBuildNumber,
+      },
+    };
+  }
+
+  static Map<String, dynamic> _defaultParams(int currentBuildNumber) {
+    return {
+      RemoteConfigKeys.technicalBreak: false,
+      RemoteConfigKeys.appVersion: jsonEncode(_defaultAppVersionValue(currentBuildNumber)),
+    };
   }
 }

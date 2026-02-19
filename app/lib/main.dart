@@ -3,6 +3,7 @@ import 'package:api_client/api_client.dart';
 import 'package:api_client/interceptors/app_interceptor.dart';
 import 'package:app/app/view/app_view.dart';
 import 'package:app/core/core.dart' as app_core;
+import 'package:app/core/core.dart';
 import 'package:app/firebase_options.dart';
 import 'package:auth_repository/auth_repository.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -14,6 +15,7 @@ import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:storage/storage.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:talker_bloc_logger/talker_bloc_logger_observer.dart';
@@ -47,13 +49,11 @@ void main() async {
         FirebaseAnalytics.instance,
         crashlyticsClient,
       );
+      final packageInfo = await PackageInfo.fromPlatform();
       final remoteConfigService = app_core.FirebaseRemoteConfigService(
         FirebaseRemoteConfig.instance,
-        crashlyticsClient,
       );
-      final versionCheckService = app_core.VersionCheckService(remoteConfigService);
-
-      await remoteConfigService.fetchAndActivate();
+      await setUpRemoteConfig(remoteConfigService, packageInfo);
 
       Bloc.observer = TalkerBlocObserver(
         talker: talker,
@@ -111,8 +111,8 @@ void main() async {
             ),
             RepositoryProvider<AnalyticsService>.value(value: analyticsService),
             RepositoryProvider<CrashlyticsService>.value(value: crashlyticsService),
-            RepositoryProvider<RemoteConfigService>.value(value: remoteConfigService),
-            RepositoryProvider<app_core.VersionCheckService>.value(value: versionCheckService),
+            RepositoryProvider<PackageInfo>.value(value: packageInfo),
+            RepositoryProvider<RemoteConfigClient>.value(value: remoteConfigService),
           ],
           child: const App(),
         ),

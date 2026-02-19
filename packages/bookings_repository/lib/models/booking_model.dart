@@ -15,6 +15,8 @@ final class BookingModel {
     this.status,
     this.name,
     this.email,
+    this.phone,
+    this.paymentDetails,
     this.createdAt,
   });
 
@@ -34,6 +36,10 @@ final class BookingModel {
   final String? name;
   @JsonKey(name: 'email')
   final String? email;
+  @JsonKey(name: 'phone')
+  final String? phone;
+  @JsonKey(name: 'payment_details')
+  final BookingPaymentDetailsModel? paymentDetails;
   @JsonKey(name: 'created_at')
   final DateTime? createdAt;
 

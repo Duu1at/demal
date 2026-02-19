@@ -1,6 +1,8 @@
+import 'package:app/app/app.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class ClientBookingStatusView extends StatelessWidget {
   const ClientBookingStatusView({super.key});
@@ -23,7 +25,9 @@ class ClientBookingStatusView extends StatelessWidget {
           AppButton(
             margin: const EdgeInsets.symmetric(horizontal: AppSpacing.xxlg),
             child: Text(context.l10n.myTour),
-            onPressed: () {},
+            onPressed: () {
+              context.goNamed(AppRouteNames.clientTourTickets);
+            },
           ),
         ],
       ),

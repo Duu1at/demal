@@ -209,8 +209,8 @@ class _Step1BasicInfoState extends State<Step1BasicInfo> {
                     ),
                     items: const [
                       DropdownMenuItem(value: 'KGS', child: Text('KGS')),
-                      DropdownMenuItem(value: 'USD', child: Text('USD')),
-                      DropdownMenuItem(value: 'EUR', child: Text('EUR')),
+                      DropdownMenuItem(value: 'USD', enabled: false, child: Text('USD')),
+                      DropdownMenuItem(value: 'EUR', enabled: false, child: Text('EUR')),
                     ],
                     onChanged: (value) {
                       if (value != null) {

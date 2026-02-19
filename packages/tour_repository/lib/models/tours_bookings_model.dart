@@ -30,6 +30,9 @@ final class TourBookingModel {
     this.status,
     this.name,
     this.email,
+    this.phone,
+    this.paymentInfo,
+    this.updatedAt,
     this.createdAt,
   });
 
@@ -51,6 +54,14 @@ final class TourBookingModel {
 
   final String? email;
 
+  final String? phone;
+
+  @JsonKey(name: 'payment_info')
+  final PaymentInfoModel? paymentInfo;
+
+  @JsonKey(name: 'updated_at')
+  final DateTime? updatedAt;
+
   @JsonKey(name: 'created_at')
   final DateTime? createdAt;
 
@@ -64,13 +75,35 @@ final class TourBookingUserModel {
     this.id,
     this.fullName,
     this.phoneNumber,
+    this.imageUrl,
+    this.email,
   });
 
   factory TourBookingUserModel.fromJson(Map<String, dynamic> json) => _$TourBookingUserModelFromJson(json);
   final String? id;
   final String? fullName;
   final String? phoneNumber;
+  final String? imageUrl;
+  final String? email;
   Map<String, dynamic> toJson() => _$TourBookingUserModelToJson(this);
+}
+
+@JsonSerializable()
+@immutable
+final class PaymentInfoModel {
+  const PaymentInfoModel({
+    this.provider,
+    this.status,
+    this.amount,
+  });
+
+  factory PaymentInfoModel.fromJson(Map<String, dynamic> json) => _$PaymentInfoModelFromJson(json);
+
+  final String? provider;
+  final PaymentStatusEnum? status;
+  final int? amount;
+
+  Map<String, dynamic> toJson() => _$PaymentInfoModelToJson(this);
 }
 
 @JsonEnum()
@@ -85,4 +118,14 @@ enum BookingStatusEnum {
   confirmed,
   @JsonValue('PAID')
   paid,
+}
+
+@JsonEnum()
+enum PaymentStatusEnum {
+  @JsonValue('PENDING')
+  pending,
+  @JsonValue('PAID')
+  paid,
+  @JsonValue('FAILED')
+  failed,
 }

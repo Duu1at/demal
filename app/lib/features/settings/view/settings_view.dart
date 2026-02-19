@@ -1,5 +1,6 @@
 import 'package:app/app/app.dart';
 import 'package:app/features/features.dart';
+import 'package:app/utils/share/app_share.dart';
 import 'package:app/utils/utils.dart';
 import 'package:core/core.dart';
 import 'package:app_ui/app_ui.dart';
@@ -107,7 +108,10 @@ class _SettingsViewBodyState extends State<SettingsViewBody> with SettingsChange
                   CardDrawerTitle(
                     icon: Icon(Icons.share, color: theme.colorScheme.primary),
                     title: context.l10n.shareApp,
-                    onTap: () => AppLaunch.launchURL(''),
+                    onTap: () => AppShare.shareUri(
+                      context: context,
+                      url: 'https://demal.onelink.me/SxdG/7gltewfm',
+                    ),
                   ),
                   if (state.status == AuthStatus.authenticated) ...[
                     const SizedBox(height: AppSpacing.lg),

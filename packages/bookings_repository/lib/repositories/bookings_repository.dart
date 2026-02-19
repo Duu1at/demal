@@ -5,4 +5,6 @@ abstract class BookingsRepository {
   Future<MyBookingsModel> getMyTickets(int page);
   Future<BookingCancelModel> cancelBooking(String bookingId);
   Future<BookingPaymentConfirmModel> confirmBookingPayment(String bookingId);
+  Future<PaymentInitModel> initPayment(String bookingId);
+  Future<BookingPaymentStatusModel> getBookingPaymentStatus(String bookingId);
 }

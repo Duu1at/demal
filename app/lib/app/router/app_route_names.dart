@@ -17,6 +17,7 @@ abstract class AppRouteNames {
   static const clientBookingDetails = 'clientBookingDetails';
   static const clientTourFilters = 'clientTourFilters';
   static const clientBookingStatus = 'clientBookingStatus';
+  static const clientFinikPayment = 'clientFinikPayment';
 
   static const partner = 'partner';
   static const partnerCreateTour = 'partnerCreateTour';

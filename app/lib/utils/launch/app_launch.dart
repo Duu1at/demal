@@ -1,6 +1,4 @@
 import 'dart:developer';
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -74,21 +72,6 @@ abstract final class AppLaunch {
           context,
         ).showSnackBar(SnackBar(content: Text(snackBarText)));
       }
-    } on Object catch (e, s) {
-      log('launch Error: $e, \n launch StackTrace: $s');
-    }
-  }
-
-  static Future<void> launchStore(
-    String url, {
-    String? snackBarText,
-    BuildContext? context,
-  }) async {
-    try {
-      await launchUrl(
-        Uri.parse(url),
-        mode: Platform.isAndroid ? LaunchMode.externalApplication : LaunchMode.platformDefault,
-      );
     } on Object catch (e, s) {
       log('launch Error: $e, \n launch StackTrace: $s');
     }
