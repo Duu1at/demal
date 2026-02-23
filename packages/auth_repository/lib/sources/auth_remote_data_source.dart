@@ -7,10 +7,12 @@ class AuthRemoteDataSource {
   const AuthRemoteDataSource({
     required this.client,
     required this.supabaseGoogleSignService,
+    required this.supabaseAppleSignService,
   });
 
   final ApiClient client;
   final SupabaseGoogleSignService supabaseGoogleSignService;
+  final SupabaseAppleSignService supabaseAppleSignService;
 
   Future<String> sendOtp(String email) async {
     final result = await client.postResponse<Map<String, dynamic>>(
@@ -61,14 +63,52 @@ class AuthRemoteDataSource {
     }
   }
 
+  Future<String?> signInWithApple() async {
+    try {
+      final authResponse = await supabaseAppleSignService.signInWithApple();
+      final user = authResponse?.user;
+      final session = authResponse?.session;
+
+      if (user == null || session == null) return null;
+
+      final appleAuthUserParams = AppleAuthUserParams(
+        accessToken: session.accessToken,
+        userId: user.id,
+        email: user.email ?? '',
+        fullName: user.userMetadata?['full_name'] as String?,
+        phoneNumber: user.phone,
+      );
+
+      return client
+          .postResponse<Map<String, dynamic>>(
+            '/api/v1/auth/apple',
+            data: appleAuthUserParams.toJson(),
+          )
+          .then((value) => value.data?['auth_token'] as String?);
+    } on Object catch (e, s) {
+      throw AuthException(e, s);
+    }
+  }
+
   Future<void> deleteAccount() async {
-    await Future.wait([
-      client.delete<void>('/api/v1/users/account'),
-      supabaseGoogleSignService.deleteAccount(),
-    ]);
+    await client.delete<void>('/api/v1/users/account');
+
+    try {
+      await supabaseGoogleSignService.deleteAccount();
+    } on Object catch (_) {}
+
+    try {
+      await supabaseAppleSignService.deleteAccount();
+    } on Object catch (_) {}
   }
 
   Future<void> logOut() async {
-    await supabaseGoogleSignService.logOut();
+    try {
+      await supabaseGoogleSignService.logOut();
+    } on Object catch (_) {}
+
+    try {
+      await supabaseAppleSignService.logOut();
+    } on Object catch (_) {}
   }
 }

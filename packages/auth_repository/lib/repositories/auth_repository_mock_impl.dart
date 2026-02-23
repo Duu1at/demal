@@ -40,4 +40,9 @@ final class AuthRepositoryeMockImpl implements AuthRepository {
   Future<void> signInWithGoogle() {
     return Future.delayed(const Duration(seconds: 1), () {});
   }
+
+  @override
+  Future<void> signInWithApple() {
+    return Future.delayed(const Duration(seconds: 1), () {});
+  }
 }

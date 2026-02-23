@@ -46,6 +46,10 @@ class App extends StatelessWidget {
                 webClientId: dotenv.env['SUPABASE_WEB_CLIENT_ID']!,
                 iosClientId: dotenv.env['SUPABASE_IOS_CLIENT_ID']!,
               ),
+              supabaseAppleSignService: SupabaseAppleSignService(
+                supabase: Supabase.instance,
+                crashlyticsClient: context.read<CrashlyticsClient>(),
+              ),
             ),
           ),
         ),

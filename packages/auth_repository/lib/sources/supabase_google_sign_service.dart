@@ -87,6 +87,7 @@ final class SupabaseGoogleSignService {
 
   Future<void> deleteAccount() async {
     try {
+      await supabase.client.rpc<void>('delete_user');
       await supabase.client.auth.signOut();
       await googleSignIn.disconnect();
     } catch (e) {

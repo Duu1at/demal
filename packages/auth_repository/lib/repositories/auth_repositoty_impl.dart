@@ -38,6 +38,15 @@ final class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
+  Future<void> signInWithApple() async {
+    final token = await authRemoteDataSource.signInWithApple();
+    if (token == null) {
+      throw const AuthException('No token found for Apple Sign-In.');
+    }
+    await authLocalDataSource.saveToken(token);
+  }
+
+  @override
   Future<String> sendOtp(String email) {
     return authRemoteDataSource.sendOtp(email);
   }

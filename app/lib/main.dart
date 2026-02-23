@@ -113,6 +113,7 @@ void main() async {
             RepositoryProvider<CrashlyticsService>.value(value: crashlyticsService),
             RepositoryProvider<PackageInfo>.value(value: packageInfo),
             RepositoryProvider<RemoteConfigClient>.value(value: remoteConfigService),
+            RepositoryProvider<CrashlyticsClient>.value(value: crashlyticsClient),
           ],
           child: const App(),
         ),

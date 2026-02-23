@@ -26,6 +26,11 @@ class LoginView extends StatelessWidget {
             context.read<AuthRepository>(),
           ),
         ),
+        BlocProvider(
+          create: (_) => AppleSignCubit(
+            context.read<AuthRepository>(),
+          ),
+        ),
       ],
       child: const _LoginView(),
     );
@@ -111,6 +116,8 @@ class __LoginViewState extends State<_LoginView> {
         ],
         columnChildren: const [
           GoogleSignInButton(),
+          SizedBox(height: AppSpacing.md),
+          AppleSignInButton(),
         ],
       ),
     );
