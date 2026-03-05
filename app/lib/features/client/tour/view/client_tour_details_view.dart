@@ -40,8 +40,8 @@ class _ClientTourDetailsViewBodyState extends State<ClientTourDetailsViewBody> {
           body: switch (state) {
             TourDetailInitial() => const TourDetailLoadingWidget(),
             TourDetailLoading() => const TourDetailLoadingWidget(),
-            TourDetailSuccess(tour: final tour) => TourDetailSuccessWidget(tour),
-            TourDetailError(error: final error) => ErrorBodyWidget(
+            TourDetailSuccess(:final tour) => TourDetailSuccessWidget(tour),
+            TourDetailError(:final error) => ErrorBodyWidget(
               error,
               onRetry: () => context.read<TourDetailBloc>().add(TourDetailEvent(widget.tourId)),
             ),

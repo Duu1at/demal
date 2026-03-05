@@ -55,7 +55,7 @@ abstract final class BottomSheets {
         return showCupertinoModalPopup<T>(
           context: context,
           useRootNavigator: useRootNavigator,
-          builder: (BuildContext context) => CupertinoActionSheet(
+          builder: (context) => CupertinoActionSheet(
             actions: actions,
             cancelButton: CupertinoActionSheetAction(
               onPressed: () {
@@ -74,7 +74,7 @@ abstract final class BottomSheets {
           showDragHandle: true,
           useRootNavigator: useRootNavigator,
           backgroundColor: backgroundColor,
-          builder: (BuildContext context) {
+          builder: (context) {
             return Padding(
               padding: const EdgeInsets.only(
                 bottom: AppSpacing.sm,

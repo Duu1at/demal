@@ -38,8 +38,8 @@ class ToursBookingsViewBody extends StatelessWidget {
           return switch (state) {
             ToursBookingsInitial() ||
             ToursBookingsLoading() => const Center(child: CircularProgressIndicator.adaptive()),
-            ToursBookingsSuccess(bookings: final bookings) => ToursBookingsListContent(bookings),
-            ToursBookingsError(error: final error) => ErrorBodyWidget(error),
+            ToursBookingsSuccess(:final bookings) => ToursBookingsListContent(bookings),
+            ToursBookingsError(:final error) => ErrorBodyWidget(error),
           };
         },
       ),

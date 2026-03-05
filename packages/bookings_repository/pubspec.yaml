@@ -4,18 +4,17 @@ version: 1.0.0
 resolution: workspace
 
 environment:
-  sdk: ^3.10.1
+  sdk: ^3.11.0
 
 dependencies:
   api_client:
   json_annotation:
   meta:
 
-
 dev_dependencies:
   json_serializable:
-  build_runner: 
-  mocktail: 
+  build_runner:
+  mocktail:
   very_good_analysis:
   flutter_test:
-    sdk: flutter 
+    sdk: flutter
