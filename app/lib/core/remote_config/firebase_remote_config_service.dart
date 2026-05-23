@@ -33,7 +33,7 @@ final class FirebaseRemoteConfigService implements RemoteConfigClient {
   Future<RemoteConfigModel> getConfig() async {
     final appVersion = await _fetchAndDecode<AppVersionConfigModel>(
       key: RemoteConfigKeys.appVersion,
-      parser: (String value) => AppVersionConfigModel.fromJson(
+      parser: (value) => AppVersionConfigModel.fromJson(
         jsonDecode(value) as Map<String, dynamic>,
       ),
     );
