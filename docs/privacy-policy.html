@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Политика конфиденциальности — Demal</title>
+  <meta name="description" content="Политика конфиденциальности приложения Demal.">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --orange:  #F75D37;
+      --gray-0:  #F4F6F8;
+      --gray-10: #E3E8EC;
+      --gray-20: #C5CDD4;
+      --gray-30: #8A949E;
+      --gray-40: #59636D;
+      --gray-45: #394047;
+      --gray-47: #292F35;
+      --gray-50: #1F2328;
+      --gray-60: #0D1012;
+      --r-card:  12px;
+      --r-btn:   99px;
+      --r-field: 16px;
+      --shadow:  0 12px 16px rgba(56,74,94,0.06);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Roboto', 'Segoe UI', sans-serif;
+      background: var(--gray-60);
+      color: #fff;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* NAV */
+    nav {
+      height: 60px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 32px;
+      background: rgba(13,16,18,0.95);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      position: sticky; top: 0; z-index: 100;
+    }
+    .logo {
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none;
+    }
+    .logo img { width: 34px; height: 34px; object-fit: contain; border-radius: 8px; }
+    .logo span { font-size: 20px; font-weight: 700; color: #fff; letter-spacing: -0.3px; }
+
+    .nav-back {
+      display: flex; align-items: center; gap: 6px;
+      color: var(--gray-30); font-size: 14px; text-decoration: none;
+      transition: color .18s;
+    }
+    .nav-back:hover { color: #fff; }
+    .nav-back svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
+
+    /* HERO */
+    .hero {
+      background: var(--gray-50);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      padding: 52px 32px 44px;
+      text-align: center;
+    }
+    .hero-icon {
+      width: 68px; height: 68px;
+      background: rgba(247,93,55,0.1);
+      border: 1px solid rgba(247,93,55,0.22);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 30px; margin: 0 auto 22px;
+    }
+    .hero h1 {
+      font-size: clamp(22px, 3.2vw, 34px);
+      font-weight: 700; color: #fff;
+      letter-spacing: -0.5px; margin-bottom: 10px;
+    }
+    .hero-meta {
+      font-size: 14px; color: var(--gray-40);
+    }
+    .hero-meta span { color: var(--gray-30); }
+
+    /* CONTENT */
+    .content {
+      max-width: 760px; margin: 0 auto;
+      padding: 48px 32px 88px;
+    }
+
+    /* TOC */
+    .toc {
+      background: var(--gray-50);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--r-field);
+      padding: 24px 28px;
+      margin-bottom: 40px;
+    }
+    .toc-title {
+      font-size: 13px; font-weight: 700;
+      color: var(--gray-30); text-transform: uppercase;
+      letter-spacing: 1px; margin-bottom: 14px;
+    }
+    .toc ol {
+      list-style: none; display: flex; flex-direction: column; gap: 8px;
+      counter-reset: toc;
+    }
+    .toc ol li { counter-increment: toc; }
+    .toc ol li a {
+      display: flex; align-items: center; gap: 10px;
+      color: var(--gray-20); text-decoration: none;
+      font-size: 14px; transition: color .18s;
+    }
+    .toc ol li a:hover { color: var(--orange); }
+    .toc ol li a::before {
+      content: counter(toc, decimal-leading-zero);
+      font-size: 12px; color: var(--gray-40); font-weight: 700;
+      min-width: 22px;
+    }
+
+    /* SECTIONS */
+    .doc-section { margin-bottom: 40px; scroll-margin-top: 80px; }
+
+    .doc-section h2 {
+      font-size: 20px; font-weight: 700; color: #fff;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .doc-section h2 .sec-num {
+      font-size: 12px; font-weight: 700;
+      background: rgba(247,93,55,0.15);
+      color: var(--orange); border-radius: var(--r-btn);
+      padding: 2px 9px; flex-shrink: 0;
+    }
+
+    .doc-section p {
+      font-size: 15px; color: var(--gray-20);
+      line-height: 1.75; margin-bottom: 14px;
+    }
+    .doc-section p:last-child { margin-bottom: 0; }
+
+    .doc-section ul, .doc-section ol {
+      padding-left: 20px; margin-bottom: 14px;
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .doc-section li {
+      font-size: 15px; color: var(--gray-20); line-height: 1.7;
+    }
+
+    /* DATA TABLE */
+    .data-table {
+      width: 100%; border-collapse: collapse;
+      margin: 16px 0; font-size: 14px;
+    }
+    .data-table th {
+      background: var(--gray-47); color: var(--gray-20);
+      font-weight: 700; text-align: left;
+      padding: 11px 14px; font-size: 13px;
+    }
+    .data-table th:first-child { border-radius: var(--r-card) 0 0 0; }
+    .data-table th:last-child { border-radius: 0 var(--r-card) 0 0; }
+    .data-table td {
+      padding: 11px 14px; color: var(--gray-20);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+
+    /* INFO BOX */
+    .info-box {
+      background: rgba(247,93,55,0.08);
+      border: 1px solid rgba(247,93,55,0.18);
+      border-radius: var(--r-card);
+      padding: 16px 20px;
+      margin: 16px 0;
+      font-size: 14px; color: var(--gray-20); line-height: 1.7;
+    }
+    .info-box strong { color: var(--orange); }
+
+    /* CONTACT CARD */
+    .contact-card {
+      background: var(--gray-50);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--r-field);
+      padding: 24px 28px;
+      display: flex; align-items: center; gap: 20px;
+      margin-top: 16px;
+    }
+    .contact-icon {
+      width: 52px; height: 52px;
+      background: rgba(247,93,55,0.1);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 24px; flex-shrink: 0;
+    }
+    .contact-card h4 { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+    .contact-card a {
+      color: var(--orange); font-size: 15px; text-decoration: none;
+    }
+    .contact-card a:hover { text-decoration: underline; }
+
+    /* FOOTER */
+    footer {
+      background: var(--gray-60);
+      border-top: 1px solid rgba(255,255,255,0.05);
+      padding: 28px 32px;
+      text-align: center;
+    }
+    .footer-logo {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      font-size: 18px; font-weight: 700;
+      color: rgba(255,255,255,0.5); margin-bottom: 8px;
+    }
+    .footer-logo img { width: 26px; height: 26px; object-fit: contain; border-radius: 6px; opacity: .6; }
+    .footer-links {
+      display: flex; justify-content: center; gap: 20px;
+      margin-bottom: 10px; flex-wrap: wrap;
+    }
+    .footer-links a {
+      color: var(--gray-40); font-size: 13px; text-decoration: none;
+      transition: color .18s;
+    }
+    .footer-links a:hover { color: rgba(255,255,255,0.6); }
+    .footer-copy { font-size: 13px; color: var(--gray-40); }
+
+    @media (max-width: 600px) {
+      nav { padding: 0 16px; }
+      .hero { padding: 36px 16px 32px; }
+      .content { padding: 32px 16px 64px; }
+      .toc { padding: 18px 20px; }
+      footer { padding: 24px 16px; }
+      .contact-card { flex-direction: column; text-align: center; }
+      .data-table { font-size: 13px; }
+      .data-table th, .data-table td { padding: 9px 10px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="logo" href="index.html">
+    <img src="logo.png" alt="Demal">
+    <span>Demal</span>
+  </a>
+  <a class="nav-back" href="index.html">
+    <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+    На главную
+  </a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-icon">🔒</div>
+  <h1>Политика конфиденциальности</h1>
+  <div class="hero-meta">
+    Последнее обновление: <span>1 января 2025 г.</span>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+
+  <!-- TOC -->
+  <div class="toc">
+    <div class="toc-title">Содержание</div>
+    <ol>
+      <li><a href="#s1">Общие положения</a></li>
+      <li><a href="#s2">Какие данные мы собираем</a></li>
+      <li><a href="#s3">Как мы используем данные</a></li>
+      <li><a href="#s4">Передача данных третьим лицам</a></li>
+      <li><a href="#s5">Хранение и защита данных</a></li>
+      <li><a href="#s6">Ваши права</a></li>
+      <li><a href="#s7">Файлы cookie и аналитика</a></li>
+      <li><a href="#s8">Дети</a></li>
+      <li><a href="#s9">Изменения политики</a></li>
+      <li><a href="#s10">Контакты</a></li>
+    </ol>
+  </div>
+
+  <!-- 1 -->
+  <div class="doc-section" id="s1">
+    <h2><span class="sec-num">01</span>Общие положения</h2>
+    <p>Настоящая Политика конфиденциальности описывает, как приложение <strong>Demal</strong> («мы», «нас», «наш») собирает, использует и защищает персональные данные пользователей мобильного приложения Demal, доступного в App Store и Google Play.</p>
+    <p>Используя приложение, вы соглашаетесь с условиями настоящей Политики. Если вы не согласны — пожалуйста, не используйте приложение.</p>
+    <div class="info-box">
+      <strong>Применимое законодательство:</strong> Мы соблюдаем требования законодательства Кыргызской Республики о персональных данных, а также требования платформ App Store (Apple) и Google Play (Google).
+    </div>
+  </div>
+
+  <!-- 2 -->
+  <div class="doc-section" id="s2">
+    <h2><span class="sec-num">02</span>Какие данные мы собираем</h2>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Категория</th>
+          <th>Данные</th>
+          <th>Обязательно</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Идентификация</td>
+          <td>Имя, номер телефона</td>
+          <td>Да</td>
+        </tr>
+        <tr>
+          <td>Вход через соцсети</td>
+          <td>Email, имя (при входе через Google / Apple)</td>
+          <td>Нет</td>
+        </tr>
+        <tr>
+          <td>Платёжные данные</td>
+          <td>Токен платёжной карты (сами данные карты не хранятся)</td>
+          <td>Для оплаты</td>
+        </tr>
+        <tr>
+          <td>Активность</td>
+          <td>История бронирований, просмотренные туры, отзывы</td>
+          <td>Да</td>
+        </tr>
+        <tr>
+          <td>Устройство</td>
+          <td>Модель, ОС, версия приложения, push-токен</td>
+          <td>Да</td>
+        </tr>
+        <tr>
+          <td>Аналитика</td>
+          <td>События в приложении (Firebase Analytics)</td>
+          <td>Да</td>
+        </tr>
+        <tr>
+          <td>Диагностика</td>
+          <td>Логи ошибок (Firebase Crashlytics)</td>
+          <td>Да</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>Мы <strong>не собираем</strong> данные о местоположении, контакты телефонной книги или данные с микрофона и камеры без явного запроса.</p>
+  </div>
+
+  <!-- 3 -->
+  <div class="doc-section" id="s3">
+    <h2><span class="sec-num">03</span>Как мы используем данные</h2>
+    <ul>
+      <li>Регистрация и авторизация пользователей в приложении</li>
+      <li>Отображение актуальных туров и персонализация ленты</li>
+      <li>Обработка бронирований и проведение безопасных платежей</li>
+      <li>Отправка push-уведомлений о статусе брони и напоминаний</li>
+      <li>Улучшение работы приложения на основе аналитических данных</li>
+      <li>Выявление и устранение технических ошибок (Crashlytics)</li>
+      <li>Связь с пользователем по вопросам поддержки</li>
+      <li>Обеспечение безопасности и предотвращение мошенничества</li>
+    </ul>
+    <div class="info-box">
+      Мы <strong>не продаём</strong> ваши персональные данные третьим лицам и не используем их для рекламных целей без вашего согласия.
+    </div>
+  </div>
+
+  <!-- 4 -->
+  <div class="doc-section" id="s4">
+    <h2><span class="sec-num">04</span>Передача данных третьим лицам</h2>
+    <p>Для работы приложения мы используем следующих доверенных поставщиков услуг:</p>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Сервис</th>
+          <th>Назначение</th>
+          <th>Политика</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Supabase</td>
+          <td>База данных и бэкенд</td>
+          <td>supabase.com/privacy</td>
+        </tr>
+        <tr>
+          <td>Firebase (Google)</td>
+          <td>Аналитика, Crashlytics, уведомления</td>
+          <td>firebase.google.com/support/privacy</td>
+        </tr>
+        <tr>
+          <td>Finik</td>
+          <td>Платёжный шлюз</td>
+          <td>finik.kg</td>
+        </tr>
+        <tr>
+          <td>Google Sign-In</td>
+          <td>Вход через Google</td>
+          <td>policies.google.com/privacy</td>
+        </tr>
+        <tr>
+          <td>Apple Sign-In</td>
+          <td>Вход через Apple</td>
+          <td>apple.com/legal/privacy</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>Данные могут быть переданы третьим лицам также по требованию суда или уполномоченных государственных органов в соответствии с законодательством Кыргызской Республики.</p>
+  </div>
+
+  <!-- 5 -->
+  <div class="doc-section" id="s5">
+    <h2><span class="sec-num">05</span>Хранение и защита данных</h2>
+    <ul>
+      <li>Данные хранятся на серверах Supabase с шифрованием в состоянии покоя и при передаче (TLS/SSL)</li>
+      <li>Данные платёжных карт не хранятся на наших серверах — обработкой занимается Finik</li>
+      <li>Доступ к данным имеют только авторизованные сотрудники в рамках своих обязанностей</li>
+      <li>Мы регулярно проводим проверку безопасности инфраструктуры</li>
+    </ul>
+    <p>Мы храним ваши данные до тех пор, пока ваш аккаунт активен. После удаления аккаунта данные уничтожаются в течение <strong>30 дней</strong>, за исключением случаев, когда их хранение требуется по закону.</p>
+  </div>
+
+  <!-- 6 -->
+  <div class="doc-section" id="s6">
+    <h2><span class="sec-num">06</span>Ваши права</h2>
+    <p>Вы имеете право:</p>
+    <ul>
+      <li><strong>Доступ</strong> — запросить копию своих персональных данных</li>
+      <li><strong>Исправление</strong> — обновить неточные данные в настройках профиля</li>
+      <li><strong>Удаление</strong> — запросить удаление аккаунта и всех связанных данных</li>
+      <li><strong>Ограничение</strong> — ограничить обработку ваших данных</li>
+      <li><strong>Отзыв согласия</strong> — отключить push-уведомления в настройках устройства</li>
+    </ul>
+    <div class="info-box">
+      Для удаления аккаунта перейдите в <strong>Профиль → Настройки → Удалить аккаунт</strong> или воспользуйтесь <a href="delete-account.html" style="color:var(--orange);">страницей удаления аккаунта</a>.
+    </div>
+  </div>
+
+  <!-- 7 -->
+  <div class="doc-section" id="s7">
+    <h2><span class="sec-num">07</span>Файлы cookie и аналитика</h2>
+    <p>Мобильное приложение не использует файлы cookie. Для сбора аналитики мы используем Firebase Analytics, который собирает обезличенные данные о поведении пользователей в приложении.</p>
+    <p>Вы можете отказаться от аналитики в настройках устройства:</p>
+    <ul>
+      <li><strong>iOS:</strong> Настройки → Конфиденциальность → Аналитика и улучшения</li>
+      <li><strong>Android:</strong> Настройки → Google → Реклама → Отказаться от персонализации</li>
+    </ul>
+  </div>
+
+  <!-- 8 -->
+  <div class="doc-section" id="s8">
+    <h2><span class="sec-num">08</span>Дети</h2>
+    <p>Приложение Demal не предназначено для детей младше 13 лет. Мы сознательно не собираем данные детей. Если вы узнали, что ребёнок предоставил нам персональные данные — пожалуйста, свяжитесь с нами, и мы удалим эти данные.</p>
+  </div>
+
+  <!-- 9 -->
+  <div class="doc-section" id="s9">
+    <h2><span class="sec-num">09</span>Изменения политики</h2>
+    <p>Мы можем обновлять настоящую Политику конфиденциальности. О существенных изменениях мы уведомим вас через push-уведомление в приложении или по email.</p>
+    <p>Продолжение использования приложения после публикации изменений означает ваше согласие с новой редакцией.</p>
+  </div>
+
+  <!-- 10 -->
+  <div class="doc-section" id="s10">
+    <h2><span class="sec-num">10</span>Контакты</h2>
+    <p>По всем вопросам, связанным с конфиденциальностью ваших данных, обращайтесь:</p>
+    <div class="contact-card">
+      <div class="contact-icon">✉️</div>
+      <div>
+        <h4>Служба поддержки Demal</h4>
+        <a href="mailto:dbolsunbekuulu@gmail.com">dbolsunbekuulu@gmail.com</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <img src="logo.png" alt="Demal">
+    Demal
+  </div>
+  <div class="footer-links">
+    <a href="index.html">Главная</a>
+    <a href="delete-account.html">Удаление аккаунта</a>
+    <a href="privacy-policy.html">Политика конфиденциальности</a>
+  </div>
+  <div class="footer-copy">© 2025 Demal. Сделано в Кыргызстане 🇰🇬</div>
+</footer>
+
+</body>
+</html>

@@ -48,8 +48,12 @@
       background: rgba(13,16,18,0.95);
       border-bottom: 1px solid rgba(255,255,255,0.06);
     }
-    .logo { font-size: 22px; font-weight: 700; color: #fff; text-decoration: none; }
-    .logo em { font-style: normal; color: var(--orange); }
+    .logo {
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none;
+    }
+    .logo img { width: 34px; height: 34px; object-fit: contain; border-radius: 8px; }
+    .logo span { font-size: 20px; font-weight: 700; color: #fff; letter-spacing: -0.3px; }
     .nav-back {
       display: flex; align-items: center; gap: 6px;
       color: var(--gray-30); font-size: 14px; text-decoration: none;
@@ -233,8 +237,11 @@
       padding: 28px 32px;
       text-align: center;
     }
-    .footer-logo { font-size: 18px; font-weight: 700; color: rgba(255,255,255,0.5); margin-bottom: 8px; }
-    .footer-logo em { font-style: normal; color: var(--orange); }
+    .footer-logo {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      font-size: 18px; font-weight: 700; color: rgba(255,255,255,0.5); margin-bottom: 8px;
+    }
+    .footer-logo img { width: 26px; height: 26px; object-fit: contain; border-radius: 6px; opacity: .6; }
     .footer-copy { font-size: 13px; color: var(--gray-40); }
 
     @media (max-width: 600px) {
@@ -249,7 +256,10 @@
 
 <!-- NAV -->
 <nav>
-  <a class="logo" href="index.html"><em>D</em>emal</a>
+  <a class="logo" href="index.html">
+    <img src="logo.png" alt="Demal">
+    <span>Demal</span>
+  </a>
   <a class="nav-back" href="index.html">
     <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
     На главную
@@ -386,8 +396,11 @@
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-logo"><em>D</em>emal</div>
-  <div class="footer-copy">По вопросам: support@demal.kg &nbsp;·&nbsp; © 2025 Demal</div>
+  <div class="footer-logo">
+    <img src="logo.png" alt="Demal">
+    Demal
+  </div>
+  <div class="footer-copy">По вопросам: dbolsunbekuulu@gmail.com &nbsp;·&nbsp; © 2025 Demal</div>
 </footer>
 
 <script>

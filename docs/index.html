@@ -89,10 +89,11 @@
     }
 
     .logo {
-      font-size: 22px; font-weight: 700; color: #fff;
-      letter-spacing: -0.3px; text-decoration: none;
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none;
     }
-    .logo em { font-style: normal; color: var(--orange); }
+    .logo img { width: 36px; height: 36px; object-fit: contain; border-radius: 8px; }
+    .logo span { font-size: 20px; font-weight: 700; color: #fff; letter-spacing: -0.3px; }
 
     .nav-right { display: flex; align-items: center; gap: var(--sp-sm); }
 
@@ -535,8 +536,11 @@
       display: flex; align-items: center; justify-content: space-between;
       flex-wrap: wrap; gap: var(--sp-lg);
     }
-    .footer-logo { font-size: 19px; font-weight: 700; color: rgba(255,255,255,0.6); }
-    .footer-logo em { font-style: normal; color: var(--orange); }
+    .footer-logo {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 19px; font-weight: 700; color: rgba(255,255,255,0.6);
+    }
+    .footer-logo img { width: 28px; height: 28px; object-fit: contain; border-radius: 6px; opacity: .7; }
     .footer-links { display: flex; gap: var(--sp-xlg); }
     .footer-links a {
       color: var(--gray-40); text-decoration: none;
@@ -578,7 +582,10 @@
 
 <!-- NAV -->
 <nav>
-  <a class="logo" href="#"><em>D</em>emal</a>
+  <a class="logo" href="#">
+    <img src="logo.png" alt="Demal">
+    <span>Demal</span>
+  </a>
   <div class="nav-right">
     <div class="lang-toggle">
       <button class="lang-btn active" onclick="setLang('ru')">RU</button>
@@ -860,12 +867,17 @@
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
-    <div class="footer-logo"><em>D</em>emal</div>
+    <div class="footer-logo">
+      <img src="logo.png" alt="Demal">
+      Demal
+    </div>
     <div class="footer-links">
-      <a href="#about"    data-i18n="fl1">О приложении</a>
-      <a href="#features" data-i18n="fl2">Возможности</a>
-      <a href="#partners" data-i18n="fl3">Организаторам</a>
-      <a href="#download" data-i18n="fl4">Скачать</a>
+      <a href="#about"               data-i18n="fl1">О приложении</a>
+      <a href="#features"            data-i18n="fl2">Возможности</a>
+      <a href="#partners"            data-i18n="fl3">Организаторам</a>
+      <a href="#download"            data-i18n="fl4">Скачать</a>
+      <a href="privacy-policy.html"  data-i18n="fl5">Конфиденциальность</a>
+      <a href="delete-account.html"  data-i18n="fl6">Удаление аккаунта</a>
     </div>
   </div>
   <div class="footer-copy" data-i18n="fcopy">© 2025 Demal. Сделано в Кыргызстане 🇰🇬</div>
@@ -910,6 +922,7 @@
       cta_h:"Начни путешествовать<br>с <em>Demal</em>",
       cta_sub:"Скачай бесплатно на iOS и Android.",
       fl1:"О приложении", fl2:"Возможности", fl3:"Организаторам", fl4:"Скачать",
+      fl5:"Конфиденциальность", fl6:"Удаление аккаунта",
       fcopy:"© 2025 Demal. Сделано в Кыргызстане 🇰🇬"
     },
     en: {
@@ -948,6 +961,7 @@
       cta_h:"Start exploring<br>with <em>Demal</em>",
       cta_sub:"Free download on iOS and Android.",
       fl1:"About", fl2:"Features", fl3:"Organizers", fl4:"Download",
+      fl5:"Privacy Policy", fl6:"Delete Account",
       fcopy:"© 2025 Demal. Made in Kyrgyzstan 🇰🇬"
     }
   };
