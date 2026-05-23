@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demal — Все туры Кыргызстана в одном приложении</title>
+  <meta name="description" content="Находите, бронируйте и оплачивайте туры по Кыргызстану в несколько касаний. Скачайте Demal на iOS и Android.">
+  <meta property="og:title" content="Demal — Туры по Кыргызстану">
+  <meta property="og:description" content="Маркетплейс туров — как Aviasales, только для локального отдыха в Кыргызстане.">
+  <meta property="og:type" content="website">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    /* ── Design tokens from packages/app_ui ── */
+    :root {
+      /* Gray swatch */
+      --gray-0:  #F4F6F8;
+      --gray-10: #E3E8EC;
+      --gray-20: #C5CDD4;
+      --gray-30: #8A949E;
+      --gray-40: #59636D;
+      --gray-45: #394047;
+      --gray-47: #292F35;
+      --gray-50: #1F2328;
+      --gray-60: #0D1012;
+
+      /* Orange primary */
+      --orange:    #F75D37;
+      --orange-10: #FFF3E0;
+      --orange-60: #FB8C00;
+
+      /* Green accent */
+      --green:    #5CE091;
+      --green-40: #26CA67;
+      --green-50: #0EAA4C;
+
+      /* Red */
+      --red:    #B91C21;
+      --red-10: #FDECED;
+
+      /* Surfaces */
+      --bg-dark:   #0D1012;   /* scaffold dark */
+      --card-dark: #1F2328;   /* bgCard dark */
+      --bg-light:  #F4F6F8;   /* scaffold light */
+      --card-light:#FFFFFF;
+
+      /* Shadow */
+      --shadow-gray: 0 12px 16px rgba(56,74,94,0.06);
+      --shadow-blue: 0 12px 16px rgba(4,64,132,0.19);
+
+      /* Radius */
+      --r-card: 12px;
+      --r-field: 16px;
+      --r-btn: 99px;
+
+      /* Spacing */
+      --sp-xs:  4px;
+      --sp-sm:  8px;
+      --sp-md:  12px;
+      --sp-lg:  16px;
+      --sp-xl:  20px;
+      --sp-xlg: 24px;
+      --sp-xxlg:32px;
+      --sp-xxxlg:40px;
+      --sp-xxxxlg:48px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Roboto', 'Segoe UI', sans-serif;
+      background: var(--bg-dark);
+      color: #fff;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      height: 60px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 var(--sp-xxlg);
+      background: rgba(13,16,18,0.92);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      transition: background .2s;
+    }
+
+    .logo {
+      font-size: 22px; font-weight: 700; color: #fff;
+      letter-spacing: -0.3px; text-decoration: none;
+    }
+    .logo em { font-style: normal; color: var(--orange); }
+
+    .nav-right { display: flex; align-items: center; gap: var(--sp-sm); }
+
+    .lang-toggle {
+      display: flex;
+      background: rgba(255,255,255,0.07);
+      border-radius: var(--r-btn);
+      padding: 3px; gap: 2px;
+    }
+    .lang-btn {
+      padding: 4px 14px; border: none;
+      background: transparent;
+      color: var(--gray-30); cursor: pointer;
+      border-radius: var(--r-btn);
+      font-size: 13px; font-weight: 700;
+      transition: all .18s;
+    }
+    .lang-btn.active { background: var(--orange); color: #fff; }
+
+    .nav-cta {
+      padding: 9px 22px;
+      background: var(--orange);
+      color: #fff; border-radius: var(--r-btn);
+      font-size: 14px; font-weight: 700;
+      text-decoration: none;
+      transition: opacity .18s, transform .18s;
+    }
+    .nav-cta:hover { opacity: .88; transform: translateY(-1px); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      background: var(--bg-dark);
+      display: flex; align-items: center;
+      padding: 96px var(--sp-xxlg) 64px;
+      position: relative; overflow: hidden;
+    }
+
+    /* Subtle radial glows */
+    .hero::before, .hero::after {
+      content: ''; position: absolute;
+      border-radius: 50%; pointer-events: none; filter: blur(100px);
+    }
+    .hero::before {
+      width: 560px; height: 560px;
+      background: radial-gradient(circle, rgba(247,93,55,0.14) 0%, transparent 70%);
+      top: -120px; right: -80px;
+    }
+    .hero::after {
+      width: 380px; height: 380px;
+      background: radial-gradient(circle, rgba(92,224,145,0.09) 0%, transparent 70%);
+      bottom: -60px; left: 8%;
+    }
+
+    .hero-inner {
+      max-width: 1120px; margin: 0 auto; width: 100%;
+      display: grid; grid-template-columns: 1fr 260px;
+      gap: 72px; align-items: center; position: relative; z-index: 2;
+    }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: var(--sp-sm);
+      padding: 6px var(--sp-lg);
+      background: rgba(247,93,55,0.12);
+      border: 1px solid rgba(247,93,55,0.28);
+      border-radius: var(--r-btn);
+      color: var(--orange); font-size: 13px; font-weight: 600;
+      margin-bottom: var(--sp-xlg);
+    }
+    .hero-badge-dot {
+      width: 7px; height: 7px;
+      background: var(--orange); border-radius: 50%;
+      animation: blink 2s ease-in-out infinite;
+    }
+    @keyframes blink {
+      0%,100% { opacity: 1; } 50% { opacity: .3; }
+    }
+
+    .hero h1 {
+      font-size: clamp(36px, 5.2vw, 60px);
+      font-weight: 700; color: #fff;
+      line-height: 1.1; letter-spacing: -1px;
+      margin-bottom: var(--sp-xlg);
+    }
+    .hero h1 em { font-style: normal; color: var(--orange); }
+
+    .hero-sub {
+      font-size: 18px; color: var(--gray-30);
+      max-width: 480px; margin-bottom: var(--sp-xxxlg);
+      line-height: 1.7;
+    }
+
+    .store-row { display: flex; gap: var(--sp-md); flex-wrap: wrap; }
+
+    .store-btn {
+      display: flex; align-items: center; gap: 11px;
+      padding: 13px var(--sp-xlg);
+      background: var(--card-dark);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: var(--r-field);
+      color: #fff; text-decoration: none;
+      box-shadow: var(--shadow-gray);
+      transition: border-color .18s, transform .18s, background .18s;
+    }
+    .store-btn:hover {
+      background: var(--gray-47);
+      border-color: rgba(255,255,255,0.18);
+      transform: translateY(-2px);
+    }
+    .store-btn svg { width: 22px; height: 22px; fill: #fff; flex-shrink: 0; }
+    .store-btn-text small {
+      display: block; font-size: 10px;
+      color: var(--gray-30); text-transform: uppercase; letter-spacing: .5px;
+    }
+    .store-btn-text strong { display: block; font-size: 15px; font-weight: 700; }
+
+    /* ── PHONE MOCKUP ── */
+    .phone-wrap {
+      animation: float 5s ease-in-out infinite;
+      position: relative;
+    }
+    @keyframes float {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+    .phone-wrap::after {
+      content: '';
+      position: absolute; bottom: -20px; left: 50%;
+      transform: translateX(-50%);
+      width: 140px; height: 24px;
+      background: rgba(247,93,55,0.22);
+      border-radius: 50%; filter: blur(16px);
+    }
+
+    .phone {
+      width: 240px; height: 490px;
+      background: var(--gray-60);
+      border-radius: 44px;
+      border: 5px solid var(--gray-47);
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.04),
+        0 60px 100px rgba(0,0,0,0.55);
+      position: relative; overflow: hidden;
+    }
+    .phone-notch {
+      position: absolute; top: 12px; left: 50%;
+      transform: translateX(-50%);
+      width: 68px; height: 8px;
+      background: var(--gray-47); border-radius: 4px; z-index: 10;
+    }
+    .phone-screen {
+      width: 100%; height: 100%;
+      background: var(--bg-dark);
+      padding: 36px 14px 14px;
+      display: flex; flex-direction: column; gap: 10px;
+    }
+
+    .mock-top {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2px;
+    }
+    .mock-logo-t { font-size: 15px; font-weight: 700; color: #fff; }
+    .mock-logo-t em { font-style: normal; color: var(--orange); }
+    .mock-avatar {
+      width: 26px; height: 26px;
+      background: linear-gradient(135deg, var(--orange), var(--orange-60));
+      border-radius: 50%;
+    }
+
+    .mock-search {
+      background: var(--gray-50); border-radius: 10px;
+      height: 30px; padding: 0 10px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .mock-search-ring {
+      width: 11px; height: 11px; border-radius: 50%;
+      border: 1.5px solid var(--gray-40); flex-shrink: 0;
+    }
+    .mock-search-bar {
+      flex: 1; height: 4px;
+      background: var(--gray-45); border-radius: 2px;
+    }
+
+    .mock-tags { display: flex; gap: 5px; }
+    .mock-tag {
+      padding: 3px 9px; border-radius: var(--r-btn);
+      font-size: 9px; font-weight: 700;
+    }
+    .mock-tag.active { background: var(--orange); color: #fff; }
+    .mock-tag:not(.active) { background: var(--gray-50); color: var(--gray-30); }
+
+    .mock-card {
+      background: var(--card-dark); border-radius: var(--r-card); overflow: hidden;
+    }
+    .mock-card-img {
+      height: 76px;
+      background: linear-gradient(135deg, var(--gray-47), var(--gray-45));
+      display: flex; align-items: center; justify-content: center; font-size: 30px;
+    }
+    .mock-card-body { padding: 9px 11px; }
+    .mock-line {
+      height: 6px; background: var(--gray-45); border-radius: 3px; margin-bottom: 6px;
+    }
+    .mock-line.short { width: 55%; background: var(--gray-40); }
+    .mock-price-row {
+      display: flex; align-items: center; justify-content: space-between; margin-top: 8px;
+    }
+    .mock-price {
+      height: 8px; width: 42%;
+      background: var(--orange); border-radius: 4px; opacity: .9;
+    }
+    .mock-stars { font-size: 8px; color: #FBBF24; letter-spacing: 1px; }
+
+    .mock-row {
+      background: var(--card-dark); border-radius: var(--r-card);
+      padding: 9px 11px; display: flex; align-items: center; gap: 9px;
+    }
+    .mock-thumb {
+      width: 34px; height: 34px; border-radius: 8px;
+      background: var(--gray-47);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px; flex-shrink: 0;
+    }
+    .mock-info { flex: 1; }
+    .mock-info-l {
+      height: 5px; background: var(--gray-45); border-radius: 2px;
+      margin-bottom: 5px; width: 75%;
+    }
+    .mock-info-s { height: 4px; background: var(--gray-40); border-radius: 2px; width: 50%; }
+    .mock-bk {
+      padding: 5px 9px; background: var(--orange);
+      border-radius: var(--r-btn); font-size: 8px; font-weight: 700;
+      color: #fff; white-space: nowrap;
+    }
+
+    /* ── DIVIDER ── */
+    .stats-bar {
+      background: var(--gray-50);
+      border-top: 1px solid rgba(255,255,255,0.05);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      padding: var(--sp-xxlg);
+    }
+    .stats-inner {
+      max-width: 1120px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: var(--sp-lg); text-align: center;
+    }
+    .stat-n {
+      font-size: 36px; font-weight: 700; color: var(--orange);
+      line-height: 1; margin-bottom: 6px; letter-spacing: -1px;
+    }
+    .stat-l { font-size: 14px; color: var(--gray-30); }
+
+    /* ── SECTIONS ── */
+    .section { padding: 88px var(--sp-xxlg); }
+    .section-inner { max-width: 1120px; margin: 0 auto; }
+
+    /* Light section */
+    .section.light {
+      background: var(--bg-light);
+      color: var(--gray-60);
+    }
+    /* Dark section */
+    .section.dark { background: var(--bg-dark); }
+    /* Mid section */
+    .section.mid { background: var(--gray-50); }
+
+    .s-tag {
+      display: inline-block; padding: 4px 13px;
+      background: rgba(247,93,55,0.12); color: var(--orange);
+      border: 1px solid rgba(247,93,55,0.2);
+      border-radius: var(--r-btn);
+      font-size: 12px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 1px; margin-bottom: var(--sp-lg);
+    }
+    .section.light .s-tag {
+      background: rgba(247,93,55,0.08);
+    }
+
+    .s-title {
+      font-size: clamp(26px, 3.8vw, 42px); font-weight: 700;
+      line-height: 1.15; letter-spacing: -0.6px;
+      margin-bottom: var(--sp-md); color: #fff;
+    }
+    .section.light .s-title { color: var(--gray-60); }
+
+    .s-sub {
+      font-size: 17px; color: var(--gray-30);
+      max-width: 520px; line-height: 1.7;
+    }
+    .section.light .s-sub { color: var(--gray-40); }
+
+    /* ── PROBLEM ── */
+    .prob-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
+      gap: var(--sp-lg); margin-top: var(--sp-xxxxlg);
+    }
+    .prob-card {
+      background: var(--card-light);
+      border-radius: var(--r-field);
+      padding: var(--sp-xxlg);
+      border: 1px solid var(--gray-10);
+      box-shadow: var(--shadow-gray);
+    }
+    .prob-emoji { font-size: 34px; margin-bottom: var(--sp-lg); }
+    .prob-card h3 {
+      font-size: 17px; font-weight: 700;
+      margin-bottom: var(--sp-sm); color: var(--gray-60);
+    }
+    .prob-card p { font-size: 14px; color: var(--gray-40); line-height: 1.65; }
+
+    /* ── FEATURES ── */
+    .feat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
+      gap: var(--sp-lg); margin-top: var(--sp-xxxxlg);
+    }
+    .feat-card {
+      background: var(--card-dark);
+      border-radius: var(--r-field);
+      padding: var(--sp-xxlg);
+      border: 1px solid rgba(255,255,255,0.05);
+      box-shadow: var(--shadow-gray);
+      transition: transform .2s, border-color .2s;
+    }
+    .feat-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(247,93,55,0.2);
+    }
+    .feat-icon {
+      width: 48px; height: 48px;
+      background: rgba(247,93,55,0.1);
+      border-radius: var(--r-card);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; margin-bottom: var(--sp-lg);
+    }
+    .feat-card h3 {
+      font-size: 16px; font-weight: 700;
+      margin-bottom: var(--sp-sm); color: #fff;
+    }
+    .feat-card p { font-size: 14px; color: var(--gray-30); line-height: 1.65; }
+
+    /* ── HOW IT WORKS ── */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
+      gap: var(--sp-xxxlg); margin-top: var(--sp-xxxxlg);
+    }
+    .step-num {
+      font-size: 72px; font-weight: 700;
+      color: rgba(247,93,55,0.12); line-height: 1;
+      margin-bottom: var(--sp-sm); letter-spacing: -3px;
+    }
+    .step h3 { font-size: 20px; font-weight: 700; color: #fff; margin-bottom: var(--sp-sm); }
+    .step p { font-size: 15px; color: var(--gray-30); line-height: 1.7; }
+
+    /* ── PARTNER ── */
+    .partner-grid {
+      display: grid; grid-template-columns: 1fr 320px;
+      gap: 64px; align-items: center; margin-top: var(--sp-xxxxlg);
+    }
+    .partner-list { display: flex; flex-direction: column; gap: var(--sp-xlg); }
+
+    .p-item { display: flex; gap: var(--sp-lg); align-items: flex-start; }
+    .p-icon {
+      width: 44px; height: 44px;
+      background: rgba(247,93,55,0.12);
+      border: 1px solid rgba(247,93,55,0.2);
+      border-radius: var(--r-card);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; flex-shrink: 0;
+    }
+    .p-item h4 { font-size: 15px; font-weight: 700; margin-bottom: 4px; color: #fff; }
+    .p-item p { font-size: 14px; color: var(--gray-30); line-height: 1.6; }
+
+    .partner-card {
+      background: var(--card-dark);
+      border-radius: var(--r-field);
+      padding: var(--sp-xxxlg) var(--sp-xxlg);
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.06);
+      box-shadow: var(--shadow-gray);
+    }
+    .partner-card .big-emoji { font-size: 48px; margin-bottom: var(--sp-lg); }
+    .partner-card h3 {
+      font-size: 21px; font-weight: 700; color: #fff;
+      margin-bottom: var(--sp-sm); line-height: 1.25;
+    }
+    .partner-card p { font-size: 14px; color: var(--gray-30); margin-bottom: var(--sp-xlg); line-height: 1.6; }
+
+    /* ── BUTTONS ── */
+    .btn-primary {
+      display: inline-block;
+      padding: 14px 32px;
+      background: var(--orange); color: #fff;
+      border-radius: var(--r-btn);
+      font-size: 15px; font-weight: 700;
+      text-decoration: none;
+      transition: opacity .18s, transform .18s;
+      height: 48px; line-height: 1;
+      display: inline-flex; align-items: center; justify-content: center;
+    }
+    .btn-primary:hover { opacity: .88; transform: translateY(-2px); }
+
+    .btn-outline {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 0 32px; height: 48px;
+      border: 1.2px solid var(--gray-40); color: #fff;
+      border-radius: var(--r-btn);
+      font-size: 15px; font-weight: 700;
+      text-decoration: none;
+      transition: border-color .18s, background .18s;
+    }
+    .btn-outline:hover { border-color: var(--gray-30); background: rgba(255,255,255,0.04); }
+
+    /* ── CTA ── */
+    .cta {
+      background: var(--gray-50);
+      border-top: 1px solid rgba(255,255,255,0.05);
+      padding: 96px var(--sp-xxlg);
+      text-align: center;
+    }
+    .cta h2 {
+      font-size: clamp(28px, 4vw, 50px); font-weight: 700;
+      color: #fff; letter-spacing: -0.8px; margin-bottom: var(--sp-lg);
+    }
+    .cta h2 em { font-style: normal; color: var(--orange); }
+    .cta p { font-size: 18px; color: var(--gray-30); margin-bottom: var(--sp-xxxlg); }
+    .cta-btns { display: flex; gap: var(--sp-md); justify-content: center; flex-wrap: wrap; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--gray-60);
+      border-top: 1px solid rgba(255,255,255,0.05);
+      padding: var(--sp-xxxlg) var(--sp-xxlg);
+    }
+    .footer-inner {
+      max-width: 1120px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: var(--sp-lg);
+    }
+    .footer-logo { font-size: 19px; font-weight: 700; color: rgba(255,255,255,0.6); }
+    .footer-logo em { font-style: normal; color: var(--orange); }
+    .footer-links { display: flex; gap: var(--sp-xlg); }
+    .footer-links a {
+      color: var(--gray-40); text-decoration: none;
+      font-size: 14px; transition: color .18s;
+    }
+    .footer-links a:hover { color: rgba(255,255,255,0.7); }
+    .footer-copy {
+      color: var(--gray-40); font-size: 13px;
+      width: 100%; text-align: center; margin-top: var(--sp-sm);
+    }
+
+    /* ── REVEAL ── */
+    .reveal {
+      opacity: 0; transform: translateY(24px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 860px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .phone-wrap { display: none; }
+      .partner-grid { grid-template-columns: 1fr; }
+      .partner-card { display: none; }
+    }
+    @media (max-width: 600px) {
+      nav { padding: 0 var(--sp-lg); }
+      .nav-cta { display: none; }
+      .hero { padding: 88px var(--sp-lg) 48px; }
+      .section { padding: 64px var(--sp-lg); }
+      .stats-bar { padding: var(--sp-xlg) var(--sp-lg); }
+      .stat-n { font-size: 28px; }
+      footer { padding: var(--sp-xxlg) var(--sp-lg); }
+      .footer-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="logo" href="#"><em>D</em>emal</a>
+  <div class="nav-right">
+    <div class="lang-toggle">
+      <button class="lang-btn active" onclick="setLang('ru')">RU</button>
+      <button class="lang-btn" onclick="setLang('en')">EN</button>
+    </div>
+    <a class="nav-cta" href="#download" data-i18n="nav_cta">Скачать</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-badge">
+        <div class="hero-badge-dot"></div>
+        <span data-i18n="hero_badge">Доступно на iOS и Android</span>
+      </div>
+      <h1 data-i18n-html="hero_h1">Все туры Кыргызстана<br><em>в одном приложении</em></h1>
+      <p class="hero-sub" data-i18n="hero_sub">
+        Находите, сравнивайте и бронируйте туры в несколько касаний. Никакой переписки — только удобный маркетплейс.
+      </p>
+      <div class="store-row">
+        <a class="store-btn" href="https://apps.apple.com/us/app/demal/id6758624069" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          <div class="store-btn-text">
+            <small data-i18n="store_on">Скачать в</small>
+            <strong>App Store</strong>
+          </div>
+        </a>
+        <a class="store-btn" href="https://play.google.com/store/apps/details?id=com.demal.app" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M3.18 23.76c.35.2.8.22 1.22-.03l12.57-7.26-2.8-2.8-10.99 10.09zM20.43 10.3L17.8 8.8 14.7 12l3.12 3.12 2.63-1.52c.75-.43.75-1.87-.02-2.3zM1.53.44C1.22.77 1 1.31 1 2.01v19.99c0 .7.22 1.24.53 1.57L1.63 23.66 13.34 12 1.64.34l-.11.1zM4.4.27L16.97 7.53l-2.8 2.8L4.4.27z"/></svg>
+          <div class="store-btn-text">
+            <small data-i18n="store_on">Скачать в</small>
+            <strong>Google Play</strong>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Phone mockup -->
+    <div class="phone-wrap">
+      <div class="phone">
+        <div class="phone-notch"></div>
+        <div class="phone-screen">
+          <div class="mock-top">
+            <div class="mock-logo-t"><em>D</em>emal</div>
+            <div class="mock-avatar"></div>
+          </div>
+          <div class="mock-search">
+            <div class="mock-search-ring"></div>
+            <div class="mock-search-bar"></div>
+          </div>
+          <div class="mock-tags">
+            <div class="mock-tag active" data-i18n="m_all">Все</div>
+            <div class="mock-tag" data-i18n="m_trek">Треккинг</div>
+            <div class="mock-tag" data-i18n="m_lake">Озёра</div>
+          </div>
+          <div class="mock-card">
+            <div class="mock-card-img">🏔️</div>
+            <div class="mock-card-body">
+              <div class="mock-line"></div>
+              <div class="mock-line short"></div>
+              <div class="mock-price-row">
+                <div class="mock-price"></div>
+                <div class="mock-stars">★★★★★</div>
+              </div>
+            </div>
+          </div>
+          <div class="mock-row">
+            <div class="mock-thumb">⛺</div>
+            <div class="mock-info">
+              <div class="mock-info-l"></div>
+              <div class="mock-info-s"></div>
+            </div>
+            <div class="mock-bk" data-i18n="m_book">Бронь</div>
+          </div>
+          <div class="mock-row">
+            <div class="mock-thumb">🌊</div>
+            <div class="mock-info">
+              <div class="mock-info-l"></div>
+              <div class="mock-info-s"></div>
+            </div>
+            <div class="mock-bk" data-i18n="m_book">Бронь</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat reveal">
+      <div class="stat-n">iOS + Android</div>
+      <div class="stat-l" data-i18n="st1">Две платформы</div>
+    </div>
+    <div class="stat reveal">
+      <div class="stat-n">2-in-1</div>
+      <div class="stat-l" data-i18n="st2">Клиенты и Партнёры</div>
+    </div>
+    <div class="stat reveal">
+      <div class="stat-n">100%</div>
+      <div class="stat-l" data-i18n="st3">Собственная разработка</div>
+    </div>
+  </div>
+</div>
+
+<!-- PROBLEM -->
+<section class="section light" id="about">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="s-tag" data-i18n="pb_tag">Проблема</div>
+      <h2 class="s-title" data-i18n="pb_title">Рынок туризма в Кыргызстане — это хаос</h2>
+      <p class="s-sub" data-i18n="pb_sub">Мы создали Demal, потому что сами сталкивались с этими проблемами.</p>
+    </div>
+    <div class="prob-grid">
+      <div class="prob-card reveal">
+        <div class="prob-emoji">😵</div>
+        <h3 data-i18n="p1t">Информационный хаос</h3>
+        <p data-i18n="p1d">Часы поиска в десятках Instagram-аккаунтов и WhatsApp-групп, чтобы найти один подходящий тур.</p>
+      </div>
+      <div class="prob-card reveal">
+        <div class="prob-emoji">🤔</div>
+        <h3 data-i18n="p2t">Нет доверия</h3>
+        <p data-i18n="p2d">Невозможно проверить надёжность организатора. Оплата уходит на личную карту незнакомцу.</p>
+      </div>
+      <div class="prob-card reveal">
+        <div class="prob-emoji">⏳</div>
+        <h3 data-i18n="p3t">Потеря времени</h3>
+        <p data-i18n="p3d">Бронирование превращается в долгую переписку, скриншоты и ручное ожидание подтверждения.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="section dark" id="features">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="s-tag" data-i18n="ft_tag">Возможности</div>
+      <h2 class="s-title" data-i18n="ft_title">Всё что нужно для отдыха</h2>
+      <p class="s-sub" data-i18n="ft_sub">Demal берёт на себя всё — от поиска до электронного билета в кармане.</p>
+    </div>
+    <div class="feat-grid">
+      <div class="feat-card reveal">
+        <div class="feat-icon">🗓️</div>
+        <h3 data-i18n="f1t">Живая лента туров</h3>
+        <p data-i18n="f1d">Все актуальные туры в одном месте. Фильтры по дате, типу и цене за секунды.</p>
+      </div>
+      <div class="feat-card reveal">
+        <div class="feat-icon">⚡</div>
+        <h3 data-i18n="f2t">Бронирование в 3 клика</h3>
+        <p data-i18n="f2d">Никакой переписки. Выбрал тур — нажал «Забронировать» — получил подтверждение.</p>
+      </div>
+      <div class="feat-card reveal">
+        <div class="feat-icon">🔒</div>
+        <h3 data-i18n="f3t">Безопасная оплата</h3>
+        <p data-i18n="f3d">Деньги поступают организатору только после подтверждения. Встроенный платёжный шлюз.</p>
+      </div>
+      <div class="feat-card reveal">
+        <div class="feat-icon">🎫</div>
+        <h3 data-i18n="f4t">Электронные билеты</h3>
+        <p data-i18n="f4d">После оплаты билет сразу в приложении. История всех поездок всегда под рукой.</p>
+      </div>
+      <div class="feat-card reveal">
+        <div class="feat-icon">⭐</div>
+        <h3 data-i18n="f5t">Рейтинги и отзывы</h3>
+        <p data-i18n="f5d">Честные отзывы от реальных путешественников. Рейтинг виден до бронирования.</p>
+      </div>
+      <div class="feat-card reveal">
+        <div class="feat-icon">🧭</div>
+        <h3 data-i18n="f6t">Детальные карточки</h3>
+        <p data-i18n="f6d">Программа, фото маршрута, цены и профиль организатора — всё в одном экране.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section mid" id="how">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="s-tag" data-i18n="hw_tag">Как это работает</div>
+      <h2 class="s-title" data-i18n="hw_title">Три шага до отдыха</h2>
+      <p class="s-sub" data-i18n="hw_sub">Проще не бывает.</p>
+    </div>
+    <div class="steps">
+      <div class="step reveal">
+        <div class="step-num">01</div>
+        <h3 data-i18n="s1t">Найди тур</h3>
+        <p data-i18n="s1d">Просматривай ленту или используй фильтры по дате, типу и бюджету. Сравнивай по рейтингу.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">02</div>
+        <h3 data-i18n="s2t">Забронируй и оплати</h3>
+        <p data-i18n="s2d">Несколько нажатий — и бронь подтверждена. Оплата безопасна и прозрачна.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">03</div>
+        <h3 data-i18n="s3t">Отдыхай</h3>
+        <p data-i18n="s3d">Электронный билет уже в приложении. Просто приходи в назначенное место и время.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARTNER -->
+<section class="section dark" id="partners">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="s-tag" data-i18n="pr_tag">Для организаторов</div>
+      <h2 class="s-title" data-i18n="pr_title">Продавайте туры без лишних хлопот</h2>
+      <p class="s-sub" data-i18n="pr_sub">Зарегистрируйтесь, создайте тур и начните принимать бронирования уже сегодня.</p>
+    </div>
+    <div class="partner-grid">
+      <div class="partner-list">
+        <div class="p-item reveal">
+          <div class="p-icon">📋</div>
+          <div>
+            <h4 data-i18n="pi1t">Простое создание туров</h4>
+            <p data-i18n="pi1d">Форма с подсказками — описание, фото и даты за несколько минут.</p>
+          </div>
+        </div>
+        <div class="p-item reveal">
+          <div class="p-icon">👥</div>
+          <div>
+            <h4 data-i18n="pi2t">Управление участниками</h4>
+            <p data-i18n="pi2d">Список участников в реальном времени прямо с телефона.</p>
+          </div>
+        </div>
+        <div class="p-item reveal">
+          <div class="p-icon">💰</div>
+          <div>
+            <h4 data-i18n="pi3t">Внутренний кошелёк</h4>
+            <p data-i18n="pi3d">Все платежи в одном кошельке. Выводи заработанное в удобное время.</p>
+          </div>
+        </div>
+        <div class="p-item reveal">
+          <div class="p-icon">✅</div>
+          <div>
+            <h4 data-i18n="pi4t">Верификация профиля</h4>
+            <p data-i18n="pi4d">Значок проверенного организатора повышает доверие клиентов.</p>
+          </div>
+        </div>
+      </div>
+      <div class="partner-card reveal">
+        <div class="big-emoji">🤝</div>
+        <h3 data-i18n="pc_t">Стань партнёром Demal</h3>
+        <p data-i18n="pc_d">Тысячи путешественников ищут туры прямо сейчас. Покажи им свои маршруты.</p>
+        <a class="btn-primary" href="#download" data-i18n="pc_cta">Начать бесплатно</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="download">
+  <h2 data-i18n-html="cta_h">Начни путешествовать<br>с <em>Demal</em></h2>
+  <p data-i18n="cta_sub">Скачай бесплатно на iOS и Android.</p>
+  <div class="cta-btns">
+    <a class="store-btn" href="https://apps.apple.com/us/app/demal/id6758624069" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+      <div class="store-btn-text">
+        <small data-i18n="store_on">Скачать в</small>
+        <strong>App Store</strong>
+      </div>
+    </a>
+    <a class="store-btn" href="https://play.google.com/store/apps/details?id=com.demal.app" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24"><path d="M3.18 23.76c.35.2.8.22 1.22-.03l12.57-7.26-2.8-2.8-10.99 10.09zM20.43 10.3L17.8 8.8 14.7 12l3.12 3.12 2.63-1.52c.75-.43.75-1.87-.02-2.3zM1.53.44C1.22.77 1 1.31 1 2.01v19.99c0 .7.22 1.24.53 1.57L1.63 23.66 13.34 12 1.64.34l-.11.1zM4.4.27L16.97 7.53l-2.8 2.8L4.4.27z"/></svg>
+      <div class="store-btn-text">
+        <small data-i18n="store_on">Скачать в</small>
+        <strong>Google Play</strong>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo"><em>D</em>emal</div>
+    <div class="footer-links">
+      <a href="#about"    data-i18n="fl1">О приложении</a>
+      <a href="#features" data-i18n="fl2">Возможности</a>
+      <a href="#partners" data-i18n="fl3">Организаторам</a>
+      <a href="#download" data-i18n="fl4">Скачать</a>
+    </div>
+  </div>
+  <div class="footer-copy" data-i18n="fcopy">© 2025 Demal. Сделано в Кыргызстане 🇰🇬</div>
+</footer>
+
+<script>
+  /* ── i18n ── */
+  const T = {
+    ru: {
+      nav_cta:"Скачать", store_on:"Скачать в",
+      hero_badge:"Доступно на iOS и Android",
+      hero_h1:"Все туры Кыргызстана<br><em>в одном приложении</em>",
+      hero_sub:"Находите, сравнивайте и бронируйте туры в несколько касаний. Никакой переписки — только удобный маркетплейс.",
+      m_all:"Все", m_trek:"Треккинг", m_lake:"Озёра", m_book:"Бронь",
+      st1:"Две платформы", st2:"Клиенты и Партнёры", st3:"Собственная разработка",
+      pb_tag:"Проблема", pb_title:"Рынок туризма в Кыргызстане — это хаос",
+      pb_sub:"Мы создали Demal, потому что сами сталкивались с этими проблемами.",
+      p1t:"Информационный хаос", p1d:"Часы поиска в десятках Instagram-аккаунтов и WhatsApp-групп, чтобы найти один подходящий тур.",
+      p2t:"Нет доверия", p2d:"Невозможно проверить надёжность организатора. Оплата уходит на личную карту незнакомцу.",
+      p3t:"Потеря времени", p3d:"Бронирование превращается в долгую переписку, скриншоты и ручное ожидание подтверждения.",
+      ft_tag:"Возможности", ft_title:"Всё что нужно для отдыха",
+      ft_sub:"Demal берёт на себя всё — от поиска до электронного билета в кармане.",
+      f1t:"Живая лента туров", f1d:"Все актуальные туры в одном месте. Фильтры по дате, типу и цене за секунды.",
+      f2t:"Бронирование в 3 клика", f2d:"Никакой переписки. Выбрал тур — нажал «Забронировать» — получил подтверждение.",
+      f3t:"Безопасная оплата", f3d:"Деньги поступают организатору только после подтверждения. Встроенный платёжный шлюз.",
+      f4t:"Электронные билеты", f4d:"После оплаты билет сразу в приложении. История всех поездок под рукой.",
+      f5t:"Рейтинги и отзывы", f5d:"Честные отзывы от реальных путешественников. Рейтинг виден до бронирования.",
+      f6t:"Детальные карточки", f6d:"Программа, фото маршрута, цены и профиль организатора — всё в одном экране.",
+      hw_tag:"Как это работает", hw_title:"Три шага до отдыха", hw_sub:"Проще не бывает.",
+      s1t:"Найди тур", s1d:"Просматривай ленту или используй фильтры по дате, типу и бюджету. Сравнивай по рейтингу.",
+      s2t:"Забронируй и оплати", s2d:"Несколько нажатий — и бронь подтверждена. Оплата безопасна и прозрачна.",
+      s3t:"Отдыхай", s3d:"Электронный билет уже в приложении. Просто приходи в назначенное место и время.",
+      pr_tag:"Для организаторов", pr_title:"Продавайте туры без лишних хлопот",
+      pr_sub:"Зарегистрируйтесь, создайте тур и начните принимать бронирования уже сегодня.",
+      pi1t:"Простое создание туров", pi1d:"Форма с подсказками — описание, фото и даты за несколько минут.",
+      pi2t:"Управление участниками", pi2d:"Список участников в реальном времени прямо с телефона.",
+      pi3t:"Внутренний кошелёк", pi3d:"Все платежи в одном кошельке. Выводи заработанное в удобное время.",
+      pi4t:"Верификация профиля", pi4d:"Значок проверенного организатора повышает доверие клиентов.",
+      pc_t:"Стань партнёром Demal",
+      pc_d:"Тысячи путешественников ищут туры прямо сейчас. Покажи им свои маршруты.",
+      pc_cta:"Начать бесплатно",
+      cta_h:"Начни путешествовать<br>с <em>Demal</em>",
+      cta_sub:"Скачай бесплатно на iOS и Android.",
+      fl1:"О приложении", fl2:"Возможности", fl3:"Организаторам", fl4:"Скачать",
+      fcopy:"© 2025 Demal. Сделано в Кыргызстане 🇰🇬"
+    },
+    en: {
+      nav_cta:"Download", store_on:"Download on",
+      hero_badge:"Available on iOS & Android",
+      hero_h1:"All tours of Kyrgyzstan<br><em>in one app</em>",
+      hero_sub:"Find, compare, and book tours in a few taps. No WhatsApp chats — just a clean, modern marketplace.",
+      m_all:"All", m_trek:"Trekking", m_lake:"Lakes", m_book:"Book",
+      st1:"Two platforms", st2:"Clients & Partners", st3:"Built from scratch",
+      pb_tag:"The Problem", pb_title:"Kyrgyzstan's tour market is a mess",
+      pb_sub:"We built Demal because we faced these problems ourselves.",
+      p1t:"Information chaos", p1d:"Hours of scrolling dozens of Instagram accounts and WhatsApp groups to find one decent tour.",
+      p2t:"No trust", p2d:"No way to verify an organizer. Payments go to a stranger's personal card.",
+      p3t:"Wasted time", p3d:"Booking turns into endless chats, screenshots, and waiting for manual confirmations.",
+      ft_tag:"Features", ft_title:"Everything you need to travel",
+      ft_sub:"Demal handles it all — from discovery to a digital ticket in your pocket.",
+      f1t:"Live tour feed", f1d:"All current tours in one place. Filters by date, type, and price in seconds.",
+      f2t:"Book in 3 taps", f2d:"No chats. Pick a tour, tap Book, get your confirmation instantly.",
+      f3t:"Secure payments", f3d:"Money reaches the organizer only after confirmation. Built-in payment gateway.",
+      f4t:"Digital tickets", f4d:"Ticket appears in the app right after payment. Full trip history always available.",
+      f5t:"Ratings & reviews", f5d:"Honest reviews from real travelers. See an organizer's rating before booking.",
+      f6t:"Detailed tour cards", f6d:"Full itinerary, photos, pricing and organizer profile — all in one screen.",
+      hw_tag:"How it works", hw_title:"Three steps to your adventure", hw_sub:"It's that simple.",
+      s1t:"Find a tour", s1d:"Browse the feed or filter by date, type, and budget. Compare organizers by rating.",
+      s2t:"Book & pay", s2d:"A few taps to confirm your booking. Secure, transparent payment.",
+      s3t:"Enjoy", s3d:"Your digital ticket is in the app. Just show up at the meeting point.",
+      pr_tag:"For Organizers", pr_title:"Sell tours without the hassle",
+      pr_sub:"Sign up, create a tour, and start accepting bookings today.",
+      pi1t:"Easy tour creation", pi1d:"A guided form — add description, photos, and dates in minutes.",
+      pi2t:"Manage participants", pi2d:"Real-time participant list right on your phone.",
+      pi3t:"Built-in wallet", pi3d:"All payments in one wallet. Withdraw earnings whenever you like.",
+      pi4t:"Profile verification", pi4d:"A verified badge builds client trust and sets you apart.",
+      pc_t:"Become a Demal partner",
+      pc_d:"Thousands of travelers are searching for tours right now. Show them your routes.",
+      pc_cta:"Get started free",
+      cta_h:"Start exploring<br>with <em>Demal</em>",
+      cta_sub:"Free download on iOS and Android.",
+      fl1:"About", fl2:"Features", fl3:"Organizers", fl4:"Download",
+      fcopy:"© 2025 Demal. Made in Kyrgyzstan 🇰🇬"
+    }
+  };
+
+  let lang = 'ru';
+
+  function setLang(l) {
+    lang = l;
+    document.querySelectorAll('.lang-btn').forEach(b =>
+      b.classList.toggle('active', b.textContent.toLowerCase() === l)
+    );
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const v = T[l][el.dataset.i18n];
+      if (v !== undefined) el.textContent = v;
+    });
+    document.querySelectorAll('[data-i18n-html]').forEach(el => {
+      const v = T[l][el.dataset.i18nHtml];
+      if (v !== undefined) el.innerHTML = v;
+    });
+    document.documentElement.lang = l;
+  }
+
+  /* ── Scroll reveal ── */
+  const io = new IntersectionObserver(entries =>
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }),
+    { threshold: 0.1 }
+  );
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  /* ── Nav opacity on scroll ── */
+  addEventListener('scroll', () => {
+    document.querySelector('nav').style.background =
+      scrollY > 8 ? 'rgba(13,16,18,0.98)' : 'rgba(13,16,18,0.92)';
+  });
+
+  setLang('ru');
+</script>
+</body>
+</html>
