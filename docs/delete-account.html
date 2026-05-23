@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Удаление аккаунта — Demal</title>
+  <meta name="description" content="Инструкция по удалению аккаунта в приложении Demal.">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --orange:    #F75D37;
+      --gray-0:    #F4F6F8;
+      --gray-10:   #E3E8EC;
+      --gray-20:   #C5CDD4;
+      --gray-30:   #8A949E;
+      --gray-40:   #59636D;
+      --gray-45:   #394047;
+      --gray-47:   #292F35;
+      --gray-50:   #1F2328;
+      --gray-60:   #0D1012;
+      --red:       #B91C21;
+      --red-10:    #FDECED;
+      --green-50:  #0EAA4C;
+      --green-10:  #E3F9EC;
+      --r-card:    12px;
+      --r-btn:     99px;
+      --r-field:   16px;
+      --shadow:    0 12px 16px rgba(56,74,94,0.06);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Roboto', 'Segoe UI', sans-serif;
+      background: var(--gray-60);
+      color: #fff;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+
+    /* NAV */
+    nav {
+      height: 60px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 32px;
+      background: rgba(13,16,18,0.95);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .logo { font-size: 22px; font-weight: 700; color: #fff; text-decoration: none; }
+    .logo em { font-style: normal; color: var(--orange); }
+    .nav-back {
+      display: flex; align-items: center; gap: 6px;
+      color: var(--gray-30); font-size: 14px; text-decoration: none;
+      transition: color .18s;
+    }
+    .nav-back:hover { color: #fff; }
+    .nav-back svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
+
+    /* HERO */
+    .hero {
+      background: var(--gray-50);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      padding: 56px 32px 48px;
+      text-align: center;
+    }
+    .hero-icon {
+      width: 72px; height: 72px;
+      background: rgba(183,28,33,0.12);
+      border: 1px solid rgba(183,28,33,0.25);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 32px; margin: 0 auto 24px;
+    }
+    .hero h1 {
+      font-size: clamp(24px, 3.5vw, 36px);
+      font-weight: 700; color: #fff;
+      letter-spacing: -0.5px; margin-bottom: 12px;
+    }
+    .hero p {
+      font-size: 16px; color: var(--gray-30);
+      max-width: 480px; margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* CONTENT */
+    .content {
+      max-width: 680px; margin: 0 auto;
+      padding: 48px 32px 80px;
+      display: flex; flex-direction: column; gap: 24px;
+    }
+
+    /* WARNING BANNER */
+    .warning {
+      background: rgba(183,28,33,0.1);
+      border: 1px solid rgba(183,28,33,0.25);
+      border-radius: var(--r-field);
+      padding: 20px 24px;
+      display: flex; gap: 14px; align-items: flex-start;
+    }
+    .warning-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+    .warning h3 { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+    .warning p { font-size: 14px; color: var(--gray-30); line-height: 1.6; }
+
+    /* CARD */
+    .card {
+      background: var(--gray-50);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--r-field);
+      padding: 28px;
+      box-shadow: var(--shadow);
+    }
+    .card-title {
+      font-size: 17px; font-weight: 700; color: #fff;
+      margin-bottom: 20px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .card-title-icon {
+      width: 36px; height: 36px;
+      background: rgba(247,93,55,0.12);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 17px; flex-shrink: 0;
+    }
+
+    /* STEPS */
+    .steps { display: flex; flex-direction: column; gap: 16px; }
+    .step {
+      display: flex; gap: 14px; align-items: flex-start;
+    }
+    .step-num {
+      width: 28px; height: 28px; flex-shrink: 0;
+      background: var(--orange);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 700; color: #fff;
+    }
+    .step-body { padding-top: 3px; }
+    .step-body strong { display: block; font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 3px; }
+    .step-body span { font-size: 14px; color: var(--gray-30); line-height: 1.6; }
+
+    /* DIVIDER */
+    .divider {
+      text-align: center; color: var(--gray-40);
+      font-size: 13px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 1px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .divider::before, .divider::after {
+      content: ''; flex: 1;
+      height: 1px; background: rgba(255,255,255,0.07);
+    }
+
+    /* EMAIL CARD */
+    .email-card {
+      background: var(--gray-50);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--r-field);
+      padding: 28px;
+    }
+    .email-card p {
+      font-size: 14px; color: var(--gray-30);
+      line-height: 1.7; margin-bottom: 20px;
+    }
+
+    /* FORM */
+    .form { display: flex; flex-direction: column; gap: 14px; }
+    .field { display: flex; flex-direction: column; gap: 6px; }
+    .field label { font-size: 13px; font-weight: 600; color: var(--gray-20); }
+    .field input, .field textarea, .field select {
+      background: var(--gray-47);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: var(--r-card);
+      padding: 12px 16px;
+      font-size: 15px; color: #fff;
+      font-family: inherit;
+      outline: none;
+      transition: border-color .18s;
+      width: 100%;
+    }
+    .field input:focus, .field textarea:focus, .field select:focus {
+      border-color: var(--orange);
+    }
+    .field input::placeholder, .field textarea::placeholder {
+      color: var(--gray-40);
+    }
+    .field textarea { resize: vertical; min-height: 96px; }
+    .field select option { background: var(--gray-50); }
+
+    .btn-danger {
+      padding: 0 32px; height: 48px;
+      background: var(--red);
+      color: #fff; border: none;
+      border-radius: var(--r-btn);
+      font-size: 15px; font-weight: 700;
+      cursor: pointer; width: 100%;
+      transition: opacity .18s, transform .18s;
+      font-family: inherit;
+    }
+    .btn-danger:hover { opacity: .88; transform: translateY(-1px); }
+    .btn-danger:disabled { opacity: .4; cursor: not-allowed; transform: none; }
+
+    /* SUCCESS */
+    .success-msg {
+      display: none;
+      background: rgba(14,170,76,0.1);
+      border: 1px solid rgba(14,170,76,0.25);
+      border-radius: var(--r-field);
+      padding: 20px 24px;
+      display: none; gap: 14px; align-items: flex-start;
+    }
+    .success-msg.show { display: flex; }
+    .success-msg-icon { font-size: 20px; flex-shrink: 0; }
+    .success-msg h3 { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+    .success-msg p { font-size: 14px; color: var(--gray-30); line-height: 1.6; }
+
+    /* WHAT DELETED */
+    .data-list { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
+    .data-item {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 14px; color: var(--gray-20);
+    }
+    .data-item::before {
+      content: ''; width: 6px; height: 6px;
+      background: var(--red); border-radius: 50%; flex-shrink: 0;
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--gray-60);
+      border-top: 1px solid rgba(255,255,255,0.05);
+      padding: 28px 32px;
+      text-align: center;
+    }
+    .footer-logo { font-size: 18px; font-weight: 700; color: rgba(255,255,255,0.5); margin-bottom: 8px; }
+    .footer-logo em { font-style: normal; color: var(--orange); }
+    .footer-copy { font-size: 13px; color: var(--gray-40); }
+
+    @media (max-width: 600px) {
+      nav { padding: 0 16px; }
+      .hero { padding: 40px 16px 36px; }
+      .content { padding: 32px 16px 60px; }
+      footer { padding: 24px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="logo" href="index.html"><em>D</em>emal</a>
+  <a class="nav-back" href="index.html">
+    <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+    На главную
+  </a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-icon">🗑️</div>
+  <h1>Удаление аккаунта</h1>
+  <p>Вы можете удалить свой аккаунт Demal в любое время. После удаления все ваши данные будут безвозвратно стёрты.</p>
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+
+  <!-- WARNING -->
+  <div class="warning">
+    <div class="warning-icon">⚠️</div>
+    <div>
+      <h3>Это действие необратимо</h3>
+      <p>После удаления аккаунта восстановить данные будет невозможно. Все ваши бронирования, история поездок и отзывы будут удалены навсегда.</p>
+    </div>
+  </div>
+
+  <!-- WHAT WILL BE DELETED -->
+  <div class="card">
+    <div class="card-title">
+      <div class="card-title-icon">📋</div>
+      Что будет удалено
+    </div>
+    <div class="data-list">
+      <div class="data-item">Профиль и личные данные (имя, номер телефона)</div>
+      <div class="data-item">История бронирований и электронные билеты</div>
+      <div class="data-item">Все написанные вами отзывы</div>
+      <div class="data-item">Данные платёжных карт</div>
+      <div class="data-item">Настройки и предпочтения</div>
+    </div>
+  </div>
+
+  <!-- STEPS IN APP -->
+  <div class="card">
+    <div class="card-title">
+      <div class="card-title-icon">📱</div>
+      Способ 1 — через приложение
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <strong>Откройте приложение Demal</strong>
+          <span>Убедитесь, что вы вошли в свой аккаунт.</span>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <strong>Перейдите в «Профиль»</strong>
+          <span>Нажмите на иконку профиля в нижнем меню.</span>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <strong>Откройте «Настройки»</strong>
+          <span>Нажмите на иконку шестерёнки в правом верхнем углу.</span>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <strong>Нажмите «Удалить аккаунт»</strong>
+          <span>Прокрутите вниз и нажмите кнопку «Удалить аккаунт».</span>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-body">
+          <strong>Подтвердите удаление</strong>
+          <span>Введите номер телефона для подтверждения и нажмите «Удалить».</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider">или</div>
+
+  <!-- EMAIL FORM -->
+  <div class="email-card">
+    <div class="card-title" style="margin-bottom:12px;">
+      <div class="card-title-icon">✉️</div>
+      Способ 2 — запрос по почте
+    </div>
+    <p>Если у вас нет доступа к приложению, отправьте запрос на удаление аккаунта через форму ниже. Мы обработаем его в течение <strong style="color:#fff;">7 рабочих дней</strong>.</p>
+
+    <form class="form" id="deleteForm" onsubmit="submitForm(event)">
+      <div class="field">
+        <label for="phone">Номер телефона, привязанный к аккаунту</label>
+        <input type="tel" id="phone" placeholder="+996 700 000 000" required>
+      </div>
+      <div class="field">
+        <label for="email">Email для обратной связи</label>
+        <input type="email" id="email" placeholder="your@email.com" required>
+      </div>
+      <div class="field">
+        <label for="reason">Причина удаления (необязательно)</label>
+        <select id="reason">
+          <option value="">Выберите причину...</option>
+          <option value="not_using">Больше не пользуюсь приложением</option>
+          <option value="privacy">Соображения конфиденциальности</option>
+          <option value="another_account">Создал другой аккаунт</option>
+          <option value="other">Другое</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="comment">Комментарий (необязательно)</label>
+        <textarea id="comment" placeholder="Напишите если хотите что-то уточнить..."></textarea>
+      </div>
+      <button class="btn-danger" type="submit" id="submitBtn">
+        Отправить запрос на удаление
+      </button>
+    </form>
+
+    <div class="success-msg" id="successMsg">
+      <div class="success-msg-icon">✅</div>
+      <div>
+        <h3>Запрос отправлен</h3>
+        <p>Мы получили ваш запрос и удалим аккаунт в течение 7 рабочих дней. На указанный email придёт подтверждение.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo"><em>D</em>emal</div>
+  <div class="footer-copy">По вопросам: support@demal.kg &nbsp;·&nbsp; © 2025 Demal</div>
+</footer>
+
+<script>
+  function submitForm(e) {
+    e.preventDefault();
+    const btn = document.getElementById('submitBtn');
+    const form = document.getElementById('deleteForm');
+    const success = document.getElementById('successMsg');
+
+    btn.disabled = true;
+    btn.textContent = 'Отправляем...';
+
+    // Simulate sending (replace with real endpoint if needed)
+    setTimeout(() => {
+      form.style.display = 'none';
+      success.classList.add('show');
+    }, 1200);
+  }
+</script>
+</body>
+</html>
